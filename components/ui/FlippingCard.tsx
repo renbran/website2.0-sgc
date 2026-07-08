@@ -24,16 +24,17 @@ function cn(...args: CnArg[]): string {
     .join(" ");
 }
 
+// Aligned to the site's vault-ink + gold token system (styles/hero.css).
 const PALETTE = {
-  ink: "#0B0F14",
-  inkRaised: "#101720",
-  warmWhite: "#F4F1EA",
-  warmWhiteSoft: "rgba(244,241,234,0.78)",
-  warmWhiteMuted: "rgba(244,241,234,0.55)",
-  gold: "#D4A574",
-  goldBright: "#E8C45A",
-  goldDeep: "#C7A23A",
-  goldShadow: "#B8924D",
+  ink: "#080B11", // --vault-ink / --bg
+  inkRaised: "#1A2230", // --slate-steel / --surface-high
+  warmWhite: "#F4F1E8", // --text-primary
+  warmWhiteSoft: "rgba(244,241,232,0.78)",
+  warmWhiteMuted: "rgba(244,241,232,0.55)",
+  gold: "#C7A23A", // --refined-gold / --accent
+  goldBright: "#EFDBA0", // --champagne
+  goldDeep: "#C7A23A", // --refined-gold
+  goldShadow: "#8A6A1E", // --antique-bronze
 };
 
 interface FlippingCardProps {
@@ -97,7 +98,7 @@ export function FlippingCard({
           "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
           "group-hover/flipping-card:[transform:rotateY(180deg)]",
           flipped && "[transform:rotateY(180deg)]",
-          "focus-visible:[box-shadow:0_0_0_2px_rgba(212,165,116,0.7)]",
+          "focus-visible:[box-shadow:0_0_0_2px_rgba(199,162,58,0.7)]",
           "motion-reduce:transition-none",
           className,
         )}
@@ -105,9 +106,9 @@ export function FlippingCard({
           ...cssVars,
           background: PALETTE.ink,
           color: PALETTE.warmWhite,
-          border: `1px solid rgba(212,165,116,0.45)`,
+          border: `1px solid rgba(199,162,58,0.45)`,
           boxShadow:
-            "0 8px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,165,116,0.18)",
+            "0 8px 30px rgba(0,0,0,0.45), 0 0 0 1px rgba(199,162,58,0.18)",
         }}
       >
         {/* Front face — warm white on ink */}
@@ -150,8 +151,8 @@ export function FlippingCard({
             background: PALETTE.inkRaised,
             color: PALETTE.warmWhite,
             padding: "1.25rem 1.4rem 1.3rem",
-            borderTop: "1px solid rgba(212,165,116,0.55)",
-            boxShadow: "inset 0 0 0 1px rgba(212,165,116,0.12)",
+            borderTop: "1px solid rgba(199,162,58,0.55)",
+            boxShadow: "inset 0 0 0 1px rgba(199,162,58,0.12)",
           }}
         >
           {/* Gold gradient hairline at top of back face */}
@@ -160,7 +161,7 @@ export function FlippingCard({
             className="absolute inset-x-6 top-0 h-px"
             style={{
               background:
-                "linear-gradient(90deg, transparent 0%, rgba(212,165,116,0.85) 50%, transparent 100%)",
+                "linear-gradient(90deg, transparent 0%, rgba(199,162,58,0.85) 50%, transparent 100%)",
             }}
           />
           <div className="[transform:translateZ(40px)] flex h-full w-full flex-col overflow-hidden">

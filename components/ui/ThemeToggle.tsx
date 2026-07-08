@@ -25,7 +25,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
       className={`group relative inline-flex h-8 w-[52px] shrink-0 items-center rounded-full border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] ${
         isDark
           ? "border-[rgba(199,162,58,0.3)] bg-[var(--sgc-black)]"
-          : "border-[rgba(138,106,30,0.3)] bg-[#EDE4D0]"
+          : "border-[rgba(138,106,30,0.3)] bg-[var(--surface-high)]"
       } ${className}`}
     >
       {/* Ambient gold glow — brightens on hover/press, echoes GoldHairline */}

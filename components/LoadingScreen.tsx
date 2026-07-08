@@ -138,7 +138,7 @@ export default function LoadingScreen() {
           className="pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(232,196,90,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(232,196,90,0.6) 1px, transparent 1px)",
+              "linear-gradient(rgba(199,162,58,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(199,162,58,0.55) 1px, transparent 1px)",
             backgroundSize: "44px 44px",
             animation: "sgc-load-drift 14s linear infinite",
           }}
@@ -154,7 +154,7 @@ export default function LoadingScreen() {
           style={{
             top: 0,
             background:
-              "linear-gradient(90deg, transparent 0%, rgba(232,196,90,0.6) 50%, transparent 100%)",
+              "linear-gradient(90deg, transparent 0%, rgba(199,162,58,0.6) 50%, transparent 100%)",
             animation: "sgc-load-scan 2.6s cubic-bezier(0.55,0,0.45,1) infinite",
           }}
         />
@@ -202,7 +202,7 @@ export default function LoadingScreen() {
         >
           <p
             style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-            className="text-[0.62rem] uppercase tracking-[0.42em] text-[rgba(212,165,116,0.55)]"
+            className="text-[0.62rem] uppercase tracking-[0.42em] text-[rgba(199,162,58,0.55)]"
           >
             SGC TECH AI
           </p>
@@ -214,19 +214,19 @@ export default function LoadingScreen() {
               <>
                 <span
                   aria-hidden
-                  className="absolute left-0 top-0 h-3 w-3 border-l border-t border-[rgba(232,196,90,0.65)]"
+                  className="absolute left-0 top-0 h-3 w-3 border-l border-t border-[rgba(199,162,58,0.65)]"
                 />
                 <span
                   aria-hidden
-                  className="absolute right-0 top-0 h-3 w-3 border-r border-t border-[rgba(232,196,90,0.65)]"
+                  className="absolute right-0 top-0 h-3 w-3 border-r border-t border-[rgba(199,162,58,0.65)]"
                 />
                 <span
                   aria-hidden
-                  className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-[rgba(232,196,90,0.65)]"
+                  className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-[rgba(199,162,58,0.65)]"
                 />
                 <span
                   aria-hidden
-                  className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-[rgba(232,196,90,0.65)]"
+                  className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-[rgba(199,162,58,0.65)]"
                 />
               </>
             )}

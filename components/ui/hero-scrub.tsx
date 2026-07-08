@@ -351,7 +351,7 @@ export function HeroScrub({
         {!firstFrameReady && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div
-              className="w-[60vw] max-w-3xl animate-pulse rounded-[28px] bg-white/5"
+              className="w-[60vw] max-w-3xl animate-pulse rounded-[28px] bg-[var(--text-primary)]/5"
               style={{ aspectRatio: defaultAspect }}
             />
           </div>

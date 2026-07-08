@@ -28,11 +28,12 @@ function cn(...args: CnArg[]): string {
     .join(" ");
 }
 
+// Brand gold ramp + neutral steel tones — no generic Tailwind amber/gray/yellow/slate.
 const levelColors: Record<string, string> = {
-  bronze: "from-amber-600 to-amber-800",
-  silver: "from-gray-400 to-gray-600",
-  gold: "from-yellow-400 to-yellow-600",
-  platinum: "from-slate-300 to-slate-500",
+  bronze: "from-[var(--antique-bronze)] to-[#6B5015]",
+  silver: "from-[var(--text-secondary)] to-[var(--text-muted)]",
+  gold: "from-[var(--champagne)] to-[var(--refined-gold)]",
+  platinum: "from-[var(--text-primary)] to-[var(--text-secondary)]",
 };
 
 /**
@@ -93,9 +94,9 @@ export function AwardTrophy({
       >
         <defs>
           <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#F5D98A" />
-            <stop offset="50%" stopColor="#E8C36A" />
-            <stop offset="100%" stopColor="#C9A14A" />
+            <stop offset="0%" stopColor="#EFDBA0" />
+            <stop offset="50%" stopColor="#C7A23A" />
+            <stop offset="100%" stopColor="#8A6A1E" />
           </linearGradient>
         </defs>
         <path fill={`url(#${gradientId})`} d={RIGHT_BRANCH} />
@@ -107,7 +108,7 @@ export function AwardTrophy({
         {/* Level pill */}
         <div
           className={cn(
-            "mb-1.5 inline-block rounded px-2 py-0.5 tracking-wider text-white text-[9px] font-bold",
+            "mb-1.5 inline-block rounded px-2 py-0.5 tracking-wider text-[var(--bg)] text-[9px] font-bold",
             `bg-gradient-to-r ${levelColors[levelKey] || levelColors.gold}`
           )}
         >
@@ -116,27 +117,27 @@ export function AwardTrophy({
 
         {/* Headline — stat/label text, not a document heading; the section's
             own h2 ("Credentials & track record.") owns the heading outline */}
-        <p className="text-[13px] font-black tracking-tight text-white drop-shadow-md leading-tight break-words">
+        <p className="text-[13px] font-black tracking-tight text-[var(--text-primary)] drop-shadow-md leading-tight break-words">
           {headline}
         </p>
 
         {/* Hairline divider */}
-        <div className="bg-amber-400 mx-auto my-1.5 h-[1px] w-16" />
+        <div className="bg-[var(--refined-gold)] mx-auto my-1.5 h-[1px] w-16" />
 
         {/* Subtitle */}
-        <p className="text-[10px] font-medium text-amber-100/90 leading-snug break-words">
+        <p className="text-[10px] font-medium text-[var(--champagne)]/90 leading-snug break-words">
           {subtitle}
         </p>
 
         {/* Recipient (optional) */}
         {recipient && (
-          <p className="text-amber-200/80 italic text-[10px] mt-0.5 break-words">
+          <p className="text-[var(--champagne)]/80 italic text-[10px] mt-0.5 break-words">
             {recipient}
           </p>
         )}
 
         {/* Date */}
-        <div className="text-amber-300 text-[10px] font-bold mt-1">
+        <div className="text-[var(--refined-gold)] text-[10px] font-bold mt-1">
           {date}
         </div>
       </div>

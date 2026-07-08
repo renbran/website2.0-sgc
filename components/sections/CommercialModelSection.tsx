@@ -125,14 +125,14 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
       </div>
 
       <p
-        style={{ fontFamily: "var(--font-outfit)" }}
+        style={{ fontFamily: "var(--font-fraunces)" }}
         className="text-gold-gradient mt-2 text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold leading-none"
       >
         {layer.price}
       </p>
 
       <p
-        style={{ fontFamily: "var(--font-outfit)" }}
+        style={{ fontFamily: "var(--font-inter)" }}
         className="mt-3 text-[0.9rem] leading-[1.65] text-[var(--sgc-text-muted)]"
       >
         {layer.description}
@@ -167,7 +167,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
       <div>
         <p
           style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(255,180,180,0.65)]"
+          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(199,84,90,0.75)]"
         >
           Excludes
         </p>
@@ -233,13 +233,13 @@ export default function CommercialModelSection() {
           <SectionEyebrow label="HOW WE WORK" />
           <h2
             id="commercial-model-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-3xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             The Three-Layer Commercial Model
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             No hidden fees. No scope creep. Three clear layers that scale with you.
@@ -282,7 +282,7 @@ export default function CommercialModelSection() {
 
         <RevealOnScroll delay={0.5}>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-10 max-w-3xl border-t border-[#3A3220] pt-6 text-[1rem] font-semibold leading-[1.6] text-[var(--sgc-text-primary)]"
           >
             We don&apos;t sell Implementation without Subscription.
