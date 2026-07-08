@@ -84,7 +84,7 @@ export default function RoadmapTimeline() {
     <section
       ref={rootRef}
       aria-labelledby="roadmap-heading"
-      className="relative bg-[var(--sgc-black)] py-16 md:py-24"
+      className="relative bg-[var(--bg)] py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <div className="text-center">

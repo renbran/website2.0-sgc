@@ -61,7 +61,7 @@ export default function FounderSection() {
     <section
       id="founder"
       aria-labelledby="founder-heading"
-      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
 

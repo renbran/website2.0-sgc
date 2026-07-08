@@ -86,7 +86,7 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <ScrollParallax amplitude={20} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(circle_at_50%_0%,rgba(199,162,58,0.08)_0%,transparent_50%)]" />

@@ -13,7 +13,7 @@ export default function AboutCTA() {
     <section
       id="about-cta"
       aria-labelledby="about-cta-heading"
-      className="relative overflow-hidden bg-[var(--sgc-black)] py-20 md:py-28"
+      className="relative overflow-hidden bg-[var(--bg)] py-20 md:py-28"
     >
       <div
         aria-hidden

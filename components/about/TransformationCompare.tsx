@@ -23,7 +23,7 @@ export default function TransformationCompare() {
   return (
     <section
       aria-labelledby="compare-heading"
-      className="relative bg-[var(--sgc-black)] py-16 md:py-24"
+      className="relative bg-[var(--bg)] py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>

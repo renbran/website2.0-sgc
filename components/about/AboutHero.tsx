@@ -41,7 +41,7 @@ export default function AboutHero() {
   return (
     <section
       ref={rootRef}
-      className="relative overflow-hidden bg-[var(--sgc-black)] pt-32 pb-24 md:pt-44 md:pb-32"
+      className="relative overflow-hidden bg-[var(--bg)] pt-32 pb-24 md:pt-44 md:pb-32"
       style={{ perspective: "1200px" }}
     >
       <div

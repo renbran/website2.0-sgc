@@ -225,7 +225,7 @@ export default function CommercialModelSection() {
     <section
       id="commercial-model"
       aria-labelledby="commercial-model-heading"
-      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">

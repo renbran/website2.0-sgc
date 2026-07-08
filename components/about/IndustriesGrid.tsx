@@ -52,7 +52,7 @@ export default function IndustriesGrid() {
   return (
     <section
       aria-labelledby="industries-heading"
-      className="bg-[var(--sgc-black)] py-16 md:py-24"
+      className="bg-[var(--bg)] py-16 md:py-24"
     >
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>

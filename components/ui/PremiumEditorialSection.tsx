@@ -74,7 +74,7 @@ export default function PremiumEditorialSection({
 
   const bgClass =
     background === "dark"
-      ? "bg-[var(--sgc-black)]"
+      ? "bg-[var(--bg)]"
       : background === "gradient"
         ? "bg-[var(--sgc-gradient-bg)]"
         : "bg-[var(--surface)]";
