@@ -65,13 +65,13 @@ export default function FaqSection() {
           <SectionEyebrow label="FAQ" />
           <h2
             id="faq-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             Questions founders actually ask.
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             Straight answers — the same ones you&apos;d get on a call.
@@ -83,7 +83,7 @@ export default function FaqSection() {
             <RevealOnScroll key={faq.question} delay={index * 0.05}>
               <details className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition duration-300 ease-out hover:border-[rgba(199,162,58,0.3)] open:border-[rgba(199,162,58,0.3)]">
                 <summary
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="flex cursor-pointer select-none items-center justify-between gap-4 px-6 py-5 text-[1rem] font-semibold text-[var(--sgc-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sgc-cyan)] rounded-2xl"
                 >
                   {faq.question}

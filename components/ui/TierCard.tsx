@@ -30,7 +30,7 @@ export default function TierCard({
     <RevealOnScroll delay={delay} className="relative h-full">
       {isPopular ? (
         <span
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-inter)" }}
           className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-sm bg-[image:var(--sgc-gradient-brand)] px-4 py-1 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-[var(--sgc-black)] shadow-[0_0_18px_rgba(199,162,58,0.4)]"
         >
           Most Popular
@@ -46,19 +46,19 @@ export default function TierCard({
       >
 
         <h3
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-fraunces)" }}
           className="text-[1.25rem] font-bold text-[var(--sgc-text-primary)]"
         >
           {name}
         </h3>
         {payback && (
-          <p style={{ fontFamily: "var(--font-outfit)" }} className="mt-1 text-[0.72rem] text-[rgba(199,162,58,0.7)]">
+          <p style={{ fontFamily: "var(--font-fraunces)" }} className="mt-1 text-[0.72rem] text-[rgba(199,162,58,0.7)]">
             {payback}
           </p>
         )}
 
         <p
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-inter)" }}
           className="mt-4 text-gold-gradient text-[clamp(2rem,3vw,2.5rem)] font-extrabold"
         >
           {implementationPrice}
@@ -71,7 +71,7 @@ export default function TierCard({
         <div className="my-4 h-px w-full bg-[rgba(255,255,255,0.08)]" />
 
         <p
-          style={{ fontFamily: "var(--font-outfit)" }}
+          style={{ fontFamily: "var(--font-inter)" }}
           className="text-[1rem] font-bold text-[var(--sgc-text-primary)]"
         >
           {monthlyPrice}

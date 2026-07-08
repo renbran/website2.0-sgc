@@ -13,9 +13,9 @@ export default function DiagnosisScrubHero() {
       titleBottom="OPERATIONAL CLARITY"
       accentHex="#C7A23A"
       bgClassName="bg-[#080B11]"
-      titleTopFontFamily="var(--font-playfair-display), 'Playfair Display', serif"
+      titleTopFontFamily="var(--font-fraunces), 'Playfair Display', serif"
       titleTopClassName="hero-scrub-title overlay-text-shadow absolute z-10 top-[20%] left-1/2 w-[90vw] max-w-2xl -translate-x-1/2 text-center text-2xl sm:text-4xl md:text-6xl lg:text-7xl tracking-tight pointer-events-none"
-      titleBottomFontFamily="var(--font-playfair-display), 'Playfair Display', serif"
+      titleBottomFontFamily="var(--font-fraunces), 'Playfair Display', serif"
       titleBottomClassName="hero-scrub-title overlay-text-shadow absolute z-10 top-[75%] left-1/2 w-[90vw] max-w-2xl -translate-x-1/2 text-center text-2xl sm:text-4xl md:text-6xl lg:text-7xl tracking-tight pointer-events-none"
     />
   );

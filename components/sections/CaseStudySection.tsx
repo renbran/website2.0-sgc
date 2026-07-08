@@ -89,13 +89,13 @@ export default function CaseStudySection() {
           <SectionEyebrow label="PROOF" />
           <h2
             id="case-study-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             Conservative results we stand behind.
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             These are the ranges we commit to for typical UAE mid-market clients on the Growth tier. Not best-case.
@@ -114,7 +114,7 @@ export default function CaseStudySection() {
                   frontContent={
                     <>
                       <p
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        style={{ fontFamily: "var(--font-inter)" }}
                         className="text-gold-gradient text-[clamp(2.5rem,5vw,4rem)] font-extrabold leading-none"
                       >
                         {stat.displayValue ? (
@@ -174,7 +174,7 @@ export default function CaseStudySection() {
                   <div className="flex items-center gap-3">
                     <span aria-hidden className="h-px w-6 bg-[rgba(62,150,179,0.7)]" />
                     <p
-                      style={{ fontFamily: "var(--font-outfit)" }}
+                      style={{ fontFamily: "var(--font-inter)" }}
                       className="text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-teal)]"
                     >
                       WHAT&apos;S POSSIBLE AT SCALE · ANONYMISED CASE
@@ -182,7 +182,7 @@ export default function CaseStudySection() {
                   </div>
 
                   <h3
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    style={{ fontFamily: "var(--font-fraunces)" }}
                     className="mt-4 text-[clamp(1.5rem,2.5vw,2rem)] font-bold text-[var(--sgc-text-primary)]"
                   >
                     UAE real-estate brokerage, full deployment
@@ -198,7 +198,7 @@ export default function CaseStudySection() {
                   <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     <div>
                       <p
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        style={{ fontFamily: "var(--font-inter)" }}
                         className="text-[1.75rem] font-extrabold text-[var(--sgc-text-primary)]"
                       >
                         AED 1.15B
@@ -207,7 +207,7 @@ export default function CaseStudySection() {
                     </div>
                     <div>
                       <p
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        style={{ fontFamily: "var(--font-inter)" }}
                         className="text-[1.75rem] font-extrabold text-[var(--sgc-text-primary)]"
                       >
                         580
@@ -216,7 +216,7 @@ export default function CaseStudySection() {
                     </div>
                     <div>
                       <p
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        style={{ fontFamily: "var(--font-inter)" }}
                         className="text-[1.75rem] font-extrabold text-[var(--sgc-text-primary)]"
                       >
                         104%
@@ -225,7 +225,7 @@ export default function CaseStudySection() {
                     </div>
                     <div>
                       <p
-                        style={{ fontFamily: "var(--font-outfit)" }}
+                        style={{ fontFamily: "var(--font-inter)" }}
                         className="text-[1.75rem] font-extrabold text-[var(--sgc-text-primary)]"
                       >
                         5.9 mo
@@ -254,19 +254,19 @@ export default function CaseStudySection() {
             <div className="hidden md:block">
               <div className="grid grid-cols-[1.3fr_1fr_1fr] gap-4 border-b border-[var(--border)] px-6 py-4">
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-[0.85rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]"
                 >
                   Metric
                 </p>
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-[0.85rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]"
                 >
                   Before
                 </p>
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-[0.85rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-secondary)]"
                 >
                   After
@@ -291,7 +291,7 @@ export default function CaseStudySection() {
                   className="rounded-xl border border-[rgba(255,255,255,0.07)] bg-[rgba(8,11,17,0.55)] p-4"
                 >
                   <h3
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    style={{ fontFamily: "var(--font-fraunces)" }}
                     className="text-[1rem] font-semibold text-[var(--sgc-text-primary)]"
                   >
                     {row.metric}
@@ -308,7 +308,7 @@ export default function CaseStudySection() {
           <LivingCard>
           <div className="mx-auto mt-12 max-w-3xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8">
             <p
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
               className="text-center text-[0.8rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-copper)]"
             >
               Typical Growth-tier client · Year 1
@@ -317,7 +317,7 @@ export default function CaseStudySection() {
             <div className="grid gap-8 md:grid-cols-2">
               <div>
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-gold-gradient text-[1.5rem] font-bold"
                 >
                   AED 52,000 invested
@@ -328,7 +328,7 @@ export default function CaseStudySection() {
               </div>
               <div>
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-gold-gradient text-[1.5rem] font-bold"
                 >
                   AED 120K–180K recovered

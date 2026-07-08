@@ -97,13 +97,13 @@ export default function ContactSection() {
           <SectionEyebrow label="NEXT STEPS" />
           <h2
             id="contact-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             Three ways to start. Pick one today.
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             Each option is non-binding until an Order Form is signed.
@@ -135,7 +135,7 @@ export default function ContactSection() {
                       {step.number}
                     </p>
                     <p
-                      style={{ fontFamily: "var(--font-outfit)" }}
+                      style={{ fontFamily: "var(--font-inter)" }}
                       className="mt-2 text-[0.95rem] font-semibold text-[var(--sgc-text-primary)]"
                     >
                       {step.heading}
@@ -156,13 +156,13 @@ export default function ContactSection() {
               <GlassCard as="article" featured={!!option.featured} className="relative" contentClassName="flex min-h-[26rem] flex-col p-8">
                 {option.featured && <SheenLayer />}
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="text-[0.74rem] font-semibold uppercase tracking-[0.2em] text-[var(--accent-copper)]"
                 >
                   {option.eyebrow}
                 </p>
                 <h3
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-fraunces)" }}
                   className="mt-4 text-[1.5rem] font-bold text-[var(--sgc-text-primary)]"
                 >
                   {option.title}

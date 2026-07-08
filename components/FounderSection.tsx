@@ -100,7 +100,7 @@ export default function FounderSection() {
                   {pillar.stat}
                 </p>
                 <p
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-inter)" }}
                   className="mt-1 text-[0.78rem] leading-[1.55] text-[rgba(244,241,234,0.5)] whitespace-pre-line"
                 >
                   {pillar.label}
@@ -172,7 +172,7 @@ export default function FounderSection() {
 
                   {/* Message */}
                   <p
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    style={{ fontFamily: "var(--font-inter)" }}
                     className="text-[0.88rem] leading-[1.72] text-[rgba(244,241,234,0.65)] flex-1"
                   >
                     {founder.message}

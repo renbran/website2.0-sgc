@@ -128,7 +128,7 @@ export default function PrivacyPage() {
                   className="rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5"
                 >
                   <p
-                    style={{ fontFamily: "var(--font-outfit)" }}
+                    style={{ fontFamily: "var(--font-inter)" }}
                     className="text-[0.98rem] font-semibold text-[var(--sgc-text-primary)]"
                   >
                     {item.label}

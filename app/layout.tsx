@@ -120,7 +120,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} ${outfit.variable} ${playfairDisplay.variable} antialiased`}
+        className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}
       >
         {/* Skip-to-content: a11y win for keyboard/screen-reader users past the
             fixed nav. Sits as the first focusable element in <body>. */}

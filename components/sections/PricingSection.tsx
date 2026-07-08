@@ -88,13 +88,13 @@ export default function PricingSection() {
           <SectionEyebrow label="INVESTMENT" />
           <h2
             id="pricing-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             Four tiers. One mandatory subscription. Zero hidden fees.
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             Pick the tier that matches your scale today. Upgrade when ready.{" "}
@@ -106,13 +106,13 @@ export default function PricingSection() {
         <RevealOnScroll>
           <div className="mb-12 text-center">
             <p
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
               className="mx-auto max-w-2xl text-[clamp(1.1rem,1.5vw,1.35rem)] text-[var(--sgc-text-muted)]"
             >
               The average Growth-tier client recovers their full implementation cost within 4–6 months.
             </p>
             <p
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
               className="mt-4 text-[clamp(1.4rem,2.5vw,2rem)] font-bold text-[var(--sgc-text-primary)]"
             >
               AED 52,000 invested → AED 120,000–180,000 recovered
@@ -141,7 +141,7 @@ export default function PricingSection() {
         <div className="mx-auto mt-12 max-w-4xl rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6">
           <RevealOnScroll>
             <h3
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[1rem] font-semibold text-[var(--sgc-text-primary)]"
             >
               Optional Operations Retainer
@@ -170,7 +170,7 @@ export default function PricingSection() {
                       />
                     )}
                     <p
-                      style={{ fontFamily: "var(--font-outfit)" }}
+                      style={{ fontFamily: "var(--font-inter)" }}
                       className="text-[1rem] font-semibold text-[var(--sgc-text-primary)]"
                     >
                       {tier.name}

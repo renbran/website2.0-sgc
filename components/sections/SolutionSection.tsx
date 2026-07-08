@@ -47,13 +47,13 @@ export default function SolutionSection() {
           <SectionEyebrow label="THE SOLUTION" />
           <h2
             id="solution-heading"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
             Diagnose first. Fix the right things. Keep it running.
           </h2>
           <p
-            style={{ fontFamily: "var(--font-outfit)" }}
+            style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
             We audit your operations before we propose a solution. The result is a system that fits how
@@ -66,7 +66,7 @@ export default function SolutionSection() {
         <RevealOnScroll className="mt-14">
           <div className="grid items-center gap-8 md:grid-cols-2">
             <p
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
               className="text-[1.05rem] leading-[1.7] text-[rgba(244,241,234,0.78)] md:text-[1.15rem] md:order-2"
             >
               Three outcomes — <span className="text-[var(--sgc-text-primary)] font-semibold">financial
@@ -113,7 +113,7 @@ export default function SolutionSection() {
                   {pillar.icon}
                 </p>
                 <h3
-                  style={{ fontFamily: "var(--font-outfit)" }}
+                  style={{ fontFamily: "var(--font-fraunces)" }}
                   className="mt-4 text-[1.25rem] font-bold leading-[1.25] text-[var(--sgc-text-primary)]"
                 >
                   {pillar.heading}
@@ -131,7 +131,7 @@ export default function SolutionSection() {
         <RevealOnScroll delay={0.2}>
           <details className="mt-12 rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
             <summary
-              style={{ fontFamily: "var(--font-outfit)" }}
+              style={{ fontFamily: "var(--font-inter)" }}
               className="cursor-pointer select-none px-6 py-4 text-[0.9rem] font-semibold text-[var(--sgc-text-muted)] transition duration-200 hover:text-[var(--sgc-text-primary)]"
             >
               What we build on →
@@ -144,7 +144,7 @@ export default function SolutionSection() {
                     className="rounded-xl border border-[var(--border)] bg-[var(--surface-high)] px-5 py-3"
                   >
                     <p
-                      style={{ fontFamily: "var(--font-outfit)" }}
+                      style={{ fontFamily: "var(--font-inter)" }}
                       className="text-[0.9rem] font-semibold text-[var(--sgc-text-primary)]"
                     >
                       {layer.label}
