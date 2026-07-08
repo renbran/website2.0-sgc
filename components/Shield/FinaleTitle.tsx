@@ -85,7 +85,7 @@ export default function FinaleTitle({
         fontSize: "clamp(0.95rem,1.2vw,1.28rem)",
         fontWeight: 400,
         lineHeight: 1.65,
-        color: "var(--text-primary)",
+        color: "#F4F1E8",
         textAlign: align,
         maxWidth: "44ch",
         margin: align === "center" ? "0 auto" : "0",

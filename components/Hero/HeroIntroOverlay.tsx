@@ -160,7 +160,7 @@ export default function HeroIntroOverlay({
           <p
             style={{
               fontFamily: "var(--font-mono)",
-              color: "var(--sgc-text-primary)",
+              color: "#F4F1E8",
               fontSize: "clamp(0.6rem, 1vw, 0.78rem)",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
@@ -289,7 +289,7 @@ export default function HeroIntroOverlay({
         <p
           style={{
             fontFamily: "var(--font-mono)",
-            color: "var(--sgc-text-primary)",
+            color: "#F4F1E8",
             fontSize: "clamp(0.6rem, 1vw, 0.78rem)",
             letterSpacing: "0.22em",
             textTransform: "uppercase",

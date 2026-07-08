@@ -63,7 +63,7 @@ export default function FinaleCaption({ activeIndex, reducedMotion }: FinaleCapt
               fontFamily: "var(--font-inter, sans-serif)",
               fontSize: "clamp(0.9rem, 1.15vw, 1.05rem)",
               lineHeight: 1.6,
-              color: "var(--text-secondary)",
+              color: "#A7AAB0",
             }}
           >
             {caption.subline}

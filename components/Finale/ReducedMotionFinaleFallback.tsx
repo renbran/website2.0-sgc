@@ -60,7 +60,7 @@ export default function ReducedMotionFinaleFallback() {
                 fontFamily: "var(--font-inter, sans-serif)",
                 fontSize: "0.95rem",
                 lineHeight: 1.6,
-                color: "var(--text-secondary)",
+                color: "#A7AAB0",
               }}
             >
               {caption.subline}

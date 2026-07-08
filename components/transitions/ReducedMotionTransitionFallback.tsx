@@ -30,7 +30,7 @@ export default function ReducedMotionTransitionFallback() {
         </p>
         <p
           style={{ fontFamily: "var(--font-fraunces)" }}
-          className="mt-4 text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] text-[var(--text-primary)]"
+          className="mt-4 text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] text-[#F4F1E8]"
         >
           A firm that anchors.
         </p>

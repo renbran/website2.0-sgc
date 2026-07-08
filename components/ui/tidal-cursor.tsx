@@ -115,6 +115,8 @@ export default function TidalCursor(props: TidalCursorProps) {
   const dotRef = useRef<HTMLDivElement | null>(null);
   const waveRef = useRef<HTMLDivElement | null>(null);
   const trailRefs = useRef<HTMLDivElement[]>([]);
+  const blendRef = useRef(blendMode);
+  blendRef.current = blendMode;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -140,8 +142,9 @@ export default function TidalCursor(props: TidalCursorProps) {
       if (!rootRef.current) return;
       const isLight =
         document.documentElement.getAttribute("data-theme") === "light";
+      const bm = blendRef.current;
       rootRef.current.style.mixBlendMode =
-        isLight && blendMode === "screen" ? "normal" : blendMode;
+        isLight && bm === "screen" ? "normal" : bm;
     };
     updateBlend();
     const themeObserver = new MutationObserver(updateBlend);
@@ -260,7 +263,6 @@ export default function TidalCursor(props: TidalCursorProps) {
     dotSize,
     ringSize,
     zIndex,
-    blendMode,
   ]);
 
   const trails: number[] = [];
