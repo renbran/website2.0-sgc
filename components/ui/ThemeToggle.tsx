@@ -72,7 +72,7 @@ export default function ThemeToggle({ className = "" }: { className?: string }) 
               transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center justify-center"
             >
-              <Sun size={13} aria-hidden className="text-[#10161F]" />
+              <Sun size={13} aria-hidden className="text-[var(--text-primary)]" />
             </motion.span>
           )}
         </AnimatePresence>
