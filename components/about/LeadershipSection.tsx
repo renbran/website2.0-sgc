@@ -53,7 +53,7 @@ const TRACK_RECORD = [
     icon: Cpu,
     label: "Technology",
     items: [
-      { title: "ERP Implementation", detail: "50+ Successful Deployments" },
+      { title: "ERP Implementation", detail: "Proven Track Record" },
       { title: "AI Integration", detail: "Machine Learning Systems" },
       { title: "Digital Architecture", detail: "Cloud & On-Premise Solutions" },
     ],
