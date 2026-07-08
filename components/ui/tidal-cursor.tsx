@@ -133,6 +133,23 @@ export default function TidalCursor(props: TidalCursorProps) {
     document.body.style.cursor = "none";
     document.documentElement.classList.add("sgc-tidal-cursor-active");
 
+    // Theme-aware blend mode: "screen" is gorgeous in dark mode but
+    // washes the cursor to near-invisible on cream/white light surfaces.
+    // Detect data-theme and set the root blend mode accordingly.
+    const updateBlend = () => {
+      if (!rootRef.current) return;
+      const isLight =
+        document.documentElement.getAttribute("data-theme") === "light";
+      rootRef.current.style.mixBlendMode =
+        isLight && blendMode === "screen" ? "normal" : blendMode;
+    };
+    updateBlend();
+    const themeObserver = new MutationObserver(updateBlend);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+
     // Mouse state
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
@@ -225,6 +242,7 @@ export default function TidalCursor(props: TidalCursorProps) {
 
     return () => {
       cancelAnimationFrame(raf);
+      themeObserver.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
@@ -242,6 +260,7 @@ export default function TidalCursor(props: TidalCursorProps) {
     dotSize,
     ringSize,
     zIndex,
+    blendMode,
   ]);
 
   const trails: number[] = [];
@@ -261,7 +280,6 @@ export default function TidalCursor(props: TidalCursorProps) {
         inset: 0,
         pointerEvents: "none",
         zIndex,
-        mixBlendMode: blendMode,
       }}
     >
       <div
