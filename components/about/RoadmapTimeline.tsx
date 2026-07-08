@@ -88,7 +88,7 @@ export default function RoadmapTimeline() {
     >
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <div className="text-center">
-          <SectionEyebrow label="THE 90-DAY TRANSFORMATION ROADMAP" className="justify-center" />
+          <SectionEyebrow label="90 DAYS, FOUR PHASES" className="whitespace-nowrap justify-center" />
           <h2
             id="roadmap-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}

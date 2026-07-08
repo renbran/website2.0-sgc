@@ -16,24 +16,21 @@ export default function OriginStory() {
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="text-[clamp(1.85rem,4vw,3rem)] font-bold leading-[1.15] text-[var(--text-primary)]"
           >
-            Diagnose before you prescribe.
+            The principle has a name, but not a tagline.
           </h2>
         </RevealOnScroll>
 
         <RevealOnScroll delay={0.1}>
           <div className="mt-8 space-y-5 text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.75] text-[var(--text-secondary)]">
             <p>
-              SGC Tech AI was founded on a simple principle: diagnose before you prescribe.
-              We are the <span className="text-[var(--accent)]">Operational Physician</span>{" "}
-              of the UAE Mid-Market — we identify the condition before we sell the cure.
-              Unlike consultants who arrive with pre-packaged solutions, we first understand
-              how your business actually operates, then we build systems that fit your
-              reality.
+              We diagnose before we prescribe. That is the whole of it. A chartered accountant
+              looks at your financials the way a doctor looks at a chart — with training,
+              with skepticism, and without an opinion yet.
             </p>
             <p>
-              Our founders are operators who have closed the books, run the audits, filed the
-              FTA Corporate Tax returns, and implemented Odoo systems for companies across
-              the UAE. We are practitioners, not content creators.
+              The two of us have closed the books, run the audits, filed the UAE Corporate
+              Tax returns, and rolled out Odoo for firms we would still recognize by name.
+              We are practitioners, not content creators.
             </p>
           </div>
         </RevealOnScroll>

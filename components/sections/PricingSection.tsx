@@ -85,13 +85,13 @@ export default function PricingSection() {
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
-          <SectionEyebrow label="INVESTMENT" />
+          <SectionEyebrow label="FEES" />
           <h2
             id="pricing-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            Four tiers. One mandatory subscription. Zero hidden fees.
+            Four tiers. One subscription. No surprises.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}
@@ -115,10 +115,10 @@ export default function PricingSection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="mt-4 text-[clamp(1.4rem,2.5vw,2rem)] font-bold text-[var(--sgc-text-primary)]"
             >
-              AED 52,000 invested → AED 120,000–180,000 recovered
+              AED 52,000 in. AED 120,000 to 180,000 out — within a year.
             </p>
             <p className="mt-2 text-[0.8rem] text-[var(--sgc-text-muted)]">
-              AED 22K implementation + AED 30K year-1 subscription vs. admin hours, faster cash cycle, recovered leads. Conservative range.
+              Implementation plus one year of subscription, against recovered hours, faster invoicing, and a smaller audit adjustment. The range we underwrite, not the ceiling.
             </p>
           </div>
         </RevealOnScroll>
@@ -144,7 +144,7 @@ export default function PricingSection() {
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[1rem] font-semibold text-[var(--sgc-text-primary)]"
             >
-              Optional Operations Retainer
+              After implementation, ongoing support.
             </h3>
           </RevealOnScroll>
           <div className="mt-4 grid gap-4 md:grid-cols-3">

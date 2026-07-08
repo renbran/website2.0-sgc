@@ -28,14 +28,13 @@ export default function TransformationCompare() {
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>
           <div className="text-center">
-            <SectionEyebrow label="MORE THAN ACCOUNTING" className="justify-center" />
+            <SectionEyebrow label="WHAT&#39;S DIFFERENT" className="justify-center" />
             <h2
               id="compare-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[clamp(1.85rem,4vw,3rem)] font-bold leading-[1.15] text-[var(--text-primary)]"
             >
-              Basic compliance <span className="text-[var(--text-muted)]">vs.</span>{" "}
-              <span className="text-gold-gradient">strategic transformation</span>
+              Compliance, or transformation.
             </h2>
           </div>
         </RevealOnScroll>

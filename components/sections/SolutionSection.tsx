@@ -44,13 +44,13 @@ export default function SolutionSection() {
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
-          <SectionEyebrow label="THE SOLUTION" />
+          <SectionEyebrow label="HOW WE WORK" />
           <h2
             id="solution-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            Diagnose first. Fix the right things. Keep it running.
+            Audit. Then design. Then build.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}

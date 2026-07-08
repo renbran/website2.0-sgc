@@ -53,16 +53,16 @@ export default function EngagementTiers() {
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>
           <div className="text-center">
-            <SectionEyebrow label="FLEXIBLE ENGAGEMENT" className="justify-center" />
+            <SectionEyebrow label="HOW WE ENGAGE" className="justify-center" />
             <h2
               id="tiers-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[clamp(1.85rem,4vw,3rem)] font-bold leading-[1.15] text-[var(--text-primary)]"
             >
-              One partner. Every stage. <span className="text-gold-gradient">Real results.</span>
+              Three engagements. One starting point.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-[0.9rem] text-[var(--text-muted)]">
-              Transformations start at AED 40,000 — custom solutions tailored to your needs.
+              We start where you are.
             </p>
           </div>
         </RevealOnScroll>

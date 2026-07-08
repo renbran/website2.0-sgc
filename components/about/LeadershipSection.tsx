@@ -79,13 +79,13 @@ export default function LeadershipSection() {
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>
           <div className="text-center">
-            <SectionEyebrow label="LEADERSHIP" className="justify-center" />
+            <SectionEyebrow label="THE PARTNERS" className="justify-center" />
             <h2
               id="leadership-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[clamp(1.85rem,4vw,3rem)] font-bold leading-[1.15] text-[var(--text-primary)]"
             >
-              Leadership you <span className="text-gold-gradient">can trust.</span>
+              Two operators. One firm.
             </h2>
           </div>
         </RevealOnScroll>

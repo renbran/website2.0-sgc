@@ -109,7 +109,7 @@ export default function TransformationFramework() {
     >
       <div className="mx-auto max-w-6xl px-6 pt-16 md:px-10 md:pt-24">
         <div className="text-center">
-          <SectionEyebrow label="THE SGC TRANSFORMATION FRAMEWORK" className="justify-center" />
+          <SectionEyebrow label="THE FRAMEWORK" className="justify-center" />
           <h2
             id="framework-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}

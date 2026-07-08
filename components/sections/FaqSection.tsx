@@ -62,19 +62,19 @@ export default function FaqSection() {
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
-          <SectionEyebrow label="FAQ" />
+          <SectionEyebrow label="FREQUENT QUESTIONS" className="whitespace-nowrap" />
           <h2
             id="faq-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            Questions founders actually ask.
+            What founders actually ask.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}
             className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
           >
-            Straight answers — the same ones you&apos;d get on a call.
+            The same answers we give on a call.
           </p>
         </RevealOnScroll>
 

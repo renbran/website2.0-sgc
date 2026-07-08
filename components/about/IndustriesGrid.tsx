@@ -57,16 +57,16 @@ export default function IndustriesGrid() {
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <RevealOnScroll>
           <div className="text-center">
-            <SectionEyebrow label="BUILT FOR COMPLEX INDUSTRIES" className="justify-center" />
+            <SectionEyebrow label="WHERE WE WORK" className="justify-center" />
             <h2
               id="industries-heading"
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[clamp(1.85rem,4vw,3rem)] font-bold leading-[1.15] text-[var(--text-primary)]"
             >
-              One unified <span className="text-gold-gradient">ecosystem.</span>
+              The work is the same. The sectors are not.
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-[0.95rem] leading-[1.6] text-[var(--text-secondary)]">
-              All industries connected through integrated financial architecture.
+              Real estate, construction, healthcare, manufacturing, retail, professional services — each runs on its own pressures. The bookkeeping still has to close.
             </p>
           </div>
         </RevealOnScroll>

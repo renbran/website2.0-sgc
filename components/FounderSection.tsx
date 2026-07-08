@@ -75,7 +75,7 @@ export default function FounderSection() {
               style={{ fontFamily: "var(--font-fraunces)" }}
               className="text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.1] text-[var(--sgc-text-primary)]"
             >
-              We&apos;re the finance leaders who got tired of broken systems.
+              Two of us. One firm. No handoffs.
             </h2>
             {/* Firm voice — one Fraunces italic sentence */}
             <p

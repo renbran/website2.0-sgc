@@ -3,9 +3,9 @@ import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import CtaButton from "@/components/ui/CtaButton";
 
 const PILLARS = [
-  { icon: TrendingUp, title: "Strategic Growth", detail: "Sustainable expansion strategies" },
-  { icon: Sparkles, title: "Financial Confidence", detail: "Data-driven decision making" },
-  { icon: Target, title: "Operational Excellence", detail: "Optimized systems & processes" },
+  { icon: TrendingUp, title: "Strategic Growth", detail: "Built around the numbers you already have." },
+  { icon: Sparkles, title: "Financial Confidence", detail: "Monthly close, audit-ready, no scrambling." },
+  { icon: Target, title: "Operational Excellence", detail: "Systems your team can actually run." },
 ];
 
 export default function AboutCTA() {
@@ -29,14 +29,14 @@ export default function AboutCTA() {
             style={{ fontFamily: "var(--font-mono)" }}
             className="inline-block rounded-full border border-[rgba(199,162,58,0.3)] px-4 py-1.5 text-[0.68rem] font-semibold tracking-[0.18em] text-[var(--accent)]"
           >
-            TRANSFORMATION BEGINS HERE
+            WHERE THIS STARTS
           </span>
           <h2
             id="about-cta-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="mt-6 text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.1] text-[var(--text-primary)]"
           >
-            Build a more <span className="text-gold-gradient">resilient business.</span>
+            A first conversation. Nothing else, yet.
           </h2>
         </RevealOnScroll>
 
@@ -60,7 +60,7 @@ export default function AboutCTA() {
         <RevealOnScroll delay={0.3}>
           <div className="mt-12 flex justify-center">
             <CtaButton href="/contact" className="px-8">
-              Schedule a Confidential Consultation →
+              Schedule a First Conversation →
             </CtaButton>
           </div>
         </RevealOnScroll>
@@ -70,7 +70,7 @@ export default function AboutCTA() {
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="mt-14 text-[clamp(1.3rem,3vw,2rem)] font-bold text-[var(--text-primary)]"
           >
-            We Make Complexity <span className="text-gold-gradient">Disappear.</span>
+            Then the work.
           </p>
         </RevealOnScroll>
       </div>

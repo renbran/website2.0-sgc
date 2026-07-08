@@ -86,13 +86,13 @@ export default function CaseStudySection() {
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
-          <SectionEyebrow label="PROOF" />
+          <SectionEyebrow label="WHAT THE WORK PRODUCES" className="whitespace-nowrap" />
           <h2
             id="case-study-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            Conservative results we stand behind.
+            Conservative ranges. In writing.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}

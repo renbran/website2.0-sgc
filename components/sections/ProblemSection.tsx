@@ -55,13 +55,13 @@ export default function ProblemSection() {
       <GoldDrawIn />
       <div className="mx-auto w-full max-w-[1440px] 2xl:max-w-[1640px] px-6 md:px-10 lg:px-16">
         <RevealOnScroll focusPull>
-          <SectionEyebrow label="THE PROBLEM" />
+          <SectionEyebrow label="WHAT WE FIND" />
           <h2
             id="problem-heading"
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            You don&apos;t have a software problem. You have an operations problem.
+            The system runs. The numbers don&apos;t.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}
