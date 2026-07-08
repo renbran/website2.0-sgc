@@ -95,7 +95,7 @@ export default function AudioToggle() {
         {isPlaying ? (
           <Volume2 size={18} className="text-[var(--sgc-cyan)]" />
         ) : (
-          <VolumeX size={18} className="text-[rgba(245,250,255,0.55)]" />
+          <VolumeX size={18} className="text-text-muted" />
         )}
       </AnimatedIcon>
     </motion.button>

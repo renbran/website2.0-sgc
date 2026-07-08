@@ -175,7 +175,7 @@ gtag('config', '${gaId}', { send_page_view: true });`}
             <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, margin: "0 0 1rem" }}>
               Practitioner-Led Odoo &amp; AI for UAE Mid-Market
             </h1>
-            <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "rgba(244,241,234,0.78)" }}>
+            <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--text-secondary)" }}>
               CPAs and CIAs implementing Odoo ERP and AI for finance, ops, and
               compliance in Dubai-based mid-market firms. Fixed price. Fixed
               timeline. Book a discovery call below.

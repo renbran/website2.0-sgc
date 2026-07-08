@@ -67,7 +67,7 @@ export default function SolutionSection() {
           <div className="grid items-center gap-8 md:grid-cols-2">
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.05rem] leading-[1.7] text-[rgba(244,241,234,0.78)] md:text-[1.15rem] md:order-2"
+              className="text-[1.05rem] leading-[1.7] text-text-secondary md:order-2"
             >
               Three outcomes — <span className="text-[var(--sgc-text-primary)] font-semibold">financial
               visibility, compliance assurance, operational reclaim</span> — delivered as one system,
@@ -92,7 +92,7 @@ export default function SolutionSection() {
               />
               <figcaption
                 style={{ fontFamily: "var(--font-mono)" }}
-                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-[rgba(244,241,234,0.75)]"
+                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-text-secondary"
               >
                 Illustrative image · live KPIs after audit
               </figcaption>

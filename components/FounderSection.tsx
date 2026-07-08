@@ -101,7 +101,7 @@ export default function FounderSection() {
                 </p>
                 <p
                   style={{ fontFamily: "var(--font-inter)" }}
-                  className="mt-1 text-[0.78rem] leading-[1.55] text-[rgba(244,241,234,0.5)] whitespace-pre-line"
+                  className="mt-1 text-[0.78rem] leading-[1.55] text-text-muted whitespace-pre-line"
                 >
                   {pillar.label}
                 </p>
@@ -149,7 +149,7 @@ export default function FounderSection() {
                         className={`mt-1 text-[0.6rem] tracking-[0.06em] leading-[1.6] break-words ${
                           founder.credentialsGold
                             ? "text-[var(--accent)]"
-                            : "text-[rgba(244,241,234,0.38)]"
+                            : "text-text-muted"
                         }`}
                       >
                         {founder.credentials}
@@ -163,7 +163,7 @@ export default function FounderSection() {
                       <span
                         key={domain}
                         style={{ fontFamily: "var(--font-mono)" }}
-                        className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[rgba(199,162,58,0.07)] border border-[rgba(199,162,58,0.18)] text-[rgba(244,241,234,0.55)]"
+                        className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[rgba(199,162,58,0.07)] border border-[rgba(199,162,58,0.18)] text-text-muted"
                       >
                         {domain}
                       </span>
@@ -173,7 +173,7 @@ export default function FounderSection() {
                   {/* Message */}
                   <p
                     style={{ fontFamily: "var(--font-inter)" }}
-                    className="text-[0.88rem] leading-[1.72] text-[rgba(244,241,234,0.65)] flex-1"
+                    className="text-[0.88rem] leading-[1.72] text-text-secondary flex-1"
                   >
                     {founder.message}
                   </p>

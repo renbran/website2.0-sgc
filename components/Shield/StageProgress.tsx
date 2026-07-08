@@ -251,7 +251,7 @@ export default function StageProgress({
                   fontSize: "0.62rem",
                   fontWeight: 700,
                   letterSpacing: "0.22em",
-                  color: "rgba(244,241,234,0.85)",
+                  color: "var(--text-primary)",
                   whiteSpace: "nowrap",
                   opacity: 0.4,
                   transform: "translateX(-6px)",
@@ -303,7 +303,7 @@ export default function StageProgress({
               fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)",
               fontWeight: 600,
               letterSpacing: "0.06em",
-              color: "rgba(244,241,234,0.96)",
+              color: "var(--text-primary)",
               margin: "0.45rem 0 0",
               textTransform: "uppercase",
             }}

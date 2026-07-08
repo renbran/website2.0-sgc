@@ -140,7 +140,7 @@ export default function CaseStudySection() {
                       >
                         Methodology
                       </p>
-                      <p className="mt-3 text-[0.88rem] leading-[1.6] text-[rgba(244,241,234,0.78)]">
+                      <p className="mt-3 text-[0.88rem] leading-[1.6] text-text-secondary">
                         {stat.method ?? "Verification details on request under NDA."}
                       </p>
                     </>
@@ -165,7 +165,7 @@ export default function CaseStudySection() {
                   />
                   <figcaption
                     style={{ fontFamily: "var(--font-mono)" }}
-                    className="absolute bottom-3 left-3 right-3 rounded-md bg-[rgba(8,11,17,0.65)] px-3 py-1.5 text-[0.6rem] uppercase tracking-[0.18em] text-[rgba(244,241,234,0.85)]"
+                    className="absolute bottom-3 left-3 right-3 rounded-md bg-[rgba(8,11,17,0.65)] px-3 py-1.5 text-[0.6rem] uppercase tracking-[0.18em] text-text-primary"
                   >
                     Illustrative image · case figures from live ops
                   </figcaption>

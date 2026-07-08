@@ -46,7 +46,7 @@ export default function SectionEight() {
             />
             <figcaption
               style={{ fontFamily: "var(--font-mono)" }}
-              className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-[rgba(244,241,234,0.75)]"
+              className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-text-secondary"
             >
               Illustrative image · Dubai
             </figcaption>

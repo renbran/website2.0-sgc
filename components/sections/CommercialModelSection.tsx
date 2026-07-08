@@ -155,7 +155,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
         >
           Includes
         </p>
-        <ul className="mt-1 space-y-0.5 text-[0.78rem] leading-[1.4] text-[rgba(244,241,234,0.85)]">
+        <ul className="mt-1 space-y-0.5 text-[0.78rem] leading-[1.4] text-text-primary">
           {layer.includes.map((line) => (
             <li key={line} className="flex gap-1.5 break-words">
               <span className="shrink-0 text-[var(--accent)]">✓</span>
@@ -171,7 +171,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
         >
           Excludes
         </p>
-        <ul className="mt-1 space-y-0.5 text-[0.75rem] leading-[1.4] text-[rgba(244,241,234,0.6)]">
+        <ul className="mt-1 space-y-0.5 text-[0.75rem] leading-[1.4] text-text-muted">
           {layer.excludes.map((line) => (
             <li key={line} className="flex gap-1.5 break-words">
               <span className="shrink-0">✕</span>

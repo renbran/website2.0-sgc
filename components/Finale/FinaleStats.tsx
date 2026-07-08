@@ -58,7 +58,7 @@ export default function FinaleStats({ reducedMotion }: FinaleStatsProps) {
               fontSize: "0.62rem",
               letterSpacing: "0.16em",
               textTransform: "uppercase",
-              color: "rgba(244,241,234,0.55)",
+              color: "var(--text-muted)",
             }}
           >
             {stat.label}

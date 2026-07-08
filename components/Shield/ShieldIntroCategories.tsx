@@ -146,7 +146,7 @@ export default function ShieldIntroCategories({
                 fontSize: "clamp(1rem, 1.4vw, 1.3rem)",
                 fontWeight: 700,
                 letterSpacing: "0.18em",
-                color: "rgba(244,241,234,0.96)",
+                color: "var(--text-primary)",
                 textTransform: "uppercase",
               }}
             >

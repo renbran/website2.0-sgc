@@ -95,14 +95,14 @@ export default function ProblemSection() {
               />
               <figcaption
                 style={{ fontFamily: "var(--font-mono)" }}
-                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-[rgba(244,241,234,0.7)]"
+                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-text-secondary"
               >
                 Illustrative image · UAE mid-market finance desk
               </figcaption>
             </figure>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.05rem] leading-[1.7] text-[rgba(244,241,234,0.78)] md:text-[1.15rem]"
+              className="text-[1.05rem] leading-[1.7] text-text-secondary md:text-[1.15rem]"
             >
               Three problems — scattered systems, manual work AI should handle, compliance exposure —
               compound quietly inside UAE mid-market firms. They look like busy weeks on the surface.
@@ -119,7 +119,7 @@ export default function ProblemSection() {
               <article className="min-h-[21rem] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-copper)]">
                 <p
                   style={{ fontFamily: "var(--font-inter)" }}
-                  className="text-[0.85rem] font-bold tracking-[0.18em] text-[rgba(245,250,255,0.6)]"
+                  className="text-[0.85rem] font-bold tracking-[0.18em] text-text-muted"
                 >
                   {card.badge}
                 </p>

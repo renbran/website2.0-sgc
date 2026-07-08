@@ -295,14 +295,14 @@ export default function TrackingCallout({
                 <p className="callout-title" style={{
                   fontFamily: "var(--font-fraunces,Georgia,serif)",
                   fontSize: "clamp(1.25rem,1.55vw,1.5rem)", fontWeight: 600,
-                  color: "rgba(244,241,234,0.95)", lineHeight: 1.25,
+                  color: "var(--text-primary)", lineHeight: 1.25,
                   margin: "0 0 0.45rem", minHeight: "1.25em",
                 }} />
 
                 <p className="callout-body" style={{
                   fontFamily: "var(--font-inter,sans-serif)",
                   fontSize: "clamp(0.93rem,1.05vw,1.05rem)",
-                  color: "rgba(244,241,234,0.72)", lineHeight: 1.6,
+                  color: "var(--text-secondary)", lineHeight: 1.6,
                   margin: "0 0 0.7rem", minHeight: "2.4em",
                 }} />
 

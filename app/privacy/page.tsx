@@ -96,7 +96,7 @@ export default function PrivacyPage() {
             >
               {LAST_UPDATED}
             </p>
-            <p className="mt-6 text-[0.98rem] leading-[1.75] text-[rgba(244,241,234,0.78)]">
+            <p className="mt-6 text-[0.98rem] leading-[1.75] text-text-secondary">
               This policy explains how{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">
                 Scholarix Global Consultant FZE (trading as SGC Tech AI)

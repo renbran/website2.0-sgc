@@ -317,7 +317,7 @@ export default function ShieldScene({ scrollProgressRef, reducedMotion, viewport
             }} />
             <p ref={bandBadgeRef} style={{ fontFamily: "var(--font-mono,'JetBrains Mono',monospace)", fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.22em", color: GOLD, marginBottom: "0.45rem" }} />
             <p ref={bandTitleRef} style={{ fontFamily: "var(--font-fraunces,Georgia,serif)", fontSize: "1.28rem", fontWeight: 600, color: "#F8F5EE", lineHeight: 1.28, marginBottom: "0.4rem", minHeight: "1.28em" }} />
-            <p ref={bandBodyRef} style={{ fontFamily: "var(--font-inter,sans-serif)", fontSize: "0.86rem", color: "rgba(244,241,234,0.74)", lineHeight: 1.55, minHeight: "2.3em" }} />
+            <p ref={bandBodyRef} style={{ fontFamily: "var(--font-inter,sans-serif)", fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.55, minHeight: "2.3em" }} />
           </div>
         </Html>
       )}

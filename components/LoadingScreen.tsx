@@ -263,7 +263,7 @@ export default function LoadingScreen() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.15 }}
           style={{ fontFamily: "var(--font-inter, sans-serif)" }}
-          className="max-w-md text-center text-[0.78rem] leading-[1.7] text-[rgba(244,241,234,0.55)] md:text-[0.82rem]"
+          className="max-w-md text-center text-[0.78rem] leading-[1.7] text-text-muted md:text-[0.82rem]"
         >
           Practitioner-led Odoo &amp; AI for UAE mid-market.
         </motion.p>
@@ -295,7 +295,7 @@ export default function LoadingScreen() {
         <p
           ref={labelRef}
           style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-          className="text-[0.6rem] uppercase tracking-[0.32em] text-[rgba(244,241,234,0.35)]"
+          className="text-[0.6rem] uppercase tracking-[0.32em] text-text-muted"
           suppressHydrationWarning
         >
           000% · Loading
