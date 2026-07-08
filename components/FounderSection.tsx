@@ -6,6 +6,7 @@ import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import LivingCard from "@/components/ui/LivingCard";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import CtaButton from "@/components/ui/CtaButton";
+import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 
 const FOUNDER_AVATAR_PLACEHOLDER =
   "https://res.cloudinary.com/dsl5fhclj/image/upload/v1782135617/no3vpkxd88fy1uhytuhp.png?w=400&auto=format&q=80&fit=crop";
@@ -60,15 +61,8 @@ export default function FounderSection() {
   return (
     <section
       id="founder"
-<<<<<<< HEAD
-      aria-labelledby="founder-heading"
-      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
-    >
-      <GoldDrawIn />
-
-=======
       aria-label="Founders"
-      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
 
@@ -76,16 +70,13 @@ export default function FounderSection() {
         nested
         id="founder-editorial"
         heading="We're the finance leaders who got tired of broken systems."
-        subheading="Senior-led engagements · 15+ years in your seat"
         imageSrc="/images/sections/human-founders-discussion.jpg"
         imageAlt="Two founders engaged in a strategic discussion, representing hands-on finance leadership"
         imageCaption="Founders who lead engagements personally · CPA · CIA · CMA"
-        layout="lumiere"
-        background="light"
+        layout="image-right"
+        background="dark"
         pullQuote="Two founders, one firm — finance strategy and the system that delivers it. Because we both speak finance, nothing is lost between advice and execution."
         pullQuoteAttribution="SGC Tech AI · Founders"
-        ctaText="Discover the story"
-        ctaHref="#contact"
       >
         <p>
           We built this firm because we spent years inside UAE finance teams — as CPAs, CIAs,
@@ -101,29 +92,7 @@ export default function FounderSection() {
         </p>
       </PremiumEditorialSection>
 
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
-
-        {/* Heading */}
-        <RevealOnScroll>
-          <div className="text-center max-w-2xl mx-auto">
-            <h2
-              id="founder-heading"
-              style={{ fontFamily: "var(--font-fraunces)" }}
-              className="text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.1] text-[var(--sgc-text-primary)]"
-            >
-              Two of us. One firm. No handoffs.
-            </h2>
-            {/* Firm voice — one Fraunces italic sentence */}
-            <p
-              style={{ fontFamily: "var(--font-fraunces)" }}
-              className="mt-4 text-[clamp(0.95rem,1.2vw,1.1rem)] italic leading-[1.7] text-[rgba(212,165,116,0.8)]"
-            >
-              Two founders, one firm — finance strategy and the system that delivers it.
-              Because we both speak finance, nothing is lost between advice and execution.
-            </p>
-          </div>
-        </RevealOnScroll>
 
         {/* Three-pillar strip */}
         <RevealOnScroll delay={0.1}>

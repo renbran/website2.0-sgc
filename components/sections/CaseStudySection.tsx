@@ -273,8 +273,7 @@ export default function CaseStudySection() {
       <PremiumEditorialSection
         nested
         id="case-study-editorial"
-        heading="A UAE real-estate brokerage, deployed at full scale."
-        subheading="What's possible at scale · anonymised case"
+        heading="UAE real-estate brokerage, full deployment"
           imageSrc="/images/sections/human-tech-team.jpg"
           imageAlt="Technology team collaborating in a modern office, representing the real results of digital transformation"
           imageCaption="Illustrative image · case figures from live ops · anonymised deployment"

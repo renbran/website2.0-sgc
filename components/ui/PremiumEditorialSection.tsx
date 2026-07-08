@@ -13,6 +13,8 @@ import SectionEyebrow from "./SectionEyebrow";
  * - Large hero image with overlay gradient
  * - Pull quotes with gold accent
  * - Drop cap first letter styling
+ * - Lead paragraph (slightly larger first paragraph)
+ * - Gold decorative ornaments
  * - Generous whitespace and breathing room
  * - Responsive: stacks on mobile, asymmetric on desktop
 =======
@@ -66,22 +68,14 @@ interface PremiumEditorialSectionProps {
 <<<<<<< HEAD
   /** Background variant */
   background?: "dark" | "gradient" | "surface";
-=======
-  /** Background variant — "light" uses cream/off-white for magazine feel */
-  background?: "dark" | "gradient" | "surface" | "light";
   /** Enable drop cap on first paragraph (default: true) */
   dropCap?: boolean;
   /** Enable lead paragraph styling (slightly larger first p, default: true) */
   leadParagraph?: boolean;
-  /** Show gold decorative ornament between content groups (default: true for lumiere) */
+  /** Show gold decorative ornament between content groups */
   ornament?: boolean;
   /** When true, removes the section's own padding (pt/pb) so it blends with the parent section */
   nested?: boolean;
-  /** CTA link text (e.g., "Discover the story") */
-  ctaText?: string;
-  /** CTA link href */
-  ctaHref?: string;
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
   /** Additional className */
   className?: string;
 }
@@ -100,15 +94,10 @@ export default function PremiumEditorialSection({
   pullQuoteAttribution,
   layout = "image-left",
   background = "dark",
-<<<<<<< HEAD
-=======
   dropCap = true,
   leadParagraph = true,
-  ornament,
+  ornament = false,
   nested = false,
-  ctaText,
-  ctaHref,
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
   className = "",
 }: PremiumEditorialSectionProps) {
   const reduced = useReducedMotion();
@@ -155,7 +144,7 @@ export default function PremiumEditorialSection({
   return (
     <section
       id={id}
-      className={`relative scroll-mt-20 pt-10 pb-14 md:pt-14 md:pb-20 ${bgClass} ${className}`}
+      className={`relative scroll-mt-20 ${nested ? "pt-0 pb-0" : "pt-10 pb-14 md:pt-14 md:pb-20"} ${bgClass} ${className}`}
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         {/* Eyebrow */}
@@ -374,7 +363,7 @@ export default function PremiumEditorialSection({
         ) : (
           /* Asymmetric / Split Layout */
           <div
-            className={`mt-10 grid items-start gap-8 lg:gap-12 ${
+            className={`${nested ? "mt-6" : "mt-10"} grid items-start gap-8 lg:gap-10 ${
               isSplit
                 ? "md:grid-cols-2"
                 : isImageLeft
@@ -386,29 +375,20 @@ export default function PremiumEditorialSection({
             <RevealOnScroll
               className={isImageLeft || isSplit ? "" : "md:order-2"}
             >
-              <figure className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_8px_40px_rgba(0,0,0,0.4)]">
-                <div className="relative aspect-[4/3]">
+              <figure className="relative overflow-hidden rounded-2xl">
+                <div className="relative aspect-[5/3]">
                   <NextImage
                     src={imageSrc}
                     alt={imageAlt}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 ease-out hover:scale-105"
-                  />
-                  {/* Subtle vignette */}
-                  <div
-                    aria-hidden
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "radial-gradient(ellipse at center, transparent 50%, rgba(8,11,17,0.3) 100%)",
-                    }}
+                    className="object-cover"
                   />
                 </div>
                 {imageCaption && (
                   <figcaption
                     style={{ fontFamily: "var(--font-mono)" }}
-                    className="border-t border-[var(--border)] bg-[var(--surface)] px-5 py-3 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--sgc-text-muted)]"
+                    className="mt-2 px-1 text-[0.62rem] uppercase tracking-[0.18em] text-[var(--sgc-text-muted)]"
                   >
                     {imageCaption}
                   </figcaption>
@@ -458,14 +438,16 @@ export default function PremiumEditorialSection({
               />
 
               {/* Body content */}
-              <div className="mt-6 space-y-5 text-[1rem] leading-[1.75] text-[var(--text-secondary)] md:text-[1.05rem]">
+              <div
+                className={`mt-6 space-y-5 text-[1rem] leading-[1.75] text-[var(--sgc-text-primary)] md:text-[1.05rem] ${
+                  dropCap ? "premium-dropcap" : ""
+                } ${leadParagraph ? "premium-lead" : ""}`}
+              >
                 {children}
               </div>
 
-<<<<<<< HEAD
-=======
               {/* Decorative gold ornament */}
-              {showOrnament && (
+              {ornament && (
                 <motion.div
                   initial={reduced ? {} : { opacity: 0, scale: 0.8 }}
                   whileInView={reduced ? {} : { opacity: 1, scale: 1 }}
@@ -480,7 +462,6 @@ export default function PremiumEditorialSection({
                 </motion.div>
               )}
 
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
               {/* Pull quote */}
               {pullQuote && (
                 <motion.blockquote
@@ -488,7 +469,7 @@ export default function PremiumEditorialSection({
                   whileInView={reduced ? {} : { opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="mt-8 border-l-2 border-[var(--accent)] pl-6"
+                  className="premium-editorial-blockquote mt-8 border-l-2 border-[var(--accent)] pl-6"
                 >
                   <p
                     style={{ fontFamily: "var(--font-fraunces)" }}

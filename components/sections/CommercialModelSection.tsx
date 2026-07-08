@@ -3,9 +3,9 @@
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
 import type { MotionValue } from "motion/react";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import FlippingCard from "@/components/ui/FlippingCard";
+import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 
 const LAYERS = [
   {
@@ -224,30 +224,21 @@ export default function CommercialModelSection() {
   return (
     <section
       id="commercial-model"
-<<<<<<< HEAD
-      aria-labelledby="commercial-model-heading"
-      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
-    >
-      <GoldDrawIn />
-=======
       aria-label="Commercial Model"
-      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
       <PremiumEditorialSection
         nested
         eyebrow="HOW WE WORK"
-        heading="The Three-Layer Commercial Model."
-        subheading="Transparent pricing · fixed timelines · no hidden fees"
+        heading="The Three-Layer Commercial Model"
         imageSrc="/images/sections/human-business-meeting.jpg"
         imageAlt="Business professionals collaborating in a modern meeting room, representing transparent partnership"
         imageCaption="Transparent pricing · fixed timelines · no hidden fees"
-        layout="lumiere"
-        background="light"
+        layout="image-right"
+        background="dark"
         pullQuote="No hidden fees. No scope creep. Three clear layers that scale with you — and every price is published."
         pullQuoteAttribution="SGC Tech AI · Commercial Model"
-        ctaText="Discover the story"
-        ctaHref="#contact"
       >
         <p>
           We don&apos;t sell Implementation without Subscription, and we don&apos;t let unmaintained
@@ -263,25 +254,7 @@ export default function CommercialModelSection() {
         </p>
       </PremiumEditorialSection>
 
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
-        <RevealOnScroll>
-          <SectionEyebrow label="HOW WE WORK" />
-          <h2
-            id="commercial-model-heading"
-            style={{ fontFamily: "var(--font-fraunces)" }}
-            className="max-w-3xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
-          >
-            The Three-Layer Commercial Model
-          </h2>
-          <p
-            style={{ fontFamily: "var(--font-inter)" }}
-            className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
-          >
-            No hidden fees. No scope creep. Three clear layers that scale with you.
-          </p>
-        </RevealOnScroll>
-
         <div
           className="relative mt-16 max-w-3xl space-y-5"
           onPointerMove={reduced ? undefined : handlePointerMove}

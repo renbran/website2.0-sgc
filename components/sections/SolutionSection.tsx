@@ -56,8 +56,7 @@ export default function SolutionSection() {
       <PremiumEditorialSection
         nested
         id="solution-editorial"
-        heading="The system that fits how you work."
-        subheading="Diagnosis first · implementation second · maintenance always"
+        heading="The system that fits how you work"
         imageSrc="/images/sections/human-data-review.jpg"
         imageAlt="Professionals reviewing financial data together, representing AI-powered financial visibility and compliance"
         imageCaption="The system that fits how you work · AI-powered operations"

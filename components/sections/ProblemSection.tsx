@@ -127,8 +127,7 @@ export default function ProblemSection() {
       <PremiumEditorialSection
         nested
         id="problem-editorial"
-        heading="The hidden cost of fragmented operations."
-        subheading="Creating clarity in systems that have drifted"
+        heading="The hidden cost of fragmented operations"
         imageSrc="/images/sections/human-team-braining.jpg"
         imageAlt="Team collaborating around financial data on a whiteboard, representing the complexity of scattered systems"
         imageCaption="The hidden cost of fragmented operations · UAE mid-market"
