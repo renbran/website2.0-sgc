@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Current State &amp; Storytelling Animation Suggestions — SGC Tech AI</title>
+  <style>
+    :root {
+      --bg:        #080B11;
+      --surface:   #0F1319;
+      --border:    rgba(212,165,116,0.18);
+      --gold:      #D4A574;
+      --gold-dim:  rgba(212,165,116,0.55);
+      --cyan:      #6FA8C3;
+      --text:      #F4F1EA;
+      --muted:     rgba(244,241,234,0.62);
+      --mono:      'JetBrains Mono', 'Courier New', monospace;
+      --serif:     Georgia, serif;
+      --sans:      system-ui, -apple-system, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 0 0 80px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(180deg, #0D1219 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 60px 40px;
+    }
+    header .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: var(--gold-dim);
+      margin-bottom: 14px;
+    }
+    header h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    header .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    header .meta span::before { content: '▸ '; color: var(--gold-dim); }
+
+    /* Legend */
+    .legend {
+      max-width: 860px;
+      margin: 40px 60px 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .legend table { width: 100%; border-collapse: collapse; }
+    .legend th, .legend td { padding: 10px 16px; font-size: 0.82rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .legend th { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.14em; color: var(--gold-dim); background: rgba(212,165,116,0.05); }
+    .legend td:first-child { font-family: var(--mono); color: var(--gold); font-size: 0.72rem; white-space: nowrap; }
+    .legend td:last-child { color: var(--muted); }
+    .legend tr:last-child td { border-bottom: none; }
+
+    /* Tool split note */
+    .toolsplit {
+      margin: 16px 60px 0;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      padding: 10px 16px;
+      background: rgba(111,168,195,0.06);
+      border-left: 2px solid var(--cyan);
+      border-radius: 0 4px 4px 0;
+      max-width: 860px;
+    }
+
+    /* Section cards */
+    .sections { padding: 0 60px; margin-top: 56px; }
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 28px;
+      background: rgba(212,165,116,0.04);
+      border-bottom: 1px solid var(--border);
+    }
+    .card-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--gold-dim); min-width: 28px; }
+    .card-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    .card-body { display: grid; grid-template-columns: 480px 1fr; }
+    @media (max-width: 1100px) { .card-body { grid-template-columns: 1fr; } }
+    .card-screenshot { border-right: 1px solid var(--border); background: #060910; display: flex; align-items: flex-start; }
+    .card-screenshot img { width: 100%; height: auto; max-height: 380px; object-fit: cover; object-position: top center; display: block; }
+    @media (max-width: 1100px) { .card-screenshot { border-right: none; border-bottom: 1px solid var(--border); } .card-screenshot img { max-height: 260px; } }
+    .card-text { padding: 28px 32px; }
+    .tag { display: inline-block; font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.2em; padding: 3px 10px; border-radius: 3px; margin-bottom: 8px; }
+    .tag-current    { background: rgba(111,168,195,0.12); color: var(--cyan); border: 1px solid rgba(111,168,195,0.25); }
+    .tag-suggestion { background: rgba(212,165,116,0.10); color: var(--gold); border: 1px solid rgba(212,165,116,0.25); }
+    .card-text h3 { font-family: var(--serif); font-size: 0.95rem; font-weight: 700; color: var(--gold); margin-bottom: 10px; }
+    .card-text ul { list-style: none; padding: 0; margin: 0 0 24px; }
+    .card-text ul li { font-size: 0.84rem; color: var(--muted); padding: 3px 0 3px 14px; position: relative; line-height: 1.6; }
+    .card-text ul li::before { content: '·'; position: absolute; left: 0; color: var(--gold-dim); }
+    .card-text p { font-size: 0.84rem; color: var(--text); line-height: 1.75; margin-bottom: 16px; }
+    .code-hint { background: rgba(8,11,17,0.7); border: 1px solid rgba(212,165,116,0.15); border-radius: 6px; padding: 12px 16px; font-family: var(--mono); font-size: 0.68rem; color: rgba(244,241,234,0.5); line-height: 1.8; white-space: pre-wrap; word-break: break-word; }
+
+    /* Narrative arc + priority tables */
+    .arc-section, .priority-section { margin: 64px 60px 0; }
+    .arc-section h2, .priority-section h2 { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+    .arc-section .sub, .priority-section .sub { font-size: 0.82rem; color: var(--muted); margin-bottom: 24px; }
+    table.arc-table, table.prio-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    table.arc-table th, table.prio-table th { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.16em; color: var(--gold-dim); background: rgba(212,165,116,0.05); padding: 12px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+    table.arc-table td, table.prio-table td { padding: 12px 20px; font-size: 0.82rem; border-bottom: 1px solid rgba(212,165,116,0.08); vertical-align: top; }
+    table.arc-table tr:last-child td, table.prio-table tr:last-child td { border-bottom: none; }
+    table.arc-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+    table.arc-table td:nth-child(2) { color: var(--muted); }
+    table.arc-table td:last-child { color: var(--cyan); font-style: italic; font-size: 0.79rem; }
+    table.prio-table td:first-child { font-family: var(--mono); color: var(--gold-dim); font-size: 0.68rem; }
+    table.prio-table td:nth-child(2) { font-weight: 600; color: var(--text); }
+    table.prio-table td:nth-child(3) { color: var(--muted); }
+    .effort-low    { color: #6FCB97 !important; font-family: var(--mono); font-size: 0.68rem; }
+    .effort-medium { color: #F4C86A !important; font-family: var(--mono); font-size: 0.68rem; }
+    .gold-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim) 30%, var(--gold-dim) 70%, transparent); margin: 56px 60px 0; opacity: 0.4; }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">SGC TECH AI — ANIMATION AUDIT</p>
+  <h1>Current State &amp; Storytelling Animation Suggestions</h1>
+  <div class="meta">
+    <span>Project: SGC Tech AI — UAE Practitioner-Led Odoo + AI</span>
+    <span>Branch: wip/pre-ecc-checkpoint</span>
+    <span>Captured: 2026-06-08</span>
+  </div>
+</header>
+
+<div class="legend">
+  <table>
+    <thead><tr><th>LABEL</th><th>MEANING</th></tr></thead>
+    <tbody>
+      <tr><td>CURRENT</td><td>Animation / motion already live in the codebase</td></tr>
+      <tr><td>SUGGESTION</td><td>Specific storytelling animation recommended to add next</td></tr>
+      <tr><td>CODE HINT</td><td>Tool + implementation approach (not production code)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p class="toolsplit">Animation tool split (CLAUDE.md): scroll-scrubbed → GSAP ScrollTrigger &nbsp;·&nbsp; component micro-interactions → motion/react &nbsp;·&nbsp; 3D per-frame → R3F useFrame</p>
+
+<div class="sections">
+
+  <!-- 01 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">01</span><span class="card-title">Navbar + CredentialRow</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/01-navbar-hero-above-fold.jpeg" alt="Navbar and CredentialRow" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Sticky navbar — instant paint on load, no entrance animation.</li>
+          <li>CredentialRow — static credential badges (CPA, CIA, Odoo Partner). No animation.</li>
+          <li>Gold hairline draws left-to-right on nav link hover via <code>&lt;GoldHairline&gt;</code>.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Trust cascade on load</span>
+        <p>Stagger the credential badges in from below with a 40ms delay between each: opacity 0→1 + translateY 8px→0, ease-out-quart, 420ms each. The sequence reads left-to-right like a résumé being handed over — the first authority claim the page makes should feel deliberate, not instant.</p>
+        <div class="code-hint">Tool: motion/react — whileInView stagger, once:true, amount:0.8
+staggerChildren: 0.04 · y: 8→0 · opacity: 0→1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">02</span><span class="card-title">DiamondScrollHero — Entry (Above Fold)</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/01-navbar-hero-above-fold.jpeg" alt="DiamondScrollHero entry" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>HeroIntroOverlay cinematic sequence plays on first load.</li>
+          <li>R3F canvas: helix DNA strand, 8 diamonds, particle field.</li>
+          <li>Camera moves Y/Z via GSAP ScrollTrigger reading scrollProgressRef.</li>
+          <li>RotatingSpine applies 0.08 rad/s baseline Y rotation to the helix.</li>
+          <li>HeroTextOverlays headline + sub-headline fade in after intro.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Pre-scroll camera breath</span>
+        <p>Before the user scrolls, add a slow 6s Y-bob on the camera (sin(t × 0.4) × 0.06 world units) via useFrame. Cease the bob the moment scroll &gt; 5px. This makes the 3D scene feel inhabited rather than frozen while the user reads the hero copy.</p>
+        <div class="code-hint">Tool: R3F useFrame
+lerp camera.position.y → sin(clock.elapsedTime * 0.4) * 0.06
+Disable when scrollProgressRef.current > 0.005</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">03</span><span class="card-title">DiamondScrollHero — Mid Scroll (Diamond Captions)</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/02-helix-mid-scroll.jpeg" alt="DiamondScrollHero mid scroll" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>8 diamonds activate one at a time as activeIndex changes.</li>
+          <li>CinematicCaption: full caption block fades in/out via Motion AnimatePresence.</li>
+          <li>Active diamond glows, scales, emits radial pulse (lerped diamondActiveness).</li>
+          <li>SVG connection lines draw in via stroke-dashoffset.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Caption word-by-word reveal</span>
+        <p>Split the headline into words and stagger each: opacity 0→1 + translateY 6→0 at 35ms per word. This mimics how a speaker delivers the line. Keep the exit as a single full-block fade for contrast.</p>
+        <div class="code-hint">Tool: motion/react — split headline by word
+staggerChildren: 0.035 · y: 6→0 · opacity: 0→1
+Exit: whole div opacity 0, duration: 0.2</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">04</span><span class="card-title">Problem Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/03-problem-section.jpeg" alt="Problem Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>RevealOnScroll on heading + intro paragraph (opacity + translateY, once:true).</li>
+          <li>GoldDrawIn — 1px gold line draws in from left as section enters viewport.</li>
+          <li>LivingCard on each of 3 problem cards (hover depth effect).</li>
+          <li>ScrollParallax on background gradient (20px Y amplitude).</li>
+          <li>Cost line items (AED 48K / 90K / 36K / 30K) render statically.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Cost counter roll-up ★ Top Priority</span>
+        <p>Animate each cost figure counting up from 0 to its value over 1.2s (easeOut), triggered when the cost grid enters the viewport. The total sum lands 400ms after the last item. Seeing numbers accumulate makes the pain visceral and quantified — the visitor feels the cost, not just reads it.</p>
+        <div class="code-hint">Tool: motion/react — useMotionValue + spring per figure
+Trigger: IntersectionObserver once, amount: 0.6
+Total sum: delay 0.4s after last item</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">05</span><span class="card-title">Shield Section — Early (Tiles 0–2 assembling)</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/04-shield-early.jpeg" alt="Shield Section early" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>750vh pinned scroll container.</li>
+          <li>Six hex tiles fly in from cluster origin → lock to TILE_LOCK_POS one-by-one.</li>
+          <li>Each tile: opacity/scale ramp during approach, snap to locked position.</li>
+          <li>TrackingCallout draws gold SVG connector line + glass card per tile after lock.</li>
+          <li>Pulsing dot at hex center while callout is active.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Tile lock micro-shake</span>
+        <p>When each hex tile reaches its locked position, nudge it 3px toward the cluster center then snap back over 120ms (spring, no bounce). This gives the assembly physical weight — like precision tiles being placed by hand.</p>
+        <div class="code-hint">Tool: R3F useFrame
+On frame tile transitions to LOCKED state:
+spike localPosition toward origin × 0.04
+Release over 8 frames via lerp</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">06</span><span class="card-title">Shield Section — Mid (Tiles 3–5, frame + filler visible)</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/05-shield-mid.jpeg" alt="Shield Section mid" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>ShieldFrame CatmullRom tube fades in at its defined scroll window.</li>
+          <li>Final 3 hex tiles lock progressively.</li>
+          <li>SVG connector line draw-in per callout (strokeDashoffset, hex center → card).</li>
+          <li>FillerMesh honeycomb interior fades in as tiles complete.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Progressive frame glow intensify</span>
+        <p>As each tile locks (0→5), increase ShieldFrame tube emissive intensity: start 0.3, add +0.12 per locked tile, reach 1.0 when all 6 are in. The frame literally brightens as protection becomes complete.</p>
+        <div class="code-hint">Tool: R3F useFrame
+Derive lockedCount from scroll progress windows
+lerp shieldFrameMaterial.emissiveIntensity → (0.3 + lockedCount * 0.12)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">07</span><span class="card-title">Shield Section — Finale ("Nothing slips through")</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/06-shield-finale.jpeg" alt="Shield Section finale" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Shield + cluster glides right via CSS translateX(10%) on desktop.</li>
+          <li>Background video fades in (opacity 0→0.18), replacing solid dark bg.</li>
+          <li>FinaleTitle: headline types character-by-character at 55ms/char.</li>
+          <li>Subtitle paragraph fades up after typewriter completes.</li>
+          <li>FinaleGlow gold pulse radiates behind the shield.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Callout cards converge into the shield</span>
+        <p>Instead of cards fading out, each card translates toward the shield center (staggered 60ms) while scaling to 0.05 and fading — as if absorbed. Six compliance pillars → one shield. Then ShieldSummaryCallout rises from below.</p>
+        <div class="code-hint">Tool: motion/react — AnimatePresence exit per callout:
+x → shield_cx · y → shield_cy · scale: 0.05 · opacity: 0
+duration: 0.4 · stagger: 0.06
+Triggered at scroll window [0.88–0.94]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">08</span><span class="card-title">Solution Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/07-solution-section.jpeg" alt="Solution Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>RevealOnScroll on heading and intro paragraph.</li>
+          <li>GoldDrawIn top accent.</li>
+          <li>Three outcome pillars as LivingCard (hover depth).</li>
+          <li>Stack diagram (5 layers: AI → Odoo Core → Integration → Infrastructure) — static.</li>
+          <li>ScrollParallax on background gradient.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Stack diagram builds layer by layer</span>
+        <p>The five stack layers build upward from Infrastructure → AI Layer: each slides up (translateY 24→0, opacity 0→1) with 120ms stagger. Foundations first, intelligence on top — the visual metaphor mirrors what SGC builds for clients.</p>
+        <div class="code-hint">Tool: motion/react
+staggerChildren: 0.12 · direction: bottom-to-top
+whileInView · once:true · amount: 0.3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">09</span><span class="card-title">Case Study Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/08-case-study.jpeg" alt="Case Study Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>RevealOnScroll on heading block.</li>
+          <li>Case study cards / results with static layout.</li>
+          <li>GoldDrawIn top accent.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Result numbers count up on entry</span>
+        <p>Numerical outcomes (days saved, AED figures, percentages) count up from 0 as the section enters. A faster ease-in-out (400ms) — success numbers should land with confidence. A gold SVG checkmark draws in via stroke-dashoffset (150ms) after each number settles.</p>
+        <div class="code-hint">Tool: motion/react — useMotionValue + spring per metric
+SVG checkmark: strokeDashoffset 100→0
+Triggered 400ms after each number lands</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">10</span><span class="card-title">Founder Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/09-founder-section.jpeg" alt="Founder Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Founder bio text with RevealOnScroll.</li>
+          <li>Photo renders statically.</li>
+          <li>Credential badges listed beneath bio.</li>
+          <li>GoldDrawIn accent.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Photo clip reveal + credential cascade</span>
+        <p>The founder photo enters with a vertical clipPath reveal (inset 100%→0%, 600ms ease-out-quart) — like a file being opened. Each credential badge (CPA, CIA, etc.) draws in from the left staggered 80ms apart — as if being placed on a desk.</p>
+        <div class="code-hint">Tool: motion/react
+Photo: initial clipPath "inset(100% 0 0 0)" → "inset(0% 0 0 0)"
+Badges: staggerChildren 0.08 · x: -20→0 · opacity: 0→1</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">11</span><span class="card-title">Commercial Model Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/10-commercial-model.jpeg" alt="Commercial Model Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>RevealOnScroll on text blocks.</li>
+          <li>LivingCard on each phase card.</li>
+          <li>Static layout — no sequential animation between phases.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Phase timeline line draw-in</span>
+        <p>A connecting timeline line between the three phases (Audit → Implement → Maintain) draws left-to-right via SVG stroke-dashoffset over 800ms. Each phase card pops in sequentially once the line reaches it: scale 0.92→1.0 + opacity 0→1.</p>
+        <div class="code-hint">Tool: SVG stroke-dashoffset (CSS @keyframes or GSAP), 800ms
+Phase cards: motion/react stagger
+Each card fires when line passes its x position</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 12 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">12</span><span class="card-title">Pricing Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/11-pricing-section.jpeg" alt="Pricing Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>TierCard components per pricing tier.</li>
+          <li>RevealOnScroll on section heading.</li>
+          <li>LivingCard hover effects on cards.</li>
+          <li>GoldDrawIn accent.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Recommended tier spotlight pulse</span>
+        <p>When the recommended tier enters viewport, it pulses once: scale 1.0→1.03→1.0, gold border glow 0→1→0, over 600ms. Other tiers dim simultaneously. A one-shot gesture — like an advisor quietly tapping the right option.</p>
+        <div class="code-hint">Tool: motion/react — whileInView · once:true
+Recommended: scale [1, 1.03, 1] · boxShadow pulse
+Others: opacity [1, 0.75, 1] · duration 0.6s</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 13 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">13</span><span class="card-title">Section Eight — Rescue Audit Letter</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/12-section-eight-rescue.jpeg" alt="Section Eight" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Five letter paragraphs animate sequentially: opacity 0→1, y 12→0, stagger 0.14s.</li>
+          <li>Gold left-border with dateline "DUBAI, 2026" fading in first.</li>
+          <li>ProximityCtaButton at bottom.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Dateline typewriter + ink-reveal paragraphs</span>
+        <p>"DUBAI, 2026" types in character-by-character (35ms/char) to open like a physical letter. Each paragraph fades in with a gradient wipe sweeping left-to-right (600ms) — the feel of ink drying. This section is the most personal; motion should feel like correspondence.</p>
+        <div class="code-hint">Tool: motion/react
+Dateline: typewriter via visibleChars state (same as FinaleTitle pattern)
+Paragraphs: background-clip text + gradient sweep via CSS animation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 14 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">14</span><span class="card-title">Contact Section</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/13-contact-section.jpeg" alt="Contact Section" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Contact form with standard fields.</li>
+          <li>RevealOnScroll on heading.</li>
+          <li>GoldDrawIn accent.</li>
+          <li>Form fields render statically.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Field stagger in + gold hairline on focus</span>
+        <p>Each form field slides in from x -16→0, opacity 0→1, staggered 60ms apart. On focus, a 1px gold underline draws left-to-right in 200ms — extending the existing &lt;GoldHairline&gt; pattern into form UX.</p>
+        <div class="code-hint">Tool: motion/react — fields staggerChildren: 0.06 · x: -16→0
+Focus hairline: onFocus → CSS transition on ::after width 0→100%
+(extend GoldHairline component to support input mode)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15 -->
+  <div class="section-card">
+    <div class="card-header"><span class="card-num">15</span><span class="card-title">Footer</span></div>
+    <div class="card-body">
+      <div class="card-screenshot"><img src="shots/14-footer.jpeg" alt="Footer" /></div>
+      <div class="card-text">
+        <span class="tag tag-current">CURRENT</span>
+        <ul>
+          <li>Fully static: logo, nav columns, legal text.</li>
+          <li>No entrance animation.</li>
+          <li>Gold accent on link hover states only.</li>
+        </ul>
+        <span class="tag tag-suggestion">SUGGESTION — Column fade-up on page-bottom approach</span>
+        <p>When the user scrolls within range of the footer (IntersectionObserver, amount: 0.1), stagger footer columns: opacity 0→1, y 12→0, 80ms gap. A quiet, dignified close — total silence feels unfinished. This signals "you've arrived."</p>
+        <div class="code-hint">Tool: motion/react — whileInView · amount: 0.1
+staggerChildren: 0.08 · y: 12→0 · opacity: 0→1</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /sections -->
+
+<div class="gold-rule"></div>
+
+<!-- Narrative Arc -->
+<div class="arc-section">
+  <h2>Animation Narrative Arc</h2>
+  <p class="sub">The full scroll journey should feel like a practitioner's briefing.</p>
+  <table class="arc-table">
+    <thead><tr><th>PHASE</th><th>SECTIONS</th><th>TONE</th></tr></thead>
+    <tbody>
+      <tr><td>Establish authority</td><td>Navbar, CredentialRow, Hero</td><td>Measured, confident reveal</td></tr>
+      <tr><td>State the problem</td><td>Problem Section</td><td>Data accumulates — visceral, quantified</td></tr>
+      <tr><td>Show the diagnosis</td><td>Shield Section</td><td>Mechanical precision, each tile a proof point</td></tr>
+      <tr><td>Present the solution</td><td>Solution, Case Study</td><td>Architecture builds upward, results land hard</td></tr>
+      <tr><td>Introduce the people</td><td>Founder</td><td>Personal, credential-forward, human</td></tr>
+      <tr><td>Commercial clarity</td><td>Commercial Model, Pricing</td><td>Clean sequence, one recommendation spotlit</td></tr>
+      <tr><td>Invitation</td><td>Section Eight, Contact</td><td>Letter cadence — personal, unhurried</td></tr>
+      <tr><td>Close</td><td>Footer</td><td>Quiet, dignified, complete</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="gold-rule"></div>
+
+<!-- Priority -->
+<div class="priority-section">
+  <h2>Implementation Priority</h2>
+  <p class="sub">Ordered by storytelling impact vs. implementation cost.</p>
+  <table class="prio-table">
+    <thead><tr><th>#</th><th>SECTION</th><th>SUGGESTION</th><th>EFFORT</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td>Problem Section</td><td>Cost counter roll-up</td><td class="effort-low">LOW</td></tr>
+      <tr><td>02</td><td>Solution Section</td><td>Stack layer build bottom-to-top</td><td class="effort-low">LOW</td></tr>
+      <tr><td>03</td><td>Section Eight</td><td>Dateline typewriter + ink-reveal</td><td class="effort-low">LOW</td></tr>
+      <tr><td>04</td><td>Pricing</td><td>Recommended tier spotlight pulse</td><td class="effort-low">LOW</td></tr>
+      <tr><td>05</td><td>Case Study</td><td>Result numbers count up</td><td class="effort-low">LOW</td></tr>
+      <tr><td>06</td><td>Contact</td><td>Field stagger + gold hairline on focus</td><td class="effort-low">LOW</td></tr>
+      <tr><td>07</td><td>Founder</td><td>Photo clip reveal + credential cascade</td><td class="effort-low">LOW</td></tr>
+      <tr><td>08</td><td>CredentialRow</td><td>Trust cascade on load</td><td class="effort-low">LOW</td></tr>
+      <tr><td>09</td><td>Footer</td><td>Column fade-up on approach</td><td class="effort-low">LOW</td></tr>
+      <tr><td>10</td><td>Shield Finale</td><td>Cards converge into shield</td><td class="effort-medium">MEDIUM</td></tr>
+      <tr><td>11</td><td>Commercial Model</td><td>Phase timeline line draw-in</td><td class="effort-medium">MEDIUM</td></tr>
+      <tr><td>12</td><td>Shield Mid</td><td>Frame glow intensify with each tile</td><td class="effort-medium">MEDIUM</td></tr>
+      <tr><td>13</td><td>Hero</td><td>Camera breath idle pre-scroll</td><td class="effort-medium">MEDIUM</td></tr>
+      <tr><td>14</td><td>Hero Captions</td><td>Word-by-word reveal</td><td class="effort-low">LOW</td></tr>
+      <tr><td>15</td><td>Shield Tiles</td><td>Lock position micro-shake</td><td class="effort-medium">MEDIUM</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

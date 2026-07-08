@@ -1,0 +1,85 @@
+# Dependencies / build
+.next
+node_modules
+.vercel
+next-env.d.ts
+*.tsbuildinfo
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+.aider*
+
+# Agent / tooling state (entire dirs)
+.opencode/
+.playwright-mcp/
+.omc/
+.serena/
+.ai/
+opencode.json
+token-optimizer/
+
+# Agent junk nested inside real source folders
+hooks/.claude/
+hooks/.omc/
+hooks/token-optimizer/
+public/.claude/
+
+# Environment files (secrets — never commit)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# MCP config (contains API keys — copy .mcp.json.example → .mcp.json locally)
+.mcp.json
+
+# Claude Code local settings (shared settings.json stays tracked)
+.claude/settings.local.json
+.claude/settings.local.json.bak
+.claude/worktrees/
+
+# QA / audit / verification captures (regenerated, not source)
+/*.jpeg
+/qa-*.png
+/audit-*.png
+/audit-*.jpeg
+/mobile-375*.png
+/cam-fix-*.png
+/h1h2-*.png
+/rg-*.png
+/verify-cam-*.png
+/verify-*.png
+/overlay-*.png
+/spacing-*.png
+/hero-svg-verify.png
+/callout-*.png
+/shield-png-*.png
+/shield-vanguard-*.png
+/SGC_Tech_AI_*.md
+/SGC_Tech_AI_*.pdf
+/public/test-result/
+/public/qa-*.jpeg
+
+# Unused reference assets and scratch (not loaded by any code)
+public/shield/ezgif.com-split.gif
+public/shield/ezgif-split (1)/
+public/videos/video-1780134024608.mp4
+public/hero-text.svg
+public/shield-after-01-hero.jpeg
+public/red.png
+public/gold (2).png
+public/green (2).png
+public/final logo.png
+public/SHIELD FINALE.png
+public/qa-proofs/
+/shield-p010.png
+
+# Local reference docs (not deployed) — keep PRODUCTION-CHECKLIST.md tracked.
+/docs/lighthouse/
+/docs/tmp/
+
+# Accidental nested repo copy artifact
+/SGC WEBSITE/

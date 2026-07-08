@@ -1,0 +1,156 @@
+@import "../styles/hero.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Full-bleed container widens ─────────────────────────────────────
+   Tailwind's max-w-7xl (1280px) is too narrow for wide laptop / ultrawide
+   monitors — leaves dark empty sides next to a centered content column.
+   Bumps every `mx-auto max-w-7xl` to 1440px (and 1640px @ 2xl) so all
+   sections stretch consistently edge-to-edge on wider screens.
+
+   The narrower mx-auto containers in cards, callouts, and tier rows keep
+   their tighter max-w intentionally (readability gutter for short copy). */
+@media (min-width: 1024px) {
+  .max-w-7xl { max-width: 1440px !important; }
+}
+@media (min-width: 1536px) {
+  .max-w-7xl { max-width: 1640px !important; }
+}
+
+/* ── Premium icon micro-interactions ──────────────────────────────────
+   Refined hover on the Footer social-icon row and on <SectionIcon>:
+   lift + gold-glow ring + brand color shift per platform. The icon
+   itself draws on once at first paint (via <AnimatedIcon> + Lucide);
+   these rules only add the resting and hover polish. */
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid rgba(199, 162, 58, 0.22);
+  background: rgba(199, 162, 58, 0.04);
+  color: var(--accent);
+  transition:
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 240ms ease,
+    background 240ms ease,
+    border-color 240ms ease,
+    box-shadow 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  animation: social-icon-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.social-icon:hover,
+.social-icon:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: rgba(199, 162, 58, 0.12);
+  box-shadow:
+    0 8px 22px -8px rgba(199, 162, 58, 0.55),
+    0 0 0 1px rgba(199, 162, 58, 0.6) inset;
+  outline: none;
+}
+/* Per-platform hover accent — falls through to gold for unknown brands. */
+.social-icon[data-brand="linkedin"]:hover  { color: #0a66c2; border-color: #0a66c2; background: rgba(10, 102, 194, 0.10); box-shadow: 0 8px 22px -8px rgba(10, 102, 194, 0.55), 0 0 0 1px #0a66c2 inset; }
+.social-icon[data-brand="instagram"]:hover { color: #e1306c; border-color: #e1306c; background: rgba(225, 48, 108, 0.10); box-shadow: 0 8px 22px -8px rgba(225, 48, 108, 0.55), 0 0 0 1px #e1306c inset; }
+.social-icon[data-brand="x"]:hover        { color: #f5f5f5; border-color: #f5f5f5; background: rgba(245, 245, 245, 0.10); box-shadow: 0 8px 22px -8px rgba(245, 245, 245, 0.45), 0 0 0 1px #f5f5f5 inset; }
+.social-icon[data-brand="whatsapp"]:hover { color: #25d366; border-color: #25d366; background: rgba(37, 211, 102, 0.10); box-shadow: 0 8px 22px -8px rgba(37, 211, 102, 0.55), 0 0 0 1px #25d366 inset; }
+
+@keyframes social-icon-in {
+  from { opacity: 0; transform: translateY(6px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.section-icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), filter 240ms ease;
+}
+.section-icon:hover,
+.section-icon:focus-visible {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 0 14px rgba(199, 162, 58, 0.55));
+  outline: none;
+}
+.section-icon-label { transition: color 240ms ease; }
+.section-icon:hover .section-icon-label,
+.section-icon:focus-visible .section-icon-label { color: var(--text-primary); }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  /* scroll-behavior removed — Lenis handles smooth scrolling */
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* overflow-x: hidden lives on html ONLY. Setting it on both html and body
+   forces overflow-y to compute as auto on both (CSS Overflow spec: a
+   non-visible value on one axis forces the visible axis to auto), creating
+   two ambiguous nested scroll containers. That breaks position: sticky for
+   elements deep in the tree (Diagnosis/hero-scrub, Shield, and Finale
+   canvases scroll away instead of pinning), leaving a tall empty parent to
+   scroll past — the canonical "section doesn't pin and shows a blank gap"
+   symptom. */
+html {
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+}
+
+/* ── Gold system — apply as gradient, never flat ──
+   `color: var(--refined-gold)` is the solid fallback: browsers that don't
+   support -webkit-text-fill-color ignore the transparent fill and render
+   solid refined-gold instead of invisible text. Where text-fill IS
+   supported (all current engines), transparent reveals the gradient. */
+.text-gold-gradient {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--refined-gold);
+}
+
+.bg-gold-gradient {
+  background: var(--gold-gradient);
+}
+
+/* Gold hairline — 1px gradient border (signature interaction base) */
+.border-gold-gradient {
+  border-image: var(--gold-gradient) 1;
+}
+
+/* ── Hero background — radial gold wash over vault-ink → graphite-navy ── */
+.hero-bg-gradient {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(199, 162, 58, 0.08) 0%, rgba(8, 11, 17, 0) 55%),
+    linear-gradient(180deg, #080B11 0%, #10161F 100%);
+}
+
+/* ── Connector dashed-line animation — used by ContactSection nextSteps ── */
+@keyframes sgc-connector {
+  from { background-position: 0 0; }
+  to   { background-position: 16px 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-hooks.json",
+  "_comment": "Mirror of .claude/settings.json — both files reference the same guard script so the harness audit (which checks hooks/hooks.json per ECC convention) and Claude Code itself (which reads .claude/settings.json per current convention) both pass.",
+  "PreToolUse": [
+    {
+      "matcher": "Bash",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "node scripts/guard-no-secret-env.js",
+          "timeout": 5000
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+:root {
+  /* SGC Tech AI Design Tokens — institutional luxury: vault ink + gold */
+
+  /* Foundation (~80% of UI) */
+  --vault-ink: #080B11;
+  --graphite-navy: #10161F;
+  --slate-steel: #1A2230;
+  --bronze-hairline: #3A3220;
+  --bg: #080B11;
+  --surface: #10161F;
+  --surface-high: #1A2230;
+  --border: #3A3220;
+
+  /* Gold system (~15% — apply as gradient; flat refined-gold only for tiny marks) */
+  --champagne: #EFDBA0;
+  --refined-gold: #C7A23A;
+  --antique-bronze: #8A6A1E;
+  --gold-gradient: linear-gradient(180deg, #EFDBA0 0%, #C7A23A 50%, #8A6A1E 100%);
+  --accent: #C7A23A;
+  --accent-soft: rgba(199, 162, 58, 0.13);
+
+  /* Text (never pure white) */
+  --text-primary: #F4F1E8;
+  --text-secondary: #A7AAB0;
+  --text-muted: #7A7F88;
+
+  /* Accents (strict, minimal usage) */
+  --accent-teal: #3E96B3;
+  --accent-cool: #3E96B3;
+  --accent-sage: #6FA877;
+  --accent-copper: #B57A44;
+
+  /* Helix material (now gold) */
+  --helix-glow: #C7A23A;
+
+  /* Legacy aliases — remapped from the old cyan brand era onto the new palette */
+  --sgc-gradient-bg: #080B11;
+  --sgc-text-primary: #F4F1E8;
+  --sgc-text-muted: rgba(244, 241, 232, 0.6);
+  --sgc-black: #080B11;                 /* was near-black → vault-ink */
+  --sgc-cyan: #C7A23A;                  /* old cyan accent → refined-gold */
+  --sgc-gradient-brand: var(--gold-gradient);
+  --sgc-glow-cyan: 0 0 22px rgba(199, 162, 58, 0.35);
+}
+
+/* ── Light theme — ivory/cream surface, navy text, antique-bronze accent ──
+   Only the semantic role tokens flip here. Raw palette constants (--vault-ink,
+   --champagne, --refined-gold, --antique-bronze, --sgc-black, --helix-glow,
+   etc.) are intentionally left un-redeclared so they keep their :root value —
+   components that key off --sgc-black for a "dark contrast chip" (icon
+   badges, etc.) stay dark navy in both themes by design, and the frozen 3D
+   scenes (Helix/Shield) read raw hex directly, never these vars, so they are
+   unaffected by the toggle regardless. */
+:root[data-theme="light"] {
+  --bg: #FAF6EC;
+  --surface: #FFFFFF;
+  --surface-high: #F3EEE1;
+  --border: rgba(138, 106, 30, 0.18);
+
+  /* Accent moves to the darker antique-bronze rung of the same gold ramp —
+     refined-gold (#C7A23A) only hits ~2.4:1 on cream, antique-bronze hits
+     ~5:1, clearing WCAG AA for heading/sub-heading text. */
+  --accent: #8A6A1E;
+  --accent-soft: rgba(138, 106, 30, 0.10);
+  --gold-gradient: linear-gradient(180deg, #C7A23A 0%, #8A6A1E 55%, #6B5015 100%);
+
+  --text-primary: #10161F;
+  --text-secondary: #3D4658;
+  --text-muted: #5B6474;
+
+  --sgc-gradient-bg: #FAF6EC;
+  --sgc-text-primary: #10161F;
+  --sgc-text-muted: rgba(16, 22, 31, 0.6);
+}
+
+.hero-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-text-shadow {
+  text-shadow: 0 2px 18px rgba(8, 11, 17, 0.65);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hero-scrub-title {
+  font-family: var(--font-fraunces, Georgia, serif);
+  font-weight: 700;
+}

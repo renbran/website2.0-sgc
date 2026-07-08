@@ -1,0 +1,63 @@
+{
+  "name": "website-sgc",
+  "version": "1.0.0",
+  "description": "SGC Tech AI marketing site — practitioner-led Odoo and AI implementation for UAE mid-market",
+  "main": "index.js",
+  "engines": {
+    "node": "22.x",
+    "bun": ">=1.1.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "playwright test",
+    "test:smoke": "playwright test tests/smoke.spec.ts"
+  },
+  "keywords": [
+    "odoo",
+    "uae",
+    "finance",
+    "ai-implementation",
+    "erp",
+    "cpa",
+    "cia"
+  ],
+  "author": "SGC Tech AI",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/postprocessing": "^3.0.4",
+    "@types/three": "^0.184.1",
+    "@vercel/analytics": "^2.0.1",
+    "animejs": "^4.5.0",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.23",
+    "lucide-react": "^1.16.0",
+    "motion": "^12.40.0",
+    "next": "^16.2.6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "three": "^0.184.0"
+  },
+  "devDependencies": {
+    "@21st-dev/cli": "^0.0.29",
+    "@21st-dev/magic": "^0.1.0",
+    "@21st-dev/registry": "^0.0.3",
+    "@next/bundle-analyzer": "^16.2.7",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^25.9.1",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.5.0",
+    "oh-my-claudecode-opencode": "^0.7.2",
+    "pngjs": "^7.0.0",
+    "postcss": "^8.5.15",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^6.0.3",
+    "uipro-cli": "^2.2.3"
+  }
+}
