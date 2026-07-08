@@ -34,6 +34,7 @@ function isGroup(item: MenuGroupOrLeaf): item is { label: string; items: MenuLea
 
 const MENU: MenuGroupOrLeaf[] = [
   { label: "Home", href: "#top" },
+  { label: "About", href: "/about" },
   {
     label: "Approach",
     items: [
