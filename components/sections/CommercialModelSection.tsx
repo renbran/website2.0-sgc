@@ -224,10 +224,46 @@ export default function CommercialModelSection() {
   return (
     <section
       id="commercial-model"
+<<<<<<< HEAD
       aria-labelledby="commercial-model-heading"
       className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
+=======
+      aria-label="Commercial Model"
+      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+    >
+      <GoldDrawIn />
+      <PremiumEditorialSection
+        nested
+        eyebrow="HOW WE WORK"
+        heading="The Three-Layer Commercial Model."
+        subheading="Transparent pricing · fixed timelines · no hidden fees"
+        imageSrc="/images/sections/human-business-meeting.jpg"
+        imageAlt="Business professionals collaborating in a modern meeting room, representing transparent partnership"
+        imageCaption="Transparent pricing · fixed timelines · no hidden fees"
+        layout="lumiere"
+        background="light"
+        pullQuote="No hidden fees. No scope creep. Three clear layers that scale with you — and every price is published."
+        pullQuoteAttribution="SGC Tech AI · Commercial Model"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        <p>
+          We don&apos;t sell Implementation without Subscription, and we don&apos;t let unmaintained
+          systems decay into the mess you came to us with. The three layers — Implementation,
+          Platform Subscription, and Operations Retainer — work together so your system stays
+          current, compliant, and actually used by your team.
+        </p>
+        <p>
+          Every layer has a fixed price and a fixed timeline. Discovery, configuration, UAT,
+          go-live, and hypercare are scoped in writing before we start. No scope creep, no
+          surprise invoices. The subscription funds the AI tasks, hosting, security, and
+          compliance updates that keep the system alive after go-live.
+        </p>
+      </PremiumEditorialSection>
+
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
           <SectionEyebrow label="HOW WE WORK" />

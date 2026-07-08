@@ -58,7 +58,7 @@ const structuredData = {
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
+    <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

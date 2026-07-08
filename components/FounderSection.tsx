@@ -60,11 +60,48 @@ export default function FounderSection() {
   return (
     <section
       id="founder"
+<<<<<<< HEAD
       aria-labelledby="founder-heading"
       className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
 
+=======
+      aria-label="Founders"
+      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+    >
+      <GoldDrawIn />
+
+      <PremiumEditorialSection
+        nested
+        id="founder-editorial"
+        heading="We're the finance leaders who got tired of broken systems."
+        subheading="Senior-led engagements · 15+ years in your seat"
+        imageSrc="/images/sections/human-founders-discussion.jpg"
+        imageAlt="Two founders engaged in a strategic discussion, representing hands-on finance leadership"
+        imageCaption="Founders who lead engagements personally · CPA · CIA · CMA"
+        layout="lumiere"
+        background="light"
+        pullQuote="Two founders, one firm — finance strategy and the system that delivers it. Because we both speak finance, nothing is lost between advice and execution."
+        pullQuoteAttribution="SGC Tech AI · Founders"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        <p>
+          We built this firm because we spent years inside UAE finance teams — as CPAs, CIAs,
+          and operators — and grew tired of watching the same problems repeat themselves across
+          every mid-market company in the region. Broken commission cycles. Late VAT deadlines.
+          Finance closing on day eleven when it should close on day three.
+        </p>
+        <p>
+          Every engagement we sign is led by a named senior consultant with 15+ years in the
+          seat you&apos;re hiring for. Not a junior reading from a playbook. Someone who has closed
+          the books themselves, sat through the audit, and built the systems they&apos;re now
+          building for you.
+        </p>
+      </PremiumEditorialSection>
+
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
 
         {/* Heading */}
@@ -90,12 +127,16 @@ export default function FounderSection() {
 
         {/* Three-pillar strip */}
         <RevealOnScroll delay={0.1}>
+<<<<<<< HEAD
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgba(199,162,58,0.15)] border border-[rgba(199,162,58,0.15)] rounded-xl max-w-3xl mx-auto overflow-hidden">
+=======
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--antique-bronze)] border border-[var(--antique-bronze)] rounded-xl max-w-3xl mx-auto overflow-hidden">
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
             {FIRM_PILLARS.map((pillar) => (
               <div key={pillar.stat} className="px-6 py-5 pb-6 sm:pb-5 text-center">
                 <p
                   style={{ fontFamily: "var(--font-fraunces)" }}
-                  className="text-[1.1rem] font-bold text-[var(--accent)]"
+                  className="text-[1.1rem] font-bold text-[var(--antique-bronze)]"
                 >
                   {pillar.stat}
                 </p>
@@ -140,7 +181,7 @@ export default function FounderSection() {
                       </h3>
                       <p
                         style={{ fontFamily: "var(--font-mono)" }}
-                        className="mt-0.5 text-[0.65rem] tracking-[0.13em] text-[var(--accent)]"
+                        className="mt-0.5 text-[0.65rem] tracking-[0.13em] text-[var(--antique-bronze)]"
                       >
                         {founder.role}
                       </p>
@@ -148,8 +189,13 @@ export default function FounderSection() {
                         style={{ fontFamily: "var(--font-mono)" }}
                         className={`mt-1 text-[0.6rem] tracking-[0.06em] leading-[1.6] break-words ${
                           founder.credentialsGold
+<<<<<<< HEAD
                             ? "text-[var(--accent)]"
                             : "text-text-muted"
+=======
+                            ? "text-[var(--antique-bronze)]"
+                            : "text-[var(--text-muted)]"
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
                         }`}
                       >
                         {founder.credentials}
@@ -163,7 +209,11 @@ export default function FounderSection() {
                       <span
                         key={domain}
                         style={{ fontFamily: "var(--font-mono)" }}
+<<<<<<< HEAD
                         className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[rgba(199,162,58,0.07)] border border-[rgba(199,162,58,0.18)] text-text-muted"
+=======
+                        className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[var(--accent-soft)] border border-[var(--antique-bronze)] text-[var(--sgc-cream-muted)]"
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
                       >
                         {domain}
                       </span>
@@ -195,7 +245,7 @@ export default function FounderSection() {
                   >
                     <p
                       style={{ fontFamily: "var(--font-fraunces)" }}
-                      className="text-[0.9rem] italic text-[var(--accent)] leading-snug"
+                      className="text-[0.9rem] italic text-[var(--antique-bronze)] leading-snug"
                     >
                       &ldquo;{founder.quote}&rdquo;
                     </p>

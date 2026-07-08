@@ -30,7 +30,12 @@ export default function ShieldCanvas({
       camera={{ position: [0, 0, 5.8], fov: 55 }}
       gl={{ alpha: true, antialias: true }}
       style={{ width: "100%", height: "100%", background: "transparent" }}
-      aria-hidden="true"
+      // `inert` instead of `aria-hidden="true"` so the 3D overlay's
+      // portalled HTML children (e.g. drei <Html> buttons rendered into
+      // the Canvas wrapper) are also removed from the tab order.
+      // aria-hidden alone left those decorative CTAs focusable, which
+      // Lighthouse flagged as a serious WCAG violation.
+      inert={true}
     >
       <Suspense fallback={null}>
         <ShieldScene

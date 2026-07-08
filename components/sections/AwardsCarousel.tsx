@@ -80,6 +80,7 @@ export default function AwardsCarousel() {
     <section
       id="awards"
       aria-labelledby="awards-heading"
+<<<<<<< HEAD
       className="relative scroll-mt-20 overflow-hidden bg-[var(--bg)] pt-12 pb-16 md:pt-16 md:pb-24"
     >
       <div
@@ -90,6 +91,38 @@ export default function AwardsCarousel() {
             "radial-gradient(ellipse at 50% 0%, rgba(244,241,234,0.05) 0%, transparent 65%)",
         }}
       />
+=======
+      className="relative scroll-mt-20 overflow-hidden bg-[var(--sgc-cream)] pb-16 md:pb-24"
+    >
+      <PremiumEditorialSection
+        nested
+        eyebrow="CREDENTIALS"
+        heading="We are the people behind the credentials."
+        subheading="Verifiable track record · senior finance seats held"
+        imageSrc="/images/sections/human-office-team.jpg"
+        imageAlt="Professional team collaborating in a modern office environment"
+        imageCaption="Every engagement backed by real people · verifiable credentials"
+        layout="lumiere"
+        background="light"
+        pullQuote="Every claim is verifiable because every engagement was real — no borrowed logos, no purchased awards."
+        pullQuoteAttribution="SGC Tech AI · Track Record"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        <p>
+          Behind every engagement stand real people who have been in your seat — CPAs, CIAs, and
+          finance operators who led the teams they now build for. We don&apos;t borrow logos or buy
+          awards. What we offer is a track record you can verify, from senior finance seats held
+          across UAE &amp; international groups.
+        </p>
+        <p>
+          The numbers below aren&apos;t projections — they&apos;re what came out of live client systems.
+          AED 1.15 billion in sales volume processed through a single deployment. Compliance built
+          into delivery, not retrofitted under pressure. Five credentials held personally by the
+          founders, each one current and verifiable with the issuing body.
+        </p>
+      </PremiumEditorialSection>
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
 
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>

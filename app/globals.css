@@ -146,6 +146,75 @@ body {
   to   { background-position: 16px 0; }
 }
 
+<<<<<<< HEAD
+=======
+/* ── Premium editorial typography ─────────────────────────────────────
+   Drop cap + lead paragraph for PremiumEditorialSection body content.
+   Applied via the .premium-dropcap and .premium-lead class names. */
+
+/* Drop cap: first letter of the first <p> child
+   - `initial-letter` does the proper typeset drop cap (where supported)
+   - float/font-size is the universal fallback — applies everywhere,
+     but initial-letter overrides the size when supported via CSS cascade */
+.premium-dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding-right: 0.18em;
+  padding-top: 0.08em;
+  font-weight: 700;
+  font-family: var(--font-fraunces), serif;
+  color: var(--accent);
+  initial-letter: 2;
+  -webkit-initial-letter: 2;
+}
+
+/* Lumière narrow-column drop cap — slightly larger because the
+   text column is narrow (~38–42% of the editorial spread width),
+   so the cap needs to balance against the wider line length.
+   Color uses --antique-bronze (not --accent) because the cream
+   background bypasses the site-wide light-theme override that
+   would otherwise remap --accent to the bronze rung. Gold on
+   cream only hits ~2:1, failing WCAG AA large-text 3:1. */
+.lumiere-dropcap > p:first-of-type::first-letter {
+  font-size: 4.2em;
+  line-height: 0.82;
+  padding-right: 0.2em;
+  padding-top: 0.1em;
+  color: var(--antique-bronze);
+  initial-letter: 2;
+  -webkit-initial-letter: 2;
+}
+
+/* Lead paragraph: slightly larger first paragraph */
+.premium-lead > p:first-of-type {
+  font-size: 1.08em;
+  line-height: 1.8;
+  color: var(--sgc-text-primary);
+}
+
+/* Restore normal sizing for subsequent paragraphs inside .premium-lead
+   (slightly muted but still readable — uses the muted text token which
+   adapts across dark/light theme) */
+.premium-lead > p:first-of-type ~ p {
+  font-size: 1em;
+  line-height: 1.78;
+  color: var(--sgc-text-muted);
+}
+
+/* Pull quote decorative large quotation mark */
+.premium-editorial-blockquote::before {
+  content: "\201C";
+  font-family: var(--font-fraunces), serif;
+  font-size: 3.5em;
+  line-height: 0.6;
+  display: block;
+  color: var(--accent);
+  opacity: 0.3;
+  margin-bottom: -0.25rem;
+}
+
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;

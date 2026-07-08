@@ -18,6 +18,7 @@ export default function SectionEight() {
   return (
     <section
       id="rescue-audit"
+<<<<<<< HEAD
       aria-labelledby="rescue-audit-heading"
       className="relative w-full bg-[var(--surface)] px-6 pt-10 pb-14 md:pt-14 md:pb-20 scroll-mt-20"
     >
@@ -25,6 +26,32 @@ export default function SectionEight() {
         A letter from the founders
       </h2>
       <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[rgba(199,162,58,0.3)] to-transparent" />
+=======
+      aria-label="A letter from the founders"
+      className="relative scroll-mt-20 bg-[var(--sgc-cream)] pb-10 md:pb-14"
+    >
+      <PremiumEditorialSection
+        nested
+        heading="A letter from the founders."
+        subheading="Diagnose before we sell · Dubai 2026"
+        imageSrc="/images/sections/human-team-collaboration.jpg"
+        imageAlt="Team collaborating around a table in a modern office, representing hands-on finance partnership"
+        imageCaption="DUBAI, 2026 · SGC Tech AI"
+        layout="lumiere"
+        background="light"
+        pullQuote="We diagnose before we sell. If we can help, we'll show you exactly how. If we can't, we'll tell you that too."
+        pullQuoteAttribution="SGC Tech AI · Finance Operations Audit"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        {letterBody.map((para, i) => (
+          <p key={i}>{para}</p>
+        ))}
+        <p className="!mt-8 font-semibold text-[var(--sgc-text-primary)]">
+          — The SGC Tech AI Team
+        </p>
+      </PremiumEditorialSection>
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
 
       <div className="mx-auto max-w-5xl">
         <div className="grid items-start gap-10 md:grid-cols-[0.55fr_1fr]">

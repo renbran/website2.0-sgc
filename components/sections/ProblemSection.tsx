@@ -48,11 +48,16 @@ const costItems = [
 
 export default function ProblemSection() {
   return (
+<<<<<<< HEAD
     <section id="problem" aria-labelledby="problem-heading" className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20">
+=======
+    <section id="problem" aria-label="THE PROBLEM" className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20">
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <ScrollParallax amplitude={20} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_0%,rgba(199,162,58,0.05)_0%,transparent_70%)]" />
       </ScrollParallax>
       <GoldDrawIn />
+<<<<<<< HEAD
       <div className="mx-auto w-full max-w-[1440px] 2xl:max-w-[1640px] px-6 md:px-10 lg:px-16">
         <RevealOnScroll focusPull>
           <SectionEyebrow label="WHAT WE FIND" />
@@ -113,8 +118,53 @@ export default function ProblemSection() {
         </RevealOnScroll>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
+=======
+
+      {/* Premium Editorial Layout — replaces the old heading/subheading as the section intro */}
+      <RevealOnScroll focusPull>
+        <SectionEyebrow label="THE PROBLEM" />
+      </RevealOnScroll>
+      <PremiumEditorialSection
+        nested
+        id="problem-editorial"
+        heading="The hidden cost of fragmented operations."
+        subheading="Creating clarity in systems that have drifted"
+        imageSrc="/images/sections/human-team-braining.jpg"
+        imageAlt="Team collaborating around financial data on a whiteboard, representing the complexity of scattered systems"
+        imageCaption="The hidden cost of fragmented operations · UAE mid-market"
+        layout="lumiere"
+        background="light"
+        pullQuote="Three problems compound quietly inside UAE mid-market firms. They look like busy weeks on the surface."
+        pullQuoteAttribution="SGC Tech AI · Operations Audit"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        <p>
+          Three problems — scattered systems, manual work AI should handle, compliance exposure —
+          compound quietly inside UAE mid-market firms. They look like busy weeks on the surface.
+          Underneath, they are <span className="font-semibold text-[var(--sgc-text-primary)]">AED 180K–220K of
+          annual drag</span> on a 25-person team.
+        </p>
+        <p>
+          The damage isn&apos;t dramatic. It&apos;s the slow bleed of a finance lead spending Monday morning
+          chasing numbers that should live in one place. It&apos;s the accountant who spends three days
+          extracting figures from PDFs that a document scanner reads in eleven seconds.
+        </p>
+        <p>
+          This is not a technology problem — it&apos;s an implementation that was never finished,
+          and the daily cost compounds quietly.
+        </p>
+      </PremiumEditorialSection>
+
+      <div className="mx-auto w-full max-w-[1440px] 2xl:max-w-[1640px] px-6 md:px-10 lg:px-16">
+        <div className="mt-14 grid items-start gap-6 md:gap-8 md:grid-cols-3">
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
           {problemCards.map((card, index) => (
-            <RevealOnScroll key={card.title} delay={index * 0.1}>
+            <RevealOnScroll
+              key={card.title}
+              delay={index * 0.1}
+              className={index === 1 ? "md:mt-12 lg:mt-16" : index === 2 ? "md:mt-6 lg:mt-8" : ""}
+            >
               <LivingCard>
               <article className="min-h-[21rem] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-copper)]">
                 <p

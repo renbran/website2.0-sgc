@@ -41,6 +41,12 @@
   --sgc-cyan: #C7A23A;                  /* old cyan accent → refined-gold */
   --sgc-gradient-brand: var(--gold-gradient);
   --sgc-glow-cyan: 0 0 22px rgba(199, 162, 58, 0.35);
+
+  /* Lumière editorial page — cream magazine surface (consistent across themes) */
+  --sgc-cream: #F4EFE0;
+  --sgc-cream-text: #0E121B;
+  --sgc-cream-muted: #5B6474;
+  --sgc-cream-border: rgba(138, 106, 30, 0.22);
 }
 
 /* ── Light theme — ivory/cream surface, navy text, antique-bronze accent ──
@@ -71,6 +77,12 @@
   --sgc-gradient-bg: #FAF6EC;
   --sgc-text-primary: #10161F;
   --sgc-text-muted: rgba(16, 22, 31, 0.6);
+
+  /* Lumière editorial page — slightly warmer cream in light theme */
+  --sgc-cream: #FAF6EC;
+  --sgc-cream-text: #0E121B;
+  --sgc-cream-muted: #5B6474;
+  --sgc-cream-border: rgba(138, 106, 30, 0.22);
 }
 
 .hero-canvas {

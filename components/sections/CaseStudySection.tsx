@@ -80,11 +80,17 @@ export default function CaseStudySection() {
   return (
     <section
       id="case-study"
+<<<<<<< HEAD
       aria-labelledby="case-study-heading"
       className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
+=======
+      aria-label="PROOF"
+      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
     >
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
+<<<<<<< HEAD
         <RevealOnScroll>
           <SectionEyebrow label="WHAT THE WORK PRODUCES" className="whitespace-nowrap" />
           <h2
@@ -104,8 +110,24 @@ export default function CaseStudySection() {
         </RevealOnScroll>
 
         <div className="my-16 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+=======
+        <div className="my-16 grid items-start gap-6 sm:gap-8 sm:grid-cols-2 xl:grid-cols-4">
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
           {stats.map((stat, index) => (
-            <RevealOnScroll key={stat.label} delay={index * 0.08} focusPull>
+            <RevealOnScroll
+              key={stat.label}
+              delay={index * 0.08}
+              focusPull
+              className={
+                index === 1
+                  ? "sm:mt-8 xl:mt-12"
+                  : index === 2
+                    ? "sm:mt-2 xl:mt-6"
+                    : index === 3
+                      ? "sm:mt-10 xl:mt-4"
+                      : ""
+              }
+            >
               <LivingCard>
                 <FlippingCard
                   width={320}
@@ -151,6 +173,7 @@ export default function CaseStudySection() {
           ))}
         </div>
 
+<<<<<<< HEAD
         <RevealOnScroll focusPull>
           <LivingCard>
             <div className="my-12 rounded-2xl border border-[rgba(62,150,179,0.3)] bg-[rgba(62,150,179,0.06)] p-8 md:p-10">
@@ -245,6 +268,83 @@ export default function CaseStudySection() {
             </div>
           </LivingCard>
         </RevealOnScroll>
+=======
+      {/* Premium Editorial Layout — Case Study with image + narrative */}
+      <PremiumEditorialSection
+        nested
+        id="case-study-editorial"
+        heading="A UAE real-estate brokerage, deployed at full scale."
+        subheading="What's possible at scale · anonymised case"
+          imageSrc="/images/sections/human-tech-team.jpg"
+          imageAlt="Technology team collaborating in a modern office, representing the real results of digital transformation"
+          imageCaption="Illustrative image · case figures from live ops · anonymised deployment"
+          layout="lumiere"
+          background="light"
+          pullQuote="This is the ceiling, not the average. Most clients see 20–40% of these gains in Year 1 — which is still a strong return."
+          pullQuoteAttribution="SGC Tech AI · Growth Tier Client"
+          ctaText="Discover the story"
+          ctaHref="#contact"
+        >
+          <p className="text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-teal)]">
+            What&apos;s possible at scale · anonymised case
+          </p>
+          <h3
+            style={{ fontFamily: "var(--font-outfit)" }}
+            className="mt-3 text-[clamp(1.25rem,2vw,1.5rem)] font-bold text-[var(--sgc-text-primary)]"
+          >
+            UAE real-estate brokerage, full deployment
+          </h3>
+          <p className="mt-3">
+            A mid-size UAE real-estate brokerage. 30 agents. Operating on Excel commissions, manual SPA data
+            entry, and WhatsApp as a CRM. We audited in month one, implemented in months two and three.
+          </p>
+          <p>
+            The numbers below are from year one of live operation — verified, not projected. Full audit trail
+            available under NDA.
+          </p>
+          <div className="mt-6 grid grid-cols-2 gap-4">
+            <div>
+              <p
+                style={{ fontFamily: "var(--font-outfit)" }}
+                className="text-[1.5rem] font-extrabold text-[var(--sgc-text-primary)]"
+              >
+                AED 1.15B
+              </p>
+              <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Sales volume processed</p>
+            </div>
+            <div>
+              <p
+                style={{ fontFamily: "var(--font-outfit)" }}
+                className="text-[1.5rem] font-extrabold text-[var(--sgc-text-primary)]"
+              >
+                580
+              </p>
+              <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Real-estate deals</p>
+            </div>
+            <div>
+              <p
+                style={{ fontFamily: "var(--font-outfit)" }}
+                className="text-[1.5rem] font-extrabold text-[var(--sgc-text-primary)]"
+              >
+                104%
+              </p>
+              <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Year-1 ROI</p>
+            </div>
+            <div>
+              <p
+                style={{ fontFamily: "var(--font-outfit)" }}
+                className="text-[1.5rem] font-extrabold text-[var(--sgc-text-primary)]"
+              >
+                5.9 mo
+              </p>
+              <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Payback</p>
+            </div>
+          </div>
+          <p className="mt-4">
+            Client identity protected under NDA. Reference call available on request after Discovery.
+          </p>
+        </PremiumEditorialSection>
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
 
         <RevealOnScroll focusPull>
           <p className="mb-4 text-[0.85rem] font-medium text-[var(--sgc-text-muted)]">

@@ -35,13 +35,56 @@ export default function SolutionSection() {
   return (
     <section
       id="solution"
+<<<<<<< HEAD
       aria-labelledby="solution-heading"
       className="relative scroll-mt-20 bg-[var(--sgc-gradient-bg)] pt-10 pb-14 md:pt-14 md:pb-20"
+=======
+      aria-label="THE SOLUTION"
+      className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
     >
       <ScrollParallax amplitude={16} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_100%,rgba(63,169,245,0.04)_0%,transparent_65%)]" />
       </ScrollParallax>
       <GoldDrawIn />
+<<<<<<< HEAD
+=======
+
+      <RevealOnScroll>
+        <SectionEyebrow label="THE SOLUTION" />
+      </RevealOnScroll>
+      <PremiumEditorialSection
+        nested
+        id="solution-editorial"
+        heading="The system that fits how you work."
+        subheading="Diagnosis first · implementation second · maintenance always"
+        imageSrc="/images/sections/human-data-review.jpg"
+        imageAlt="Professionals reviewing financial data together, representing AI-powered financial visibility and compliance"
+        imageCaption="The system that fits how you work · AI-powered operations"
+        layout="lumiere"
+        background="light"
+        pullQuote="Audit → implementation → ongoing maintenance: the diagnosis fixes what your numbers say is broken, not what a vendor says should be built."
+        pullQuoteAttribution="SGC Tech AI · Diagnostic Framework"
+        ctaText="Discover the story"
+        ctaHref="#contact"
+      >
+        <p>
+          Three outcomes — <span className="font-semibold text-[var(--sgc-text-primary)]">financial
+          visibility, compliance assurance, operational reclaim</span> — delivered as one system,
+          not a stack of demos.
+        </p>
+        <p>
+          We audit your operations before we propose a solution. The result is a system that fits how
+          you work — not how a vendor demo works. Implementation is just one outcome from the audit.
+          Maintenance and compliance are the other two.
+        </p>
+        <p>
+          The diagnosis fixes what your numbers say is broken, not what a vendor says should be built.
+          This is the difference between a system that runs your business and a system that runs itself.
+        </p>
+      </PremiumEditorialSection>
+
+>>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <RevealOnScroll>
           <SectionEyebrow label="HOW WE WORK" />
@@ -101,9 +144,14 @@ export default function SolutionSection() {
         </RevealOnScroll>
 
         {/* Three outcome pillars */}
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 grid items-start gap-6 md:gap-8 md:grid-cols-3">
           {outcomePillars.map((pillar, index) => (
-            <RevealOnScroll key={pillar.heading} delay={index * 0.1} focusPull>
+            <RevealOnScroll
+              key={pillar.heading}
+              delay={index * 0.1}
+              focusPull
+              className={index === 0 ? "md:mt-0" : index === 1 ? "md:mt-10 lg:mt-14" : "md:mt-4 lg:mt-6"}
+            >
               <LivingCard>
               <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-copper)]">
                 <p
