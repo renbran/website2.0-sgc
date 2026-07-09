@@ -62,7 +62,7 @@ export default function FounderSection() {
     <section
       id="founder"
       aria-label="Founders"
-      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
 
@@ -75,7 +75,7 @@ export default function FounderSection() {
         imageAlt="Two founders engaged in a strategic discussion, representing hands-on finance leadership"
         imageCaption="Founders who lead engagements personally · CPA · CIA · CMA"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="Two founders, one firm — finance strategy and the system that delivers it. Because we both speak finance, nothing is lost between advice and execution."
         pullQuoteAttribution="SGC Tech AI · Founders"
         ctaText="Discover the story"
@@ -127,11 +127,11 @@ export default function FounderSection() {
           {founders.map((founder, i) => (
             <RevealOnScroll key={founder.name} delay={i * 0.1}>
               <LivingCard>
-                <div className="h-full p-6 rounded-xl bg-[var(--surface)] border border-[rgba(199,162,58,0.18)] transition-shadow duration-300 hover:shadow-[0_6px_28px_rgba(199,162,58,0.07)] flex flex-col gap-4">
+                <div className="h-full p-6 rounded-xl bg-[var(--surface)] border border-[var(--accent-border)] transition-shadow duration-300 hover:shadow-[0_6px_28px_var(--accent-faint)] flex flex-col gap-4">
 
                   {/* Photo + identity */}
                   <div className="flex items-start gap-4">
-                    <div className="relative w-14 h-14 rounded-full overflow-hidden border border-[rgba(199,162,58,0.3)] flex-shrink-0">
+                    <div className="relative w-14 h-14 rounded-full overflow-hidden border border-[var(--accent-strong)] flex-shrink-0">
                       <Image
                         src={founder.img}
                         alt={founder.alt}
