@@ -81,7 +81,7 @@ export default function CaseStudySection() {
     <section
       id="case-study"
       aria-label="PROOF"
-      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
       <RevealOnScroll>
@@ -162,7 +162,7 @@ export default function CaseStudySection() {
         imageAlt="Technology team collaborating in a modern office, representing the real results of digital transformation"
         imageCaption="Illustrative image · case figures from live ops · anonymised deployment"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="This is the ceiling, not the average. Most clients see 20–40% of these gains in Year 1 — which is still a strong return."
         pullQuoteAttribution="SGC Tech AI · Growth Tier Client"
         ctaText="Discover the story"
@@ -173,7 +173,7 @@ export default function CaseStudySection() {
         </p>
         <h3
           style={{ fontFamily: "var(--font-fraunces)" }}
-          className="mt-3 text-[clamp(1.25rem,2vw,1.5rem)] font-bold text-[var(--sgc-cream-text)]"
+          className="mt-3 text-[clamp(1.25rem,2vw,1.5rem)] font-bold text-[var(--accent)]"
         >
           UAE real-estate brokerage, full deployment
         </h3>
@@ -189,38 +189,38 @@ export default function CaseStudySection() {
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.5rem] font-extrabold text-[var(--sgc-cream-text)]"
+              className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
               AED 1.15B
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-cream-muted)]">Sales volume processed</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Sales volume processed</p>
           </div>
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.5rem] font-extrabold text-[var(--sgc-cream-text)]"
+              className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
               580
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-cream-muted)]">Real-estate deals</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Real-estate deals</p>
           </div>
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.5rem] font-extrabold text-[var(--sgc-cream-text)]"
+              className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
               104%
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-cream-muted)]">Year-1 ROI</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Year-1 ROI</p>
           </div>
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.5rem] font-extrabold text-[var(--sgc-cream-text)]"
+              className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
               5.9 mo
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-cream-muted)]">Payback</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Payback</p>
           </div>
         </div>
         <p className="mt-4">
@@ -258,7 +258,7 @@ export default function CaseStudySection() {
               {comparisonRows.map((row) => (
                 <div
                   key={row.metric}
-                  className="grid grid-cols-[1.3fr_1fr_1fr] gap-4 border-b border-[rgba(255,255,255,0.06)] px-6 py-4 last:border-none"
+                  className="grid grid-cols-[1.3fr_1fr_1fr] gap-4 border-b border-[var(--hairline-faint)] px-6 py-4 last:border-none"
                 >
                   <p className="text-[0.95rem] text-[var(--sgc-text-primary)]">{row.metric}</p>
                   <p className="text-[0.95rem] text-[var(--sgc-text-muted)]">{row.before}</p>
@@ -271,7 +271,7 @@ export default function CaseStudySection() {
               {comparisonRows.map((row) => (
                 <article
                   key={row.metric}
-                  className="rounded-xl border border-[rgba(255,255,255,0.07)] bg-[rgba(8,11,17,0.55)] p-4"
+                  className="rounded-xl border border-[var(--hairline-faint)] bg-[var(--surface-glass)] p-4"
                 >
                   <h3
                     style={{ fontFamily: "var(--font-fraunces)" }}

@@ -19,7 +19,7 @@ export default function AboutCTA() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-1/2"
         style={{
-          background: "radial-gradient(ellipse at 50% 0%, rgba(199,162,58,0.08) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at 50% 0%, var(--accent-faint) 0%, transparent 65%)",
         }}
       />
 
@@ -27,7 +27,7 @@ export default function AboutCTA() {
         <RevealOnScroll>
           <span
             style={{ fontFamily: "var(--font-mono)" }}
-            className="inline-block rounded-full border border-[rgba(199,162,58,0.3)] px-4 py-1.5 text-[0.68rem] font-semibold tracking-[0.18em] text-[var(--accent)]"
+            className="inline-block rounded-full border border-[var(--accent-strong)] px-4 py-1.5 text-[0.68rem] font-semibold tracking-[0.18em] text-[var(--accent)]"
           >
             WHERE THIS STARTS
           </span>

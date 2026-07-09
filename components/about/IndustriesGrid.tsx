@@ -76,7 +76,7 @@ export default function IndustriesGrid() {
             const Icon = industry.icon;
             return (
               <RevealOnScroll key={industry.name} delay={(i % 3) * 0.08}>
-                <div className="group h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition-colors duration-300 hover:border-[rgba(199,162,58,0.3)]">
+                <div className="group h-full overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition-colors duration-300 hover:border-[var(--accent-strong)]">
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={industry.photo}
@@ -106,7 +106,7 @@ export default function IndustriesGrid() {
                         <span
                           key={tag}
                           style={{ fontFamily: "var(--font-mono)" }}
-                          className="rounded px-2 py-0.5 text-[0.62rem] tracking-[0.04em] text-[var(--text-muted)] bg-[rgba(199,162,58,0.06)] border border-[rgba(199,162,58,0.15)]"
+                          className="rounded px-2 py-0.5 text-[0.62rem] tracking-[0.04em] text-[var(--text-muted)] bg-[var(--accent-faint)] border border-[var(--accent-soft-2)]"
                         >
                           {tag}
                         </span>

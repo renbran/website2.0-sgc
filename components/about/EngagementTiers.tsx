@@ -74,7 +74,7 @@ export default function EngagementTiers() {
               <div
                 className={`relative h-full rounded-2xl border p-6 md:p-7 ${
                   tier.recommended
-                    ? "border-[rgba(199,162,58,0.4)] bg-[var(--surface)] shadow-[0_10px_40px_rgba(199,162,58,0.08)]"
+                    ? "border-[var(--accent-strong)] bg-[var(--surface)] shadow-[0_10px_40px_var(--accent-faint)]"
                     : "border-[var(--border)] bg-[var(--surface)]"
                 }`}
               >

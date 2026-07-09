@@ -167,7 +167,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
       <div>
         <p
           style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(255,180,180,0.65)]"
+          className="text-[0.55rem] uppercase tracking-[0.18em] text-[var(--accent-copper)]"
         >
           Excludes
         </p>
@@ -225,7 +225,7 @@ export default function CommercialModelSection() {
     <section
       id="commercial-model"
       aria-label="Commercial Model"
-      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
       <PremiumEditorialSection
@@ -237,7 +237,7 @@ export default function CommercialModelSection() {
         imageAlt="Business professionals collaborating in a modern meeting room, representing transparent partnership"
         imageCaption="Transparent pricing · fixed timelines · no hidden fees"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="No hidden fees. No scope creep. Three clear layers that scale with you — and every price is published."
         pullQuoteAttribution="SGC Tech AI · Commercial Model"
         ctaText="Discover the story"
@@ -295,7 +295,7 @@ export default function CommercialModelSection() {
         <RevealOnScroll delay={0.5}>
           <p
             style={{ fontFamily: "var(--font-inter)" }}
-            className="mt-10 max-w-3xl border-t border-[#3A3220] pt-6 text-[1rem] font-semibold leading-[1.6] text-[var(--sgc-text-primary)]"
+            className="mt-10 max-w-3xl border-t border-[var(--border)] pt-6 text-[1rem] font-semibold leading-[1.6] text-[var(--sgc-text-primary)]"
           >
             We don&apos;t sell Implementation without Subscription.
           </p>

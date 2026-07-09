@@ -153,7 +153,7 @@ export default function TransformationFramework() {
 function LayerCard({ layer }: { layer: (typeof LAYERS)[number] }) {
   const Icon = layer.icon;
   return (
-    <div className="rounded-2xl border border-[rgba(199,162,58,0.22)] bg-[var(--surface)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:p-8">
+    <div className="rounded-2xl border border-[var(--accent-border)] bg-[var(--surface)] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)] md:p-8">
       <div className="flex items-center justify-between">
         <span
           style={{ fontFamily: "var(--font-fraunces)" }}

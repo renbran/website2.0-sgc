@@ -36,7 +36,7 @@ export default function SolutionSection() {
     <section
       id="solution"
       aria-label="THE SOLUTION"
-      className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <ScrollParallax amplitude={16} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_100%,rgba(63,169,245,0.04)_0%,transparent_65%)]" />
@@ -55,14 +55,14 @@ export default function SolutionSection() {
         imageAlt="Professionals reviewing financial data together, representing AI-powered financial visibility and compliance"
         imageCaption="The system that fits how you work · AI-powered operations"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="Audit → implementation → ongoing maintenance: the diagnosis fixes what your numbers say is broken, not what a vendor says should be built."
         pullQuoteAttribution="SGC Tech AI · Diagnostic Framework"
         ctaText="Discover the story"
         ctaHref="#contact"
       >
         <p>
-          Three outcomes — <span className="font-semibold text-[var(--sgc-cream-text)]">financial
+          Three outcomes — <span className="font-semibold text-[var(--accent)]">financial
           visibility, compliance assurance, operational reclaim</span> — delivered as one system,
           not a stack of demos.
         </p>
@@ -88,10 +88,10 @@ export default function SolutionSection() {
               className={index === 0 ? "md:mt-0" : index === 1 ? "md:mt-10 lg:mt-14" : "md:mt-4 lg:mt-6"}
             >
               <LivingCard>
-              <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-copper)]">
+              <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-border)]">
                 <p
                   aria-hidden
-                  className="text-[1.5rem] text-[rgba(199,162,58,0.7)]"
+                  className="text-[1.5rem] text-[var(--accent)] opacity-70"
                 >
                   {pillar.icon}
                 </p>
@@ -136,7 +136,7 @@ export default function SolutionSection() {
                       <p className="mt-1 text-[0.8rem] text-[var(--sgc-text-muted)]">{layer.detail}</p>
                     )}
                     {i < stackLayers.length - 1 && (
-                      <div aria-hidden className="mx-auto mt-3 h-4 w-px bg-gradient-to-b from-[rgba(167,170,176,0.3)] to-transparent" />
+                      <div aria-hidden className="mx-auto mt-3 h-4 w-px bg-gradient-to-b from-[var(--border)] to-transparent" />
                     )}
                   </div>
                 ))}

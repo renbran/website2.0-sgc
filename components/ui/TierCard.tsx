@@ -31,16 +31,16 @@ export default function TierCard({
       {isPopular ? (
         <span
           style={{ fontFamily: "var(--font-inter)" }}
-          className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-sm bg-[image:var(--sgc-gradient-brand)] px-4 py-1 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-[var(--sgc-black)] shadow-[0_0_18px_rgba(199,162,58,0.4)]"
+          className="absolute -top-3 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-sm bg-[image:var(--sgc-gradient-brand)] px-4 py-1 text-[0.66rem] font-bold uppercase tracking-[0.2em] text-[var(--sgc-black)] shadow-[0_0_18px_var(--accent-glow)]"
         >
           Most Popular
         </span>
       ) : null}
       <GlassCard as="article" featured={isPopular} className="h-full">
       <div
-        className={`relative flex h-full min-h-[36rem] flex-col rounded-2xl border bg-[var(--surface)] p-6 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[rgba(199,162,58,0.35)] hover:shadow-[0_8px_32px_rgba(199,162,58,0.12)] ${
+        className={`relative flex h-full min-h-[36rem] flex-col rounded-2xl border bg-[var(--surface)] p-6 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[var(--accent-strong)] hover:shadow-[0_8px_32px_var(--accent-glow)] ${
           isPopular
-            ? "border-[var(--accent)] shadow-[0_0_30px_rgba(199,162,58,0.25)]"
+            ? "border-[var(--accent)] shadow-[0_0_30px_var(--accent-glow)]"
             : "border-[var(--border)]"
         }`}
       >
@@ -52,7 +52,7 @@ export default function TierCard({
           {name}
         </h3>
         {payback && (
-          <p style={{ fontFamily: "var(--font-fraunces)" }} className="mt-1 text-[0.72rem] text-[rgba(199,162,58,0.7)]">
+          <p style={{ fontFamily: "var(--font-fraunces)" }} className="mt-1 text-[0.72rem] text-[var(--accent)] opacity-70">
             {payback}
           </p>
         )}
@@ -64,11 +64,11 @@ export default function TierCard({
           {implementationPrice}
         </p>
         <p className="mt-1 text-[0.85rem] text-[var(--sgc-text-muted)]">one-time implementation</p>
-        <p className="mt-0.5 font-mono text-[0.72rem] tracking-[0.12em] text-[rgba(199,162,58,0.5)]">
+        <p className="mt-0.5 font-mono text-[0.72rem] tracking-[0.12em] text-[var(--accent)] opacity-60">
           + platform subscription · always paired
         </p>
 
-        <div className="my-4 h-px w-full bg-[rgba(255,255,255,0.08)]" />
+        <div className="my-4 h-px w-full bg-[var(--hairline-faint)]" />
 
         <p
           style={{ fontFamily: "var(--font-inter)" }}
@@ -80,12 +80,12 @@ export default function TierCard({
           </span>
         </p>
 
-        <div className="my-4 h-px w-full bg-[rgba(255,255,255,0.08)]" />
+        <div className="my-4 h-px w-full bg-[var(--hairline-faint)]" />
 
         <ul className="space-y-2">
           {features.map((feature) => (
             <li key={feature.label} className="flex items-start gap-2 text-[0.9rem] font-medium">
-              <span className={feature.included ? "text-[var(--accent-sage)]" : "text-[rgba(255,120,120,0.7)]"}>
+              <span className={feature.included ? "text-[var(--accent-sage)]" : "text-[var(--accent-copper)] opacity-70"}>
                 {feature.included ? "✓" : "✕"}
               </span>
               <span className={feature.included ? "text-[var(--sgc-text-primary)]" : "text-[var(--sgc-text-muted)]"}>
@@ -97,7 +97,7 @@ export default function TierCard({
 
         <a
           href="#contact"
-          className="mt-auto inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.28)] bg-transparent px-4 py-3 text-[0.9rem] font-semibold text-[var(--sgc-cyan)] transition duration-300 ease-out hover:border-[var(--sgc-cyan)] hover:bg-[rgba(199,162,58,0.08)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sgc-cyan)]"
+          className="mt-auto inline-flex w-full items-center justify-center rounded-full border border-[var(--accent-border)] bg-transparent px-4 py-3 text-[0.9rem] font-semibold text-[var(--accent)] transition duration-300 ease-out hover:border-[var(--accent)] hover:bg-[var(--accent-faint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
         >
           Get Started
         </a>

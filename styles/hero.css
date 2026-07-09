@@ -33,6 +33,23 @@
   /* Helix material (now gold) */
   --helix-glow: #C7A23A;
 
+  /* Translucent accent tokens — used by section borders, hover glows, and
+     decorative rings. Components must key off these instead of hardcoding
+     rgba(199, 162, 58, …) so the theme toggle actually applies. Each rung
+     is paired in :root[data-theme="light"] below for the bronze variant. */
+  --accent-faint:   rgba(199, 162, 58, 0.06);
+  --accent-soft-2:  rgba(199, 162, 58, 0.13); /* already exists as --accent-soft */
+  --accent-border:  rgba(199, 162, 58, 0.22);
+  --accent-strong:  rgba(199, 162, 58, 0.35);
+  --accent-glow:    rgba(199, 162, 58, 0.55);
+  --accent-bright:  rgba(199, 162, 58, 0.85);
+
+  /* Translucent foundation tokens — replaces rgba(255,255,255,…) hairlines
+     and rgba(8,11,17,…) alpha overlays. Inverts under :root[data-theme=light]. */
+  --hairline-faint: rgba(255, 255, 255, 0.06);
+  --hairline-soft:  rgba(255, 255, 255, 0.10);
+  --surface-glass:  rgba(8, 11, 17, 0.55);
+
   /* Legacy aliases — remapped from the old cyan brand era onto the new palette */
   --sgc-gradient-bg: #080B11;
   --sgc-text-primary: #F4F1E8;
@@ -83,6 +100,20 @@
   --sgc-cream-text: #0E121B;
   --sgc-cream-muted: #5B6474;
   --sgc-cream-border: rgba(138, 106, 30, 0.22);
+
+  /* Bronze translucent rungs (mirror the gold tokens above for light theme,
+     where the accent flips to antique-bronze for WCAG AA contrast on cream). */
+  --accent-faint:   rgba(138, 106, 30, 0.05);
+  --accent-soft-2:  rgba(138, 106, 30, 0.10);
+  --accent-border:  rgba(138, 106, 30, 0.18);
+  --accent-strong:  rgba(138, 106, 30, 0.32);
+  --accent-glow:    rgba(138, 106, 30, 0.50);
+  --accent-bright:  rgba(138, 106, 30, 0.80);
+
+  /* Light theme inverts the dark-on-dark hairlines and overlays. */
+  --hairline-faint: rgba(138, 106, 30, 0.10);
+  --hairline-soft:  rgba(138, 106, 30, 0.18);
+  --surface-glass:  rgba(255, 255, 255, 0.55);
 }
 
 .hero-canvas {

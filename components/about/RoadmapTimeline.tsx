@@ -123,7 +123,7 @@ export default function RoadmapTimeline() {
                   ref={(el) => {
                     markerRefs.current[i] = el;
                   }}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(199,162,58,0.4)] bg-[var(--surface)]"
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[var(--accent-strong)] bg-[var(--surface)]"
                   style={{ fontFamily: "var(--font-fraunces)" }}
                 >
                   <span className="text-[1rem] font-bold text-[var(--accent)]">{phase.step}</span>

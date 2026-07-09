@@ -68,7 +68,7 @@ export default function TransformationCompare() {
 
           <RevealOnScroll delay={0.15}>
             <LivingCard className="h-full">
-              <div className="h-full rounded-2xl border border-[rgba(199,162,58,0.3)] bg-[var(--surface)] p-6 shadow-[0_6px_28px_rgba(199,162,58,0.06)] md:p-8">
+              <div className="h-full rounded-2xl border border-[var(--accent-strong)] bg-[var(--surface)] p-6 shadow-[0_6px_28px_var(--accent-faint)] md:p-8">
                 <p
                   style={{ fontFamily: "var(--font-mono)" }}
                   className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]"

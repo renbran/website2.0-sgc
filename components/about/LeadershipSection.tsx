@@ -97,10 +97,10 @@ export default function LeadershipSection() {
             return (
               <RevealOnScroll key={founder.name} delay={i * 0.1}>
                 <LivingCard>
-                  <div className="h-full rounded-2xl border border-[rgba(199,162,58,0.2)] bg-[var(--surface)] p-6 md:p-8">
+                  <div className="h-full rounded-2xl border border-[var(--accent-border)] bg-[var(--surface)] p-6 md:p-8">
                     <div className="relative inline-flex">
                       <div
-                        className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--sgc-black)] ring-1 ring-[rgba(199,162,58,0.35)]"
+                        className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--sgc-black)] ring-1 ring-[var(--accent-strong)]"
                         aria-hidden
                       >
                         <span

@@ -89,7 +89,7 @@ export default function ContactSection() {
       className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <ScrollParallax amplitude={20} className="pointer-events-none absolute inset-0">
-        <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(circle_at_50%_0%,rgba(199,162,58,0.08)_0%,transparent_50%)]" />
+        <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[var(--accent-faint)]" />
       </ScrollParallax>
       <GoldDrawIn />
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
@@ -116,8 +116,8 @@ export default function ContactSection() {
             aria-hidden
             className="pointer-events-none absolute top-7 left-[12%] right-[12%] hidden h-px sm:block"
             style={{
-              backgroundImage:
-                "linear-gradient(90deg, rgba(199,162,58,0.45) 50%, transparent 0)",
+backgroundImage:
+                 "linear-gradient(90deg, var(--accent-strong) 50%, transparent 0)",
               backgroundSize: "8px 1px",
               backgroundRepeat: "repeat-x",
               animation: "sgc-connector 1.6s linear infinite",
@@ -127,10 +127,10 @@ export default function ContactSection() {
             {nextSteps.map((step, index) => (
               <RevealOnScroll key={step.number} delay={0.1 + index * 0.1}>
                 <LivingCard>
-                  <div className="relative h-full rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[rgba(199,162,58,0.3)] hover:shadow-[0_8px_24px_rgba(199,162,58,0.08)]">
+                  <div className="relative h-full rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5 py-4 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[var(--accent-strong)] hover:shadow-[0_8px_24px_var(--accent-glow)]">
                     <p
                       style={{ fontFamily: "var(--font-mono)" }}
-                      className="text-[1.1rem] font-bold text-[rgba(199,162,58,0.7)]"
+                      className="text-[1.1rem] font-bold text-[var(--accent)] opacity-70"
                     >
                       {step.number}
                     </p>

@@ -81,7 +81,7 @@ export default function FaqSection() {
         <div className="mx-auto mt-12 max-w-3xl space-y-3">
           {faqs.map((faq, index) => (
             <RevealOnScroll key={faq.question} delay={index * 0.05}>
-              <details className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition duration-300 ease-out hover:border-[rgba(199,162,58,0.3)] open:border-[rgba(199,162,58,0.3)]">
+              <details className="group rounded-2xl border border-[var(--border)] bg-[var(--surface)] transition duration-300 ease-out hover:border-[var(--accent-strong)] open:border-[var(--accent-strong)]">
                 <summary
                   style={{ fontFamily: "var(--font-inter)" }}
                   className="flex cursor-pointer select-none items-center justify-between gap-4 px-6 py-5 text-[1rem] font-semibold text-[var(--sgc-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sgc-cyan)] rounded-2xl"

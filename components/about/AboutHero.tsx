@@ -50,7 +50,7 @@ export default function AboutHero() {
         className="pointer-events-none absolute right-[-10%] top-[10%] h-[420px] w-[420px] rounded-full md:h-[560px] md:w-[560px]"
         style={{
           background:
-            "radial-gradient(circle at 40% 35%, rgba(199,162,58,0.18) 0%, transparent 68%)",
+            "radial-gradient(circle at 40% 35%, var(--accent-soft-2) 0%, transparent 68%)",
           transformStyle: "preserve-3d",
         }}
       />

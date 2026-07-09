@@ -18,7 +18,7 @@ export default function SectionEight() {
     <section
       id="rescue-audit"
       aria-label="A letter from the founders"
-      className="relative scroll-mt-20 bg-[var(--sgc-cream)] pb-10 md:pb-14"
+      className="relative scroll-mt-20 bg-[var(--bg)] pb-10 md:pb-14"
     >
       <PremiumEditorialSection
         nested
@@ -28,7 +28,7 @@ export default function SectionEight() {
         imageAlt="Team collaborating around a table in a modern office, representing hands-on finance partnership"
         imageCaption="DUBAI, 2026 · SGC Tech AI"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="We diagnose before we sell. If we can help, we'll show you exactly how. If we can't, we'll tell you that too."
         pullQuoteAttribution="SGC Tech AI · Finance Operations Audit"
         ctaText="Discover the story"

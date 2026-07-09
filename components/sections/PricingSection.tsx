@@ -152,9 +152,9 @@ export default function PricingSection() {
               <RevealOnScroll key={tier.name} delay={i * 0.1}>
                 <LivingCard>
                   <div
-                    className={`relative overflow-hidden rounded-xl border p-4 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[rgba(199,162,58,0.35)] hover:shadow-[0_8px_32px_rgba(199,162,58,0.1)] ${
+                    className={`relative overflow-hidden rounded-xl border p-4 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[var(--accent-strong)] hover:shadow-[0_8px_32px_rgba(199,162,58,0.1)] ${
                       tier.featured
-                        ? "border-[rgba(199,162,58,0.4)] bg-[rgba(199,162,58,0.04)]"
+                        ? "border-[var(--accent-strong)] bg-[var(--accent-faint)]"
                         : "border-[var(--border)] bg-[var(--surface-high)]"
                     }`}
                   >
@@ -165,7 +165,7 @@ export default function PricingSection() {
                         style={{
                           background:
                             "linear-gradient(180deg, transparent 0%, rgba(199,162,58,0.85) 50%, transparent 100%)",
-                          boxShadow: "0 0 12px rgba(199,162,58,0.55)",
+                          boxShadow: "0 0 12px var(--accent-glow)",
                         }}
                       />
                     )}

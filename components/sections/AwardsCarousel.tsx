@@ -77,7 +77,7 @@ export default function AwardsCarousel() {
     <section
       id="awards"
       aria-labelledby="awards-heading"
-      className="relative scroll-mt-20 overflow-hidden bg-[var(--sgc-cream)] pb-16 md:pb-24"
+      className="relative scroll-mt-20 overflow-hidden bg-[var(--bg)] pb-16 md:pb-24"
     >
       <PremiumEditorialSection
         nested
@@ -88,7 +88,7 @@ export default function AwardsCarousel() {
         imageAlt="Professional team collaborating in a modern office environment"
         imageCaption="Every engagement backed by real people · verifiable credentials"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="Every claim is verifiable because every engagement was real — no borrowed logos, no purchased awards."
         pullQuoteAttribution="SGC Tech AI · Track Record"
         ctaText="Discover the story"
@@ -111,11 +111,11 @@ export default function AwardsCarousel() {
       <div className="relative overflow-hidden" ref={rowRef}>
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[var(--sgc-black)] to-transparent"
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[var(--bg)] to-transparent"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-r from-transparent to-[var(--sgc-black)]"
+          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-r from-transparent to-[var(--bg)]"
         />
 
         {reduced ? (

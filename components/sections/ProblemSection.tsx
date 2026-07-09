@@ -48,7 +48,7 @@ const costItems = [
 
 export default function ProblemSection() {
   return (
-    <section id="problem" aria-label="THE PROBLEM" className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20">
+    <section id="problem" aria-label="THE PROBLEM" className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20">
       <ScrollParallax amplitude={20} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_0%,rgba(199,162,58,0.05)_0%,transparent_70%)]" />
       </ScrollParallax>
@@ -67,7 +67,7 @@ export default function ProblemSection() {
         imageAlt="Team collaborating around financial data on a whiteboard, representing the complexity of scattered systems"
         imageCaption="The hidden cost of fragmented operations · UAE mid-market"
         layout="lumiere"
-        background="light"
+        background="dark"
         pullQuote="Three problems compound quietly inside UAE mid-market firms. They look like busy weeks on the surface."
         pullQuoteAttribution="SGC Tech AI · Operations Audit"
         ctaText="Discover the story"
@@ -76,7 +76,7 @@ export default function ProblemSection() {
         <p>
           Three problems — scattered systems, manual work AI should handle, compliance exposure —
           compound quietly inside UAE mid-market firms. They look like busy weeks on the surface.
-          Underneath, they are <span className="font-semibold text-[var(--sgc-cream-text)]">AED 180K–220K of
+          Underneath, they are <span className="font-semibold text-[var(--accent)]">AED 180K–220K of
           annual drag</span> on a 25-person team.
         </p>
         <p>
@@ -99,7 +99,7 @@ export default function ProblemSection() {
               className={index === 1 ? "md:mt-12 lg:mt-16" : index === 2 ? "md:mt-6 lg:mt-8" : ""}
             >
               <LivingCard>
-              <article className="min-h-[21rem] rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-copper)]">
+              <article className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-8 transition duration-300 ease-out hover:border-[var(--accent-border)]">
                 <p
                   style={{ fontFamily: "var(--font-inter)" }}
                   className="text-[0.85rem] font-bold tracking-[0.18em] text-text-muted"
