@@ -77,19 +77,22 @@ export default function AwardsCarousel() {
     <section
       id="awards"
       aria-labelledby="awards-heading"
-      className="relative scroll-mt-20 overflow-hidden bg-[var(--sgc-black)] pb-16 md:pb-24"
+      className="relative scroll-mt-20 overflow-hidden bg-[var(--sgc-cream)] pb-16 md:pb-24"
     >
       <PremiumEditorialSection
         nested
         eyebrow="CREDENTIALS"
         heading="We are the people behind the credentials."
+        subheading="Verifiable track record · senior finance seats held"
         imageSrc="/images/sections/human-office-team.jpg"
         imageAlt="Professional team collaborating in a modern office environment"
         imageCaption="Every engagement backed by real people · verifiable credentials"
-        layout="image-left"
-        background="dark"
+        layout="lumiere"
+        background="light"
         pullQuote="Every claim is verifiable because every engagement was real — no borrowed logos, no purchased awards."
         pullQuoteAttribution="SGC Tech AI · Track Record"
+        ctaText="Discover the story"
+        ctaHref="#contact"
       >
         <p>
           Behind every engagement stand real people who have been in your seat — CPAs, CIAs, and

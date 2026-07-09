@@ -156,10 +156,10 @@ body {
      but initial-letter overrides the size when supported via CSS cascade */
 .premium-dropcap > p:first-of-type::first-letter {
   float: left;
-  font-size: 3.4em;
-  line-height: 0.82;
-  padding-right: 0.16em;
-  padding-top: 0.06em;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding-right: 0.18em;
+  padding-top: 0.08em;
   font-weight: 700;
   font-family: var(--font-fraunces), serif;
   color: var(--accent);
@@ -167,18 +167,51 @@ body {
   -webkit-initial-letter: 2;
 }
 
+/* Lumière narrow-column drop cap — slightly larger because the
+   text column is narrow (~38–42% of the editorial spread width),
+   so the cap needs to balance against the wider line length.
+   Color uses --antique-bronze (not --accent) because the cream
+   background bypasses the site-wide light-theme override that
+   would otherwise remap --accent to the bronze rung. Gold on
+   cream only hits ~2:1, failing WCAG AA large-text 3:1. */
+.lumiere-dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.2em;
+  line-height: 0.82;
+  padding-right: 0.2em;
+  padding-top: 0.1em;
+  font-weight: 700;
+  font-family: var(--font-fraunces), serif;
+  color: var(--antique-bronze);
+  initial-letter: 2;
+  -webkit-initial-letter: 2;
+}
+
 /* Lead paragraph: slightly larger first paragraph */
 .premium-lead > p:first-of-type {
-  font-size: 1.1em;
+  font-size: 1.08em;
   line-height: 1.8;
   color: var(--sgc-text-primary);
 }
 
-/* Restore normal sizing for subsequent paragraphs inside .premium-lead */
+/* Restore normal sizing for subsequent paragraphs inside .premium-lead
+   (slightly muted but still readable — uses the muted text token which
+   adapts across dark/light theme) */
 .premium-lead > p:first-of-type ~ p {
   font-size: 1em;
-  line-height: 1.75;
-  color: var(--text-secondary);
+  line-height: 1.78;
+  color: var(--sgc-text-muted);
+}
+
+/* Cream (Lumière) sections bypass the site theme toggle, so the
+   theme-flipping text tokens above would render light-on-cream in dark
+   mode. Pin paragraph color to the fixed cream text tokens whenever the
+   body carries the lumiere drop cap (i.e. cream background). */
+.lumiere-dropcap.premium-lead > p:first-of-type {
+  color: var(--sgc-cream-text);
+}
+.lumiere-dropcap.premium-lead > p:first-of-type ~ p {
+  color: var(--sgc-cream-muted);
 }
 
 /* Pull quote decorative large quotation mark */

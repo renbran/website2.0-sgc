@@ -62,7 +62,7 @@ export default function FounderSection() {
     <section
       id="founder"
       aria-label="Founders"
-      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
 
@@ -70,13 +70,16 @@ export default function FounderSection() {
         nested
         id="founder-editorial"
         heading="We're the finance leaders who got tired of broken systems."
+        subheading="Senior-led engagements · 15+ years in your seat"
         imageSrc="/images/sections/human-founders-discussion.jpg"
         imageAlt="Two founders engaged in a strategic discussion, representing hands-on finance leadership"
         imageCaption="Founders who lead engagements personally · CPA · CIA · CMA"
-        layout="image-right"
-        background="dark"
+        layout="lumiere"
+        background="light"
         pullQuote="Two founders, one firm — finance strategy and the system that delivers it. Because we both speak finance, nothing is lost between advice and execution."
         pullQuoteAttribution="SGC Tech AI · Founders"
+        ctaText="Discover the story"
+        ctaHref="#contact"
       >
         <p>
           We built this firm because we spent years inside UAE finance teams — as CPAs, CIAs,
@@ -96,11 +99,7 @@ export default function FounderSection() {
 
         {/* Three-pillar strip */}
         <RevealOnScroll delay={0.1}>
-<<<<<<< HEAD
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[rgba(199,162,58,0.15)] border border-[rgba(199,162,58,0.15)] rounded-xl max-w-3xl mx-auto overflow-hidden">
-=======
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--antique-bronze)] border border-[var(--antique-bronze)] rounded-xl max-w-3xl mx-auto overflow-hidden">
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
             {FIRM_PILLARS.map((pillar) => (
               <div key={pillar.stat} className="px-6 py-5 pb-6 sm:pb-5 text-center">
                 <p
@@ -121,7 +120,7 @@ export default function FounderSection() {
         </RevealOnScroll>
 
         {/* Thin gold rule */}
-        <div className="max-w-xs mx-auto mt-10 mb-10 h-px bg-gradient-to-r from-transparent via-[rgba(199,162,58,0.25)] to-transparent" />
+        <div className="max-w-xs mx-auto mt-10 mb-10 h-px bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-25" />
 
         {/* Two-column founder cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-5xl mx-auto">
@@ -158,13 +157,8 @@ export default function FounderSection() {
                         style={{ fontFamily: "var(--font-mono)" }}
                         className={`mt-1 text-[0.6rem] tracking-[0.06em] leading-[1.6] break-words ${
                           founder.credentialsGold
-<<<<<<< HEAD
-                            ? "text-[var(--accent)]"
-                            : "text-text-muted"
-=======
                             ? "text-[var(--antique-bronze)]"
                             : "text-[var(--text-muted)]"
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
                         }`}
                       >
                         {founder.credentials}
@@ -178,11 +172,7 @@ export default function FounderSection() {
                       <span
                         key={domain}
                         style={{ fontFamily: "var(--font-mono)" }}
-<<<<<<< HEAD
-                        className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[rgba(199,162,58,0.07)] border border-[rgba(199,162,58,0.18)] text-text-muted"
-=======
                         className="inline-block px-2 py-0.5 rounded text-[0.6rem] tracking-[0.06em] bg-[var(--accent-soft)] border border-[var(--antique-bronze)] text-[var(--sgc-cream-muted)]"
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
                       >
                         {domain}
                       </span>

@@ -9,15 +9,6 @@ import SectionEyebrow from "./SectionEyebrow";
 /**
  * PremiumEditorialSection — Modern editorial/writing format with:
  * - Asymmetric image + text layout (magazine-style)
-<<<<<<< HEAD
- * - Large hero image with overlay gradient
- * - Pull quotes with gold accent
- * - Drop cap first letter styling
- * - Lead paragraph (slightly larger first paragraph)
- * - Gold decorative ornaments
- * - Generous whitespace and breathing room
- * - Responsive: stacks on mobile, asymmetric on desktop
-=======
  * - Lumière editorial spread: large image on right, narrow text column on left
  * - Drop cap first letter (gold)
  * - Lead paragraph (slightly larger first paragraph)
@@ -26,7 +17,6 @@ import SectionEyebrow from "./SectionEyebrow";
  * - "Discover the story" CTA link
  * - Light/cream background option for magazine-page feel
  * - Theme-aware (works in both dark and light)
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
  *
  * Layout variants:
  * - "image-left" (default): Image left, text right
@@ -65,17 +55,20 @@ interface PremiumEditorialSectionProps {
   pullQuoteAttribution?: string;
   /** Layout variant */
   layout?: LayoutVariant;
-<<<<<<< HEAD
-  /** Background variant */
-  background?: "dark" | "gradient" | "surface";
+  /** Background variant — "light" uses cream/off-white for magazine feel */
+  background?: "dark" | "gradient" | "surface" | "light";
   /** Enable drop cap on first paragraph (default: true) */
   dropCap?: boolean;
   /** Enable lead paragraph styling (slightly larger first p, default: true) */
   leadParagraph?: boolean;
-  /** Show gold decorative ornament between content groups */
+  /** Show gold decorative ornament between content groups (default: true for lumiere) */
   ornament?: boolean;
   /** When true, removes the section's own padding (pt/pb) so it blends with the parent section */
   nested?: boolean;
+  /** CTA link text (e.g., "Discover the story") */
+  ctaText?: string;
+  /** CTA link href */
+  ctaHref?: string;
   /** Additional className */
   className?: string;
 }
@@ -96,17 +89,14 @@ export default function PremiumEditorialSection({
   background = "dark",
   dropCap = true,
   leadParagraph = true,
-  ornament = false,
+  ornament,
   nested = false,
+  ctaText,
+  ctaHref,
   className = "",
 }: PremiumEditorialSectionProps) {
   const reduced = useReducedMotion();
 
-<<<<<<< HEAD
-  const bgClass =
-    background === "dark"
-      ? "bg-[var(--bg)]"
-=======
   // Lumière layout defaults the ornament on; other layouts default it off
   const showOrnament = ornament ?? layout === "lumiere";
 
@@ -115,8 +105,7 @@ export default function PremiumEditorialSection({
   const bgClass = isLightBg
     ? "bg-[var(--sgc-cream)]"
     : background === "dark"
-      ? "bg-[var(--sgc-black)]"
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
+      ? "bg-[var(--bg)]"
       : background === "gradient"
         ? "bg-[var(--sgc-gradient-bg)]"
         : "bg-[var(--surface)]";
@@ -447,7 +436,7 @@ export default function PremiumEditorialSection({
               </div>
 
               {/* Decorative gold ornament */}
-              {ornament && (
+              {showOrnament && (
                 <motion.div
                   initial={reduced ? {} : { opacity: 0, scale: 0.8 }}
                   whileInView={reduced ? {} : { opacity: 1, scale: 1 }}

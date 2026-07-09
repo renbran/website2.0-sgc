@@ -108,7 +108,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
           {layer.optional && (
             <span
               style={{ fontFamily: "var(--font-mono)" }}
-              className="text-[0.68rem] tracking-[0.12em] text-[rgba(199,162,58,0.45)]"
+              className="text-[0.68rem] tracking-[0.12em] text-[var(--accent)] opacity-50"
             >
               OPTIONAL
             </span>
@@ -151,11 +151,11 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
       <div>
         <p
           style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(199,162,58,0.7)]"
+          className="text-[0.55rem] uppercase tracking-[0.18em] text-[var(--accent)]"
         >
           Includes
         </p>
-        <ul className="mt-1 space-y-0.5 text-[0.78rem] leading-[1.4] text-text-primary">
+        <ul className="mt-1 space-y-0.5 text-[0.78rem] leading-[1.4] text-[var(--text-primary)]">
           {layer.includes.map((line) => (
             <li key={line} className="flex gap-1.5 break-words">
               <span className="shrink-0 text-[var(--accent)]">✓</span>
@@ -167,11 +167,11 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
       <div>
         <p
           style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
-          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(199,84,90,0.75)]"
+          className="text-[0.55rem] uppercase tracking-[0.18em] text-[rgba(255,180,180,0.65)]"
         >
           Excludes
         </p>
-        <ul className="mt-1 space-y-0.5 text-[0.75rem] leading-[1.4] text-text-muted">
+        <ul className="mt-1 space-y-0.5 text-[0.75rem] leading-[1.4] text-[var(--text-muted)]">
           {layer.excludes.map((line) => (
             <li key={line} className="flex gap-1.5 break-words">
               <span className="shrink-0">✕</span>
@@ -189,7 +189,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
         style={{ x: shiftX, y: shiftY }}
         className={`relative rounded-xl border-[1px] border-l-2 p-0 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(199,162,58,0.1)] ${
           layer.optional
-            ? "border-[rgba(199,162,58,0.18)] border-l-[rgba(199,162,58,0.3)] opacity-60 hover:opacity-75"
+            ? "border-[var(--accent)] border-l-[var(--accent)] opacity-60 hover:opacity-75"
             : "border-[var(--border)] border-l-[var(--accent)]"
         }`}
       >
@@ -225,20 +225,23 @@ export default function CommercialModelSection() {
     <section
       id="commercial-model"
       aria-label="Commercial Model"
-      className="scroll-mt-20 bg-[var(--sgc-black)] pt-10 pb-14 md:pt-14 md:pb-20"
+      className="scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
     >
       <GoldDrawIn />
       <PremiumEditorialSection
         nested
         eyebrow="HOW WE WORK"
-        heading="The Three-Layer Commercial Model"
+        heading="The Three-Layer Commercial Model."
+        subheading="Transparent pricing · fixed timelines · no hidden fees"
         imageSrc="/images/sections/human-business-meeting.jpg"
         imageAlt="Business professionals collaborating in a modern meeting room, representing transparent partnership"
         imageCaption="Transparent pricing · fixed timelines · no hidden fees"
-        layout="image-right"
-        background="dark"
+        layout="lumiere"
+        background="light"
         pullQuote="No hidden fees. No scope creep. Three clear layers that scale with you — and every price is published."
         pullQuoteAttribution="SGC Tech AI · Commercial Model"
+        ctaText="Discover the story"
+        ctaHref="#contact"
       >
         <p>
           We don&apos;t sell Implementation without Subscription, and we don&apos;t let unmaintained

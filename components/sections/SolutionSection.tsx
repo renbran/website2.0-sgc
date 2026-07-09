@@ -1,9 +1,9 @@
-import NextImage from "next/image";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import LivingCard from "@/components/ui/LivingCard";
 import ScrollParallax from "@/components/ui/ScrollParallax";
+import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 
 const outcomePillars = [
   {
@@ -35,20 +35,13 @@ export default function SolutionSection() {
   return (
     <section
       id="solution"
-<<<<<<< HEAD
-      aria-labelledby="solution-heading"
-      className="relative scroll-mt-20 bg-[var(--sgc-gradient-bg)] pt-10 pb-14 md:pt-14 md:pb-20"
-=======
       aria-label="THE SOLUTION"
       className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20"
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
     >
       <ScrollParallax amplitude={16} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_100%,rgba(63,169,245,0.04)_0%,transparent_65%)]" />
       </ScrollParallax>
       <GoldDrawIn />
-<<<<<<< HEAD
-=======
 
       <RevealOnScroll>
         <SectionEyebrow label="THE SOLUTION" />
@@ -56,7 +49,8 @@ export default function SolutionSection() {
       <PremiumEditorialSection
         nested
         id="solution-editorial"
-        heading="The system that fits how you work"
+        heading="The system that fits how you work."
+        subheading="Diagnosis first · implementation second · maintenance always"
         imageSrc="/images/sections/human-data-review.jpg"
         imageAlt="Professionals reviewing financial data together, representing AI-powered financial visibility and compliance"
         imageCaption="The system that fits how you work · AI-powered operations"
@@ -68,7 +62,7 @@ export default function SolutionSection() {
         ctaHref="#contact"
       >
         <p>
-          Three outcomes — <span className="font-semibold text-[var(--sgc-text-primary)]">financial
+          Three outcomes — <span className="font-semibold text-[var(--sgc-cream-text)]">financial
           visibility, compliance assurance, operational reclaim</span> — delivered as one system,
           not a stack of demos.
         </p>
@@ -83,65 +77,7 @@ export default function SolutionSection() {
         </p>
       </PremiumEditorialSection>
 
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
-        <RevealOnScroll>
-          <SectionEyebrow label="HOW WE WORK" />
-          <h2
-            id="solution-heading"
-            style={{ fontFamily: "var(--font-fraunces)" }}
-            className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
-          >
-            Audit. Then design. Then build.
-          </h2>
-          <p
-            style={{ fontFamily: "var(--font-inter)" }}
-            className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
-          >
-            We audit your operations before we propose a solution. The result is a system that fits how
-            you work — not how a vendor demo works. Implementation is just one outcome from the audit.
-            Maintenance and compliance are the other two.
-          </p>
-        </RevealOnScroll>
-
-        {/* Image + outcome framing — calm dashboard opposite the chaos above */}
-        <RevealOnScroll className="mt-14">
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            <p
-              style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.05rem] leading-[1.7] text-text-secondary md:order-2"
-            >
-              Three outcomes — <span className="text-[var(--sgc-text-primary)] font-semibold">financial
-              visibility, compliance assurance, operational reclaim</span> — delivered as one system,
-              not a stack of demos. Audit → implementation → ongoing maintenance: the diagnosis fixes what
-              your numbers say is broken, not what a vendor says should be built.
-            </p>
-            <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_8px_32px_rgba(0,0,0,0.4)] md:order-1">
-              <NextImage
-                src="/images/sections/solution-dashboard.jpg"
-                alt="A live executive dashboard with KPIs and pipeline metrics on a large monitor, softly lit."
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(8,11,17,0.05) 0%, rgba(8,11,17,0.45) 100%)",
-                }}
-              />
-              <figcaption
-                style={{ fontFamily: "var(--font-mono)" }}
-                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-text-secondary"
-              >
-                Illustrative image · live KPIs after audit
-              </figcaption>
-            </figure>
-          </div>
-        </RevealOnScroll>
-
         {/* Three outcome pillars */}
         <div className="mt-14 grid items-start gap-6 md:gap-8 md:grid-cols-3">
           {outcomePillars.map((pillar, index) => (

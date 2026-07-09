@@ -1,9 +1,9 @@
-import NextImage from "next/image";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import LivingCard from "@/components/ui/LivingCard";
 import ScrollParallax from "@/components/ui/ScrollParallax";
+import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 
 const problemCards = [
   {
@@ -48,77 +48,11 @@ const costItems = [
 
 export default function ProblemSection() {
   return (
-<<<<<<< HEAD
-    <section id="problem" aria-labelledby="problem-heading" className="relative scroll-mt-20 bg-[var(--bg)] pt-10 pb-14 md:pt-14 md:pb-20">
-=======
     <section id="problem" aria-label="THE PROBLEM" className="relative scroll-mt-20 bg-[var(--sgc-cream)] pt-10 pb-14 md:pt-14 md:pb-20">
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
       <ScrollParallax amplitude={20} className="pointer-events-none absolute inset-0">
         <div aria-hidden className="absolute inset-x-0 top-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_0%,rgba(199,162,58,0.05)_0%,transparent_70%)]" />
       </ScrollParallax>
       <GoldDrawIn />
-<<<<<<< HEAD
-      <div className="mx-auto w-full max-w-[1440px] 2xl:max-w-[1640px] px-6 md:px-10 lg:px-16">
-        <RevealOnScroll focusPull>
-          <SectionEyebrow label="WHAT WE FIND" />
-          <h2
-            id="problem-heading"
-            style={{ fontFamily: "var(--font-fraunces)" }}
-            className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
-          >
-            The system runs. The numbers don&apos;t.
-          </h2>
-          <p
-            style={{ fontFamily: "var(--font-inter)" }}
-            className="mt-5 max-w-[42rem] text-[clamp(1.05rem,1.4vw,1.35rem)] font-medium leading-[1.5] text-[var(--sgc-text-muted)]"
-          >
-            Three patterns we see across UAE real-estate, construction, and trading mid-market. For a typical
-            25-person firm, the drag adds up to{" "}
-            <span className="font-semibold text-[var(--sgc-text-primary)]">AED 180K–220K per year</span>{" "}
-            — mostly in lost hours and slipped deals, not dramatic theft.
-          </p>
-        </RevealOnScroll>
-
-        {/* Image + narrative — sets the visual mood before the 3 cards */}
-        <RevealOnScroll className="mt-14">
-          <div className="grid items-center gap-8 md:grid-cols-2">
-            <figure className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-              <NextImage
-                src="/images/sections/problem-desk.jpg"
-                alt="A cluttered UAE mid-market finance desk with paper invoices, handwritten notes, and an open Excel workbook on a laptop."
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="object-cover"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(8,11,17,0.18) 0%, rgba(8,11,17,0.55) 100%)",
-                }}
-              />
-              <figcaption
-                style={{ fontFamily: "var(--font-mono)" }}
-                className="absolute bottom-3 left-4 right-4 text-[0.62rem] uppercase tracking-[0.18em] text-text-secondary"
-              >
-                Illustrative image · UAE mid-market finance desk
-              </figcaption>
-            </figure>
-            <p
-              style={{ fontFamily: "var(--font-inter)" }}
-              className="text-[1.05rem] leading-[1.7] text-text-secondary md:text-[1.15rem]"
-            >
-              Three problems — scattered systems, manual work AI should handle, compliance exposure —
-              compound quietly inside UAE mid-market firms. They look like busy weeks on the surface.
-              Underneath, they are <span className="text-[var(--sgc-text-primary)] font-semibold">AED 180K–220K of
-              annual drag</span> on a 25-person team.
-            </p>
-          </div>
-        </RevealOnScroll>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-=======
 
       {/* Premium Editorial Layout — replaces the old heading/subheading as the section intro */}
       <RevealOnScroll focusPull>
@@ -127,7 +61,8 @@ export default function ProblemSection() {
       <PremiumEditorialSection
         nested
         id="problem-editorial"
-        heading="The hidden cost of fragmented operations"
+        heading="The hidden cost of fragmented operations."
+        subheading="Creating clarity in systems that have drifted"
         imageSrc="/images/sections/human-team-braining.jpg"
         imageAlt="Team collaborating around financial data on a whiteboard, representing the complexity of scattered systems"
         imageCaption="The hidden cost of fragmented operations · UAE mid-market"
@@ -141,7 +76,7 @@ export default function ProblemSection() {
         <p>
           Three problems — scattered systems, manual work AI should handle, compliance exposure —
           compound quietly inside UAE mid-market firms. They look like busy weeks on the surface.
-          Underneath, they are <span className="font-semibold text-[var(--sgc-text-primary)]">AED 180K–220K of
+          Underneath, they are <span className="font-semibold text-[var(--sgc-cream-text)]">AED 180K–220K of
           annual drag</span> on a 25-person team.
         </p>
         <p>
@@ -157,7 +92,6 @@ export default function ProblemSection() {
 
       <div className="mx-auto w-full max-w-[1440px] 2xl:max-w-[1640px] px-6 md:px-10 lg:px-16">
         <div className="mt-14 grid items-start gap-6 md:gap-8 md:grid-cols-3">
->>>>>>> a485cb6 (fix(a11y): resolve WCAG contrast and keyboard-trap issues in premium editorial redesign)
           {problemCards.map((card, index) => (
             <RevealOnScroll
               key={card.title}
