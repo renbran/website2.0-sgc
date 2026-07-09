@@ -2,7 +2,6 @@
 
 import { ArrowRight, ChevronDown, LogIn, Menu, X } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
-import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type React from "react";
@@ -210,12 +209,10 @@ export default function Navbar() {
             aria-label="SGC Tech AI - back to top"
             className="group inline-flex items-center gap-[10px] rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="/images/diamonds/final-logo-nav.png"
               alt="SGC Tech AI"
-              width={783}
-              height={212}
-              priority
               className="h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(199,162,58,0.35)] transition duration-300 group-hover:drop-shadow-[0_0_18px_rgba(199,162,58,0.55)] sm:h-11 lg:h-14"
             />
           </a>
