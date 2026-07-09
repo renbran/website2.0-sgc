@@ -189,7 +189,7 @@ export default function DiamondScrollHero() {
         {/* SGC brand watermark — near-invisible, sits above canvas, below all UI */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/final logo.png"
+          src="/images/diamonds/final-logo.png"
           alt=""
           aria-hidden="true"
           style={{
