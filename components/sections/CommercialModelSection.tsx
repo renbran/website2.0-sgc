@@ -6,6 +6,7 @@ import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import FlippingCard from "@/components/ui/FlippingCard";
 import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
+import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 
 const LAYERS = [
   {
@@ -207,6 +208,11 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
 
 export default function CommercialModelSection() {
   const reduced = useReducedMotion();
+  // Card parallax-tilt has no meaningful input on touch (no hover), and
+  // touch-scroll swipes fire pointermove too — without this guard a phone
+  // swipe would jitter the cards sideways mid-scroll instead of leaving
+  // them still.
+  const isCoarsePointer = useCoarsePointer();
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
@@ -260,8 +266,8 @@ export default function CommercialModelSection() {
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div
           className="relative mt-16 max-w-3xl space-y-5"
-          onPointerMove={reduced ? undefined : handlePointerMove}
-          onPointerLeave={reduced ? undefined : handlePointerLeave}
+          onPointerMove={reduced || isCoarsePointer ? undefined : handlePointerMove}
+          onPointerLeave={reduced || isCoarsePointer ? undefined : handlePointerLeave}
         >
           {/* Floating gold particles — decorative only, reduced-motion skips */}
           {!reduced &&

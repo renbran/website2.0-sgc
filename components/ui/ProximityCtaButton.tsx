@@ -3,6 +3,7 @@ import { useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import CtaButton from "@/components/ui/CtaButton";
+import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 
 interface ProximityCtaButtonProps {
   href: string;
@@ -26,11 +27,10 @@ export default function ProximityCtaButton({
   const reduced = useReducedMotion();
   const ref = useRef<HTMLAnchorElement>(null);
   const [glow, setGlow] = useState(0);
-  const [isCoarse, setIsCoarse] = useState(true);
-
-  useEffect(() => {
-    setIsCoarse(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
+  // No hover on touch — proximity glow has nothing to measure distance from,
+  // so skip attaching the listener entirely rather than just skipping the
+  // style output.
+  const isCoarse = useCoarsePointer();
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
@@ -45,9 +45,10 @@ export default function ProximityCtaButton({
   );
 
   useEffect(() => {
+    if (reduced || isCoarse) return;
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", onMouseMove);
-  }, [onMouseMove]);
+  }, [onMouseMove, reduced, isCoarse]);
 
   const proximityStyle: CSSProperties =
     !reduced && !isCoarse && glow > 0

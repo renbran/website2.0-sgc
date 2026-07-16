@@ -8,6 +8,7 @@ import ReducedMotionFallback from "./ReducedMotionFallback";
 import CinematicCaption from "@/components/HelixSpiral/CinematicCaption";
 import AudioToggle from "@/components/AudioToggle";
 import { useHelixScrub } from "@/hooks/useHelixScrub";
+import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 import HeroIntroOverlay from "./HeroIntroOverlay";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -133,6 +134,13 @@ export default function DiamondScrollHero() {
     };
   }, []);
 
+  // Mouse-parallax tilt (Scene.tsx reads mouseRef every frame) only makes
+  // sense for a hovering pointer. On touch devices `pointermove` also fires
+  // during scroll-swipes, which would otherwise inject a spurious tilt from
+  // the swipe gesture itself — `isCoarsePointer` keeps the handler off the
+  // element entirely so mouseRef stays at its {0,0} rest value on phones.
+  const isCoarsePointer = useCoarsePointer();
+
   const handleMouseMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     mouseRef.current.x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
@@ -151,7 +159,7 @@ export default function DiamondScrollHero() {
     <div
       ref={containerRef}
       style={{ height: "600vh", position: "relative" }}
-      onPointerMove={handleMouseMove}
+      onPointerMove={isCoarsePointer ? undefined : handleMouseMove}
     >
       {/* Full-bleed viewport — pinned by GSAP ScrollTrigger (see useEffect above).
           CSS `position: sticky` was removed because iOS Safari's sticky bug
