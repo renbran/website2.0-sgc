@@ -37,6 +37,9 @@ export default function ContactForm() {
   const [form, setForm] = useState<FormData>(initial);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  // Honeypot — real users never see or fill this field (visually hidden below).
+  const [honeypot, setHoneypot] = useState("");
 
   const update = useCallback(
     (field: keyof FormData, value: string) =>
@@ -44,52 +47,77 @@ export default function ContactForm() {
     [],
   );
 
+  const openFallbackChannels = useCallback(() => {
+    // Build mailto body
+    const body = [
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.phone && `Phone: ${form.phone}`,
+      form.company && `Company: ${form.company}`,
+      form.service && `Service: ${form.service}`,
+      "",
+      form.message,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const mailtoHref = `mailto:info@sgctech.ai?subject=${encodeURIComponent(
+      `Contact Enquiry — ${form.service || "General"}`,
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoHref;
+
+    const waText = [
+      `*Contact Enquiry*`,
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      form.phone ? `Phone: ${form.phone}` : null,
+      form.company ? `Company: ${form.company}` : null,
+      form.service ? `Service: ${form.service}` : null,
+      "",
+      form.message,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
+    window.open(waHref, "_blank", "noopener,noreferrer");
+  }, [form]);
+
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
+    async (e: React.FormEvent) => {
       e.preventDefault();
       setSubmitting(true);
+      setErrorMsg(null);
 
-      // Build mailto body
-      const body = [
-        `Name: ${form.name}`,
-        `Email: ${form.email}`,
-        form.phone && `Phone: ${form.phone}`,
-        form.company && `Company: ${form.company}`,
-        form.service && `Service: ${form.service}`,
-        "",
-        form.message,
-      ]
-        .filter(Boolean)
-        .join("\n");
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...form, website: honeypot }),
+        });
+        const data = await res.json().catch(() => ({ ok: false }));
 
-      const mailtoHref = `mailto:info@sgctech.ai?subject=${encodeURIComponent(
-        `Contact Enquiry — ${form.service || "General"}`,
-      )}&body=${encodeURIComponent(body)}`;
-
-      // Open mailto
-      window.location.href = mailtoHref;
-
-      // Also offer WhatsApp as secondary channel
-      const waText = [
-        `*Contact Enquiry*`,
-        `Name: ${form.name}`,
-        `Email: ${form.email}`,
-        form.phone ? `Phone: ${form.phone}` : null,
-        form.company ? `Company: ${form.company}` : null,
-        form.service ? `Service: ${form.service}` : null,
-        "",
-        form.message,
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(waText)}`;
-      window.open(waHref, "_blank", "noopener,noreferrer");
-
-      setSubmitting(false);
-      setSubmitted(true);
+        if (res.ok && data.ok) {
+          // Lead is now recorded in the CRM. Also open mailto + WhatsApp so
+          // the sender has their own copy and an instant reply channel.
+          openFallbackChannels();
+          setSubmitted(true);
+        } else {
+          setErrorMsg(
+            data.error ||
+              "We couldn't submit your message right now. Please try WhatsApp or email us directly.",
+          );
+        }
+      } catch {
+        setErrorMsg(
+          "We couldn't reach our server. Please try WhatsApp or email us directly.",
+        );
+      } finally {
+        setSubmitting(false);
+      }
     },
-    [form],
+    [form, honeypot, openFallbackChannels],
   );
 
   if (submitted) {
@@ -129,6 +157,27 @@ export default function ContactForm() {
   return (
     <GlassCard className="h-full" contentClassName="p-8 md:p-10">
       <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Honeypot — hidden from real users via CSS + tabIndex, catches basic bots */}
+        <input
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+        />
+
+        {errorMsg && (
+          <p
+            role="alert"
+            className="rounded-lg border border-[rgba(199,90,58,0.4)] bg-[rgba(199,90,58,0.08)] px-4 py-3 text-[0.85rem] text-[var(--accent-copper)]"
+          >
+            {errorMsg}
+          </p>
+        )}
+
         {/* Name + Email row */}
         <div className="grid gap-5 sm:grid-cols-2">
           <div>

@@ -4,13 +4,23 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { DIAMONDS } from "@/components/HelixSpiral/diamonds.config";
 
-// All 40 extracted helix animation frames
+// All 40 extracted helix animation frames. Converted from PNG to WebP
+// (quality 82, ~91% smaller: 39.7MB -> 3.4MB total) since this component
+// preloads every frame up front for the flipbook effect.
 const FRAME_COUNT = 40;
+
+// Batched + delayed preloading (mirrors components/ui/hero-scrub.tsx's
+// pattern) so 40 image requests don't all fire in the same tick and
+// compete with the rest of the page's initial load — this component only
+// mounts when prefers-reduced-motion is set, but the flipbook frames still
+// shouldn't stampede the network on mount.
+const FRAME_BATCH_SIZE = 10;
+const FRAME_BATCH_DELAY_MS = 100;
 
 export const HELIX_FRAMES: string[] = Array.from(
   { length: FRAME_COUNT },
   (_, i) =>
-    `/videos/video-frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.png`
+    `/videos/video-frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.webp`
 );
 
 // Mid-animation frame used as the static backdrop
@@ -25,14 +35,34 @@ export default function ReducedMotionFallback() {
   const [frameIdx, setFrameIdx] = useState(19);
   const preloadedRef = useRef(false);
 
-  // Preload all frames once so the flipbook is instant when needed
+  // Preload frames in small batches with a short delay between each, instead
+  // of firing all 40 requests in the same tick. The static frame (index 19,
+  // rendered immediately below via next/image + priority) is excluded since
+  // it's already being fetched at full priority.
   useEffect(() => {
     if (preloadedRef.current) return;
     preloadedRef.current = true;
-    HELIX_FRAMES.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-    });
+
+    const remaining = HELIX_FRAMES.filter((_, i) => i !== 19);
+    let batchIndex = 0;
+
+    const loadBatch = () => {
+      const start = batchIndex * FRAME_BATCH_SIZE;
+      const batch = remaining.slice(start, start + FRAME_BATCH_SIZE);
+      if (batch.length === 0) return;
+
+      batch.forEach((src) => {
+        const img = new window.Image();
+        img.src = src;
+      });
+
+      batchIndex++;
+      if (start + FRAME_BATCH_SIZE < remaining.length) {
+        setTimeout(loadBatch, FRAME_BATCH_DELAY_MS);
+      }
+    };
+
+    loadBatch();
   }, []);
 
   // Animate only when motion is permitted (~15 fps)

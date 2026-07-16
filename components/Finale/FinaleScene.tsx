@@ -31,7 +31,7 @@ interface FinaleSceneProps {
   shardCount: number;
 }
 
-const MARK_TEXTURE = "/images/diamonds/sgc-logo-beacon.png";
+const MARK_TEXTURE = "/images/diamonds/sgc-logo-beacon-tex.webp";
 
 // ─── Flat hexagon outline in the XY plane (flat-top, matches shield) ─────
 function hexOutlineGeometry(radius: number): THREE.BufferGeometry {

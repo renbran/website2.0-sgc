@@ -6,7 +6,8 @@ import {
   useReducedMotion,
   useSpring,
 } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
+import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 
 interface LivingCardProps {
   children: React.ReactNode;
@@ -15,12 +16,10 @@ interface LivingCardProps {
 
 export default function LivingCard({ children, className }: LivingCardProps) {
   const reduced = useReducedMotion();
-  const [isCoarse, setIsCoarse] = useState(true);
+  // No hover on touch, so the tilt/glow effect has nothing to react to —
+  // isCoarse skips it and renders a plain static wrapper instead.
+  const isCoarse = useCoarsePointer();
   const wrapRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setIsCoarse(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
 
   const rotX = useSpring(0, { stiffness: 150, damping: 20 });
   const rotY = useSpring(0, { stiffness: 150, damping: 20 });

@@ -25,6 +25,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_AE",
     url: "https://sgctech.ai/about",
+    // Route-level `openGraph` replaces (not merges with) the root layout's
+    // openGraph object, so the shared /opengraph-image must be re-declared
+    // here — otherwise this page silently ships with no social preview image.
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About SGC Tech AI",
+    description:
+      "Built by operators, not consultants. CPAs and CIAs who diagnose before they prescribe.",
+    images: ["/opengraph-image"],
   },
 };
 
