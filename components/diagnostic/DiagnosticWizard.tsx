@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, RotateCcw, Printer } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
@@ -82,6 +82,38 @@ export default function DiagnosticWizard() {
     };
   }, [step, answers]);
 
+  // Lead capture: fire-and-forget submission to our CRM once the results
+  // screen is reached. Guarded by a ref so re-renders (e.g. state updates
+  // triggered by the results animation) never cause a duplicate submission.
+  const leadSubmittedRef = useRef(false);
+  const [leadSubmitError, setLeadSubmitError] = useState(false);
+
+  useEffect(() => {
+    if (!results || leadSubmittedRef.current) return;
+    leadSubmittedRef.current = true;
+
+    fetch("/api/diagnostic-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contact,
+        overallPct: results.overall.pct,
+        overallLabel: results.overall.label,
+        systems: results.systems.map((s) => ({
+          id: s.id,
+          label: s.label,
+          pct: s.pct,
+          band: s.band,
+        })),
+      }),
+    })
+      .then((res) => res.json().catch(() => ({ ok: false })))
+      .then((data) => {
+        if (!data.ok) setLeadSubmitError(true);
+      })
+      .catch(() => setLeadSubmitError(true));
+  }, [results, contact]);
+
   const goNext = () => {
     if (!canAdvance) {
       setTouchedNext(true);
@@ -103,6 +135,8 @@ export default function DiagnosticWizard() {
     setContact(EMPTY_CONTACT);
     setAnswers({});
     setTouchedNext(false);
+    leadSubmittedRef.current = false;
+    setLeadSubmitError(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -463,6 +497,13 @@ export default function DiagnosticWizard() {
             <p className="mt-6 text-[12px] text-[var(--text-muted)]">
               Your data is never sold or shared.
             </p>
+            {leadSubmitError && (
+              <p className="mt-2 text-[12px] text-[var(--accent-copper)]">
+                We couldn&apos;t save a copy of your report to our system, but
+                your results above are unaffected — feel free to book a
+                walkthrough directly.
+              </p>
+            )}
           </motion.section>
         )}
       </AnimatePresence>
