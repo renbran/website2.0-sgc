@@ -109,7 +109,7 @@ MSAA. Confirm with a Lighthouse run after each release.
 | 8.1 | WhatsApp link | Marketing | `https://wa.me/971521985231` in Footer + 3× per-option prefill in Contact |
 | 8.2 | Email links | Marketing | `mailto:info@sgctech.ai` working in Footer (no client mailto dead-ends) |
 | 8.3 | All CTAs route to real destinations | Marketing | No remaining mailto on CTAs except the Compliance enquiry and the per-option email links |
-| 8.4 | No third-party analytics | Privacy | No GA4, Plausible, Hotjar, etc. (site is intentionally analytics-free) |
+| 8.4 | Analytics is opt-in, not default | Privacy | GA4 (`app/layout.tsx`) only loads when `NEXT_PUBLIC_GA_ID` is set at build/deploy time; unset → zero analytics code ships. No Plausible, Hotjar, or other third-party analytics vendor is wired in. **Decide and confirm whether `NEXT_PUBLIC_GA_ID` should be set in production** — as of this audit it was undocumented in deployment config, meaning the site may be shipping with no conversion visibility at all. |
 | 8.5 | No tracking pixels | Privacy | No Meta / LinkedIn pixel |
 
 ## 9. Operational

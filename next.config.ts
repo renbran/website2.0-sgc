@@ -41,7 +41,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
     ],
-    formats: ["image/webp"],
+    // AVIF first: smaller than WebP at equal quality on most photographic
+    // content; Next.js content-negotiates via Accept header and falls back
+    // to WebP automatically on browsers that don't support AVIF.
+    formats: ["image/avif", "image/webp"],
   },
   async headers() {
     return [
