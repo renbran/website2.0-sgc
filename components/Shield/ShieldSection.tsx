@@ -71,6 +71,14 @@ export default function ShieldSection() {
 
   const [entranceVisible, setEntranceVisible] = useState(false);
   const entranceFiredRef = useRef(false);
+
+  // Gates the 13MB cinematic background video's preload — decoupled from
+  // entranceVisible (which can also flip true via the sgc:helix-exit event
+  // or its 1200ms safety timeout, neither of which guarantee the section is
+  // actually near the viewport). This flag is driven solely by the same
+  // 600px-rootMargin IntersectionObserver used for frameloop below, so the
+  // video never starts downloading until the user has scrolled close to it.
+  const [videoNearViewport, setVideoNearViewport] = useState(false);
   // Helix→Shield seam: when the helix scroll progress crosses 0.95 the
   // HelixToShieldTransition marker fires `sgc:helix-exit`. We treat that
   // as permission to fade the shield in, so the helix logo's continuous
@@ -140,6 +148,7 @@ export default function ShieldSection() {
         if (entry.isIntersecting) {
           ioActivatedRef.current = true; // stops heartbeat
           setWarming(false);             // clean handoff to frameloop
+          setVideoNearViewport(true);    // allow the background video to preload
         }
         setFrameloop(entry.isIntersecting ? "always" : "never");
         if (entry.isIntersecting && !entranceFiredRef.current) {
@@ -233,26 +242,36 @@ export default function ShieldSection() {
           willChange: (!reducedMotion && !entranceVisible) ? "opacity, transform" : undefined,
         }}
       >
-        {/* Cinematic shield background — plays once as section enters */}
-        <video
-          autoPlay
-          muted
-          playsInline
-          loop={false}
-          preload="auto"
-          src="/shield/Cinematic 3D animation of a blank heraldic shield_2.mp4"
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: 0.45,
-            pointerEvents: "none",
-            transform: isFinale ? "translateX(52%)" : "translateX(0)",
-            transition: "transform 3s cubic-bezier(0.22,1,0.36,1)",
-          }}
-        />
+        {/* Cinematic shield background — plays once as section enters.
+            The <video> tag itself is only mounted once videoNearViewport
+            flips true (600px IntersectionObserver rootMargin, same signal
+            that gates the WebGL canvas's frameloop above), so this 13MB
+            asset never starts downloading on initial page load — only once
+            the user has scrolled close to the section. Reduced-motion users
+            never mount it at all: they get the static gradient backdrop
+            only, consistent with every other pinned-scroll section on this
+            page skipping autoplay video for that preference. */}
+        {videoNearViewport && !reducedMotion && (
+          <video
+            autoPlay
+            muted
+            playsInline
+            loop={false}
+            preload="auto"
+            src="/shield/Cinematic 3D animation of a blank heraldic shield_2.mp4"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              opacity: 0.45,
+              pointerEvents: "none",
+              transform: isFinale ? "translateX(52%)" : "translateX(0)",
+              transition: "transform 3s cubic-bezier(0.22,1,0.36,1)",
+            }}
+          />
+        )}
 
         {/* Shield canvas — glides right on desktop finale, mobile nudge on small screens */}
         <div
