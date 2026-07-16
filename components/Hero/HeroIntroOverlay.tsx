@@ -188,7 +188,7 @@ export default function HeroIntroOverlay({
           }}
         >
           {gracefulImg({
-            src: "/final logo.png",
+            src: "/images/diamonds/final-logo-nav.png",
             alt: "SGC Tech AI",
             style: { width: "clamp(160px, 28vw, 280px)", height: "auto", display: "block" },
           })}
@@ -310,7 +310,7 @@ export default function HeroIntroOverlay({
         }}
       >
         {gracefulImg({
-          src: "/final logo.png",
+          src: "/images/diamonds/final-logo-nav.png",
           alt: "SGC Tech AI",
           style: { width: "clamp(160px, 28vw, 280px)", height: "auto", display: "block" },
         })}
