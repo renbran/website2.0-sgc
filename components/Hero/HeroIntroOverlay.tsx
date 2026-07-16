@@ -36,6 +36,41 @@ function gracefulImg(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   );
 }
 
+// Single source of truth for the hero's <h1> markup. The reduced-motion and
+// full-motion render paths below are mutually exclusive (only one is ever
+// mounted, gated by `reduced`), so there is never more than one <h1> in the
+// DOM at a time — but they previously duplicated the heading's base styles
+// independently, risking visual drift if one copy was edited without the
+// other. Both paths now render this shared component instead.
+function HeroHeadlineH1({
+  fontSize,
+  letterSpacing,
+  textAlign,
+  children,
+}: {
+  fontSize: string;
+  letterSpacing: string;
+  textAlign?: React.CSSProperties["textAlign"];
+  children: React.ReactNode;
+}) {
+  return (
+    <h1
+      style={{
+        fontFamily: "var(--font-fraunces, serif)",
+        fontSize,
+        fontWeight: 700,
+        lineHeight: 1.2,
+        letterSpacing,
+        color: "#D4A574",
+        margin: 0,
+        ...(textAlign ? { textAlign } : {}),
+      }}
+    >
+      {children}
+    </h1>
+  );
+}
+
 export default function HeroIntroOverlay({
   scrollProgressRef,
 }: HeroIntroOverlayProps) {
@@ -170,20 +205,13 @@ export default function HeroIntroOverlay({
           >
             {EYEBROW}
           </p>
-          <h1
-            style={{
-              fontFamily: "var(--font-fraunces, serif)",
-              fontSize: "clamp(1.5rem, 3vw, 2.6rem)",
-              fontWeight: 700,
-              lineHeight: 1.2,
-              color: "#D4A574",
-              letterSpacing: "-0.01em",
-              textAlign: "center",
-              margin: 0,
-            }}
+          <HeroHeadlineH1
+            fontSize="clamp(1.5rem, 3vw, 2.6rem)"
+            letterSpacing="-0.01em"
+            textAlign="center"
           >
             {HEADLINE}
-          </h1>
+          </HeroHeadlineH1>
           <p
             style={{
               fontFamily: "var(--font-inter, sans-serif)",
@@ -320,16 +348,9 @@ export default function HeroIntroOverlay({
       >
         {/* overflow:hidden clips each line; headlineOpacity hard-kills any bleed */}
         <motion.div style={{ overflow: "hidden", width: "100%", opacity: headlineOpacity }}>
-          <h1
-            style={{
-              fontFamily: "var(--font-fraunces, serif)",
-              fontSize: "clamp(1.7rem, 3.8vw, 3.2rem)",
-              fontWeight: 700,
-              lineHeight: 1.2,
-              letterSpacing: "-0.015em",
-              margin: 0,
-              color: "#D4A574",
-            }}
+          <HeroHeadlineH1
+            fontSize="clamp(1.7rem, 3.8vw, 3.2rem)"
+            letterSpacing="-0.015em"
           >
             {/* Full text always in DOM for SEO / screen readers */}
             <span
@@ -356,7 +377,7 @@ export default function HeroIntroOverlay({
               {line2Typed}
               {!isCursorOnLine1 ? cursor : null}
             </motion.span>
-          </h1>
+          </HeroHeadlineH1>
         </motion.div>
 
         <motion.p
