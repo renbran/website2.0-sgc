@@ -10,7 +10,7 @@ interface LogoHexProps {
 }
 
 function LogoHexInner({ finaleAngleRef }: LogoHexProps) {
-  const texture = useTexture("/sgc-logo.png");
+  const texture = useTexture("/sgc-logo-tex.webp");
   const logoMatRef = useRef<THREE.MeshBasicMaterial>(null!);
   const rimMatRef = useRef<THREE.MeshBasicMaterial>(null!);
 
