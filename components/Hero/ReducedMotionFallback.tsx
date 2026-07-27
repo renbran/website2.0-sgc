@@ -26,6 +26,49 @@ export const HELIX_FRAMES: string[] = Array.from(
 // Mid-animation frame used as the static backdrop
 const STATIC_FRAME = HELIX_FRAMES[19];
 
+// One-shot scroll reveal: opacity + translateY only, no parallax or
+// continuous scroll-linked motion, so it stays compliant with
+// prefers-reduced-motion (this component only ever mounts when that's set).
+function FadeInCard({
+  index,
+  children,
+}: {
+  index: number;
+  children: React.ReactNode;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(12px)",
+        transition: `opacity 260ms ease-out ${index * 70}ms, transform 260ms ease-out ${index * 70}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function ReducedMotionFallback() {
   const [prefersReduced] = useState<boolean>(() => {
     if (typeof window === "undefined") return true;
@@ -77,6 +120,11 @@ export default function ReducedMotionFallback() {
 
   const activeSrc = prefersReduced ? STATIC_FRAME : HELIX_FRAMES[frameIdx];
 
+  // diamonds[0] is the isCTA slot — its headline/subhead are the same copy
+  // as the H2 + banner below, so the card grid only covers the 7 concrete
+  // pain points (diamonds[1..7]) instead of repeating it.
+  const painPoints = DIAMONDS.slice(1);
+
   return (
     <section
       style={{
@@ -84,22 +132,17 @@ export default function ReducedMotionFallback() {
         background: "#080B11",
         position: "relative",
         overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        padding: "5rem 1.5rem",
       }}
     >
-      {/* Helix frame backdrop */}
+      {/* Hero banner strip — fixed height so the backdrop image covers it
+          cleanly at any viewport width, then dissolves into the card list
+          below instead of letterboxing across however tall the section
+          gets with 7 stacked cards. */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          opacity: 0.38,
-          pointerEvents: "none",
+          position: "relative",
+          height: "clamp(200px, 38vw, 300px)",
+          overflow: "hidden",
         }}
       >
         <Image
@@ -109,103 +152,152 @@ export default function ReducedMotionFallback() {
           height={720}
           priority={prefersReduced}
           style={{
+            position: "absolute",
+            inset: 0,
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
           }}
         />
-      </div>
 
-      {/* Radial vignette — darkens edges, focuses center */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 20%, rgba(8,11,17,0.88) 100%)",
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Content */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 1,
-          maxWidth: "62rem",
-          margin: "0 auto",
-          width: "100%",
-        }}
-      >
-        <h2
+        {/* Ambient gold glow */}
+        <div
+          aria-hidden
           style={{
-            fontFamily: "var(--font-fraunces, serif)",
-            fontSize: "clamp(1.4rem, 3.5vw, 2.25rem)",
-            color: "#F4F1E8",
-            fontWeight: 600,
-            textAlign: "center",
-            marginBottom: "0.5rem",
-            lineHeight: 1.2,
+            position: "absolute",
+            inset: 0,
+            background:
+              "radial-gradient(ellipse 70% 70% at 50% 40%, rgba(199,162,58,0.14) 0%, transparent 65%)",
+            pointerEvents: "none",
           }}
-        >
-          The Odoo Firm Your CFO Would Have Founded.
-        </h2>
+        />
 
-        <p
+        {/* Fade into the card-list background — an intentional dissolve
+            instead of the old hard letterbox edge. */}
+        <div
+          aria-hidden
           style={{
-            fontFamily: "monospace",
-            fontSize: "0.72rem",
-            letterSpacing: "0.12em",
-            color: "#C7A23A",
-            textAlign: "center",
-            marginBottom: "3rem",
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(180deg, transparent 40%, #080B11 94%)",
+            pointerEvents: "none",
           }}
-        >
-          CPA&nbsp;·&nbsp;CIA&nbsp;·&nbsp;CRMA&nbsp;·&nbsp;CIPFA&nbsp;·&nbsp;ACCA&nbsp;·&nbsp;M.Econ
-        </p>
+        />
 
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: "0.875rem",
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 1.5rem",
+            textAlign: "center",
           }}
         >
-          {DIAMONDS.map((diamond) => (
-            <div
-              key={diamond.image}
-              style={{
-                background: "rgba(199,162,58,0.05)",
-                border: "1px solid rgba(199,162,58,0.18)",
-                borderRadius: "0.5rem",
-                padding: "1.25rem",
-              }}
-            >
-              <p
+          <h2
+            style={{
+              fontFamily: "var(--font-fraunces, serif)",
+              fontSize: "clamp(1.4rem, 3.5vw, 2.25rem)",
+              color: "#F4F1E8",
+              fontWeight: 600,
+              marginBottom: "0.5rem",
+              lineHeight: 1.2,
+            }}
+          >
+            The Odoo Firm Your CFO Would Have Founded.
+          </h2>
+
+          <p
+            style={{
+              fontFamily: "monospace",
+              fontSize: "0.72rem",
+              letterSpacing: "0.12em",
+              color: "#C7A23A",
+            }}
+          >
+            CPA&nbsp;·&nbsp;CIA&nbsp;·&nbsp;CRMA&nbsp;·&nbsp;CIPFA&nbsp;·&nbsp;ACCA&nbsp;·&nbsp;M.Econ
+          </p>
+        </div>
+      </div>
+
+      {/* Card list */}
+      <div
+        style={{
+          position: "relative",
+          maxWidth: "62rem",
+          margin: "0 auto",
+          width: "100%",
+          padding: "2.5rem 1.5rem 4rem",
+        }}
+      >
+        <div
+          className="sgc-rmf-grid"
+          style={{
+            display: "grid",
+            gap: "1.25rem",
+          }}
+        >
+          {painPoints.map((diamond, index) => (
+            <FadeInCard key={diamond.image} index={index}>
+              <div
                 style={{
-                  fontFamily: "var(--font-inter, sans-serif)",
-                  fontSize: "0.875rem",
-                  fontWeight: 600,
-                  color: "#F4F1E8",
-                  marginBottom: "0.5rem",
-                  lineHeight: 1.3,
+                  borderTop: "1px solid rgba(199,162,58,0.45)",
+                  background: "rgba(244,241,232,0.03)",
+                  borderRadius: "0.375rem",
+                  padding: "1.5rem",
                 }}
               >
-                {diamond.headline}
-              </p>
-              <p
-                style={{
-                  fontFamily: "var(--font-inter, sans-serif)",
-                  fontSize: "0.75rem",
-                  color: "rgba(244,241,232,0.55)",
-                  lineHeight: 1.5,
-                }}
-              >
-                {diamond.subhead}
-              </p>
-            </div>
+                <p
+                  style={{
+                    fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)",
+                    fontSize: "0.7rem",
+                    fontWeight: 600,
+                    letterSpacing: "0.15em",
+                    color: "#C7A23A",
+                    marginBottom: "0.6rem",
+                  }}
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-inter, sans-serif)",
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
+                    color: "#F4F1E8",
+                    marginBottom: "0.5rem",
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {diamond.headline}
+                </p>
+                <p
+                  style={{
+                    fontFamily: "var(--font-inter, sans-serif)",
+                    fontSize: "0.8rem",
+                    color: "rgba(244,241,232,0.55)",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {diamond.subhead}
+                </p>
+              </div>
+            </FadeInCard>
           ))}
         </div>
+        <style>{`
+          .sgc-rmf-grid {
+            grid-template-columns: 1fr;
+          }
+          @media (min-width: 480px) {
+            .sgc-rmf-grid {
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+        `}</style>
       </div>
     </section>
   );

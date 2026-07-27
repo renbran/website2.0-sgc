@@ -164,7 +164,7 @@ export function FlippingCard({
                 "linear-gradient(90deg, transparent 0%, rgba(199,162,58,0.85) 50%, transparent 100%)",
             }}
           />
-          <div className="[transform:translateZ(40px)] flex h-full w-full flex-col overflow-hidden">
+          <div className="[transform:translateZ(40px)] flex h-full w-full flex-col overflow-y-auto">
             {backContent}
           </div>
         </div>
