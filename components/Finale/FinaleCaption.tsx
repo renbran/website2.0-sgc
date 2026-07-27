@@ -6,12 +6,17 @@ import { FINALE_CAPTIONS } from "./finaleMotion";
 interface FinaleCaptionProps {
   activeIndex: number;
   reducedMotion: boolean;
+  /** True once the bottom stat strip + CTA are visible. On mobile the
+   * caption is repositioned to the bottom (max-md:!bottom-24), which sits
+   * directly behind the stats/CTA once they appear — desktop is unaffected
+   * since its caption sits vertically centered, away from that cluster. */
+  hideOnMobile?: boolean;
 }
 
 // HTML caption overlay for the convergence finale. Motion handles the
 // cross-fade between chapters (micro-interaction — the scroll scrub itself
 // stays in GSAP/useFrame land).
-export default function FinaleCaption({ activeIndex, reducedMotion }: FinaleCaptionProps) {
+export default function FinaleCaption({ activeIndex, reducedMotion, hideOnMobile = false }: FinaleCaptionProps) {
   const caption = FINALE_CAPTIONS[activeIndex] ?? FINALE_CAPTIONS[0];
 
   return (
@@ -25,7 +30,7 @@ export default function FinaleCaption({ activeIndex, reducedMotion }: FinaleCapt
         maxWidth: "min(34rem, 42vw)",
         pointerEvents: "none",
       }}
-      className="max-md:!left-6 max-md:!right-6 max-md:!top-auto max-md:!bottom-24 max-md:!max-w-none max-md:!translate-y-0"
+      className={`max-md:!left-6 max-md:!right-6 max-md:!top-auto max-md:!bottom-24 max-md:!max-w-none max-md:!translate-y-0 ${hideOnMobile ? "max-md:hidden" : ""}`}
     >
       <AnimatePresence mode="wait">
         <motion.div

@@ -198,11 +198,18 @@ export default function ShieldSection() {
   }, [reducedMotion]);
 
   // Native scroll fallback — fires on window.scrollTo (e.g. Playwright tests) when
-  // Lenis hasn't yet driven a ScrollTrigger update for the new position.
+  // Lenis hasn't yet driven a ScrollTrigger update for the new position. Skipped
+  // once finale has latched: Lenis is frozen (getLenis()?.stop()) so the finale
+  // sequence plays out fully on-screen, and this fallback has no awareness of
+  // that latch — letting it keep writing scrollProgressRef during finale (e.g.
+  // from residual native scroll/rubber-band events) can drag progress back
+  // below SEQ_END and re-surface a hex caption underneath the already-visible
+  // FinaleTitle.
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     const onScroll = () => {
+      if (isFinaleRef.current) return;
       const totalRange = el.offsetHeight - window.innerHeight;
       if (totalRange <= 0) return;
       const progress = Math.max(0, Math.min(1, -el.getBoundingClientRect().top / totalRange));
@@ -319,6 +326,7 @@ export default function ShieldSection() {
         <ShieldIntroCategories
           scrollProgressRef={scrollProgressRef}
           reducedMotion={reducedMotion}
+          viewportWidth={viewportWidth}
         />
 
         {/* Finale title overlay — rendered here (above canvas, below interactions) */}

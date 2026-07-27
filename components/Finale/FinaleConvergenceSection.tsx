@@ -201,7 +201,7 @@ export default function FinaleConvergenceSection() {
           }}
         />
 
-        <FinaleCaption activeIndex={activeIndex} reducedMotion={reducedMotion} />
+        <FinaleCaption activeIndex={activeIndex} reducedMotion={reducedMotion} hideOnMobile={statsVisible} />
 
         {statsVisible && <FinaleStats reducedMotion={reducedMotion} />}
 

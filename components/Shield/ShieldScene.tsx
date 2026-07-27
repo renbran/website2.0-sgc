@@ -149,6 +149,14 @@ export default function ShieldScene({ scrollProgressRef, reducedMotion, viewport
   // desktop cards (color-coded red / green / gold).
   useFrame(() => {
     if (!showBand || !bandRef.current) return;
+    // Once finale has latched, force the band hidden regardless of what
+    // scrollProgressRef reports — it should already be faded by SEQ_END, but
+    // a stale/jittery progress value (e.g. from residual scroll events during
+    // Lenis.stop()) could otherwise re-surface a hex caption under FinaleTitle.
+    if (isFinale) {
+      bandRef.current.style.opacity = "0";
+      return;
+    }
     const p = scrollProgressRef.current ?? 0;
     const idx = activeCaptionIndex(p);
     const c = NARRATIVE_HEXES[idx];

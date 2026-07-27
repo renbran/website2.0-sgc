@@ -17,6 +17,7 @@ import { useEffect, useRef, type RefObject } from "react";
 interface ShieldIntroCategoriesProps {
   scrollProgressRef: RefObject<number>;
   reducedMotion: boolean;
+  viewportWidth: number;
 }
 
 interface Category {
@@ -54,13 +55,20 @@ function introOpacity(p: number): number {
 export default function ShieldIntroCategories({
   scrollProgressRef,
   reducedMotion,
+  viewportWidth,
 }: ShieldIntroCategoriesProps) {
   const wrapRef  = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([null, null, null]);
   const lineRefs = useRef<Array<HTMLSpanElement | null>>([null, null]);
 
+  // Single-row, nowrap layout — natural width (~650-750px) doesn't fit under
+  // ~768px. Matches StageProgress's desktop-only rail breakpoint; this intro
+  // row is purely decorative (aria-hidden) so hiding it below that width
+  // loses no content.
+  const showRow = viewportWidth >= 768;
+
   useEffect(() => {
-    if (reducedMotion) {
+    if (!showRow || reducedMotion) {
       // No scroll = no intro. Section still reads the same as before —
       // a brief beat of black then the shield assembles.
       if (wrapRef.current) wrapRef.current.style.opacity = "0";
@@ -95,7 +103,7 @@ export default function ShieldIntroCategories({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [reducedMotion, scrollProgressRef]);
+  }, [reducedMotion, scrollProgressRef, showRow]);
 
   return (
     <div
