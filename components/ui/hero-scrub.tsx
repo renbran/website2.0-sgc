@@ -361,7 +361,7 @@ export function HeroScrub({
           ref={titleTopRef}
           className={
             titleTopClassName ??
-            "hero-scrub-title overlay-text-shadow absolute z-10 top-[20%] left-1/2 -translate-x-1/2 text-6xl md:text-8xl tracking-tight whitespace-nowrap pointer-events-none"
+            "hero-scrub-title overlay-text-shadow absolute z-10 top-[20%] left-1/2 -translate-x-1/2 text-3xl sm:text-5xl md:text-8xl tracking-tight whitespace-normal md:whitespace-nowrap pointer-events-none"
           }
           style={{
             color: accentHex,
@@ -395,7 +395,7 @@ export function HeroScrub({
           ref={titleBottomRef}
           className={
             titleBottomClassName ??
-            "hero-scrub-title overlay-text-shadow absolute z-10 top-[75%] left-1/2 -translate-x-1/2 text-6xl md:text-8xl tracking-tight whitespace-nowrap pointer-events-none"
+            "hero-scrub-title overlay-text-shadow absolute z-10 top-[75%] left-1/2 -translate-x-1/2 text-3xl sm:text-5xl md:text-8xl tracking-tight whitespace-normal md:whitespace-nowrap pointer-events-none"
           }
           style={{
             color: accentHex,

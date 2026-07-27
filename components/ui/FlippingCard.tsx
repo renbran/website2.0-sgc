@@ -93,7 +93,7 @@ export function FlippingCard({
         onKeyDown={onKeyDown}
         className={cn(
           "relative rounded-xl cursor-pointer outline-none overflow-hidden",
-          "h-[var(--height)] w-[var(--width)]",
+          "h-[var(--height)] w-[min(100%,var(--width))]",
           "[transform-style:preserve-3d]",
           "transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
           "group-hover/flipping-card:[transform:rotateY(180deg)]",
