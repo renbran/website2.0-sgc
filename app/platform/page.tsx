@@ -9,7 +9,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "The SGC Tech AI Platform — app.sgctech.ai",
   description:
-    "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in.",
+    "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.",
   alternates: { canonical: "/platform" },
   robots: { index: true, follow: true },
 };
@@ -94,21 +94,42 @@ export default function PlatformPage() {
               The app.sgctech.ai login screen offers &quot;Sign in with
               Google&quot; alongside email/password and passkey sign-in. If
               you use Google to sign in, we request your name, email address,
-              and profile photo to create and authenticate your account. This
-              is the only Google integration in use today — app.sgctech.ai
-              does not connect to Google Calendar or Google Drive. If that
-              changes, we will update this page and our{" "}
-              <Link
-                href="/privacy#privacy-h-09"
-                className="text-[var(--sgc-cyan)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-              >
-                Privacy Policy
-              </Link>{" "}
-              first.
+              and profile photo to create and authenticate your account.
             </p>
           </PlatformSection>
 
-          <PlatformSection number="03" title="Your data">
+          <PlatformSection number="03" title="Calendar, Meet & backup">
+            <p>
+              Once signed in, app.sgctech.ai can connect to three more Google
+              services, each for a single narrow purpose:
+            </p>
+            <ul className="mt-3 space-y-2">
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Google Calendar —
+                </span>{" "}
+                creates, updates, and cancels client meeting events on your
+                calendar.
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Google Meet —
+                </span>{" "}
+                creates the video-call space attached to a scheduled event.
+                We never access, capture, or record meeting audio or video.
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Google Drive —
+                </span>{" "}
+                stores automated database backup files that app.sgctech.ai
+                itself creates. This access can&apos;t see any other file
+                already in your Drive.
+              </li>
+            </ul>
+          </PlatformSection>
+
+          <PlatformSection number="04" title="Your data">
             <p>
               Full detail on what we request, how it is stored, how long we
               keep it, and how to revoke access is in our{" "}
@@ -129,7 +150,7 @@ export default function PlatformPage() {
             </p>
           </PlatformSection>
 
-          <PlatformSection number="04" title="Contact">
+          <PlatformSection number="05" title="Contact">
             <p>
               Questions about the platform or its data handling:{" "}
               <a

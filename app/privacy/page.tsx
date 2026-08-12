@@ -294,9 +294,9 @@ export default function PrivacyPage() {
             <p className="text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
               app.sgctech.ai offers &quot;Sign in with Google&quot; as one login
               option for its workspace, alongside email/password and passkey
-              sign-in. Google sign-in is currently the only Google integration
-              in use — we do not connect to Google Calendar or Google Drive
-              today.
+              sign-in. Once signed in, app.sgctech.ai can also connect to
+              Google Calendar, Google Meet, and Google Drive for the specific,
+              narrow purposes below. We request only the following:
             </p>
 
             <ul className="mt-4 space-y-3 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
@@ -308,14 +308,31 @@ export default function PrivacyPage() {
                 scopes, used only to create and authenticate your workspace
                 account.
               </li>
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Calendar (.../auth/calendar.events) —
+                </span>{" "}
+                used to create, update, and cancel client meeting events on
+                your Google Calendar on your behalf.
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Meet (.../auth/meetings.space.created) —
+                </span>{" "}
+                used only to create and manage the Google Meet
+                video-conferencing space attached to a scheduled event. We do
+                not access, capture, or record meeting audio or video.
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Drive (.../auth/drive.file) —
+                </span>{" "}
+                used only to store and retrieve automated database backup
+                files that app.sgctech.ai itself creates in your Drive. This
+                scope cannot see or touch any other file already in your
+                Drive.
+              </li>
             </ul>
-
-            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
-              If we add Google Calendar or Google Drive sync in the future,
-              we will update this section — including the specific scopes
-              requested and how that data is handled — and post a new
-              effective date before those connections go live.
-            </p>
 
             <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
               <span className="font-semibold text-[var(--sgc-text-primary)]">
@@ -323,9 +340,13 @@ export default function PrivacyPage() {
               </span>{" "}
               app.sgctech.ai is self-hosted on SGC Tech AI&apos;s own server
               infrastructure, not a third-party cloud platform. Your Google
-              profile data from sign-in is stored in the Odoo database on
+              profile data and OAuth tokens are stored in the Odoo database on
               that infrastructure, and access is restricted to authorized
-              SGC Tech AI administrators.
+              SGC Tech AI administrators. Calendar events and Meet spaces
+              created through the app live in your own Google Account, the
+              same as if you created them yourself. Backup files created by
+              the Drive integration are stored in your connected Google
+              Drive, not on our servers.
             </p>
 
             <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
@@ -343,9 +364,13 @@ export default function PrivacyPage() {
                 Retention and deletion —
               </span>{" "}
               Google sign-in data is retained for as long as your workspace
-              account is active. If you disconnect Google sign-in or your
-              account is deleted, the associated Google profile data is
-              removed.
+              account is active. Calendar events and Meet spaces created
+              through the app persist until you or we delete the underlying
+              event — deleting it in either Odoo or Google Calendar removes it
+              from both. Backup files in Drive are kept until superseded by a
+              newer backup or manually deleted by an administrator. If you
+              disconnect Google sign-in or your account is deleted, we stop
+              creating new Calendar/Meet/Drive data on your behalf.
             </p>
 
             <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
