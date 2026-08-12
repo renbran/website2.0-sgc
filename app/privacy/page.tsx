@@ -288,11 +288,112 @@ export default function PrivacyPage() {
 
           <PrivacySection
             number="09"
+            title="Google user data (app.sgctech.ai)"
+            intro="This section applies specifically to app.sgctech.ai, our Odoo-based workspace for team members and client-portal users. It does not apply to sgctech.ai, which does not request Google sign-in or any Google API access."
+          >
+            <p className="text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              app.sgctech.ai offers &quot;Sign in with Google&quot; as one login
+              option for its workspace, alongside email/password and passkey
+              sign-in. Google sign-in is currently the only Google integration
+              in use — we do not connect to Google Calendar or Google Drive
+              today.
+            </p>
+
+            <ul className="mt-4 space-y-3 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <li>
+                <span className="font-semibold text-[var(--sgc-text-primary)]">
+                  Sign-in (name, email address, profile photo) —
+                </span>{" "}
+                requested via the openid, userinfo.email, and userinfo.profile
+                scopes, used only to create and authenticate your workspace
+                account.
+              </li>
+            </ul>
+
+            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              If we add Google Calendar or Google Drive sync in the future,
+              we will update this section — including the specific scopes
+              requested and how that data is handled — and post a new
+              effective date before those connections go live.
+            </p>
+
+            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                Storage and security —
+              </span>{" "}
+              app.sgctech.ai is self-hosted on SGC Tech AI&apos;s own server
+              infrastructure, not a third-party cloud platform. Your Google
+              profile data from sign-in is stored in the Odoo database on
+              that infrastructure, and access is restricted to authorized
+              SGC Tech AI administrators.
+            </p>
+
+            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                Sharing —
+              </span>{" "}
+              We do not sell Google user data or use it for advertising. Because
+              app.sgctech.ai is self-hosted, no third-party platform processor
+              handles this data on our behalf; it is not shared beyond SGC Tech
+              AI, except if compelled by a lawful UAE order.
+            </p>
+
+            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                Retention and deletion —
+              </span>{" "}
+              Google sign-in data is retained for as long as your workspace
+              account is active. If you disconnect Google sign-in or your
+              account is deleted, the associated Google profile data is
+              removed.
+            </p>
+
+            <p className="mt-4 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                Your control —
+              </span>{" "}
+              You can review or revoke app.sgctech.ai&apos;s access to your
+              Google account at any time at{" "}
+              <a
+                href="https://myaccount.google.com/permissions"
+                className="text-[var(--sgc-cyan)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              >
+                myaccount.google.com/permissions
+              </a>
+              . To request deletion of data already synced to app.sgctech.ai,
+              email{" "}
+              <a
+                href="mailto:privacy@sgctech.ai"
+                className="text-[var(--sgc-cyan)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              >
+                privacy@sgctech.ai
+              </a>
+              .
+            </p>
+
+            <p className="mt-4 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-5 text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                Limited Use disclosure —
+              </span>{" "}
+              SGC Tech AI&apos;s use and transfer to any other app of
+              information received from Google APIs will adhere to the{" "}
+              <a
+                href="https://developers.google.com/terms/api-services-user-data-policy"
+                className="text-[var(--sgc-cyan)] underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+              >
+                Google API Services User Data Policy
+              </a>
+              , including the Limited Use requirements.
+            </p>
+          </PrivacySection>
+
+          <PrivacySection
+            number="10"
             title="Updates to this policy"
             intro="When we change this policy in a material way, we will post a notice on sgctech.ai with the new effective date. The previous version is available on request."
           />
 
-          <PrivacySection number="10" title="Contact">
+          <PrivacySection number="11" title="Contact">
             <p className="text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
               Data controller:{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">
