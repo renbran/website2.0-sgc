@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://sgctech.ai"),
   title: "SGC Tech AI — Odoo & AI for UAE Mid-Market in Dubai",
   description:
-    "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs, diagnosis-first engagement, fixed price and timeline. Book a discovery call.",
+    "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs, diagnosis-first, fixed price and timeline.",
   alternates: {
     canonical: "/",
     languages: {
