@@ -30,7 +30,7 @@ const structuredData = {
   publisher: {
     "@type": "Organization",
     name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultant FZE",
+    legalName: "Scholarix Global Consultants FZCO",
     url: "https://sgctech.ai",
   },
 };
@@ -71,7 +71,7 @@ export default function TermsPage() {
               </span>{" "}
               and any engagement you enter into with{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">
-                Scholarix Global Consultant FZE (trading as SGC Tech AI)
+                Scholarix Global Consultants FZCO (trading as SGC Tech AI)
               </span>
               . They sit alongside any Order Form or written agreement you sign
               with us.
@@ -113,7 +113,7 @@ export default function TermsPage() {
           <TermsSection number="04" title="Intellectual property">
             <p>
               All text, designs, code, and brand marks on sgctech.ai belong to
-              Scholarix Global Consultant FZE or our licensors. You may quote
+              Scholarix Global Consultants FZCO or our licensors. You may quote
               or link to our content for legitimate evaluation or press
               purposes; please attribute to SGC Tech AI.
             </p>

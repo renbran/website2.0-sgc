@@ -49,7 +49,7 @@ const contactChannels = [
 ];
 
 const officeAddress = [
-  "Scholarix Global Consultant FZE",
+  "Scholarix Global Consultants FZCO",
   "Maseed Building Office No. 304",
   "119/12st, Al Rigga",
   "Dubai, United Arab Emirates",

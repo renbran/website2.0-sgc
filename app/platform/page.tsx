@@ -28,7 +28,7 @@ const structuredData = {
   publisher: {
     "@type": "Organization",
     name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultant FZE",
+    legalName: "Scholarix Global Consultants FZCO",
     url: "https://sgctech.ai",
   },
 };
@@ -58,7 +58,7 @@ export default function PlatformPage() {
             </h1>
             <p className="mt-6 text-[0.98rem] leading-[1.75] text-text-secondary">
               <span className="font-semibold text-[var(--sgc-text-primary)]">
-                Scholarix Global Consultant FZE
+                Scholarix Global Consultants FZCO
               </span>{" "}
               (trading as{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">

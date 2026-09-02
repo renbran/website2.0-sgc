@@ -9,7 +9,7 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 export const metadata: Metadata = {
   title: "Privacy Policy — SGC Tech AI | UAE PDPL Compliance",
   description:
-    "How Scholarix Global Consultant FZE (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.",
+    "How Scholarix Global Consultants FZCO (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.",
   alternates: { canonical: "/privacy" },
   robots: { index: true, follow: true },
 };
@@ -62,7 +62,7 @@ const structuredData = {
   publisher: {
     "@type": "Organization",
     name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultant FZE",
+    legalName: "Scholarix Global Consultants FZCO",
     url: "https://sgctech.ai",
   },
 };
@@ -99,7 +99,7 @@ export default function PrivacyPage() {
             <p className="mt-6 text-[0.98rem] leading-[1.75] text-text-secondary">
               This policy explains how{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">
-                Scholarix Global Consultant FZE (trading as SGC Tech AI)
+                Scholarix Global Consultants FZCO (trading as SGC Tech AI)
               </span>{" "}
               handles personal data collected through{" "}
               <Link
@@ -422,7 +422,7 @@ export default function PrivacyPage() {
             <p className="text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
               Data controller:{" "}
               <span className="font-semibold text-[var(--sgc-text-primary)]">
-                Scholarix Global Consultant FZE
+                Scholarix Global Consultants FZCO
               </span>
               , Maseed Building Office No. 304, 119/12st, Al Rigga, Dubai (AE), United Arab Emirates.
             </p>

@@ -28,7 +28,7 @@ const structuredData = {
   publisher: {
     "@type": "Organization",
     name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultant FZE",
+    legalName: "Scholarix Global Consultants FZCO",
     url: "https://sgctech.ai",
   },
 };
