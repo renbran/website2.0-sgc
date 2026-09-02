@@ -8,7 +8,7 @@ import TidalCursor from "@/components/ui/tidal-cursor";
 import ThemeProvider from "@/components/ThemeProvider";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { JsonLd } from "@/components/JsonLd";
-import { organizationSchema, websiteSchema, graph } from "@/lib/schema";
+import { organizationSchema, localBusinessSchema, websiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({
@@ -107,11 +107,16 @@ export default function RootLayout({
   return (
     <html lang="en-AE" id="top" suppressHydrationWarning>
       <head>
-        {/* Site-wide entity graph — Organization/ProfessionalService + WebSite.
-            Stable @id values (lib/schema.ts) let per-page nodes (Person,
-            BreadcrumbList, FAQPage, etc.) reference back via {"@id": ...}
-            instead of repeating the full entity. */}
-        <JsonLd data={graph([organizationSchema(), websiteSchema()])} />
+        {/* Site-wide entity graph — Organization (legal entity, DIEZ
+            registered address, trade license) + LocalBusiness/ProfessionalService
+            (operating office, Al Rigga address, hours, parentOrganization →
+            org) + WebSite. Stable @id values (lib/schema.ts) let per-page
+            nodes (Service, BreadcrumbList, FAQPage) reference these via
+            @id only. Two nodes exist because Google LocalBusiness requires
+            a single PostalAddress — registering and operating addresses
+            therefore must live on separate entities, linked by
+            parentOrganization. */}
+        <JsonLd data={graph([organizationSchema(), localBusinessSchema(), websiteSchema()])} />
         {/* Pre-hydration theme sync — runs before first paint so there is no
             flash of the wrong theme while React hydrates. */}
         <Script id="theme-init" strategy="beforeInteractive">

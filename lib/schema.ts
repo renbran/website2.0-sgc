@@ -6,11 +6,21 @@ export const BASE = ORG.url;
 export const IDS = {
   org: `${BASE}/#organization`,
   website: `${BASE}/#website`,
+  practice: `${BASE}/#practice`,
 } as const;
 
+// Legal entity node: Scholarix Global Consultants FZCO, the trade-license
+// holder registered with DIEZ. Carries the registered (free-zone) address,
+// legal name, license identifier, founding date and sameAs. Does NOT carry
+// the operating-office address — that lives on the practice node below.
+// Per Google LocalBusiness guidance, a LocalBusiness/ProfessionalService
+// node carries a single PostalAddress; an Organization may carry either
+// the registered or the operating address, but not both as a list. We
+// chose to keep the registered (license-of-record) address on the legal
+// entity so that license-verification queries resolve unambiguously to it.
 export function organizationSchema() {
   return {
-    "@type": ["Organization", "ProfessionalService"],
+    "@type": "Organization",
     "@id": IDS.org,
     name: ORG.tradingName,
     legalName: ORG.legalName,
@@ -19,29 +29,19 @@ export function organizationSchema() {
     logo: { "@type": "ImageObject", url: ORG.logo },
     email: ORG.email,
     telephone: ORG.phone,
+    foundingDate: ORG.foundingDate,
     identifier: {
       "@type": "PropertyValue",
       name: `${ORG.licensingAuthority} Trade License`,
       value: ORG.licenseNumber,
     },
-    address: [
-      {
-        "@type": "PostalAddress",
-        // Registered free-zone address (trade license)
-        streetAddress: `${ORG.registeredAddress.premises}, ${ORG.registeredAddress.locality}`,
-        addressLocality: ORG.registeredAddress.locality,
-        addressRegion: ORG.registeredAddress.region,
-        addressCountry: ORG.registeredAddress.country,
-      },
-      {
-        "@type": "PostalAddress",
-        // Operating office
-        streetAddress: ORG.operatingAddress.street,
-        addressLocality: ORG.operatingAddress.locality,
-        addressRegion: ORG.operatingAddress.region,
-        addressCountry: ORG.operatingAddress.country,
-      },
-    ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${ORG.registeredAddress.premises}, ${ORG.registeredAddress.locality}`,
+      addressLocality: ORG.registeredAddress.locality,
+      addressRegion: ORG.registeredAddress.region,
+      addressCountry: ORG.registeredAddress.country,
+    },
     areaServed: ORG.serviceArea.map((n) => ({ "@type": "Place", name: n })),
     // Per founder direction (2026-09-02): no Person nodes are emitted anywhere
     // on the public site. Founder bios and individual credentials live in
@@ -57,6 +57,36 @@ export function organizationSchema() {
       "Accounts payable automation",
     ],
     sameAs: ORG.sameAs,
+  };
+}
+
+// Operating-office node: the physical practice where clients are met.
+// Carries the Al Rigga (Deira) address, opening hours, contact info and
+// `parentOrganization` pointing at the legal entity. AI crawlers and
+// Google Local search resolve "where is your office / when are you open"
+// queries to this node; legal/registration queries resolve to the
+// Organization node above. Both nodes share the trading name, contact
+// channels and service area so they cohere as one business to crawlers.
+export function localBusinessSchema() {
+  return {
+    "@type": ["LocalBusiness", "ProfessionalService"],
+    "@id": IDS.practice,
+    name: ORG.tradingName,
+    url: BASE,
+    logo: { "@type": "ImageObject", url: ORG.logo },
+    email: ORG.email,
+    telephone: ORG.phone,
+    image: ORG.logo,
+    parentOrganization: { "@id": IDS.org },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: ORG.operatingAddress.street,
+      addressLocality: ORG.operatingAddress.locality,
+      addressRegion: ORG.operatingAddress.region,
+      addressCountry: ORG.operatingAddress.country,
+    },
+    areaServed: ORG.serviceArea.map((n) => ({ "@type": "Place", name: n })),
+    priceRange: "AED 14,000 – AED 250,000+",
     openingHoursSpecification: ORG.hours.map((h) => ({
       "@type": "OpeningHoursSpecification",
       dayOfWeek: h.days,

@@ -35,9 +35,13 @@ export const ORG = {
     region: "Dubai",
     country: "AE",
   },
+  // Operating office — physical address where clients are met. Distinct
+  // from `registeredAddress` (DIEZ free-zone, license of record). Per
+  // Google LocalBusiness guidance, a single PostalAddress is required on
+  // the practice node; the registered address lives on the Organization node.
   operatingAddress: {
-    street: "Maseed Building, Office No. 304, 119/12st, Al Rigga",
-    locality: "Dubai",
+    street: "AL Maseed Building 304, Al Rigga Road",
+    locality: "Deira",
     region: "Dubai",
     country: "AE",
   },
