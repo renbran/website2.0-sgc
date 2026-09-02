@@ -14,7 +14,7 @@ import AboutCTA from "@/components/about/AboutCTA";
 export const metadata: Metadata = {
   title: "About — SGC Tech AI",
   description:
-    "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe. Our framework, our 90-day transformation roadmap, and how we engage.",
+    "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {

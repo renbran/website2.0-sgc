@@ -8,7 +8,7 @@ import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "How Do You Fix a Failed Odoo Implementation?";
 const DESCRIPTION =
-  "A 6-stage recovery methodology — Stabilize, Audit, Recovery Plan, Rescue/Rebuild, Validate, Handover — for Odoo deployments that broke or were abandoned mid-build.";
+  "A 6-stage recovery methodology — Stabilize, Audit, Recovery Plan, Rescue/Rebuild, Validate, Handover — for broken or abandoned Odoo deployments.";
 
 export const metadata: Metadata = {
   title: `${TITLE} | SGC Tech AI`,

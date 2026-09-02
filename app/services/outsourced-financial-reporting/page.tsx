@@ -8,7 +8,7 @@ import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "What Does Outsourced Financial Reporting Cost in Dubai?";
 const DESCRIPTION =
-  "We don't sell financial reporting as a separate monthly retainer — it's built into the Implementation and AMC layers. Real cost basis and a verified OSUS Real Estate result.";
+  "We don't sell financial reporting as a separate retainer — it's built into Implementation and AMC. Real cost basis, verified against an OSUS result.";
 
 export const metadata: Metadata = {
   title: `${TITLE} | SGC Tech AI`,

@@ -8,7 +8,7 @@ import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "Which Finance Tasks Can AI Automate in 2026?";
 const DESCRIPTION =
-  "Invoice and PO data extraction, contract summarization, low-risk decision routing, and forecasting — each with a defined human-verification tier and a published per-transaction cost.";
+  "Invoice and PO data extraction, contract summarization, and low-risk decision routing — each with a defined human-verification tier and published cost.";
 
 export const metadata: Metadata = {
   title: `${TITLE} | SGC Tech AI`,

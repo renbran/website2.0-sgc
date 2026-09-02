@@ -8,7 +8,7 @@ import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "How Much Does Odoo Implementation Cost in the UAE?";
 const DESCRIPTION =
-  "Real, published pricing: Odoo implementation from AED 14,000 (min. AED 24,000), a mandatory 20%/year AMC, and an AED 875/month subscription tier for smaller deals.";
+  "Real, published pricing: Odoo implementation from AED 14,000 (min. AED 24,000), a mandatory 20%/year AMC, and an AED 875/month subscription tier.";
 
 export const metadata: Metadata = {
   title: `${TITLE} | SGC Tech AI`,
