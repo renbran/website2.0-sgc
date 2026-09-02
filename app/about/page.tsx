@@ -7,7 +7,6 @@ import OriginStory from "@/components/about/OriginStory";
 import TransformationCompare from "@/components/about/TransformationCompare";
 import TransformationFramework from "@/components/about/TransformationFramework";
 import RoadmapTimeline from "@/components/about/RoadmapTimeline";
-import LeadershipSection from "@/components/about/LeadershipSection";
 import IndustriesGrid from "@/components/about/IndustriesGrid";
 import EngagementTiers from "@/components/about/EngagementTiers";
 import AboutCTA from "@/components/about/AboutCTA";
@@ -15,7 +14,7 @@ import AboutCTA from "@/components/about/AboutCTA";
 export const metadata: Metadata = {
   title: "About — SGC Tech AI",
   description:
-    "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe. Meet the founders, the framework, and the 90-day transformation roadmap.",
+    "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe. Our framework, our 90-day transformation roadmap, and how we engage.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -39,6 +38,12 @@ export const metadata: Metadata = {
   },
 };
 
+// LeadershipSection and the per-founder Person JSON-LD have been removed from
+// this route (founder direction 2026-09-02): the public site carries no founder
+// names. Site-wide Organization + WebSite JSON-LD is still emitted by the root
+// layout. LeadershipSection remains in the repo as dead code for potential
+// revival as anonymised team cards.
+
 export default function AboutPage() {
   return (
     <>
@@ -55,7 +60,6 @@ export default function AboutPage() {
         <TransformationCompare />
         <TransformationFramework />
         <RoadmapTimeline />
-        <LeadershipSection />
         <IndustriesGrid />
         <EngagementTiers />
         <AboutCTA />

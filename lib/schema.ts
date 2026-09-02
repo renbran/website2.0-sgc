@@ -1,0 +1,122 @@
+import { ORG } from "@/content/canonical-facts";
+
+const BASE = ORG.url;
+
+// Stable @id values — critical for entity graph linking across pages.
+export const IDS = {
+  org: `${BASE}/#organization`,
+  website: `${BASE}/#website`,
+} as const;
+
+export function organizationSchema() {
+  return {
+    "@type": ["Organization", "ProfessionalService"],
+    "@id": IDS.org,
+    name: ORG.tradingName,
+    legalName: ORG.legalName,
+    alternateName: ["SGC Tech", "Scholarix Global Consultants"],
+    url: BASE,
+    logo: { "@type": "ImageObject", url: ORG.logo },
+    email: ORG.email,
+    telephone: ORG.phone,
+    identifier: {
+      "@type": "PropertyValue",
+      name: `${ORG.licensingAuthority} Trade License`,
+      value: ORG.licenseNumber,
+    },
+    address: [
+      {
+        "@type": "PostalAddress",
+        // Registered free-zone address (trade license)
+        streetAddress: `${ORG.registeredAddress.premises}, ${ORG.registeredAddress.locality}`,
+        addressLocality: ORG.registeredAddress.locality,
+        addressRegion: ORG.registeredAddress.region,
+        addressCountry: ORG.registeredAddress.country,
+      },
+      {
+        "@type": "PostalAddress",
+        // Operating office
+        streetAddress: ORG.operatingAddress.street,
+        addressLocality: ORG.operatingAddress.locality,
+        addressRegion: ORG.operatingAddress.region,
+        addressCountry: ORG.operatingAddress.country,
+      },
+    ],
+    areaServed: ORG.serviceArea.map((n) => ({ "@type": "Place", name: n })),
+    // Per founder direction (2026-09-02): no Person nodes are emitted anywhere
+    // on the public site. Founder bios and individual credentials live in
+    // canonical-facts.ts as internal record only. `knowsAbout` carries the
+    // practice-area signal that Organisation nodes need for answer engines.
+    knowsAbout: [
+      "Odoo ERP implementation",
+      "UAE Corporate Tax",
+      "UAE VAT compliance",
+      "AI process automation",
+      "Financial reporting",
+      "Business process reengineering",
+      "Accounts payable automation",
+    ],
+    sameAs: ORG.sameAs,
+    openingHoursSpecification: ORG.hours.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.days,
+      opens: h.opens,
+      closes: h.closes,
+    })),
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@type": "WebSite",
+    "@id": IDS.website,
+    url: BASE,
+    name: ORG.tradingName,
+    publisher: { "@id": IDS.org },
+    inLanguage: "en-AE",
+  };
+}
+
+export function serviceSchema(s: {
+  name: string;
+  description: string;
+  slug: string;
+}) {
+  return {
+    "@type": "Service",
+    "@id": `${BASE}/services/${s.slug}#service`,
+    name: s.name,
+    description: s.description,
+    provider: { "@id": IDS.org },
+    areaServed: { "@type": "Country", name: "United Arab Emirates" },
+    serviceType: s.name,
+  };
+}
+
+export function faqSchema(qas: { q: string; a: string }[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: qas.map((x) => ({
+      "@type": "Question",
+      name: x.q,
+      acceptedAnswer: { "@type": "Answer", text: x.a },
+    })),
+  };
+}
+
+export function breadcrumbSchema(items: { name: string; url: string }[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  };
+}
+
+// Wrap any set of nodes into one @graph — preferred over multiple <script> blocks.
+export function graph(nodes: object[]) {
+  return { "@context": "https://schema.org", "@graph": nodes };
+}
