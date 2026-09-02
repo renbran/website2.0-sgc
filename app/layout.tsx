@@ -7,6 +7,8 @@ import LoadingScreen from "@/components/LoadingScreen";
 import TidalCursor from "@/components/ui/tidal-cursor";
 import ThemeProvider from "@/components/ThemeProvider";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema, websiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
 const inter = Inter({
@@ -105,6 +107,11 @@ export default function RootLayout({
   return (
     <html lang="en-AE" id="top" suppressHydrationWarning>
       <head>
+        {/* Site-wide entity graph — Organization/ProfessionalService + WebSite.
+            Stable @id values (lib/schema.ts) let per-page nodes (Person,
+            BreadcrumbList, FAQPage, etc.) reference back via {"@id": ...}
+            instead of repeating the full entity. */}
+        <JsonLd data={graph([organizationSchema(), websiteSchema()])} />
         {/* Pre-hydration theme sync — runs before first paint so there is no
             flash of the wrong theme while React hydrates. */}
         <Script id="theme-init" strategy="beforeInteractive">
