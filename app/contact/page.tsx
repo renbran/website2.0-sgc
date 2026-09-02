@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/contact/ContactForm";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { ORG } from "@/content/canonical-facts";
 
 const DESCRIPTION =
   "Get in touch with SGC Tech AI. Book a Finance Operations Audit, start Direct Implementation, or schedule a Founder Call. Dubai, UAE.";
@@ -64,10 +65,9 @@ const contactChannels = [
 ];
 
 const officeAddress = [
-  "Scholarix Global Consultants FZCO",
-  "Maseed Building Office No. 304",
-  "119/12st, Al Rigga",
-  "Dubai, United Arab Emirates",
+  ORG.legalName,
+  ORG.operatingAddress.street,
+  `${ORG.operatingAddress.locality}, United Arab Emirates`,
 ];
 
 export default function ContactPage() {

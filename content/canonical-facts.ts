@@ -39,11 +39,21 @@ export const ORG = {
   // from `registeredAddress` (DIEZ free-zone, license of record). Per
   // Google LocalBusiness guidance, a single PostalAddress is required on
   // the practice node; the registered address lives on the Organization node.
+  //
+  // This exact string must match Footer.tsx (frozen — do not edit to
+  // "fix" a mismatch here instead) and privacy/page.tsx verbatim. NAP
+  // (name/address/phone) consistency across every surface — including the
+  // eventual Google Business Profile — is the whole mechanism by which
+  // that profile reinforces entity resolution; a single wrong word here
+  // undermines it everywhere at once.
   operatingAddress: {
-    street: "AL Maseed Building 304, Al Rigga Road",
-    locality: "Deira",
+    street: "Maseed Building Office No. 304, 119/12st, Al Rigga",
+    locality: "Dubai",
     region: "Dubai",
     country: "AE",
+    // Al Rigga office, provided by founder via Google Maps pin (2026-09-02).
+    latitude: 25.266647311631466,
+    longitude: 55.31027795271349,
   },
   hours: [
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },

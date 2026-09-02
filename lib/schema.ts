@@ -85,6 +85,11 @@ export function localBusinessSchema() {
       addressRegion: ORG.operatingAddress.region,
       addressCountry: ORG.operatingAddress.country,
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: ORG.operatingAddress.latitude,
+      longitude: ORG.operatingAddress.longitude,
+    },
     areaServed: ORG.serviceArea.map((n) => ({ "@type": "Place", name: n })),
     priceRange: "AED 14,000 – AED 250,000+",
     openingHoursSpecification: ORG.hours.map((h) => ({
