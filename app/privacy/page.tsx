@@ -6,12 +6,27 @@ import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+const DESCRIPTION =
+  "How Scholarix Global Consultants FZCO (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.";
+
 export const metadata: Metadata = {
   title: "Privacy Policy — SGC Tech AI | UAE PDPL Compliance",
-  description:
-    "How Scholarix Global Consultants FZCO (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.",
+  description: DESCRIPTION,
   alternates: { canonical: "/privacy" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Privacy Policy — SGC Tech AI",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/privacy",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy — SGC Tech AI",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const LAST_UPDATED = "Effective 1 July 2026";

@@ -6,12 +6,27 @@ import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+const DESCRIPTION =
+  "Website terms of use for sgctech.ai — site usage, professional advice disclaimer, engagement scope, IP, and dispute resolution under UAE law.";
+
 export const metadata: Metadata = {
   title: "Terms of Service — SGC Tech AI | UAE Governing Law",
-  description:
-    "Website terms of use for sgctech.ai — site usage, professional advice disclaimer, engagement scope, IP, and dispute resolution under UAE law.",
+  description: DESCRIPTION,
   alternates: { canonical: "/terms" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Terms of Service — SGC Tech AI",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/terms",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service — SGC Tech AI",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const LAST_UPDATED = "Effective 1 July 2026";

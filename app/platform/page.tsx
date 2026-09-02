@@ -6,12 +6,27 @@ import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+const DESCRIPTION =
+  "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.";
+
 export const metadata: Metadata = {
   title: "The SGC Tech AI Platform — app.sgctech.ai",
-  description:
-    "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.",
+  description: DESCRIPTION,
   alternates: { canonical: "/platform" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "The SGC Tech AI Platform — app.sgctech.ai",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/platform",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The SGC Tech AI Platform",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const structuredData = {

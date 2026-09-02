@@ -5,12 +5,27 @@ import ContactForm from "@/components/contact/ContactForm";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+const DESCRIPTION =
+  "Get in touch with SGC Tech AI. Book a Finance Operations Audit, start Direct Implementation, or schedule a Founder Call. Dubai, UAE.";
+
 export const metadata: Metadata = {
   title: "Contact — SGC Tech AI",
-  description:
-    "Get in touch with SGC Tech AI. Book a Finance Operations Audit, start Direct Implementation, or schedule a Founder Call. Dubai, UAE.",
+  description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Contact — SGC Tech AI",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/contact",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact — SGC Tech AI",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const WHATSAPP_NUMBER = "971521985231";

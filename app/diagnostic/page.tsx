@@ -5,12 +5,27 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import DiagnosticWizard from "@/components/diagnostic/DiagnosticWizard";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
+const DESCRIPTION =
+  "Score your operations in 8 minutes. 12 questions across Finance, Sales, Operations, and People. Get a personalised report with prioritised next moves.";
+
 export const metadata: Metadata = {
   title: "Operational Health Diagnostic — SGC Tech AI",
-  description:
-    "Score your operations in 8 minutes. 12 questions across Finance, Sales, Operations, and People. Get a personalised report with prioritised next moves.",
+  description: DESCRIPTION,
   alternates: { canonical: "/diagnostic" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Operational Health Diagnostic — SGC Tech AI",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/diagnostic",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Operational Health Diagnostic — SGC Tech AI",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const structuredData = {

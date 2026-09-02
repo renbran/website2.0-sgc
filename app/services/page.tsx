@@ -16,6 +16,22 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Services — SGC Tech AI",
+    description: DESCRIPTION,
+    url: "https://sgctech.ai/services",
+    type: "website",
+    // Route-level `openGraph` replaces (not merges with) the root layout's
+    // openGraph object, so the shared /opengraph-image must be re-declared
+    // here — otherwise this page silently ships with no social preview image.
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services — SGC Tech AI",
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
 };
 
 const SERVICES = [
