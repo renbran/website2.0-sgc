@@ -69,6 +69,22 @@ export default function OdooImplementationCostPage() {
             name: "Odoo ERP Implementation",
             description: DESCRIPTION,
             slug: "odoo-implementation-uae",
+            offers: [
+              {
+                name: "Implementation Foundation",
+                minPrice: "14000",
+                currency: "AED",
+                description:
+                  "Implementation foundation: from AED 14,000, plus module blocks scoped in Discovery. Minimum qualifying deal AED 24,000.",
+              },
+              {
+                name: "Annual Maintenance Contract (AMC)",
+                minPrice: "4800",
+                currency: "AED",
+                description:
+                  "Mandatory Annual Maintenance Contract: 20% of the Implementation price per year, billed annually. From AED 4,800/year, based on the AED 24,000 minimum qualifying Implementation deal — scales with actual Implementation price. Go-live does not proceed without an executed AMC.",
+              },
+            ],
           }),
           faqSchema(faqs),
         ])}

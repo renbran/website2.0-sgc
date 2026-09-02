@@ -81,6 +81,16 @@ export function serviceSchema(s: {
   name: string;
   description: string;
   slug: string;
+  offers?: {
+    name: string;
+    /** Use for a fixed, definite amount (e.g. a per-unit rate). */
+    price?: string;
+    /** Use for a "from" floor that scales with scope (e.g. a % of another price). */
+    minPrice?: string;
+    currency: string;
+    description: string;
+    vatIncluded?: boolean;
+  }[];
 }) {
   return {
     "@type": "Service",
@@ -90,6 +100,36 @@ export function serviceSchema(s: {
     provider: { "@id": IDS.org },
     areaServed: { "@type": "Country", name: "United Arab Emirates" },
     serviceType: s.name,
+    ...(s.offers &&
+      s.offers.length > 0 && {
+        offers: s.offers.map((o, i) => ({
+          ...offerSchema(o),
+          "@id": `${BASE}/services/${s.slug}#offer-${i + 1}`,
+        })),
+      }),
+  };
+}
+
+export function offerSchema(o: {
+  name: string;
+  price?: string;
+  minPrice?: string;
+  currency: string;
+  description: string;
+  vatIncluded?: boolean;
+}) {
+  return {
+    "@type": "Offer",
+    name: o.name,
+    description: o.description,
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      ...(o.price ? { price: o.price } : { minPrice: o.minPrice }),
+      priceCurrency: o.currency,
+      valueAddedTaxIncluded: o.vatIncluded ?? false,
+    },
+    availability: "https://schema.org/InStock",
+    seller: { "@id": IDS.org },
   };
 }
 

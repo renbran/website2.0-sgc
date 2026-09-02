@@ -65,6 +65,22 @@ export default function AiAutomationFinancePage() {
             name: "AI Automation for Finance Operations",
             description: DESCRIPTION,
             slug: "ai-automation-finance",
+            offers: [
+              {
+                name: "AI Credits",
+                price: "0.018",
+                currency: "AED",
+                description:
+                  "AI Credit pricing: AED 0.018 per 1,000 tokens (input + output combined), pooled across your tenant. Indicative per-document costs published on the page.",
+              },
+              {
+                name: "Subscription (Rent)",
+                minPrice: "875",
+                currency: "AED",
+                description:
+                  "Subscription (Rent) layer for smaller deals: from AED 875/month including five licensed users.",
+              },
+            ],
           }),
           faqSchema(faqs),
         ])}

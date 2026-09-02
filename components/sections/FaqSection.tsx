@@ -11,27 +11,27 @@ const faqs = [
   {
     question: "Who owns the system and our data?",
     answer:
-      "You do. The platform is built on an open-source Odoo core running in your own instance, hosted in AWS or Azure Middle East regions with daily backups, and processed in line with UAE PDPL.",
+      "You do. The platform is built on an open-source Odoo core running in your own instance, with daily backups and processing in line with UAE PDPL. Hosting and processor details are in our Privacy Policy.",
   },
   {
     question: "What happens if we stop the subscription?",
     answer:
-      "Your Odoo core and your data remain yours — nothing is held hostage. The subscription covers the AI operating layer, monitoring, security patching, and support; when it ends, those services stop, but the system and its data stay with you.",
+      "Your Odoo core and your data remain yours — nothing is held hostage. The Subscription (Rent) layer covers the hosted platform, AML screening signal, and records-and-reports generation; when it ends, those services stop, but the system and its data stay with you. Compliance updates to your Implementation continue separately under the Annual Maintenance Contract (AMC).",
   },
   {
     question: "How disruptive is implementation?",
     answer:
-      "Timelines are fixed per tier — from 2–3 weeks on Starter to 10–16 weeks on Enterprise — and agreed in writing before we start. Go-live is staged so your team keeps working, and hypercare after launch is part of delivery.",
+      "Discovery defines the timeline in writing before work begins, based on the modules and integrations in scope. Go-live is staged so your team keeps working, and hypercare after launch is part of delivery.",
   },
   {
-    question: "Why is the subscription mandatory?",
+    question: "Why is the Annual Maintenance Contract mandatory?",
     answer:
-      "Because an unmaintained system decays into exactly the mess you came to us with. The subscription funds AI task capacity, hosting, security, backups, and the compliance updates that UAE regulation keeps generating — and it keeps us accountable after go-live, which is why the go-live guarantee goes in writing.",
+      "Because an unmaintained ERP decays into exactly the mess you came to us with. The Annual Maintenance Contract — billed annually at 20% of the Implementation price — funds platform maintenance, security patches, compliance updates to the configured UAE layer, and priority support after go-live. The go-live guarantee goes in writing because we stay accountable after launch.",
   },
   {
     question: "How do we verify your credentials and case numbers?",
     answer:
-      "Ask. Credentials (CPA, CIA, CRMA, ACCA, CIPFA) are held by the named founders and can be confirmed with the issuing bodies. Case figures come from live client systems; we share the audit trail and arrange reference calls under NDA after Discovery.",
+      "Ask. Engagement leads are chartered accountants in active standing; CPA and CIA credentials are individually verifiable with the issuing bodies on request. Case figures come from live client systems; we share the audit trail and arrange reference calls under NDA after Discovery.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function FaqSection() {
             style={{ fontFamily: "var(--font-fraunces)" }}
             className="max-w-4xl text-[clamp(2rem,4.5vw,3.75rem)] font-extrabold leading-[1.1] text-[var(--sgc-text-primary)]"
           >
-            What founders actually ask.
+            What prospects actually ask.
           </h2>
           <p
             style={{ fontFamily: "var(--font-inter)" }}

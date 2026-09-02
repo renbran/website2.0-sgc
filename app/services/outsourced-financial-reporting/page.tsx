@@ -65,6 +65,15 @@ export default function OutsourcedFinancialReportingPage() {
             name: "Outsourced Financial Reporting",
             description: DESCRIPTION,
             slug: "outsourced-financial-reporting",
+            offers: [
+              {
+                name: "Implementation Foundation",
+                minPrice: "14000",
+                currency: "AED",
+                description:
+                  "Built into the Implementation layer (from AED 14,000, min AED 24,000). No standalone reporting retainer — kept current under the mandatory AMC at 20% of Implementation per year.",
+              },
+            ],
           }),
           faqSchema(faqs),
         ])}

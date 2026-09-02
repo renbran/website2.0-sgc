@@ -65,6 +65,15 @@ export default function OdooRescuePage() {
             name: "Odoo Implementation Rescue",
             description: DESCRIPTION,
             slug: "odoo-implementation-rescue",
+            offers: [
+              {
+                name: "Implementation Foundation",
+                minPrice: "14000",
+                currency: "AED",
+                description:
+                  "Implementation foundation tier (when going forward with a rebuild): from AED 14,000, min AED 24,000. R1 Audit itself is scoped separately — its fee is credited to Implementation if you proceed within 90 days.",
+              },
+            ],
           }),
           faqSchema(faqs),
         ])}

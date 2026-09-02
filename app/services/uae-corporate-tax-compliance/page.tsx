@@ -65,6 +65,22 @@ export default function CorporateTaxCompliancePage() {
             name: "UAE Corporate Tax Configuration in Odoo",
             description: DESCRIPTION,
             slug: "uae-corporate-tax-compliance",
+            offers: [
+              {
+                name: "Implementation Foundation",
+                minPrice: "14000",
+                currency: "AED",
+                description:
+                  "Configured as part of the Implementation layer: from AED 14,000 foundation, plus module blocks scoped in Discovery. Compliance updates covered under the mandatory AMC.",
+              },
+              {
+                name: "Annual Maintenance Contract (AMC)",
+                minPrice: "4800",
+                currency: "AED",
+                description:
+                  "Annual Maintenance Contract: 20% of the Implementation price per year, billed annually — keeps the compliance layer current as FTA rules evolve. From AED 4,800/year, based on the AED 24,000 minimum qualifying Implementation deal — scales with actual Implementation price.",
+              },
+            ],
           }),
           faqSchema(faqs),
         ])}
