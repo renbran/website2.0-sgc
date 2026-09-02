@@ -40,7 +40,7 @@ export const HERO_SCENES: HeroScene[] = [
     problemSubtext: "Work keeps breaking across too many tools.",
     solutionHeadline: "Unify operations in Odoo with AI.",
     solutionSubtext: "SGC Tech AI centralizes CRM, documents, and approvals.",
-    highlightNumber: "AED 1.15 B",
+    highlightNumber: "AED 72M Recovered",
     industryTag: "all"
   },
   {
@@ -52,7 +52,7 @@ export const HERO_SCENES: HeroScene[] = [
     problemSubtext: "Every missed call is silent revenue loss.",
     solutionHeadline: "Capture every inquiry with AI Voice.",
     solutionSubtext: "Route leads, qualify intent, and keep response time tight.",
-    highlightNumber: "104% ROI",
+    highlightNumber: "445% ROI",
     industryTag: "real-estate"
   },
   {
@@ -64,7 +64,7 @@ export const HERO_SCENES: HeroScene[] = [
     problemSubtext: "Approvals stall when numbers do not match.",
     solutionHeadline: "Automate commissions and approvals.",
     solutionSubtext: "SGC Tech AI locks the rules before the payout stage.",
-    highlightNumber: "580 deals",
+    highlightNumber: "−90% disputes",
     industryTag: "real-estate"
   },
   {
@@ -76,7 +76,7 @@ export const HERO_SCENES: HeroScene[] = [
     problemSubtext: "Data entry still consumes the team.",
     solutionHeadline: "Remove data entry with document AI.",
     solutionSubtext: "Scan, classify, and push records into the right workflow.",
-    highlightNumber: "5.9 months",
+    highlightNumber: "2.2-month payback",
     industryTag: "construction"
   },
   {
@@ -122,7 +122,7 @@ export const HERO_SCENES: HeroScene[] = [
     frameStaticPeak: 116,
     type: "finale",
     headline: "Operator-Led Proof",
-    proofStats: ["AED 1.15 B Sales Volume", "104% Audited Year-1 ROI", "5.9-Month Payback"],
+    proofStats: ["AED 72M Recovered · AX Capital", "445% Year-1 ROI · OSUS Real Estate", "2.2-Month Payback"],
     tagline: "Fixed Price. Fixed Timeline. Operator-Led.",
     cta: "Book a 30-min scoping call - sgctech.ai",
     industryTag: "all"

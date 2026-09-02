@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import AwardTrophy from "@/components/ui/AwardTrophy";
 import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
@@ -46,10 +45,10 @@ const CREDENTIALS: Credential[] = [
   },
   {
     level: "GOLD",
-    headline: "AED 1.15B",
-    subtitle: "Sales volume processed in year one of full deployment",
-    recipient: "UAE real-estate client · anonymised",
-    date: "Verified · NDA on Request",
+    headline: "AED 72M Recovered",
+    subtitle: "Invoices recovered in 7 months, live client system",
+    recipient: "AX Capital · ~900 agents",
+    date: "Verified · Named Client",
   },
   {
     level: "GOLD",
@@ -102,9 +101,9 @@ export default function AwardsCarousel() {
         </p>
         <p>
           The numbers below aren&apos;t projections — they&apos;re what came out of live client systems.
-          AED 1.15 billion in sales volume processed through a single deployment. Compliance built
-          into delivery, not retrofitted under pressure. Five credentials held personally by the
-          founders, each one current and verifiable with the issuing body.
+          AED 72 million recovered in invoices for AX Capital, and 445% first-year ROI for OSUS Real
+          Estate. Compliance built into delivery, not retrofitted under pressure. Credentials held
+          personally by the founders, each one current and verifiable with the issuing body.
         </p>
       </PremiumEditorialSection>
 

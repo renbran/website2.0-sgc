@@ -60,7 +60,7 @@ export default function Footer() {
               Legal
             </p>
             <ul className="space-y-2 text-[0.82rem] leading-[1.7] text-[var(--sgc-text-muted)]">
-              <li className="font-medium text-[var(--text-primary)]">Scholarix Global Consultant FZE</li>
+              <li className="font-medium text-[var(--text-primary)]">Scholarix Global Consultants FZCO</li>
               <li>UAE Incorporated · Dubai</li>
               <li>Maseed Building Office No. 304</li>
               <li>119/12st, Al Rigga</li>
@@ -87,7 +87,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-[var(--border)]">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-5 text-[0.78rem] text-[var(--sgc-text-muted)] md:flex-row md:px-10">
-          <p>© 2026 Scholarix Global Consultant FZE (SGC Tech AI) · All prices exclusive of 5% UAE VAT.</p>
+          <p>© 2026 Scholarix Global Consultants FZCO (SGC Tech AI) · All prices exclusive of 5% UAE VAT.</p>
           <nav aria-label="Footer legal links" className="flex items-center gap-5">
             <Link href="/privacy" className="inline-block py-2 transition duration-200 hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]">Privacy</Link>
             <Link href="/terms" className="inline-block py-2 transition duration-200 hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]">Terms</Link>

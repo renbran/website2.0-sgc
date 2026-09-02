@@ -5,10 +5,15 @@ import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import LivingCard from "@/components/ui/LivingCard";
 import FlippingCard from "@/components/ui/FlippingCard";
 import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
+import { CASE_STUDIES } from "@/content/canonical-facts";
+
+const osus = CASE_STUDIES.find((c) => c.client === "OSUS Real Estate")!;
+const axCapital = CASE_STUDIES.find((c) => c.client === "AX Capital")!;
 
 type StatItem = {
   value: number;
   suffix: string;
+  prefix?: string;
   label: string;
   sublabel: string;
   displayValue?: string;
@@ -18,33 +23,34 @@ type StatItem = {
 
 const stats: StatItem[] = [
   {
-    value: 20,
+    value: 445,
     suffix: "%",
-    label: "Admin Hours Saved",
-    sublabel: "Reduction in admin hours · within 90 days",
-    method: "Time-tracking deltas between pre-implementation baseline and 90-day post-go-live. Verified in client systems, not self-reported.",
+    label: "First-Year ROI",
+    sublabel: "OSUS Real Estate, Year 1",
+    method: "First-year net savings (AED 1.64M) against total investment. Sourced from the signed OSUS Real Estate case study.",
   },
   {
-    value: 60,
-    suffix: "%",
-    label: "Faster Monthly Close",
-    sublabel: "8–12 days → 3–5 days",
-    method: "Wall-clock from cut-off to signed board pack, median across Growth-tier clients in 2024–2026.",
+    value: 72,
+    suffix: "M",
+    prefix: "AED ",
+    label: "Invoices Recovered",
+    sublabel: "AX Capital, 7 months",
+    method: "2020–2022 uncollected invoices recovered via the automated commission engine and reconciliation build. Sourced from the signed AX Capital case study.",
   },
   {
-    value: 5,
+    value: 2.2,
     suffix: " mo",
-    displayValue: "4–6",
-    label: "Typical Payback",
-    sublabel: "Growth tier, Year 1",
-    method: "Hours saved × fully-loaded cost vs. annual platform + retainer. Worst case observed across UAE mid-market book of business.",
+    displayValue: "2.2",
+    label: "Payback Period",
+    sublabel: "OSUS Real Estate, Year 1",
+    method: "Time for first-year net savings to exceed total investment. Sourced from the signed OSUS Real Estate case study.",
   },
   {
-    value: 10,
-    suffix: " hrs/wk",
-    label: "Returned to Founder",
-    sublabel: "Across ops & finance",
-    method: "Self-logged, weekly: how many hours of operational and finance work the founder stopped doing personally.",
+    value: 75,
+    suffix: "%",
+    label: "Manual Work Reduction",
+    sublabel: "OSUS Real Estate",
+    method: "Reduction in the 247.5 staff-hours/week previously spent on manual admin, measured post-go-live. Sourced from the signed OSUS Real Estate case study.",
   },
 ];
 
@@ -118,11 +124,12 @@ export default function CaseStudySection() {
                       >
                         {stat.displayValue ? (
                           <>
+                            {stat.prefix}
                             {stat.displayValue}
                             {stat.suffix}
                           </>
                         ) : (
-                          <StatCounter value={stat.value} suffix={stat.suffix} />
+                          <StatCounter value={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
                         )}
                       </p>
                       <p className="mt-3 text-[0.85rem] font-medium uppercase tracking-[0.18em] text-[var(--sgc-text-muted)]">
@@ -156,34 +163,36 @@ export default function CaseStudySection() {
       <PremiumEditorialSection
         nested
         id="case-study-editorial"
-        heading="A UAE real-estate brokerage, deployed at full scale."
-        subheading="What's possible at scale · anonymised case"
+        heading={`${osus.client}: full ERP deployment for an 11-person brokerage.`}
+        subheading="Verified outcome · named client, on record"
         imageSrc="/images/sections/human-tech-team.jpg"
         imageAlt="Technology team collaborating in a modern office, representing the real results of digital transformation"
-        imageCaption="Illustrative image · case figures from live ops · anonymised deployment"
+        imageCaption="Illustrative image · figures below from the signed OSUS Real Estate case study"
         layout="lumiere"
         background="dark"
-        pullQuote="This is the ceiling, not the average. Most clients see 20–40% of these gains in Year 1 — which is still a strong return."
-        pullQuoteAttribution="SGC Tech AI · Growth Tier Client"
+        pullQuote={osus.quote}
+        pullQuoteAttribution={osus.quoteAttribution}
         ctaText="Discover the story"
         ctaHref="#contact"
       >
         <p className="text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-teal)]">
-          What&apos;s possible at scale · anonymised case
+          What&apos;s possible at scale · named client
         </p>
         <h3
           style={{ fontFamily: "var(--font-fraunces)" }}
           className="mt-3 text-[clamp(1.25rem,2vw,1.5rem)] font-bold text-[var(--accent)]"
         >
-          UAE real-estate brokerage, full deployment
+          {osus.client} · {osus.scale}
         </h3>
         <p className="mt-3">
-          A mid-size UAE real-estate brokerage. 30 agents. Operating on Excel commissions, manual SPA data
-          entry, and WhatsApp as a CRM. We audited in month one, implemented in months two and three.
+          {osus.legalEntity} was running on spreadsheets, handwritten records, and a Bitrix CRM
+          disconnected from accounting, invoicing, or deal management — an estimated 247.5
+          staff-hours a week lost to manual admin. SGC implemented an end-to-end Odoo ERP,
+          integrating Bitrix rather than replacing it.
         </p>
         <p>
-          The numbers below are from year one of live operation — verified, not projected. Full audit trail
-          available under NDA.
+          The numbers below are from year one of live operation — verified, not projected. Full
+          audit trail and a reference call are available on request.
         </p>
         <div className="mt-6 grid grid-cols-2 gap-4">
           <div>
@@ -191,25 +200,25 @@ export default function CaseStudySection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
-              AED 1.15B
+              {osus.metrics.revenueProcessed}
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Sales volume processed</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Brokerage revenue processed through ERP</p>
           </div>
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
-              580
+              {osus.metrics.firstYearNetSavings}
             </p>
-            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Real-estate deals</p>
+            <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">First-year net savings</p>
           </div>
           <div>
             <p
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
-              104%
+              {osus.metrics.firstYearRoi}
             </p>
             <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Year-1 ROI</p>
           </div>
@@ -218,13 +227,13 @@ export default function CaseStudySection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-[1.5rem] font-extrabold text-[var(--accent)]"
             >
-              5.9 mo
+              {osus.metrics.paybackPeriod}
             </p>
             <p className="mt-1 text-[0.78rem] text-[var(--sgc-text-muted)]">Payback</p>
           </div>
         </div>
         <p className="mt-4">
-          Client identity protected under NDA. Reference call available on request after Discovery.
+          Client named and quoted with consent. Full case study and reference call available on request.
         </p>
       </PremiumEditorialSection>
 
@@ -294,7 +303,7 @@ export default function CaseStudySection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-center text-[0.8rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-copper)]"
             >
-              Typical Growth-tier client · Year 1
+              {axCapital.client} · verified outcome
             </p>
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -303,10 +312,10 @@ export default function CaseStudySection() {
                   style={{ fontFamily: "var(--font-inter)" }}
                   className="text-gold-gradient text-[1.5rem] font-bold"
                 >
-                  AED 52,000 invested
+                  {axCapital.metrics.invoicesRecovered.value} recovered
                 </p>
                 <p className="mt-2 text-[0.9rem] text-[var(--sgc-text-muted)]">
-                  AED 22K implementation + 12 × AED 2,500 subscription
+                  {axCapital.metrics.invoicesRecovered.basis}
                 </p>
               </div>
               <div>
@@ -314,17 +323,20 @@ export default function CaseStudySection() {
                   style={{ fontFamily: "var(--font-inter)" }}
                   className="text-gold-gradient text-[1.5rem] font-bold"
                 >
-                  AED 120K–180K recovered
+                  {axCapital.metrics.reconciliationTimeChange} reconciliation time
                 </p>
                 <p className="mt-2 text-[0.9rem] text-[var(--sgc-text-muted)]">
-                  Admin hours, faster cash cycle, recovered leads
+                  {axCapital.metrics.commissionDisputeChange} commission disputes ·{" "}
+                  {axCapital.metrics.agentRetentionChange} agent retention
                 </p>
               </div>
             </div>
             <p className="mt-8 text-center text-[0.85rem] font-medium text-[var(--sgc-text-muted)]">
-              Payback:{" "}
-              <span className="font-semibold text-[var(--sgc-text-primary)]">4–6 months typical</span>.
-              Conservative range. Per-client calculation provided in Discovery.
+              Recovery timeline:{" "}
+              <span className="font-semibold text-[var(--sgc-text-primary)]">
+                {axCapital.metrics.invoicesRecovered.window}
+              </span>
+              , {axCapital.scale}. Reference call available on request.
             </p>
           </div>
           </LivingCard>

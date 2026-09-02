@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import DiamondScrollHero from "@/components/Hero/DiamondScrollHero";
 import Navbar from "@/components/Navbar";
 import HelixToShieldTransition from "@/components/transitions/HelixToShieldTransition";
-import CredentialRow from "@/components/sections/CredentialRow";
 import CaseStudySection from "@/components/sections/CaseStudySection";
 import CommercialModelSection from "@/components/sections/CommercialModelSection";
 import ContactSection from "@/components/sections/ContactSection";
-import FounderSection from "@/components/FounderSection";
-import AwardsCarousel from "@/components/sections/AwardsCarousel";
 import PricingSection from "@/components/sections/PricingSection";
 import ProblemSection from "@/components/sections/ProblemSection";
 import SolutionSection from "@/components/sections/SolutionSection";
@@ -21,50 +18,18 @@ import DiagnosisScrubHero from "@/components/sections/diagnosis-scrub-hero";
 // Note: SectionOne–Seven were verbatim duplicates of the helix diamond captions
 // and have been removed (Phase 1 collapse). SectionEight is retained as the
 // Rescue-Audit CTA beat and now sits immediately before ContactSection.
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: "SGC Tech AI",
-  legalName: "Scholarix Global Consultant FZE",
-  url: "https://sgctech.ai",
-  email: "info@sgctech.ai",
-  telephone: "+971-52-198-5231",
-  priceRange: "AED 5,000 – AED 75,000+",
-  description:
-    "Practitioner-led Odoo ERP and AI implementation firm for UAE mid-market companies, led by CPAs and CIAs.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Maseed Building Office No. 304, 119/12st, Al Rigga",
-    addressLocality: "Dubai",
-    addressRegion: "Dubai",
-    addressCountry: "AE",
-  },
-  sameAs: [
-    "https://linkedin.com/company/sgctechai",
-    "https://instagram.com/sgctech.ai",
-    "https://x.com/sgctech_ai",
-  ],
-  areaServed: {
-    "@type": "Country",
-    name: "United Arab Emirates",
-  },
-  knowsAbout: [
-    "Odoo ERP implementation",
-    "AI finance automation",
-    "Financial reporting",
-    "UAE corporate tax compliance",
-  ],
-};
+// CredentialRow, FounderSection, LeadershipSection, and AwardsCarousel have all
+// been removed from this layout (founder direction 2026-09-02: public site
+// carries no founder names, no credential strip, no credential trophy reel).
+// Their components remain in the repo as dead code in case we ever need to
+// revive them as an anonymised team strip or an "our proof" page.
+// Organization/ProfessionalService + WebSite JSON-LD now lives once, site-wide,
+// in app/layout.tsx (lib/schema.ts) — no per-page duplicate here.
 
 export default function HomePage() {
   return (
     <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
       <Navbar />
-      <CredentialRow />
       <DiamondScrollHero />
       <DiagnosisScrubHero />
       <HelixToShieldTransition />
@@ -72,8 +37,6 @@ export default function HomePage() {
       <ShieldSection />
       <SolutionSection />
       <CaseStudySection />
-      <AwardsCarousel />
-      <FounderSection />
       <CommercialModelSection />
       <PricingSection />
       <FinaleConvergenceSection />

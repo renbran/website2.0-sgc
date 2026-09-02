@@ -11,59 +11,59 @@ import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 const LAYERS = [
   {
     label: "IMPLEMENTATION",
-    price: "AED 15,000 from",
+    price: "AED 14,000 from",
     note: "Foundation",
     optional: false,
     alwaysOn: false,
-    description: "Discovery, configuration, UAT, go-live, hypercare. Fixed price, fixed timeline.",
+    description: "Discovery, build, UAT, go-live, hypercare. Fixed price per scope; ~25-hour base build, plus module blocks. Minimum qualifying deal AED 24,000.",
     includes: [
       "Discovery workshops · As-Is / To-Be mapping",
-      "Odoo configuration + data migration",
+      "Odoo configuration + scoped module blocks",
       "UAT scripts · user training · cutover plan",
-      "30-day hypercare post go-live",
+      "Hypercare post go-live",
     ],
     excludes: [
-      "Module licenses (billed via subscription)",
       "Custom app development (quoted separately)",
       "Hardware, networking, on-prem hosting",
+      "Third-party module licenses",
     ],
   },
   {
-    label: "PLATFORM SUBSCRIPTION",
-    price: "AED 1,500/mo from",
-    note: "Always on",
+    label: "ANNUAL MAINTENANCE CONTRACT",
+    price: "20% of Implementation / yr",
+    note: "Mandatory",
     optional: false,
     alwaysOn: true,
-    description: "Odoo hosting, security patches, AI feature updates, compliance upgrades.",
+    description: "Billed annually on the Implementation price. No go-live proceeds without an executed AMC.",
     includes: [
-      "Odoo Online hosting (GDPR-resident)",
-      "Security patches + backports",
-      "Quarterly release upgrades",
-      "9-to-5 platform support",
+      "Platform maintenance & security patches",
+      "Compliance & version upgrades",
+      "Priority support",
+      "Annual system health review",
     ],
     excludes: [
-      "End-user training hours (see retainer)",
-      "On-call emergency response",
-      "Custom module development",
+      "New feature development (change request)",
+      "Data migration for new modules",
+      "On-call emergency response beyond SLA",
     ],
   },
   {
-    label: "OPERATIONS RETAINER",
-    price: "AED 5,000/mo from",
-    note: "Optional",
+    label: "SUBSCRIPTION (RENT)",
+    price: "AED 875/mo from",
+    note: "Hosted · ~0 founder hours",
     optional: true,
     alwaysOn: false,
-    description: "Named senior consultant, quarterly reviews, priority support.",
+    description: "Hosted platform for smaller deals — AML screening signal, digital intake, records & reports. Minimum 5 licensed users.",
     includes: [
-      "Named senior consultant (CFO-grade)",
-      "Quarterly business review",
-      "Priority same-day response",
-      "Annual tax-position check",
+      "Hosted, tenant-isolated platform",
+      "AML screening signal",
+      "Secure digital client-intake form",
+      "Records & report generation",
     ],
     excludes: [
-      "Transaction-level bookkeeping",
-      "External audit representation",
-      "Filing preparation (handled separately)",
+      "Regulatory filing on the client's behalf",
+      "Government portal credentials",
+      "ASP / third-party fees",
     ],
   },
 ];
@@ -250,16 +250,16 @@ export default function CommercialModelSection() {
         ctaHref="#contact"
       >
         <p>
-          We don&apos;t sell Implementation without Subscription, and we don&apos;t let unmaintained
-          systems decay into the mess you came to us with. The three layers — Implementation,
-          Platform Subscription, and Operations Retainer — work together so your system stays
-          current, compliant, and actually used by your team.
+          We don&apos;t sell Implementation without an Annual Maintenance Contract, and we don&apos;t
+          let unmaintained systems decay into the mess you came to us with. The three layers —
+          Implementation, AMC, and Subscription — work together so your system stays current,
+          compliant, and actually used by your team.
         </p>
         <p>
-          Every layer has a fixed price and a fixed timeline. Discovery, configuration, UAT,
-          go-live, and hypercare are scoped in writing before we start. No scope creep, no
-          surprise invoices. The subscription funds the AI tasks, hosting, security, and
-          compliance updates that keep the system alive after go-live.
+          Implementation is the one-time acquisition cost; the AMC and Subscription are the
+          recurring layers that fund security, compliance updates, and support after go-live.
+          Every layer has a fixed price and a fixed timeline, scoped in writing before we start.
+          No scope creep, no surprise invoices.
         </p>
       </PremiumEditorialSection>
 
@@ -303,7 +303,7 @@ export default function CommercialModelSection() {
             style={{ fontFamily: "var(--font-inter)" }}
             className="mt-10 max-w-3xl border-t border-[var(--border)] pt-6 text-[1rem] font-semibold leading-[1.6] text-[var(--sgc-text-primary)]"
           >
-            We don&apos;t sell Implementation without Subscription.
+            We don&apos;t sell Implementation without an Annual Maintenance Contract.
           </p>
         </RevealOnScroll>
       </div>

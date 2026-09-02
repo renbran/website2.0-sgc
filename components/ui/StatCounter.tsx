@@ -26,7 +26,10 @@ export default function StatCounter({
   const shouldReduceMotion = useReducedMotion();
   const targetRef = useRef<HTMLSpanElement | null>(null);
   const hasAnimatedRef = useRef(false);
-  const [displayValue, setDisplayValue] = useState(0);
+  // Initial state is the FINAL value, not 0 — this is what search/AI crawlers
+  // read in the pre-hydration HTML. The count-up effect below drops to 0 and
+  // animates back up client-side; a crawler never sees that intermediate 0.
+  const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
     const node = targetRef.current;
@@ -47,6 +50,7 @@ export default function StatCounter({
         return;
       }
 
+      setDisplayValue(0);
       const startTime = performance.now();
 
       const step = (currentTime: number) => {

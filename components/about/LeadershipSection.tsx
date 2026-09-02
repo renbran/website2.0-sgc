@@ -37,7 +37,7 @@ const TRACK_RECORD = [
     items: [
       { title: "CFO Leadership", detail: "Multiple Enterprise Transformations" },
       { title: "Financial Strategy", detail: "M&A & Capital Advisory" },
-      { title: "Cash Flow Optimization", detail: "$2B+ Revenue Managed" },
+      { title: "Cash Flow Optimization", detail: "AED 72M Recovered for AX Capital" },
     ],
   },
   {
@@ -97,7 +97,10 @@ export default function LeadershipSection() {
             return (
               <RevealOnScroll key={founder.name} delay={i * 0.1}>
                 <LivingCard>
-                  <div className="h-full rounded-2xl border border-[var(--accent-border)] bg-[var(--surface)] p-6 md:p-8">
+                  <div
+                    id={founder.name === "Mohsin Ali" ? "mohsin-ali" : "renbran-anthony-madelo"}
+                    className="scroll-mt-28 h-full rounded-2xl border border-[var(--accent-border)] bg-[var(--surface)] p-6 md:p-8"
+                  >
                     <div className="relative inline-flex">
                       <div
                         className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--sgc-black)] ring-1 ring-[var(--accent-strong)]"

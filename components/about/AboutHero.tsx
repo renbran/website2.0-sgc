@@ -9,7 +9,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 gsap.registerPlugin(ScrollTrigger);
 
 const LICENSE_LINE =
-  "Scholarix Global Consultants FZCO · License 45160 · DIEZA · Dubai Silicon Oasis";
+  "Scholarix Global Consultants FZCO · License 45160 · DIEZ · Dubai Silicon Oasis";
 
 export default function AboutHero() {
   const rootRef = useRef<HTMLElement>(null);
