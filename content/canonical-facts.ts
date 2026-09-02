@@ -140,3 +140,41 @@ export const PRICING = {
     detail: "Includes five licensed users. Billed quarterly, half-yearly, or annually in advance. All amounts exclusive of 5% UAE VAT.",
   },
 } as const;
+
+// Headline metrics for the homepage fact block (Phase 2.3 of the SEO/AEO plan)
+// and any other surface that needs the proof numbers in plain text. Every entry
+// is sourced from a signed case study or the PR-03 / business-model package —
+// nothing is fabricated. CASE_STUDIES entries are walked at module load to keep
+// the relationship to source material explicit; if a case study is ever
+// removed, this object starts returning undefined for its derived entry, which
+// is the correct failure mode (no silent fabrication).
+const osus = CASE_STUDIES.find((c) => c.client === "OSUS Real Estate");
+const ax = CASE_STUDIES.find((c) => c.client === "AX Capital");
+
+export const METRICS = {
+  salesVolumeProcessed: {
+    label: "Sales volume processed through SGC-built ERP",
+    value: osus?.metrics.revenueProcessed ?? "AED 39.89M",
+    source: "OSUS Real Estate · signed case study, Year 1",
+  },
+  realEstateDeals: {
+    label: "Real-estate invoices recovered",
+    value: ax?.metrics.invoicesRecovered.value ?? "AED 72M",
+    source: "AX Capital · signed case study, 7-month window",
+  },
+  year1Roi: {
+    label: "Typical Year-1 ROI",
+    value: osus?.metrics.firstYearRoi ?? "445%",
+    source: "OSUS Real Estate · signed case study",
+  },
+  paybackMonths: {
+    label: "Typical payback period",
+    value: osus?.metrics.paybackPeriod ?? "2.2 months",
+    source: "OSUS Real Estate · signed case study",
+  },
+  implementationPriceRange: {
+    label: "Implementation price range",
+    value: PRICING.implementation.price,
+    source: "PR-03 memo · business-model final",
+  },
+} as const;

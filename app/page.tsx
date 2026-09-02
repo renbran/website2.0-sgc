@@ -4,6 +4,7 @@ import DiamondScrollHero from "@/components/Hero/DiamondScrollHero";
 import Navbar from "@/components/Navbar";
 import HelixToShieldTransition from "@/components/transitions/HelixToShieldTransition";
 import CaseStudySection from "@/components/sections/CaseStudySection";
+import MetricsFactBlock from "@/components/seo/MetricsFactBlock";
 import CommercialModelSection from "@/components/sections/CommercialModelSection";
 import ContactSection from "@/components/sections/ContactSection";
 import PricingSection from "@/components/sections/PricingSection";
@@ -37,6 +38,7 @@ export default function HomePage() {
       <ShieldSection />
       <SolutionSection />
       <CaseStudySection />
+      <MetricsFactBlock />
       <CommercialModelSection />
       <PricingSection />
       <FinaleConvergenceSection />
