@@ -1,6 +1,6 @@
 import { ORG } from "@/content/canonical-facts";
 
-const BASE = ORG.url;
+export const BASE = ORG.url;
 
 // Stable @id values — critical for entity graph linking across pages.
 export const IDS = {
@@ -144,15 +144,31 @@ export function faqSchema(qas: { q: string; a: string }[]) {
   };
 }
 
-export function breadcrumbSchema(items: { name: string; url: string }[]) {
+// Hub pages (e.g. /services) that link out to a set of already-schema'd
+// child pages reference them by stable @id rather than repeating their
+// full Service/Offer nodes — same cross-page graph pattern as IDS.org.
+export function collectionPageSchema(s: {
+  name: string;
+  description: string;
+  path: string;
+  items: { name: string; slug: string }[];
+}) {
   return {
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((it, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: it.name,
-      item: it.url,
-    })),
+    "@type": "CollectionPage",
+    "@id": `${BASE}${s.path}#collection`,
+    url: `${BASE}${s.path}`,
+    name: s.name,
+    description: s.description,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: s.items.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        url: `${BASE}/services/${item.slug}`,
+        item: { "@id": `${BASE}/services/${item.slug}#service` },
+      })),
+    },
   };
 }
 

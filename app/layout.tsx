@@ -154,9 +154,10 @@ gtag('config', '${gaId}', { send_page_view: true });`}
         )}
 
         {/* No-JS fallback: hero bails to client-side rendering, so without JS
-            the visitor would see only the splash. Show the brand, the H1, and
-            the discovery CTA so no-JS visitors can still reach the contact
-            section. */}
+            the visitor would see only the splash. Show the brand and the
+            discovery CTA so no-JS visitors can still reach contact. This
+            markup is identical on every route, so it deliberately carries no
+            <h1> — each page's real <h1> stays the only one in the document. */}
         <noscript>
           <div
             style={{
@@ -179,9 +180,9 @@ gtag('config', '${gaId}', { send_page_view: true });`}
             >
               SGC Tech AI
             </p>
-            <h1 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, margin: "0 0 1rem" }}>
+            <p style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", lineHeight: 1.1, margin: "0 0 1rem", fontWeight: 700 }}>
               Practitioner-Led Odoo &amp; AI for UAE Mid-Market
-            </h1>
+            </p>
             <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--text-secondary)" }}>
               CPAs and CIAs implementing Odoo ERP and AI for finance, ops, and
               compliance in Dubai-based mid-market firms. Fixed price. Fixed

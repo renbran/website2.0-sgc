@@ -90,15 +90,22 @@ export default function LoadingScreen() {
   if (!visible) return null;
 
   // Reduced motion: instant fade, no progress bar animation.
+  //
+  // `initial` (not `animate`) is what SSR renders into the static HTML —
+  // a crawler that reads the document without executing JS, or that
+  // snapshots before hydration, must not see a full-viewport opaque shroud
+  // baked into the markup. Starting at opacity 0 and animating to 1 on
+  // mount keeps the splash imperceptible-fast for real browsers while
+  // leaving the server-rendered DOM non-blocking.
   const overlayVariants = reduced
     ? {
-        initial: { opacity: 1 },
-        animate: { opacity: 1 },
+        initial: { opacity: 0 },
+        animate: { opacity: 1, transition: { duration: 0.15 } },
         exit: { opacity: 0, transition: { duration: 0.25 } },
       }
     : {
-        initial: { opacity: 1 },
-        animate: { opacity: 1 },
+        initial: { opacity: 0 },
+        animate: { opacity: 1, transition: { duration: 0.15 } },
         exit: {
           opacity: 0,
           y: -8,

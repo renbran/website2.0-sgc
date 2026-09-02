@@ -2,14 +2,18 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { JsonLd } from "@/components/JsonLd";
+import { collectionPageSchema, graph } from "@/lib/schema";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import LivingCard from "@/components/ui/LivingCard";
 
+const DESCRIPTION =
+  "Odoo implementation and rescue, AI automation for finance, UAE Corporate Tax configuration, and financial reporting — fixed prices, published, no hidden fees.";
+
 export const metadata: Metadata = {
   title: "Services — SGC Tech AI",
-  description:
-    "Odoo implementation and rescue, AI automation for finance, UAE Corporate Tax configuration, and financial reporting — fixed prices, published, no hidden fees.",
+  description: DESCRIPTION,
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },
 };
@@ -47,6 +51,16 @@ export default function ServicesIndexPage() {
     <>
       <Navbar />
       <BreadcrumbJsonLd crumbs={[{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]} />
+      <JsonLd
+        data={graph([
+          collectionPageSchema({
+            name: "Services",
+            description: DESCRIPTION,
+            path: "/services",
+            items: SERVICES.map((s) => ({ name: s.question, slug: s.slug })),
+          }),
+        ])}
+      />
       <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)] pt-28 pb-24 md:pt-36 md:pb-32">
         <GoldDrawIn />
         <div className="mx-auto max-w-4xl px-6 md:px-10">
