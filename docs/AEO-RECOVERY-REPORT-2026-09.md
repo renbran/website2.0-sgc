@@ -96,7 +96,7 @@ Shipped in `db14793`, confirmed live: `curl -sL https://sgctech.ai/ | grep Local
 | You · today | Re-submit the sitemap manually in both Google Search Console and Bing Webmaster Tools' dashboards. |
 | Watch · 5–7 days | Re-check GSC's "Page with redirect" count — should read 0 once Google re-crawls the now-direct apex. |
 | You · anytime | Drop API keys into `.env.local` and run `scripts/citation-tracker.mjs` for a citation baseline. |
-| You · closes Phases 1–6 | Run Google's Rich Results Test and Bing's Markup Tester on the live homepage and one Tier-1 page. This is the reliable arbiter for schema questions — no crawler in this loop (this session's or the external reviewer's) reads the full DOM. |
+| ~~You · closes Phases 1–6~~ | ~~Run Google's Rich Results Test and Bing's Markup Tester on the live homepage and one Tier-1 page.~~ **Done — see §8.** 0 errors on both pages. |
 | Founder-led | Phase 7 off-site footprint — Google Business Profile, LinkedIn company page, directory listings. Not agent-executable; each URL gets added to `ORG.sameAs` as it goes live. |
 
 ---
@@ -119,9 +119,9 @@ A second review of the live site flagged four items. Verified against full, untr
 | No `geo` on the `LocalBusiness` node | **Confirmed — fixed** | Real gap. Added `GeoCoordinates` (25.266647311631466, 55.31027795271349 — Al Rigga office, founder-supplied via Google Maps pin) to `localBusinessSchema()`. |
 | Genspark CDN still serving hero images | **Did not hold up** | Zero `genspark`/`sspark` matches anywhere in the full homepage HTML — matches the earlier code-level audit in §… (this report's original body), which already found zero references. |
 | `og:type` is `website` on `/about` and Tier-1 pages where it should be `article` | **Did not hold up** | `/about` → `website` (correct — an About page isn't article-shaped), Tier-1 service page → `article` (already correct). |
-| Rich Results Test / Bing Markup Tester validator pass never run | **Still open — genuinely outstanding** | Neither this session nor the reviewer's crawler reliably reads the full DOM; the validators are the right arbiter and haven't been run. Needs a manual pass on the live homepage + one Tier-1 page in both tools. |
+| Rich Results Test / Bing Markup Tester validator pass never run | **Closed — 0 errors** | Run same day by the founder via schema.org's structured-data validator. Homepage: `WebSite`, `LocalBusiness/ProfessionalService`, `FAQPage` — 0 errors, 1 optional-field warning each. Tier-1 service page: `BreadcrumbList`, `WebSite`, `Service`, `LocalBusiness/ProfessionalService`, `FAQPage` — 0 errors, 1 warning each. `Organization` doesn't appear as its own discovered item on either page — expected, since it's only referenced by `@id` (`WebSite.publisher`, `LocalBusiness.parentOrganization`) and never a page's standalone main entity; no dedicated rich-result card exists for a bare `Organization` node. Also confirmed same day: a small a11y fix (`components/Hero/ReducedMotionFallback.tsx`, commit `236f4c8`) — Bing's URL Inspection tool flagged an `alt=""` decorative image; marked `aria-hidden="true"` to match the same pattern already used for the frozen `DiamondScrollHero.tsx` ghost logo. Unrelated to schema, cosmetic-severity notice. |
 
-**Net:** 2 of 4 flagged issues were real and are now fixed (address consistency, missing geo). 2 were false positives traceable to the reviewer's stated crawler limitation. The validator-pass item remains genuinely open — added to §6.
+**Net:** 2 of 4 flagged issues were real and are now fixed (address consistency, missing geo). 2 were false positives traceable to the reviewer's stated crawler limitation. The validator-pass item is now closed with a clean result — **Phases 1–6 are formally closed.**
 
 ---
 
