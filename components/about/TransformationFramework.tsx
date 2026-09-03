@@ -73,9 +73,9 @@ export default function TransformationFramework() {
     if (cards.length !== LAYERS.length) return;
 
     const ctx = gsap.context(() => {
-      gsap.set(cards[0], { z: 0, yPercent: 0, opacity: 1, scale: 1 });
-      gsap.set(cards[1], { z: -220, yPercent: 6, opacity: 0, scale: 0.88 });
-      gsap.set(cards[2], { z: -440, yPercent: 12, opacity: 0, scale: 0.78 });
+      gsap.set(cards[0], { z: 0, yPercent: 0, opacity: 1, scale: 1, filter: "blur(0px)" });
+      gsap.set(cards[1], { z: -220, yPercent: 6, opacity: 0, scale: 0.88, filter: "blur(14px)" });
+      gsap.set(cards[2], { z: -440, yPercent: 12, opacity: 0, scale: 0.78, filter: "blur(14px)" });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -91,11 +91,23 @@ export default function TransformationFramework() {
       // Step 1: card 0 recedes forward-and-out, card 1 rises into focus.
       // Durations of 1 match the 1-unit gap between step labels, so each
       // transition fills its whole scroll span instead of snapping early.
-      tl.to(cards[0], { z: 260, yPercent: -8, opacity: 0, scale: 1.08, duration: 1, ease: "power1.inOut" }, 0)
-        .to(cards[1], { z: 0, yPercent: 0, opacity: 1, scale: 1, duration: 1, ease: "power1.inOut" }, 0)
+      //
+      // Position/scale (z, yPercent, scale) run the full duration for a
+      // smooth depth glide, but opacity+blur are compressed into the first
+      // and last 45% of that span with a gap in between — so the outgoing
+      // card is fully invisible before the incoming card starts appearing.
+      // Without that gap both cards sit near 50% opacity at the same
+      // screen position simultaneously, and their text/icons interleave
+      // into an illegible overlap.
+      tl.to(cards[0], { z: 260, yPercent: -8, scale: 1.08, duration: 1, ease: "power1.inOut" }, 0)
+        .to(cards[0], { opacity: 0, filter: "blur(14px)", duration: 0.45, ease: "power1.in" }, 0)
+        .to(cards[1], { z: 0, yPercent: 0, scale: 1, duration: 1, ease: "power1.inOut" }, 0)
+        .to(cards[1], { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power1.out" }, 0.55)
         // Step 2: card 1 recedes, card 2 rises into focus.
-        .to(cards[1], { z: 260, yPercent: -8, opacity: 0, scale: 1.08, duration: 1, ease: "power1.inOut" }, 1)
-        .to(cards[2], { z: 0, yPercent: 0, opacity: 1, scale: 1, duration: 1, ease: "power1.inOut" }, 1);
+        .to(cards[1], { z: 260, yPercent: -8, scale: 1.08, duration: 1, ease: "power1.inOut" }, 1)
+        .to(cards[1], { opacity: 0, filter: "blur(14px)", duration: 0.45, ease: "power1.in" }, 1)
+        .to(cards[2], { z: 0, yPercent: 0, scale: 1, duration: 1, ease: "power1.inOut" }, 1)
+        .to(cards[2], { opacity: 1, filter: "blur(0px)", duration: 0.45, ease: "power1.out" }, 1.55);
     }, rootRef);
 
     return () => ctx.revert();

@@ -60,9 +60,20 @@ export default function RoadmapTimeline() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: rootRef.current,
-          start: "top 75%",
-          end: "bottom 60%",
-          scrub: 1,
+          start: "top 85%",
+          end: "top 25%",
+          scrub: 0.4,
+          // The phase cards below render immediately (no scroll-tied
+          // reveal of their own), so a slow/1s-smoothed scrub on just the
+          // connector line + markers visibly lags behind them — a normal-
+          // or fast-speed scroll can outrun the scrub and leave "03"/"04"
+          // looking like missing markers even though the cards under them
+          // are already fully shown. fastScrollEnd snaps the tween to
+          // completion when the user scrolls past quickly instead of
+          // leaving it stranded mid-draw, and the tighter start/end window
+          // finishes the draw earlier in the scroll instead of racing the
+          // cards.
+          fastScrollEnd: true,
         },
       });
 
