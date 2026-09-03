@@ -148,6 +148,7 @@ export default function ReducedMotionFallback() {
         <Image
           src={activeSrc}
           alt=""
+          aria-hidden="true"
           width={1280}
           height={720}
           priority={prefersReduced}
