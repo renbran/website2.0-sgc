@@ -69,6 +69,10 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const [currentPath, setCurrentPath] = useState(() => {
+    if (typeof window === "undefined") return "/";
+    return window.location.pathname;
+  });
   const reduced = useReducedMotion();
   const hoverTimeoutRef = useRef<number | null>(null);
 
@@ -83,6 +87,23 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const isActive = (href: string): boolean => {
+    if (href === "#top") return currentPath === "/";
+    if (href.startsWith("#")) {
+      // Hash-based sections are only "active" on the homepage
+      return currentPath === "/";
+    }
+    return currentPath === href;
+  };
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -263,6 +284,7 @@ export default function Navbar() {
                                   href={sub.href}
                                   role="menuitem"
                                   onClick={(e) => handleNavClick(e, sub.href)}
+                                  aria-current={isActive(sub.href) ? "page" : undefined}
                                   className="flex flex-col gap-0.5 px-4 py-2 text-[var(--text-secondary)] transition hover:bg-[rgba(212,165,116,0.08)] hover:text-[var(--accent)] focus-visible:bg-[rgba(212,165,116,0.08)] focus-visible:text-[var(--accent)] focus-visible:outline-none"
                                 >
                                   <span className="text-[12px] font-bold uppercase tracking-[0.18em] lg:text-[13px]">
@@ -293,6 +315,7 @@ export default function Navbar() {
                   <a
                     href={leaf.href}
                     onClick={(e) => handleNavClick(e, leaf.href)}
+                    aria-current={isActive(leaf.href) ? "page" : undefined}
                     className="rounded-md px-3 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition duration-200 hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] lg:px-4 lg:text-[13px]"
                   >
                     {leaf.label}
@@ -308,11 +331,13 @@ export default function Navbar() {
             <a
               href={EMPLOYEE_LOGIN_URL}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
+              aria-label="Open the SGC Tech AI workspace app"
+              data-phishing-ignore="true"
               className="hidden items-center gap-1.5 rounded-md px-3 py-2 text-[12px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition duration-200 hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] md:inline-flex lg:text-[13px]"
             >
               <AnimatedIcon><LogIn size={14} aria-hidden /></AnimatedIcon>
-              Login
+              App Portal
             </a>
 
             <CtaButton
@@ -426,14 +451,16 @@ export default function Navbar() {
               <motion.a
                 href={EMPLOYEE_LOGIN_URL}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="nofollow noopener noreferrer"
+                aria-label="Open the SGC Tech AI employee workspace app"
+                data-phishing-ignore="true"
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: 0.05 + (MENU.length + 1) * 0.05, ease: "easeOut" }}
                 className="inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 <AnimatedIcon><LogIn size={16} aria-hidden /></AnimatedIcon>
-                Employee Login
+                Employee Portal
               </motion.a>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}
