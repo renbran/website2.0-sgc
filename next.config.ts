@@ -1,17 +1,19 @@
 import type { NextConfig } from "next";
 
 // Allows: self-hosted assets, inline styles/scripts Next.js injects for
-// hydration + the GA4 snippet, Google Tag Manager script, Vercel Analytics
+// hydration + the GA4/GTM snippets, Google Tag Manager (+ GA4 beacons it loads), Vercel Analytics
 // beacon, and the Cloudinary image host already whitelisted in images.remotePatterns.
 // unsafe-eval is dev-only (Turbopack HMR / RSC dev client need it) — never shipped to prod.
 const isDev = process.env.NODE_ENV !== "production";
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://va.vercel-scripts.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://tagmanager.google.com https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://res.cloudinary.com",
+  "img-src 'self' data: blob: https://res.cloudinary.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  // GTM noscript iframe + Tag Assistant preview mode
+  "frame-src https://www.googletagmanager.com https://tagassistant.google.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
