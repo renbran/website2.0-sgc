@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
+import { trackEvent } from "@/lib/analytics";
 
 const WHATSAPP_NUMBER = "971521985231";
 
@@ -101,6 +102,7 @@ export default function ContactForm() {
         if (res.ok && data.ok) {
           // Lead is now recorded in the CRM. Also open mailto + WhatsApp so
           // the sender has their own copy and an instant reply channel.
+          trackEvent("generate_lead", { form: "contact" });
           openFallbackChannels();
           setSubmitted(true);
         } else {
