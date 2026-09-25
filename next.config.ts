@@ -9,9 +9,12 @@ const CSP = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://tagmanager.google.com https://va.vercel-scripts.com`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://res.cloudinary.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com",
+  "img-src 'self' data: blob: https://res.cloudinary.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://*.google.com https://*.google.ae",
   "font-src 'self' data:",
-  "connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  // GA4 beacons go to analytics.google.com (bare host — *.analytics.google.com
+  // does not match it), www.google.com and *.g.doubleclick.net (Google Signals).
+  // Allowlist per https://developers.google.com/tag-platform/security/guides/csp
+  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
   // GTM noscript iframe + Tag Assistant preview mode
   "frame-src https://www.googletagmanager.com https://tagassistant.google.com",
   "frame-ancestors 'self'",
