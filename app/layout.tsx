@@ -103,10 +103,25 @@ export default function RootLayout({
   // site ships clean if the env var isn't configured yet. Single page-view
   // event; configure events in GA4 directly rather than adding custom code.
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  // Google Tag Manager container. Override with NEXT_PUBLIC_GTM_ID ("off"
+  // disables). Validated before interpolation into the inline snippet. Put
+  // GA4 inside the container rather than also setting NEXT_PUBLIC_GA_ID, or
+  // page views are counted twice.
+  const gtmIdRaw = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-MHQW73V4";
+  const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmIdRaw) ? gtmIdRaw : null;
 
   return (
     <html lang="en-AE" id="top" suppressHydrationWarning>
       <head>
+        {gtmId && (
+          // Raw <script> high in <head> (not next/script) so the snippet is in
+          // the server HTML, which GTM's install check and Tag Assistant read.
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`,
+            }}
+          />
+        )}
         {/* Site-wide entity graph — Organization (legal entity, DIEZ
             registered address, trade license) + LocalBusiness/ProfessionalService
             (operating office, Al Rigga address, hours, parentOrganization →
@@ -124,7 +139,7 @@ export default function RootLayout({
         </Script>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        {gaId && (
+        {(gaId || gtmId) && (
           <>
             <link rel="preconnect" href="https://www.googletagmanager.com" />
             <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -134,6 +149,16 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        {gtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+            />
+          </noscript>
+        )}
         {/* Skip-to-content: a11y win for keyboard/screen-reader users past the
             fixed nav. Sits as the first focusable element in <body>. */}
         <a
