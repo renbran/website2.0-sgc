@@ -107,7 +107,7 @@ export default function RootLayout({
   // disables). Validated before interpolation into the inline snippet. Put
   // GA4 inside the container rather than also setting NEXT_PUBLIC_GA_ID, or
   // page views are counted twice.
-  const gtmIdRaw = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-MHQW73V4";
+  const gtmIdRaw = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-PHHFX6FL";
   const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmIdRaw) ? gtmIdRaw : null;
 
   return (
