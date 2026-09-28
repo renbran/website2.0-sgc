@@ -15,7 +15,7 @@ const DOCUMENTS = [
   {
     title: "Master Subscription Agreement",
     ref: "SGC-MSA-2026-02",
-    href: "/legal/SGC-MSA-2026-02-Rev2.pdf",
+    href: "/legal/SGC-MSA-2026-02-Rev3.pdf",
     summary: "The main terms: the service, fees and billing, payment and account states, term, notice and exit.",
   },
   {
