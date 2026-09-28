@@ -1,17 +1,23 @@
 import type { NextConfig } from "next";
 
 // Allows: self-hosted assets, inline styles/scripts Next.js injects for
-// hydration + the GA4 snippet, Google Tag Manager script, Vercel Analytics
+// hydration + the GA4/GTM snippets, Google Tag Manager (+ GA4 beacons it loads), Vercel Analytics
 // beacon, and the Cloudinary image host already whitelisted in images.remotePatterns.
 // unsafe-eval is dev-only (Turbopack HMR / RSC dev client need it) — never shipped to prod.
 const isDev = process.env.NODE_ENV !== "production";
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://va.vercel-scripts.com`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https://res.cloudinary.com",
-  "font-src 'self' data:",
-  "connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://*.googletagmanager.com https://tagmanager.google.com https://va.vercel-scripts.com`,
+  // GTM Preview / Tag Assistant debug UI pulls styles, fonts and icons from Google.
+  "style-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://tagmanager.google.com https://fonts.googleapis.com",
+  "img-src 'self' data: blob: https://res.cloudinary.com https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://*.google.com https://*.google.ae https://ssl.gstatic.com https://www.gstatic.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  // GA4 beacons go to analytics.google.com (bare host — *.analytics.google.com
+  // does not match it), www.google.com and *.g.doubleclick.net (Google Signals).
+  // Allowlist per https://developers.google.com/tag-platform/security/guides/csp
+  "connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://*.g.doubleclick.net https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com",
+  // GTM noscript iframe + Tag Assistant preview mode
+  "frame-src https://*.googletagmanager.com https://tagassistant.google.com",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
