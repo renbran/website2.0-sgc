@@ -19,9 +19,10 @@ const EMIRATES: [string, string][] = [
   ["FU", "Fujairah"],
 ];
 const CYCLES: [string, string][] = [
-  ["annual", "Annual (save 5%)"],
-  ["half_yearly", "Half-yearly (save 2.5%)"],
+  ["monthly", "Monthly"],
   ["quarterly", "Quarterly"],
+  ["half_yearly", "Half-yearly (save 2.5%)"],
+  ["annual", "Annual (save 5%)"],
 ];
 const SLUG_RE = /^[a-z][a-z0-9-]{1,28}[a-z0-9]$/;
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;

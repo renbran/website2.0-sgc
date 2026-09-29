@@ -10,7 +10,7 @@ import {
 export const runtime = "nodejs";
 
 const REQUEST_ID_RE = /^[A-Za-z0-9_\-:.]{8,128}$/;
-const CYCLES = new Set(["quarterly", "half_yearly", "annual"]);
+const CYCLES = new Set(["monthly", "quarterly", "half_yearly", "annual"]);
 const EMIRATES = new Set(["DU", "AZ", "SH", "AJ", "UQ", "RK", "FU"]);
 
 function text(v: unknown, max: number): string {

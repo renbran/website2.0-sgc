@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: true },
 };
 
-const CYCLES = new Set(["quarterly", "half_yearly", "annual"]);
+const CYCLES = new Set(["monthly", "quarterly", "half_yearly", "annual"]);
 
 export default async function SubscribePage({
   searchParams,
@@ -19,7 +19,7 @@ export default async function SubscribePage({
   searchParams: Promise<{ cycle?: string; users?: string }>;
 }) {
   const params = await searchParams;
-  const cycle = CYCLES.has(params.cycle || "") ? (params.cycle as string) : "annual";
+  const cycle = CYCLES.has(params.cycle || "") ? (params.cycle as string) : "monthly";
   const users = Math.max(5, Math.min(100, Number.parseInt(params.users || "5", 10) || 5));
   return (
     <>

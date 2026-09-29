@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 import type { Pricing } from "@/lib/layer3";
-import { CYCLE_LABEL, cycleCharge, money, vat } from "./format";
+import { CYCLE_LABEL, cycleCharge, money, period, vat } from "./format";
 
 export default function PricingPlans({ pricing }: { pricing: Pricing }) {
-  const [cycleKey, setCycleKey] = useState<string>("annual");
+  const [cycleKey, setCycleKey] = useState<string>("monthly");
   const [users, setUsers] = useState<number>(pricing.included_users);
   const cycle = pricing.cycles.find((c) => c.cycle === cycleKey) ?? pricing.cycles[0];
   const charge = cycleCharge(pricing, cycle, users);
@@ -20,7 +20,7 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
         <legend className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
           Billing cycle
         </legend>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {pricing.cycles.map((c) => {
             const selected = c.cycle === cycle.cycle;
             return (
@@ -43,7 +43,9 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
                   {money(c.base_price / c.months, pricing.currency)}
                 </span>
                 <span className="block text-[0.78rem] text-[var(--text-muted)]">
-                  a month · {money(c.base_price, pricing.currency)} per {c.months} months
+                  {c.months === 1
+                    ? "a month, billed monthly"
+                    : `a month · ${money(c.base_price, pricing.currency)} per ${period(c.months)}`}
                 </span>
               </button>
             );
@@ -84,7 +86,7 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
           <dd>{money(tax, pricing.currency)}</dd>
         </div>
         <div className="flex justify-between font-semibold text-[var(--text-primary)]">
-          <dt>Due every {cycle.months} months</dt>
+          <dt>Due every {period(cycle.months)}</dt>
           <dd>{money(charge + tax, pricing.currency)}</dd>
         </div>
       </dl>

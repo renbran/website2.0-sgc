@@ -21,7 +21,7 @@ export class Layer3UserError extends Error {
 export class Layer3RequestError extends Error {}
 
 export type CyclePrice = {
-  cycle: "quarterly" | "half_yearly" | "annual";
+  cycle: "monthly" | "quarterly" | "half_yearly" | "annual";
   months: number;
   rebate_percent: number;
   base_price: number;

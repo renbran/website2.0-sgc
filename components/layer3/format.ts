@@ -1,6 +1,7 @@
 import type { CyclePrice, Pricing } from "@/lib/layer3";
 
 export const CYCLE_LABEL: Record<CyclePrice["cycle"], string> = {
+  monthly: "Monthly",
   quarterly: "Quarterly",
   half_yearly: "Half-yearly",
   annual: "Annual",
@@ -14,6 +15,11 @@ export function money(amount: number, currency = "AED"): string {
 export function cycleCharge(pricing: Pricing, cycle: CyclePrice, users: number): number {
   const extra = Math.max(0, users - pricing.included_users);
   return Math.round((cycle.base_price + extra * cycle.extra_user_price) * 100) / 100;
+}
+
+/** "month" or "3 months": the length of one billing cycle. */
+export function period(months: number): string {
+  return months === 1 ? "month" : `${months} months`;
 }
 
 export function vat(pricing: Pricing, amount: number): number {
