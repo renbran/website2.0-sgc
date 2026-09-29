@@ -1,6 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PRIMARY_NAV } from "@/lib/navigation";
 import SocialIcons from "./ui/SocialIcons";
+
+// The footer renders on every page: its links are page routes (the same menu as
+// the navbar) plus absolute "/#..." links for homepage sections, never bare "#..."
+// anchors that only work on the homepage.
+const FOOTER_NAV = [
+  ...PRIMARY_NAV.filter((item) => item.href !== "/"),
+  { label: "Services", href: "/services" },
+  { label: "FAQ", href: "/#faq" },
+];
 
 export default function Footer() {
   return (
@@ -11,7 +21,11 @@ export default function Footer() {
 
           {/* Col 1 — Brand */}
           <div>
-            <div className="flex items-center">
+            <Link
+              href="/"
+              aria-label="SGC Tech AI - home"
+              className="inline-flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+            >
               <Image
                 src="/images/diamonds/final-logo-nav.png"
                 alt="SGC Tech AI"
@@ -19,7 +33,7 @@ export default function Footer() {
                 height={212}
                 className="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(199,162,58,0.3)]"
               />
-            </div>
+            </Link>
             <p className="mt-4 text-[0.82rem] leading-[1.7] text-[var(--sgc-text-muted)]">
               Practitioner-led finance, compliance &amp; systems implementation.
               Dubai, UAE.
@@ -33,14 +47,7 @@ export default function Footer() {
             </p>
             <nav aria-label="Footer navigation">
               <ul className="space-y-2.5">
-                {[
-                  { label: "Problem", href: "#problem" },
-                  { label: "Solution", href: "#solution" },
-                  { label: "Proof", href: "#case-study" },
-                  { label: "Pricing", href: "#pricing" },
-                  { label: "FAQ", href: "#faq" },
-                  { label: "Contact", href: "/contact" },
-                ].map((link) => (
+                {FOOTER_NAV.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}

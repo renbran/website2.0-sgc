@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Navbar from "@/components/Navbar";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
@@ -51,7 +52,8 @@ const structuredData = {
 export default function PlatformPage() {
   return (
     <>
-      <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
+      <Navbar />
+      <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

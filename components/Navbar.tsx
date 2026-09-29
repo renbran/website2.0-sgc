@@ -4,44 +4,23 @@ import { ArrowRight, LogIn, Menu, X } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CtaButton from "@/components/ui/CtaButton";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import { APP_PORTAL_URL, isActivePath, PRIMARY_NAV } from "@/lib/navigation";
 
-// Customer-first primary menu. The signup pages are now top-level, so a
-// visitor never has to navigate via the homepage first.
-//
-//   Home        → /
-//   Pricing     → /pricing          (live page with Odoo prices)
-//   Subscribe   → /subscribe        (live signup form)
-//   Platform    → /platform          (the platform overview)
-//   About       → /about             (team, credentials, FAQ)
-//   Contact     → /contact
-//
-// The dropdown groups and the homepage hash anchors were removed: most of those
-// anchors pointed to sections that had no matching `id` and silently no-opped.
-// Pages with real content now own the menu.
-
-type MenuLeaf = { label: string; href: string; description?: string };
-
-const MENU: MenuLeaf[] = [
-  { label: "Home",      href: "/" },
-  { label: "Pricing",   href: "/pricing",   description: "Per-company subscription, set up the moment you pay" },
-  { label: "Subscribe", href: "/subscribe", description: "Register your company and workspace address" },
-  { label: "Platform",  href: "/platform",  description: "What the Layer 3 system includes" },
-  { label: "About",     href: "/about",     description: "Practitioner-led, finance-credentialed team" },
-  { label: "Contact",   href: "/contact",   description: "Email, WhatsApp, the office address" },
-];
-
-const EMPLOYEE_LOGIN_URL = "https://app.sgctech.ai/web/login";
+// Customer-first primary menu (lib/navigation.ts, shared with the footer). Every
+// item is a real page, so a visitor never has to go through the homepage and no
+// link depends on a section anchor existing on the current page.
+const MENU = PRIMARY_NAV;
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState(() => {
-    if (typeof window === "undefined") return "/";
-    return window.location.pathname;
-  });
+  // From the router, not window: identical on the server and in the browser, and
+  // it follows client-side navigation.
+  const pathname = usePathname();
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -55,15 +34,7 @@ export default function Navbar() {
     };
   }, []);
 
-  useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname);
-    };
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
-
-  const isActive = (href: string): boolean => currentPath === href;
+  const isActive = (href: string): boolean => isActivePath(pathname, href);
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -130,7 +101,7 @@ export default function Navbar() {
             <ThemeToggle className="hidden md:inline-flex" />
 
             <a
-              href={EMPLOYEE_LOGIN_URL}
+              href={APP_PORTAL_URL}
               target="_blank"
               rel="nofollow noopener noreferrer"
               aria-label="Open the SGC Tech AI workspace app"
@@ -221,10 +192,10 @@ export default function Navbar() {
                 Book Discovery Call →
               </motion.a>
               <motion.a
-                href={EMPLOYEE_LOGIN_URL}
+                href={APP_PORTAL_URL}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                aria-label="Open the SGC Tech AI employee workspace app"
+                aria-label="Open the SGC Tech AI workspace app"
                 data-phishing-ignore="true"
                 onClick={closeMobile}
                 initial={{ opacity: 0, y: 14 }}
@@ -233,7 +204,7 @@ export default function Navbar() {
                 className="inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               >
                 <AnimatedIcon><LogIn size={16} aria-hidden /></AnimatedIcon>
-                Employee Portal
+                App Portal
               </motion.a>
               <motion.div
                 initial={{ opacity: 0, y: 14 }}

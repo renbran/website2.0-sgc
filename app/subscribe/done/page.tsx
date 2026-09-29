@@ -17,7 +17,7 @@ export default async function SubscribeDonePage({ searchParams }: { searchParams
   return (
     <>
       <Navbar />
-      <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)] pt-28 pb-24 md:pt-36 md:pb-32">
+      <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)] pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="relative mx-auto max-w-3xl px-6 md:px-10">
           <div className="text-center">
             <SectionEyebrow label="NEXT STEPS" />

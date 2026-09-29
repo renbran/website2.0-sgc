@@ -54,7 +54,7 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ]}
       />
-      <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
+      <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
         <AboutHero />
         <OriginStory />
         <TransformationCompare />

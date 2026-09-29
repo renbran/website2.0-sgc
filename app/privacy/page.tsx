@@ -85,7 +85,7 @@ const structuredData = {
 export default function PrivacyPage() {
   return (
     <>
-      <main className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
+      <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -491,7 +491,7 @@ function PrivacySection({
           <h2
             id={`privacy-h-${number}`}
             style={{ fontFamily: "var(--font-fraunces)" }}
-            className="text-[clamp(1.4rem,2.6vw,2rem)] font-bold leading-[1.15] text-[var(--sgc-text-primary)]"
+            className="scroll-mt-28 text-[clamp(1.4rem,2.6vw,2rem)] font-bold leading-[1.15] text-[var(--sgc-text-primary)]"
           >
             {title}
           </h2>
