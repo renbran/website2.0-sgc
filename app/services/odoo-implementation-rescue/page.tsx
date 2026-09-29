@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services/odoo-implementation-rescue" },
   robots: { index: true, follow: true },
+  keywords: [
+    "Odoo rescue UAE",
+    "failed Odoo implementation Dubai",
+    "broken Odoo recovery UAE",
+    "Odoo audit Dubai",
+    "Odoo migration UAE",
+    "Odoo upgrade Dubai",
+    "Odoo stabilisation UAE",
+    "abandoned Odoo project Dubai",
+    "Odoo consultant rescue UAE",
+    "Odoo performance fix Dubai",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

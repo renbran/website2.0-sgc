@@ -9,10 +9,22 @@ const DESCRIPTION =
   "Score your operations in 8 minutes. 12 questions across Finance, Sales, Operations, and People. Get a personalised report with prioritised next moves.";
 
 export const metadata: Metadata = {
-  title: "Operational Health Diagnostic — SGC Tech AI",
+  title: "Free Operational Health Diagnostic — 8-Minute UAE Assessment",
   description: DESCRIPTION,
   alternates: { canonical: "/diagnostic" },
   robots: { index: true, follow: true },
+  keywords: [
+    "free operational diagnostic UAE",
+    "ERP health check Dubai",
+    "8-minute operations assessment",
+    "Odoo readiness check UAE",
+    "mid-market ops diagnostic",
+    "free ERP audit checklist",
+    "operations scorecard UAE",
+    "finance sales operations people assessment",
+    "SGC diagnostic",
+    "Odoo suitability score UAE",
+  ],
   openGraph: {
     title: "Operational Health Diagnostic — SGC Tech AI",
     description: DESCRIPTION,

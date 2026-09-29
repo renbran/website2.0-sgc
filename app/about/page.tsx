@@ -12,11 +12,23 @@ import EngagementTiers from "@/components/about/EngagementTiers";
 import AboutCTA from "@/components/about/AboutCTA";
 
 export const metadata: Metadata = {
-  title: "About Us — SGC Tech AI",
+  title: "About — SGC Tech AI | CPA-Led Odoo & AI Team in Dubai",
   description:
-    "SGC Tech AI is a Dubai-based team of CPAs and CIAs delivering Odoo ERP and AI automation for mid-market companies in the UAE.",
+    "SGC Tech AI is a Dubai-based team of CPAs and CIAs delivering Odoo ERP, AI finance automation and CFO advisory for UAE mid-market companies.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
+  keywords: [
+    "SGC Tech AI team",
+    "Odoo consultant Dubai",
+    "CPA CIA practitioners UAE",
+    "UAE mid-market consultancy",
+    "practitioner-led Odoo UAE",
+    "Scholarix Global Consultants FZCO",
+    "Odoo implementation team Dubai",
+    "AI finance automation UAE",
+    "CFO advisory UAE",
+    "UAE finance operations team",
+  ],
   openGraph: {
     title: "About Us — SGC Tech AI",
     description:
