@@ -12,7 +12,7 @@ const DESCRIPTION =
   "Odoo implementation and rescue, AI automation for finance, UAE Corporate Tax configuration, and financial reporting — fixed prices, published, no hidden fees.";
 
 export const metadata: Metadata = {
-  title: "Services — SGC Tech AI | Odoo, AI Automation, UAE Compliance",
+  title: "Services — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },

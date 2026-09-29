@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Get in touch with SGC Tech AI. Book a Finance Operations Audit, start Direct Implementation, or schedule a Founder Call. Dubai, UAE.";
 
 export const metadata: Metadata = {
-  title: "Contact SGC Tech AI — Finance Operations Audit, Odoo & AI Implementation",
+  title: "Contact Us — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   robots: { index: true, follow: true },

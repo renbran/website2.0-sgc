@@ -12,15 +12,15 @@ import EngagementTiers from "@/components/about/EngagementTiers";
 import AboutCTA from "@/components/about/AboutCTA";
 
 export const metadata: Metadata = {
-  title: "About SGC Tech AI — Operational Physician UAE Mid-Market",
+  title: "About Us — SGC Tech AI",
   description:
-    "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe.",
+    "SGC Tech AI is a Dubai-based team of CPAs and CIAs delivering Odoo ERP and AI automation for mid-market companies in the UAE.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "About SGC Tech AI — Built by Operators, Not Consultants",
+    title: "About Us — SGC Tech AI",
     description:
-      "The Operational Physician of the UAE Mid-Market. Practitioner-led Odoo ERP, AI automation, and CFO advisory led by CPAs and CIAs.",
+      "A Dubai-based team of CPAs and CIAs delivering Odoo ERP, AI automation and CFO advisory for UAE mid-market companies.",
     type: "website",
     locale: "en_AE",
     url: "https://sgctech.ai/about",

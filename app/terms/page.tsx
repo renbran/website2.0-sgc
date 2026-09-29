@@ -10,7 +10,7 @@ const DESCRIPTION =
   "Website terms of use for sgctech.ai — site usage, professional advice disclaimer, engagement scope, IP, and dispute resolution under UAE law.";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — SGC Tech AI | UAE Governing Law",
+  title: "Terms of Service — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/terms" },
   robots: { index: true, follow: true },

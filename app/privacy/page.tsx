@@ -10,7 +10,7 @@ const DESCRIPTION =
   "How Scholarix Global Consultants FZCO (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — SGC Tech AI | UAE PDPL Compliance",
+  title: "Privacy Policy — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/privacy" },
   robots: { index: true, follow: true },

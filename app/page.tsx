@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const TITLE = "SGC Tech AI — Odoo Implementation & AI Automation for UAE Mid-Market";
+const TITLE = "SGC Tech AI — Odoo & AI Automation for UAE Businesses";
 const DESCRIPTION =
   "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs deliver diagnosis-first engagement, fixed price and timeline, covering ERP implementation, AI finance automation, and UAE compliance.";
 

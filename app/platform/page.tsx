@@ -11,7 +11,7 @@ const DESCRIPTION =
   "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.";
 
 export const metadata: Metadata = {
-  title: "The SGC Tech AI Platform — app.sgctech.ai | Odoo + AI for UAE Finance Teams",
+  title: "Platform — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/platform" },
   robots: { index: true, follow: true },
