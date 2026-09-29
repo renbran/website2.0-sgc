@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services/ai-automation-finance" },
   robots: { index: true, follow: true },
+  keywords: [
+    "AI finance automation UAE",
+    "AI bookkeeping Dubai",
+    "invoice OCR Odoo",
+    "AI contract summarisation UAE",
+    "AI bank reconciliation",
+    "Odoo AI integration UAE",
+    "AI finance consultant Dubai",
+    "automated month-end close UAE",
+    "AI CFO advisory Dubai",
+    "UAE mid-market AI finance",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

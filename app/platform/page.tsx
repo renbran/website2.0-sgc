@@ -11,10 +11,22 @@ const DESCRIPTION =
   "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.";
 
 export const metadata: Metadata = {
-  title: "Platform — SGC Tech AI",
+  title: "SGC Platform — Hosted Odoo for UAE Real-Estate Operators",
   description: DESCRIPTION,
   alternates: { canonical: "/platform" },
   robots: { index: true, follow: true },
+  keywords: [
+    "SGC platform UAE",
+    "hosted Odoo UAE",
+    "white-label ERP Dubai",
+    "subscription rent Odoo UAE",
+    "AED 875 monthly Odoo subscription",
+    "Odoo for UAE brokers",
+    "real-estate ERP hosting",
+    "app.sgctech.ai",
+    "managed Odoo UAE",
+    "brokerage operating system Dubai",
+  ],
   openGraph: {
     title: "The SGC Tech AI Platform — app.sgctech.ai",
     description: DESCRIPTION,

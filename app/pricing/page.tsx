@@ -11,10 +11,37 @@ const DESCRIPTION =
   "The SGC real estate operating system, hosted and maintained for you. Priced per company with five users included; prices exclude 5% VAT.";
 
 export const metadata: Metadata = {
-  title: "Pricing — SGC Tech AI",
+  title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month Subscription",
   description: DESCRIPTION,
   alternates: { canonical: "/pricing" },
   robots: { index: true, follow: true },
+  keywords: [
+    "Odoo pricing UAE",
+    "Odoo implementation cost Dubai",
+    "AED 14000 Odoo foundation",
+    "Odoo AMC 20 percent UAE",
+    "Odoo subscription AED 875",
+    "Odoo pricing mid-market Dubai",
+    "ERP implementation cost UAE",
+    "Odoo minimum qualifying deal AED 24000",
+    "Odoo subscription pricing Dubai",
+    "UAE mid-market ERP pricing",
+  ],
+  openGraph: {
+    title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month Subscription",
+    description:
+      "SGC Tech AI Odoo pricing for UAE mid-market: Implementation AED 14,000 foundation (min. AED 24,000), mandatory 20%/yr AMC, AED 875/month subscription. Prices exclude 5% UAE VAT.",
+    url: "https://sgctech.ai/pricing",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month",
+    description:
+      "SGC Tech AI Odoo pricing for UAE mid-market: Implementation AED 14,000, AMC 20%/yr, AED 875/month subscription.",
+    images: ["/opengraph-image"],
+  },
 };
 
 async function loadPricing(): Promise<Pricing | null> {

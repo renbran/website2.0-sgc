@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services/outsourced-financial-reporting" },
   robots: { index: true, follow: true },
+  keywords: [
+    "outsourced financial reporting Dubai",
+    "monthly close UAE",
+    "IFRS financial reporting Dubai",
+    "management accounts UAE",
+    "outsourced CFO Dubai",
+    "audit-ready financials UAE",
+    "bookkeeping services Dubai",
+    "UAE mid-market financial reporting",
+    "outsourced accounting UAE",
+    "chartered accountant Dubai",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

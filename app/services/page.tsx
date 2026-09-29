@@ -12,10 +12,22 @@ const DESCRIPTION =
   "Odoo implementation and rescue, AI automation for finance, UAE Corporate Tax configuration, and financial reporting — fixed prices, published, no hidden fees.";
 
 export const metadata: Metadata = {
-  title: "Services — SGC Tech AI",
+  title: "Services — Odoo, AI Finance, UAE Tax & Outsourced Reporting",
   description: DESCRIPTION,
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },
+  keywords: [
+    "SGC Tech AI services",
+    "Odoo services UAE",
+    "AI finance services Dubai",
+    "UAE corporate tax compliance service",
+    "Odoo rescue Dubai",
+    "outsourced financial reporting UAE",
+    "Odoo implementation UAE",
+    "UAE mid-market ERP services",
+    "Odoo consultant services Dubai",
+    "finance operations audit UAE",
+  ],
   openGraph: {
     title: "Services — SGC Tech AI",
     description: DESCRIPTION,

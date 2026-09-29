@@ -10,10 +10,22 @@ const DESCRIPTION =
   "Get in touch with SGC Tech AI. Book a Finance Operations Audit, start Direct Implementation, or schedule a Founder Call. Dubai, UAE.";
 
 export const metadata: Metadata = {
-  title: "Contact Us — SGC Tech AI",
+  title: "Contact SGC Tech AI — Audit, Implementation or Founder Call",
   description: DESCRIPTION,
   alternates: { canonical: "/contact" },
   robots: { index: true, follow: true },
+  keywords: [
+    "contact SGC Tech AI",
+    "Odoo consultant Dubai contact",
+    "book founder call UAE",
+    "finance operations audit Dubai",
+    "Odoo implementation inquiry UAE",
+    "Dubai ERP consultant",
+    "AI automation enquiry UAE",
+    "SGC Tech AI WhatsApp",
+    "UAE mid-market ERP contact",
+    "CFO advisory contact Dubai",
+  ],
   openGraph: {
     title: "Contact — SGC Tech AI",
     description: DESCRIPTION,

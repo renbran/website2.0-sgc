@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services/odoo-implementation-uae" },
   robots: { index: true, follow: true },
+  keywords: [
+    "Odoo implementation cost UAE",
+    "Odoo ERP Dubai",
+    "Odoo implementation price UAE",
+    "AED 14000 Odoo foundation",
+    "Odoo mid-market UAE",
+    "Odoo consultant Dubai",
+    "Odoo implementation timeline UAE",
+    "Odoo Accounting UAE",
+    "Odoo HR payroll WPS UAE",
+    "Odoo inventory UAE",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

@@ -15,6 +15,18 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: "/services/uae-corporate-tax-compliance" },
   robots: { index: true, follow: true },
+  keywords: [
+    "UAE corporate tax compliance",
+    "9 percent UAE corporate tax Odoo",
+    "Corporate tax UAE 2026",
+    "QFZP qualifying free zone person",
+    "Small Business Relief UAE",
+    "AED 375000 corporate tax threshold",
+    "UAE CT return filing",
+    "UAE corporate tax Odoo configuration",
+    "transfer pricing UAE",
+    "FTA tax agent UAE",
+  ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,

@@ -72,7 +72,6 @@ export const metadata: Metadata = {
     "ERP consultants Dubai",
     "AI finance automation",
     "CFO advisory UAE",
-    "Odoo partner Dubai",
     "UAE mid-market ERP",
     "corporate tax compliance UAE",
     "Odoo rescue audit",
