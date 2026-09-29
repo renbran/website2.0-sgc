@@ -178,16 +178,12 @@ export default function ContactPage() {
                 </h2>
                 <div className="mt-3 space-y-2 text-[0.9rem] text-[var(--text-secondary)]">
                   <div className="flex justify-between">
-                    <span>Saturday</span>
-                    <span className="font-medium text-[var(--text-primary)]">9:00 AM – 1:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday</span>
-                    <span className="text-[var(--text-muted)]">Closed</span>
-                  </div>
-                  <div className="flex justify-between">
                     <span>Monday – Friday</span>
                     <span className="font-medium text-[var(--text-primary)]">9:00 AM – 6:00 PM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Saturday – Sunday</span>
+                    <span className="text-[var(--text-muted)]">Closed</span>
                   </div>
                 </div>
                 <p className="mt-3 text-[0.78rem] leading-relaxed text-[var(--text-muted)]">

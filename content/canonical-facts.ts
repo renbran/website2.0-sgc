@@ -57,7 +57,6 @@ export const ORG = {
   },
   hours: [
     { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
-    { days: ["Saturday"], opens: "09:00", closes: "13:00" },
   ],
   // Verified social profiles at the time of Phase 7 readiness check (2026-09-02).
   // The Google Business Profile URL was deliberately excluded — populate when the
@@ -151,7 +150,7 @@ export const PRICING = {
     label: "Subscription (Rent)",
     tagline: "Hosted platform, ~0 founder hours",
     price: "AED 875/month minimum",
-    detail: "Includes five licensed users. Billed quarterly, half-yearly, or annually in advance. All amounts exclusive of 5% UAE VAT.",
+    detail: "Includes five licensed users. Billed monthly, quarterly, half-yearly or annually in advance; half-yearly saves 2.5% and annual saves 5%. All amounts exclusive of 5% UAE VAT.",
   },
 } as const;
 
