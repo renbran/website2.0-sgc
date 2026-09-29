@@ -5,7 +5,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 export const metadata: Metadata = {
   title: "Subscription terms — SGC Tech AI",
-  description: "The agreements that apply to an SGC subscription: Master Subscription Agreement, Service Level Agreement and Data Processing Agreement.",
+  description: "The agreements that apply to an SGC subscription: Master Subscription Agreement, Service Description and Rate Card, Service Level Agreement and Data Processing Agreement.",
   alternates: { canonical: "/legal/subscription" },
   robots: { index: true, follow: true },
 };
@@ -17,6 +17,12 @@ const DOCUMENTS = [
     ref: "SGC-MSA-2026-02",
     href: "/legal/SGC-MSA-2026-02-Rev3.pdf",
     summary: "The main terms: the service, fees and billing, payment and account states, term, notice and exit.",
+  },
+  {
+    title: "Service Description and Rate Card",
+    ref: "SGC-SD-2026-01",
+    href: "/legal/SGC-SD-2026-01.pdf",
+    summary: "What the service includes, fair use, account states, and the rate card: prices, billing cycles and rebates.",
   },
   {
     title: "Service Level Agreement",
