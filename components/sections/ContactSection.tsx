@@ -28,9 +28,13 @@ type ContactOption = {
 
 const options: ContactOption[] = [
   {
-    eyebrow: "OPTION A · FROM AED 5,000",
+    // 2026-09-29 — was "OPTION A · FROM AED 5,000". Per owner decision on
+    // S-01 (audit fee dropped from public copy), the audit is offered
+    // as a scoped engagement rather than a published price. The
+    // implementation-fee credit mechanism is preserved.
+    eyebrow: "OPTION A · SCOPED PER ENGAGEMENT",
     title: "Finance Operations Audit",
-    body: "We audit your finance operations, compliance posture, and reporting — regardless of what systems you run. VAT, Corporate Tax, PDPL, goAML, RERA, financial visibility, and operational time-waste. Diagnosed by a finance-credentialed team. 50% of the audit fee is credited to implementation if you proceed within 90 days.",
+    body: "We audit your finance operations, compliance posture, and reporting — regardless of what systems you run. VAT, Corporate Tax, PDPL, goAML, RERA, financial visibility, and operational time-waste. Diagnosed by a finance-credentialed team. The audit fee is scoped to the engagement; 50% is credited to the Implementation foundation if you proceed within 90 days.",
     bestWhen: "'I want to know exactly what's broken before I buy anything.'",
     cta: "Book a Finance Operations Audit →",
     href: "mailto:info@sgctech.ai?subject=Finance%20Operations%20Audit%20Request",
@@ -39,7 +43,11 @@ const options: ContactOption[] = [
     )}`,
   },
   {
-    eyebrow: "OPTION B · FROM AED 15,000",
+    // 2026-09-29 — was "OPTION B · FROM AED 15,000". Aligned with
+    // `canonical-facts.ts` PRICING.implementation (AED 14,000 foundation,
+    // min qualifying deal AED 24,000). The service page already says
+    // "from AED 14,000"; the contact section was inconsistent.
+    eyebrow: "OPTION B · FROM AED 14,000",
     title: "Direct Implementation",
     body: "Start with a Discovery workshop next week. Order Form within 10 working days. Go-live within your tier's timeline. Go-live guarantee in writing.",
     bestWhen: "'We've decided. We need to move now.'",

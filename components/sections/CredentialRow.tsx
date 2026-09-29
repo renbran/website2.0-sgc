@@ -34,7 +34,7 @@ export default function CredentialRow() {
           transition={{ duration: 0.6, delay: 0.45 }}
           className="text-center text-[0.75rem] text-[var(--text-secondary)] sm:text-right"
         >
-          Practitioner-led · Dubai, UAE · IFZA-Licensed
+          Practitioner-led · Dubai, UAE
         </motion.p>
       </div>
     </div>
