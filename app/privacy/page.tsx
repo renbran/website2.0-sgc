@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: ["/opengraph-image"],
   },
+  other: {
+    datePublished: "2026-07-01",
+    dateModified: "2026-09-06",
+  },
 };
 
 const LAST_UPDATED = "Effective 1 July 2026";

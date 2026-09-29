@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { JsonLd } from "@/components/JsonLd";
-import { serviceSchema, faqSchema, graph } from "@/lib/schema";
+import { serviceSchema, faqSchema, articleSchema, graph } from "@/lib/schema";
 import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "How Do You Configure UAE Corporate Tax in Odoo?";
@@ -23,6 +23,10 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/opengraph-image"] },
+  other: {
+    datePublished: "2026-09-02",
+    dateModified: "2026-09-02",
+  },
 };
 
 const faqs = [
@@ -83,6 +87,15 @@ export default function CorporateTaxCompliancePage() {
             ],
           }),
           faqSchema(faqs),
+          articleSchema({
+            headline: TITLE,
+            summary: DESCRIPTION,
+            slug: "uae-corporate-tax-compliance",
+            authorName: "SGC Tech AI",
+            authorHref: "/about",
+            publishedDate: "2026-09-02",
+            updatedDate: "2026-09-02",
+          }),
         ])}
       />
       <ServiceArticle

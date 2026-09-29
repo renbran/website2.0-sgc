@@ -179,6 +179,34 @@ export function faqSchema(qas: { q: string; a: string }[]) {
   };
 }
 
+export function articleSchema(s: {
+  headline: string;
+  summary: string;
+  slug: string;
+  authorName: string;
+  authorHref: string;
+  publishedDate: string;
+  updatedDate: string;
+}) {
+  return {
+    "@type": "Article",
+    "@id": `${BASE}/services/${s.slug}#article`,
+    headline: s.headline,
+    description: s.summary,
+    url: `${BASE}/services/${s.slug}`,
+    author: {
+      "@type": "Organization",
+      name: s.authorName,
+      url: s.authorHref,
+    },
+    datePublished: s.publishedDate,
+    dateModified: s.updatedDate,
+    publisher: { "@id": IDS.org },
+    mainEntityOfPage: { "@id": `${BASE}/services/${s.slug}#service` },
+    inLanguage: "en-AE",
+  };
+}
+
 // Hub pages (e.g. /services) that link out to a set of already-schema'd
 // child pages reference them by stable @id rather than repeating their
 // full Service/Offer nodes — same cross-page graph pattern as IDS.org.

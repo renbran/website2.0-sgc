@@ -83,3 +83,6 @@ public/qa-proofs/
 
 # Accidental nested repo copy artifact
 /SGC WEBSITE/
+
+# OpenCode session state (local tool runs)
+.omo/

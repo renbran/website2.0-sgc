@@ -9,7 +9,7 @@ const DESCRIPTION =
   "Score your operations in 8 minutes. 12 questions across Finance, Sales, Operations, and People. Get a personalised report with prioritised next moves.";
 
 export const metadata: Metadata = {
-  title: "Operational Health Diagnostic — SGC Tech AI",
+  title: "Operational Health Diagnostic — SGC Tech AI | Score Finance, Sales, Operations, People",
   description: DESCRIPTION,
   alternates: { canonical: "/diagnostic" },
   robots: { index: true, follow: true },
@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     title: "Operational Health Diagnostic — SGC Tech AI",
     description: DESCRIPTION,
     images: ["/opengraph-image"],
+  },
+  other: {
+    datePublished: "2026-09-02",
+    dateModified: "2026-09-06",
   },
 };
 

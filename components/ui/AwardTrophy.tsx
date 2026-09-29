@@ -59,6 +59,8 @@ export interface AwardTrophyProps {
   recipient?: string;
   /** Bottom bold date / location line. */
   date: string;
+  /** Accessible label for the SVG laurel wreath. Defaults to "Award trophy: {headline}". */
+  ariaLabel?: string;
   className?: string;
 }
 
@@ -68,6 +70,7 @@ export function AwardTrophy({
   subtitle,
   recipient,
   date,
+  ariaLabel,
   className,
 }: AwardTrophyProps) {
   // useId() guarantees a unique SVG gradient id per mounted instance, even
@@ -85,6 +88,8 @@ export function AwardTrophy({
     >
       {/* Detailed laurel wreath SVG — eiger reference paths */}
       <svg
+        role="img"
+        aria-label={ariaLabel ?? `Award trophy: ${headline}`}
         className="absolute inset-0 m-auto opacity-90 pointer-events-none"
         style={{ width: "88%", height: "92%" }}
         width="892.77"

@@ -132,6 +132,7 @@ export default function RootLayout({
             therefore must live on separate entities, linked by
             parentOrganization. */}
         <JsonLd data={graph([organizationSchema(), localBusinessSchema(), websiteSchema()])} />
+        <link rel="icon" href="/favicon.ico" />
         {/* Pre-hydration theme sync — runs before first paint so there is no
             flash of the wrong theme while React hydrates. */}
         <Script id="theme-init" strategy="beforeInteractive">

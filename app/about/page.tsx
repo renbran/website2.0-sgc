@@ -12,7 +12,7 @@ import EngagementTiers from "@/components/about/EngagementTiers";
 import AboutCTA from "@/components/about/AboutCTA";
 
 export const metadata: Metadata = {
-  title: "About — SGC Tech AI",
+  title: "About SGC Tech AI — Operational Physician UAE Mid-Market",
   description:
     "Built by operators, not consultants. SGC Tech AI is the Operational Physician of the UAE Mid-Market — CPAs and CIAs who diagnose before they prescribe.",
   alternates: { canonical: "/about" },
@@ -35,6 +35,10 @@ export const metadata: Metadata = {
     description:
       "Built by operators, not consultants. CPAs and CIAs who diagnose before they prescribe.",
     images: ["/opengraph-image"],
+  },
+  other: {
+    datePublished: "2026-09-02",
+    dateModified: "2026-09-06",
   },
 };
 

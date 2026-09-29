@@ -1,3 +1,33 @@
+import type { Metadata } from "next";
+
+const TITLE = "SGC Tech AI — Odoo Implementation & AI Automation for UAE Mid-Market";
+const DESCRIPTION =
+  "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs deliver diagnosis-first engagement, fixed price and timeline, covering ERP implementation, AI finance automation, and UAE compliance.";
+
+export const metadata: Metadata = {
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://sgctech.ai",
+    type: "website",
+    images: ["/opengraph-image"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
+  other: {
+    datePublished: "2026-09-02",
+    dateModified: "2026-09-06",
+  },
+};
+
 // Section: Imports
 import Footer from "@/components/Footer";
 import DiamondScrollHero from "@/components/Hero/DiamondScrollHero";
