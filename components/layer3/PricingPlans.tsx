@@ -107,6 +107,14 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
             Talk to us to get started
           </Link>
         )}
+        {canSignUp && (
+          <Link
+            href="/subscribe/trial"
+            className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.5)] px-6 py-3 text-[0.85rem] font-semibold text-[var(--accent)] transition duration-300 hover:bg-[rgba(199,162,58,0.06)]"
+          >
+            Start 14-day free trial (card required)
+          </Link>
+        )}
         {pricing.founding && (
           <p className="mt-3 text-[0.78rem] leading-relaxed text-[var(--text-muted)]">
             Founding clients: the one-time onboarding fee (AED 1,500) is waived, and the founding rate holds while

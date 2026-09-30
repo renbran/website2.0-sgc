@@ -38,41 +38,63 @@ export default function PricingSection() {
         </RevealOnScroll>
 
         <div className="my-16 grid gap-6 md:grid-cols-3">
-          {layers.map((layer, index) => (
-            <RevealOnScroll key={layer.label} delay={index * 0.08}>
-              <LivingCard>
-                <div className="flex h-full flex-col rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[var(--accent-strong)] hover:shadow-[0_8px_32px_var(--accent-glow)]">
-                  <p
-                    style={{ fontFamily: "var(--font-mono)" }}
-                    className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent-copper)]"
+          {layers.map((layer, index) => {
+            const isSubscription = layer.label === "Subscription (Rent)";
+            return (
+              <RevealOnScroll key={layer.label} delay={index * 0.08}>
+                <LivingCard>
+                  <div
+                    className={`flex h-full flex-col rounded-2xl border bg-[var(--surface)] p-6 transition duration-300 ease-out hover:-translate-y-[3px] hover:border-[var(--accent-strong)] hover:shadow-[0_8px_32px_var(--accent-glow)] ${
+                      isSubscription
+                        ? "border-[var(--accent-strong)] ring-1 ring-[var(--accent)]/40"
+                        : "border-[var(--border)]"
+                    }`}
                   >
-                    {layer.tagline}
-                  </p>
-                  <h3
-                    style={{ fontFamily: "var(--font-fraunces)" }}
-                    className="mt-2 text-[1.15rem] font-bold text-[var(--sgc-text-primary)]"
-                  >
-                    {layer.label}
-                  </h3>
-                  <p
-                    style={{ fontFamily: "var(--font-inter)" }}
-                    className="text-gold-gradient mt-4 text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold leading-none"
-                  >
-                    {layer.price}
-                  </p>
-                  <p className="mt-4 flex-1 text-[0.88rem] leading-[1.6] text-[var(--sgc-text-muted)]">
-                    {layer.detail}
-                  </p>
-                  <a
-                    href="#contact"
-                    className="mt-6 inline-flex w-full items-center justify-center rounded-full border border-[var(--accent-border)] bg-transparent px-4 py-3 text-[0.9rem] font-semibold text-[var(--accent)] transition duration-300 ease-out hover:border-[var(--accent)] hover:bg-[var(--accent-faint)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-                  >
-                    Get Started
-                  </a>
-                </div>
-              </LivingCard>
-            </RevealOnScroll>
-          ))}
+                    <div className="flex items-center justify-between">
+                      <p
+                        style={{ fontFamily: "var(--font-mono)" }}
+                        className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent-copper)]"
+                      >
+                        {layer.tagline}
+                      </p>
+                      {isSubscription && (
+                        <span className="rounded-full bg-gold-gradient px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-[var(--bg)]">
+                          Most Popular
+                        </span>
+                      )}
+                    </div>
+                    <h3
+                      style={{ fontFamily: "var(--font-fraunces)" }}
+                      className="mt-2 text-[1.15rem] font-bold text-[var(--sgc-text-primary)]"
+                    >
+                      {layer.label}
+                    </h3>
+                    <p
+                      style={{ fontFamily: "var(--font-inter)" }}
+                      className={`mt-4 text-[clamp(1.5rem,2.5vw,2rem)] font-extrabold leading-none ${
+                        isSubscription ? "text-gold-gradient text-[clamp(2rem,3vw,2.6rem)]" : "text-gold-gradient"
+                      }`}
+                    >
+                      {layer.price}
+                    </p>
+                    <p className="mt-4 flex-1 text-[0.88rem] leading-[1.6] text-[var(--sgc-text-muted)]">
+                      {layer.detail}
+                    </p>
+                    <a
+                      href={isSubscription ? "/subscribe/trial" : "#contact"}
+                      className={`mt-6 inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-[0.9rem] font-semibold transition duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
+                        isSubscription
+                          ? "bg-gold-gradient text-[var(--bg)] hover:shadow-[0_0_22px_rgba(199,162,58,0.35)]"
+                          : "border border-[var(--accent-border)] bg-transparent text-[var(--accent)] hover:border-[var(--accent)] hover:bg-[var(--accent-faint)]"
+                      }`}
+                    >
+                      {isSubscription ? "Start 14-day free trial" : "Get Started"}
+                    </a>
+                  </div>
+                </LivingCard>
+              </RevealOnScroll>
+            );
+          })}
         </div>
 
         <RevealOnScroll delay={0.35}>
