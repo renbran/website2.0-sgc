@@ -2,6 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
+import type { Stripe, StripeElements, StripePaymentElement } from "@stripe/stripe-js";
 import GlassCard from "@/components/ui/GlassCard";
 
 const inputBase =
@@ -42,6 +43,15 @@ function requestId(): string {
 
 type SlugState = { checking: boolean; available: boolean | null; message: string };
 
+/** What /api/layer3/trial-setup returned: enough to run Stripe Elements, nothing secret. */
+type TrialSetupState = {
+  request_id: string;
+  client_secret: string;
+  publishable_key: string;
+  amount_total: number;
+  currency: string;
+};
+
 export default function SubscribeForm({ cycle, users, trial = false }: { cycle: string; users: number; trial?: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState({
@@ -59,6 +69,14 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
   const [slug, setSlug] = useState<SlugState>({ checking: false, available: null, message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Trial signups are two steps: details, then the card that funds day 14.
+  const [stage, setStage] = useState<"details" | "card">("details");
+  const [setup, setSetup] = useState<TrialSetupState | null>(null);
+  const [setupLoading, setSetupLoading] = useState(false);
+  const [cardBusy, setCardBusy] = useState(false);
+  const paymentRef = useRef<HTMLDivElement>(null);
+  const stripeRef = useRef<Stripe | null>(null);
+  const elementsRef = useRef<StripeElements | null>(null);
 
   const update = (field: keyof typeof form, value: string | number) => setForm((f) => ({ ...f, [field]: value }));
 
@@ -88,6 +106,98 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
     }, 400);
     return () => clearTimeout(timer);
   }, [form.slug]);
+
+  /** Trial step 2: ask Odoo for a fresh SetupIntent (a new one after every declined card). */
+  async function loadSetup(requestId: string) {
+    setError(null);
+    setSetupLoading(true);
+    try {
+      const res = await fetch("/api/layer3/trial-setup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ request_id: requestId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setError(data.error || "We could not open the card step. Please try again.");
+        return;
+      }
+      setSetup({
+        request_id: requestId,
+        client_secret: data.client_secret,
+        publishable_key: data.publishable_key,
+        amount_total: Number(data.amount_total),
+        currency: String(data.currency || "AED"),
+      });
+    } catch {
+      setError("We could not reach our server. Please check your connection and try again.");
+    } finally {
+      setSetupLoading(false);
+    }
+  }
+
+  // Mount the Payment Element whenever a SetupIntent is ready (and unmount the old one when
+  // a declined card forced a retry with a new intent).
+  useEffect(() => {
+    if (stage !== "card" || !setup) return;
+    let cancelled = false;
+    let payment: StripePaymentElement | null = null;
+    (async () => {
+      const { loadStripe } = await import("@stripe/stripe-js");
+      const stripe = await loadStripe(setup.publishable_key);
+      if (cancelled || !stripe || !paymentRef.current) return;
+      const elements = stripe.elements({ clientSecret: setup.client_secret });
+      const el = elements.create("payment");
+      el.mount(paymentRef.current);
+      stripeRef.current = stripe;
+      elementsRef.current = elements;
+      payment = el;
+    })();
+    return () => {
+      cancelled = true;
+      payment?.destroy();
+      stripeRef.current = null;
+      elementsRef.current = null;
+    };
+  }, [stage, setup]);
+
+  /** Trial step 2: confirm the element in-page, then hand the intent to Odoo. */
+  async function handleCardSubmit(e: { preventDefault: () => void }) {
+    e.preventDefault();
+    if (!stripeRef.current || !elementsRef.current || !setup || cardBusy) return;
+    setCardBusy(true);
+    setError(null);
+    try {
+      const { setupIntent, error: stripeError } = await stripeRef.current.confirmSetup({
+        elements: elementsRef.current,
+        // redirect: "if_required" keeps card confirmations in-page — the only time Stripe
+        // would navigate away is a method that needs a redirect, and Element is card-only.
+        confirmParams: { return_url: `${window.location.origin}/subscribe?trial=1` },
+        redirect: "if_required",
+      });
+      if (stripeError || !setupIntent) {
+        setError(stripeError?.message || "We could not save that card. Please try again.");
+        await loadSetup(setup.request_id);
+        setCardBusy(false);
+        return;
+      }
+      const res = await fetch("/api/layer3/trial-complete", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ request_id: setup.request_id, setup_intent_id: setupIntent.id }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        setError(data.error || "We could not start your trial just now. Please try again.");
+        setCardBusy(false);
+        return;
+      }
+      window.location.href = `/subscribe/done?r=${encodeURIComponent(setup.request_id)}`;
+    } catch {
+      setError("We could not reach our server. Please check your connection and try again.");
+      setCardBusy(false);
+    }
+  }
 
   async function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault();
@@ -124,8 +234,16 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
           }),
         );
       } catch {
-        // storage unavailable: not fatal — the user is now on Odoo's portal and the
-        // done page is no longer in the primary flow.
+        // storage unavailable: not fatal — the done page is a deep-link fallback only.
+      }
+      if (trial) {
+        // The trial order exists now, but nothing is billed until the card that funds day 14
+        // is saved. Stay on this page for step 2 instead of sending the customer to Odoo's
+        // portal (which would have no payment to take for a trial).
+        setSubmitting(false);
+        setStage("card");
+        await loadSetup(id);
+        return;
       }
       // Per the founder directive 2026-09-30 ("redirect them to our odoo portal for
       // any payment"), send the customer straight to Odoo's Sign & Pay page after the
@@ -136,6 +254,78 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
       setError("We could not reach our server. Please check your connection and try again.");
       setSubmitting(false);
     }
+  }
+
+  if (stage === "card") {
+    return (
+      <GlassCard contentClassName="p-8 md:p-10">
+        <div className="space-y-6">
+          <div>
+            <p className={labelBase}>Step 2 of 2 · card required</p>
+            <h2 className="font-fraunces text-2xl font-semibold leading-tight text-[var(--text-primary)]">
+              Add your card to start the trial
+            </h2>
+            <p className="mt-2 text-[0.9rem] leading-relaxed text-[var(--text-secondary)]">
+              Nothing is charged today. Your 14 days free start as soon as the card is saved, then we
+              charge{" "}
+              <span className="text-[var(--text-primary)]">
+                {(setup?.currency || "AED").toUpperCase()} {setup ? setup.amount_total.toFixed(2) : "875.00"}
+                /month
+              </span>{" "}
+              on day 14. If that payment fails, the workspace is locked immediately — trials have no
+              grace period.
+            </p>
+          </div>
+
+          {error && (
+            <p
+              role="alert"
+              className="rounded-lg border border-[rgba(199,90,58,0.4)] bg-[rgba(199,90,58,0.08)] px-4 py-3 text-[0.85rem] text-[var(--accent-copper)]"
+            >
+              {error}
+            </p>
+          )}
+
+          <form onSubmit={handleCardSubmit} className="space-y-5">
+            {setup ? (
+              <div
+                id="l3-payment-element"
+                ref={paymentRef}
+                className="rounded-xl border border-[var(--border)] bg-[var(--surface-high)] p-4"
+              />
+            ) : (
+              <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-high)] p-6 text-center text-[0.85rem] text-[var(--text-muted)]">
+                {setupLoading ? "Preparing the secure card form…" : "Card form unavailable."}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={cardBusy || !setup || setupLoading}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 text-[0.9rem] font-bold text-[var(--bg)] transition duration-300 ease-out hover:shadow-[0_0_22px_rgba(199,162,58,0.35)] disabled:opacity-60"
+            >
+              {cardBusy ? "Starting your trial…" : "Start my 14-day trial"}
+            </button>
+            <button
+              type="button"
+              disabled={cardBusy}
+              onClick={() => {
+                setError(null);
+                setStage("details");
+              }}
+              className="w-full text-center text-[0.8rem] text-[var(--text-muted)] underline-offset-4 transition hover:text-[var(--text-secondary)] hover:underline"
+            >
+              Back to my details
+            </button>
+          </form>
+
+          <p className="text-[0.75rem] leading-relaxed text-[var(--text-muted)]">
+            Payments are processed by Stripe. We never see or store your card number — Stripe only
+            tells us that a card is on file for the day-14 charge.
+          </p>
+        </div>
+      </GlassCard>
+    );
   }
 
   return (
@@ -335,11 +525,16 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
             disabled={submitting || slug.checking}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold-gradient px-6 py-3.5 text-[0.9rem] font-bold text-[var(--bg)] transition duration-300 ease-out hover:shadow-[0_0_22px_rgba(199,162,58,0.35)] disabled:opacity-60"
           >
-            {submitting ? "Preparing your Order Form…" : "Continue to Order Form"}
+            {submitting
+              ? "Preparing your Order Form…"
+              : trial
+                ? "Continue — add your card"
+                : "Continue to Order Form"}
           </button>
           <p className="mt-3 text-[0.75rem] leading-relaxed text-[var(--text-muted)]">
-            Next you review and sign the Order Form and pay by card. Your workspace is set up as soon as payment
-            clears. You can upload your trade licence afterwards; it never holds up activation.
+            {trial
+              ? "Next you save a card so day 14 can be charged automatically. Nothing is taken today, and you can cancel any time during the 14 free days."
+              : "Next you review and sign the Order Form and pay by card. Your workspace is set up as soon as payment clears. You can upload your trade licence afterwards; it never holds up activation."}
           </p>
         </div>
       </form>
