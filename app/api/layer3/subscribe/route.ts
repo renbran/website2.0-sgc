@@ -44,7 +44,13 @@ export async function POST(req: NextRequest) {
   const cycle = text(body.cycle, 20);
   const users = Number(body.users);
   const emirate = text(body.emirate, 2).toUpperCase() || "DU";
-  if (!REQUEST_ID_RE.test(requestId) || !CYCLES.has(cycle) || !Number.isInteger(users) || !EMIRATES.has(emirate)) {
+  const isTrial = body.trial === true;
+  // Trial signups don't pick a cycle or user count — they default to monthly / 5 users
+  // (the only product is the 5-user, AED-875/month Layer 3 plan).
+  if (!REQUEST_ID_RE.test(requestId) || !EMIRATES.has(emirate)) {
+    return NextResponse.json({ ok: false, error: "Please check the form and try again." }, { status: 400 });
+  }
+  if (!isTrial && (!CYCLES.has(cycle) || !Number.isInteger(users))) {
     return NextResponse.json({ ok: false, error: "Please check the form and try again." }, { status: 400 });
   }
 
@@ -54,11 +60,12 @@ export async function POST(req: NextRequest) {
     company_name: text(body.company_name, 120),
     contact_name: text(body.contact_name, 80),
     email: text(body.email, 254).toLowerCase(),
-    cycle,
-    users,
+    cycle: isTrial ? "monthly" : cycle,
+    users: isTrial ? 5 : users,
     country_code: "AE",
     emirate,
   };
+  if (isTrial) payload.trial = true;
   const mobile = text(body.mobile, 24);
   if (mobile) payload.mobile = mobile;
   const licence = text(body.trade_licence_no, 64);
@@ -66,8 +73,15 @@ export async function POST(req: NextRequest) {
 
   try {
     const result = await createCheckout(payload);
+
+    // For trial signups, Odoo handles payment + provisioning + renewal monitoring
+    // through its built-in payment_stripe module. The bridge receives trial=true
+    // and creates the order in trial state with l3_trial_ends_at; Odoo's Sign & Pay
+    // page then collects card details and Odoo's subscription machinery handles the
+    // rest. We just return the standard checkout URL.
     return NextResponse.json({
       ok: true,
+      trial: isTrial,
       checkout_url: result.checkout_url,
       sale_order_name: result.sale_order_name,
       amount_untaxed: result.amount_untaxed,

@@ -1,7 +1,6 @@
 "use client";
 
 import Script from "next/script";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 
@@ -43,8 +42,7 @@ function requestId(): string {
 
 type SlugState = { checking: boolean; available: boolean | null; message: string };
 
-export default function SubscribeForm({ cycle, users }: { cycle: string; users: number }) {
-  const router = useRouter();
+export default function SubscribeForm({ cycle, users, trial = false }: { cycle: string; users: number; trial?: boolean }) {
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState({
     company_name: "",
@@ -106,7 +104,7 @@ export default function SubscribeForm({ cycle, users }: { cycle: string; users: 
       const res = await fetch("/api/layer3/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, request_id: id, website: honeypot, turnstile_token: token }),
+        body: JSON.stringify({ ...form, trial, request_id: id, website: honeypot, turnstile_token: token }),
       });
       const data = await res.json();
       if (!res.ok || !data.ok) {
@@ -126,9 +124,14 @@ export default function SubscribeForm({ cycle, users }: { cycle: string; users: 
           }),
         );
       } catch {
-        // storage unavailable: the done page falls back to the status API only
+        // storage unavailable: not fatal — the user is now on Odoo's portal and the
+        // done page is no longer in the primary flow.
       }
-      router.push(`/subscribe/done?r=${encodeURIComponent(id)}`);
+      // Per the founder directive 2026-09-30 ("redirect them to our odoo portal for
+      // any payment"), send the customer straight to Odoo's Sign & Pay page after the
+      // form submits. The /subscribe/done status page stays as a deep-link target
+      // (e.g. for follow-up emails) but is no longer the primary path.
+      window.location.href = data.checkout_url;
     } catch {
       setError("We could not reach our server. Please check your connection and try again.");
       setSubmitting(false);
@@ -275,40 +278,42 @@ export default function SubscribeForm({ cycle, users }: { cycle: string; users: 
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div>
-            <label htmlFor="l3-cycle" className={labelBase}>
-              Billing cycle
-            </label>
-            <select
-              id="l3-cycle"
-              className={`${inputBase} appearance-none`}
-              value={form.cycle}
-              onChange={(e) => update("cycle", e.target.value)}
-            >
-              {CYCLES.map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
+        {!trial && (
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label htmlFor="l3-cycle" className={labelBase}>
+                Billing cycle
+              </label>
+              <select
+                id="l3-cycle"
+                className={`${inputBase} appearance-none`}
+                value={form.cycle}
+                onChange={(e) => update("cycle", e.target.value)}
+              >
+                {CYCLES.map(([code, name]) => (
+                  <option key={code} value={code}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="l3-users" className={labelBase}>
+                Named users (5 included)
+              </label>
+              <input
+                id="l3-users"
+                type="number"
+                min={5}
+                max={100}
+                required
+                className={inputBase}
+                value={form.users}
+                onChange={(e) => update("users", Math.max(5, Math.min(100, Number(e.target.value) || 5)))}
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="l3-users" className={labelBase}>
-              Named users (5 included)
-            </label>
-            <input
-              id="l3-users"
-              type="number"
-              min={5}
-              max={100}
-              required
-              className={inputBase}
-              value={form.users}
-              onChange={(e) => update("users", Math.max(5, Math.min(100, Number(e.target.value) || 5)))}
-            />
-          </div>
-        </div>
+        )}
 
         {/* Honeypot: hidden from people, filled by bots. */}
         <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
