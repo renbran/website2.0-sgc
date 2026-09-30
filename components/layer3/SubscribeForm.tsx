@@ -1,7 +1,6 @@
 "use client";
 
 import Script from "next/script";
-import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
 
@@ -44,7 +43,6 @@ function requestId(): string {
 type SlugState = { checking: boolean; available: boolean | null; message: string };
 
 export default function SubscribeForm({ cycle, users, trial = false }: { cycle: string; users: number; trial?: boolean }) {
-  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState({
     company_name: "",
