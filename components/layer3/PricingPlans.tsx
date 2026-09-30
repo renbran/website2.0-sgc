@@ -109,7 +109,7 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
         )}
         {canSignUp && (
           <Link
-            href="/subscribe/trial"
+            href="/subscribe?trial=1"
             className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.5)] px-6 py-3 text-[0.85rem] font-semibold text-[var(--accent)] transition duration-300 hover:bg-[rgba(199,162,58,0.06)]"
           >
             Start 14-day free trial (card required)

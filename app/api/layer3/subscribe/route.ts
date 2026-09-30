@@ -74,46 +74,14 @@ export async function POST(req: NextRequest) {
   try {
     const result = await createCheckout(payload);
 
-    // For trial signups, immediately create a Stripe customer + subscription with
-    // trial_period_days=14. Stripe handles day-14 auto-charge natively. The Odoo
-    // webhook (POST /stripe/webhook) will receive customer.subscription.created and
-    // use metadata.l3_request_id to link the Stripe IDs back to the Odoo order.
-    if (isTrial) {
-      const stripeSecret = process.env.STRIPE_SECRET_KEY;
-      const stripePriceId = process.env.STRIPE_PRICE_ID_SGC_TRIAL;
-      if (!stripeSecret || !stripePriceId) {
-        return NextResponse.json(
-          { ok: false, error: "Stripe is not configured. Please email info@sgctech.ai to enable the trial." },
-          { status: 503 },
-        );
-      }
-      const Stripe = (await import("stripe")).default;
-      const stripe = new Stripe(stripeSecret);
-      const customer = await stripe.customers.create({
-        email: payload.email as string,
-        name: payload.contact_name as string,
-        metadata: { l3_request_id: requestId, l3_tenant_slug: payload.slug as string },
-      });
-      const subscription = await stripe.subscriptions.create({
-        customer: customer.id,
-        items: [{ price: stripePriceId }],
-        trial_period_days: 14,
-        metadata: { l3_request_id: requestId, l3_tenant_slug: payload.slug as string },
-      });
-      return NextResponse.json({
-        ok: true,
-        trial: true,
-        checkout_url: text(body.checkout_url, 500) || "/subscribe/done?trial=1",
-        stripe_customer_id: customer.id,
-        stripe_subscription_id: subscription.id,
-        stripe_publishable_key: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "",
-        trial_ends_at: subscription.trial_end ? new Date(subscription.trial_end * 1000).toISOString() : null,
-        sale_order_name: result.sale_order_name,
-      });
-    }
-
+    // For trial signups, Odoo handles payment + provisioning + renewal monitoring
+    // through its built-in payment_stripe module. The bridge receives trial=true
+    // and creates the order in trial state with l3_trial_ends_at; Odoo's Sign & Pay
+    // page then collects card details and Odoo's subscription machinery handles the
+    // rest. We just return the standard checkout URL.
     return NextResponse.json({
       ok: true,
+      trial: isTrial,
       checkout_url: result.checkout_url,
       sale_order_name: result.sale_order_name,
       amount_untaxed: result.amount_untaxed,

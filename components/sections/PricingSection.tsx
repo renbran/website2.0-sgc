@@ -81,7 +81,7 @@ export default function PricingSection() {
                       {layer.detail}
                     </p>
                     <a
-                      href={isSubscription ? "/subscribe/trial" : "#contact"}
+                      href={isSubscription ? "/subscribe?trial=1" : "#contact"}
                       className={`mt-6 inline-flex w-full items-center justify-center rounded-full px-4 py-3 text-[0.9rem] font-semibold transition duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${
                         isSubscription
                           ? "bg-gold-gradient text-[var(--bg)] hover:shadow-[0_0_22px_rgba(199,162,58,0.35)]"
