@@ -126,9 +126,14 @@ export default function SubscribeForm({ cycle, users, trial = false }: { cycle: 
           }),
         );
       } catch {
-        // storage unavailable: the done page falls back to the status API only
+        // storage unavailable: not fatal — the user is now on Odoo's portal and the
+        // done page is no longer in the primary flow.
       }
-      router.push(`/subscribe/done?r=${encodeURIComponent(id)}`);
+      // Per the founder directive 2026-09-30 ("redirect them to our odoo portal for
+      // any payment"), send the customer straight to Odoo's Sign & Pay page after the
+      // form submits. The /subscribe/done status page stays as a deep-link target
+      // (e.g. for follow-up emails) but is no longer the primary path.
+      window.location.href = data.checkout_url;
     } catch {
       setError("We could not reach our server. Please check your connection and try again.");
       setSubmitting(false);
