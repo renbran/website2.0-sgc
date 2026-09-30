@@ -66,6 +66,27 @@ export type OrderStatus =
       docs_status: string;
     };
 
+/** The trial's card step: enough to run Stripe Elements, and nothing secret. */
+export type TrialSetup = {
+  ok: boolean;
+  request_id: string;
+  client_secret: string;
+  publishable_key: string;
+  amount_total: number;
+  currency: string;
+};
+
+/** Result of attaching the card: the 14-day subscription now exists at Stripe. */
+export type TrialComplete = {
+  ok: boolean;
+  deduplicated: boolean;
+  request_id: string;
+  sale_order_name: string;
+  tenant_slug: string;
+  trial_ends_at: string;
+  checkout_url: string;
+};
+
 // Odoo UserError codes raised by layer3.checkout -> text a visitor can act on.
 const USER_MESSAGES: Record<string, string> = {
   layer3_checkout_disabled: "Online signup is not open yet. Please contact us and we will set you up.",
@@ -75,6 +96,15 @@ const USER_MESSAGES: Record<string, string> = {
     "The workspace address must be 3 to 30 lowercase letters, numbers or hyphens, starting with a letter.",
   layer3_waitlist: "We have reached our current capacity. Leave your details and we will contact you.",
   layer3_sales_assisted: "Our founding places are full. Please contact us and we will set you up directly.",
+  layer3_stripe_not_configured:
+    "Online card payments are unavailable right now. Please email info@sgctech.ai and we will set you up.",
+  layer3_trial_not_found:
+    "We could not find this trial signup. Please start again from the pricing page.",
+  layer3_trial_already_active:
+    "Your trial has already started — check your email for the workspace link.",
+  layer3_card_incomplete: "We could not save that card. Please try again, or use another card.",
+  layer3_stripe_error:
+    "We could not start your trial just now. Please try again, or email info@sgctech.ai.",
 };
 
 function config() {
@@ -139,6 +169,19 @@ export function createCheckout(payload: Record<string, unknown>): Promise<Checko
 
 export function orderStatus(requestId: string): Promise<OrderStatus> {
   return call<OrderStatus>("order_status", { request_id: requestId });
+}
+
+/** Trial card step 1: the SetupIntent (and publishable key) the Payment Element confirms. */
+export function trialSetup(requestId: string): Promise<TrialSetup> {
+  return call<TrialSetup>("create_trial_setup_intent", { request_id: requestId });
+}
+
+/** Trial card step 2: Odoo re-reads the intent at Stripe and starts the 14-day subscription. */
+export function trialComplete(requestId: string, setupIntentId: string): Promise<TrialComplete> {
+  return call<TrialComplete>("complete_trial", {
+    request_id: requestId,
+    setup_intent_id: setupIntentId,
+  });
 }
 
 export function slugMessage(reason: string): string {

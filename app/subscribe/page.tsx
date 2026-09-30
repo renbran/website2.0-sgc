@@ -42,7 +42,7 @@ export default async function SubscribePage({
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--text-secondary)]">
               {trial
-                ? "Card required. 14 days free, then AED 875/month (5 users included). Odoo will provision your workspace and monitor renewals."
+                ? "Card required, nothing charged today. 14 days free, then AED 875/month (5 users included). Your workspace is provisioned as soon as the card is saved."
                 : "These are the details for your Order Form. Regulatory items such as goAML, MLRO or TRN are not needed to start."}
             </p>
           </div>
