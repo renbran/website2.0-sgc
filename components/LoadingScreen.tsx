@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import HoneycombSpinner from "@/components/ui/HoneycombSpinner";
+import { markSplashDone } from "@/lib/splash";
 
 /**
  * LoadingScreen — first-paint splash with strong contrast + animated reveal.
@@ -47,7 +48,10 @@ export default function LoadingScreen() {
   // after first paint; the overlay's SSR initial opacity is 0, so nothing
   // opaque was ever visible during the (empty) hold.
   useEffect(() => {
-    if (reducedMotionPref) setVisible(false);
+    if (reducedMotionPref) {
+      setVisible(false);
+      markSplashDone();
+    }
   }, [reducedMotionPref]);
 
   useEffect(() => {
@@ -78,6 +82,10 @@ export default function LoadingScreen() {
       const wait = Math.max(0, MIN_VISIBLE_MS - elapsed);
       window.setTimeout(() => {
         setVisible(false);
+        // Tell deferred 3D work it can mount now: the overlay is fading for
+        // 600 ms, which gives the canvas chunk + WebGL init a head start
+        // before the splash is fully gone.
+        markSplashDone();
       }, wait);
     };
 

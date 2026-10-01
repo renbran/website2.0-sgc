@@ -11,6 +11,7 @@ import AudioToggle from "@/components/AudioToggle";
 import { useHelixScrub } from "@/hooks/useHelixScrub";
 import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 import HeroIntroOverlay from "./HeroIntroOverlay";
+import { SPLASH_DONE_EVENT, isSplashDone, CANVAS_MOUNT_FALLBACK_MS } from "@/lib/splash";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,6 +62,34 @@ export default function DiamondScrollHero() {
     if (typeof window === "undefined") return false;
     return window.innerWidth < 768;
   });
+
+  // Deferred 3D mount: the helix canvas pulls the ~370 KB three.js chunk and
+  // a WebGL context — the single heaviest main-thread cost on the homepage.
+  // The splash covers the first ~0.9 s anyway, so we mount the canvas when
+  // the splash starts clearing (with a safety-net timeout), and fade it in
+  // over the dark ground colour so there is no pop. Client-side returns to
+  // "/" skip the wait via the persisted splash flag.
+  const [canvasReady, setCanvasReady] = useState(false);
+
+  useEffect(() => {
+    if (reducedMotion) return; // fallback path never renders the canvas
+    if (isSplashDone()) {
+      setCanvasReady(true);
+      return;
+    }
+    let done = false;
+    const ready = () => {
+      if (done) return;
+      done = true;
+      setCanvasReady(true);
+    };
+    window.addEventListener(SPLASH_DONE_EVENT, ready);
+    const fallback = window.setTimeout(ready, CANVAS_MOUNT_FALLBACK_MS);
+    return () => {
+      window.removeEventListener(SPLASH_DONE_EVENT, ready);
+      window.clearTimeout(fallback);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     lastTimeRef.current = performance.now();
@@ -135,6 +164,15 @@ export default function DiamondScrollHero() {
     };
   }, []);
 
+  // The trigger's measurements are taken before the deferred canvas mounts;
+  // refresh once the canvas is in the DOM and its first textures have settled
+  // so pin geometry matches the final tree.
+  useEffect(() => {
+    if (!canvasReady) return;
+    const t = window.setTimeout(() => ScrollTrigger.refresh(), 350);
+    return () => window.clearTimeout(t);
+  }, [canvasReady]);
+
   // Mouse-parallax tilt (Scene.tsx reads mouseRef every frame) only makes
   // sense for a hovering pointer. On touch devices `pointermove` also fires
   // during scroll-swipes, which would otherwise inject a spurious tilt from
@@ -175,16 +213,33 @@ export default function DiamondScrollHero() {
           zIndex: 1,
         }}
       >
-        <HelixCanvas
-          scrollProgressRef={scrollProgressRef}
-          activeIndex={activeIndex}
-          mouseRef={mouseRef}
-          reducedMotion={reducedMotion}
-          particleCount={particleCount}
-          diamondSize={diamondSize}
-          strandSegments={strandSegments}
-          scrollVelocityRef={scrollVelocityRef}
-        />
+        {/* Deferred canvas wrapper — fades in over the #080B11 ground once the
+            splash clears, so the WebGL mount is never visible as a pop.
+            Normal-flow (height:100%) rather than absolute: the sticky div is
+            only positioned after GSAP pinning, so an absolute wrapper would
+            resolve against the 600vh outer container pre-pin. */}
+        <div
+          style={{
+            position: "relative",
+            height: "100%",
+            width: "100%",
+            opacity: canvasReady ? 1 : 0,
+            transition: "opacity 0.45s ease-out",
+          }}
+        >
+          {canvasReady && (
+            <HelixCanvas
+              scrollProgressRef={scrollProgressRef}
+              activeIndex={activeIndex}
+              mouseRef={mouseRef}
+              reducedMotion={reducedMotion}
+              particleCount={particleCount}
+              diamondSize={diamondSize}
+              strandSegments={strandSegments}
+              scrollVelocityRef={scrollVelocityRef}
+            />
+          )}
+        </div>
         {/* Edge vignette — darkens corners without blocking center */}
         <div
           style={{
