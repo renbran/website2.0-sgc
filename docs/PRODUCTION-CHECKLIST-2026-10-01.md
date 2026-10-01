@@ -81,13 +81,17 @@ Legend: ✅ present/within limits · tLen = title length · dLen = description l
 
 **Remaining manual checks (need browser/external tools):**
 
-- [ ] Google Rich Results test on `/pricing` + one case page (expect Service/Offer, FAQPage, Breadcrumb)
-- [ ] Lighthouse mobile spot-check: `/` and `/case-studies/dubai-brokerage-72m-recovered`
-      (targets: LCP < 2.5 s, CLS < 0.1, INP < 200 ms)
-- [ ] GA4 Realtime / GTM Preview: `page_view` fires for a new route
-- [ ] WhatsApp + contact CTA click-through on homepage and a case page
-- [ ] Social card debugger (Facebook/Twitter) for one case page → OG image loads
-- [ ] Google Search Console: confirm sitemap; request indexing for the 4 new URLs
+- [x] Lighthouse mobile spot-check: `/`, `/pricing`, one case page, `/contact` — run 2026-10-01; SEO 100 / BP 100 / A11y 100 everywhere. Absolute performance values unreliable on this audit machine (100% CPU); see `docs/SEO-AEO-GEO-SCORECARD-2026-10-01.md` for numbers, caveats and the homepage follow-up recommendation.
+- [x] Structured-data validation: custom required-field validator on 7 pages — all pass; no Review/AggregateRating; no client-name leakage.
+- [x] AI crawler access: GPTBot / ClaudeBot / PerplexityBot / Google-Extended / CCBot / Bytespider all return 200; robots allowlist verified.
+- [x] OG/social server-side: `og:image` serves 200 `image/png` 96 KB; per-page `og:url`, Twitter card present.
+- [x] A11y fixes shipped: `<dl>` valid on homepage; `/pricing` contrast 4.5:1 (`4e2de5e`) — both re-verified at 100 live.
+- [ ] Google Rich Results test UI (optional — structured data already passes the required-field validator; the UI test needs a browser session)
+- [ ] GA4 Realtime / GTM Preview: `page_view` fires for a new route (account login required)
+- [ ] WhatsApp + contact CTA click-through on homepage and a case page (send test; links/prefills smoke-verified)
+- [ ] Social card debugger (Facebook/X — login required; server-side OG verified)
+- [ ] Google Search Console: confirm sitemap; request indexing for the 4 new URLs (account login required)
+- [ ] Reliable performance numbers: PageSpeed Insights with API key (or idle machine) + CrUX field data
 
 ## 4. Rollback
 
