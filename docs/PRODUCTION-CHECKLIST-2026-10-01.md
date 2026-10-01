@@ -63,30 +63,31 @@ Legend: ✅ present/within limits · tLen = title length · dLen = description l
 
 ---
 
-## 3. Post-deploy verification (run after `git push`)
+## 3. Post-deploy verification — results (live 2026-10-01, commit `1a7537d`)
 
-- [ ] Vercel production deployment green for the pushed commit
-- [ ] New routes live:
-  ```bash
-  for u in /case-studies /case-studies/dubai-brokerage-72m-recovered \
-           /case-studies/uae-brokerage-445-roi /case-studies/construction-erp-vat-readiness; do
-    echo "$u → $(curl -s -o /dev/null -w '%{http_code}' https://sgctech.ai$u)"; done
-  ```
-- [ ] Anonymity on live HTML:
-  ```bash
-  curl -s https://sgctech.ai/case-studies | grep -iE "AX Capital|OSUS|TraffeXcel" || echo "anonymous ✔"
-  ```
-- [ ] `curl -s https://sgctech.ai/llms.txt | grep -E "anonymized|Last updated"`
-- [ ] `curl -s https://sgctech.ai/sitemap.xml | grep -c "case-studies"` → 4
-- [ ] IndexNow resubmission: `node scripts/indexnow-submit.mjs`
-- [ ] Google Search Console: submit/confirm sitemap; request indexing for the 4 new URLs
-- [ ] Rich Results test on `/pricing` + one case page (expect Service/Offer, FAQPage, Breadcrumb)
+| Check | Status | Result |
+|---|---|---|
+| Vercel production deploy | ✅ | `/case-studies` live within ~90 s of push |
+| 4 new routes respond 200 | ✅ | hub + 3 case-study pages all 200 |
+| Anonymity on live HTML | ✅ | grep for client names across homepage + 2 case pages → 0 matches |
+| `/llms.txt` live | ✅ | "clients anonymized on request" + case-studies link + Last updated |
+| `/llms-full.txt` live | ✅ | 200, includes case-study URLs |
+| `/sitemap.xml` live | ✅ | 4 case-studies URLs present |
+| `/robots.txt` live | ✅ | `Disallow: /api/` active |
+| Homepage meta live | ✅ | new 131-char description serving |
+| `/pricing` live | ✅ | new title + `Offer` schema present |
+| 404 handling | ✅ | `/case-studies/does-not-exist` → 404 |
+| IndexNow resubmission | ✅ | 19 URLs submitted, `200 OK` |
+
+**Remaining manual checks (need browser/external tools):**
+
+- [ ] Google Rich Results test on `/pricing` + one case page (expect Service/Offer, FAQPage, Breadcrumb)
 - [ ] Lighthouse mobile spot-check: `/` and `/case-studies/dubai-brokerage-72m-recovered`
       (targets: LCP < 2.5 s, CLS < 0.1, INP < 200 ms)
 - [ ] GA4 Realtime / GTM Preview: `page_view` fires for a new route
 - [ ] WhatsApp + contact CTA click-through on homepage and a case page
-- [ ] `/case-studies/does-not-exist` → 404 (not a soft 200)
 - [ ] Social card debugger (Facebook/Twitter) for one case page → OG image loads
+- [ ] Google Search Console: confirm sitemap; request indexing for the 4 new URLs
 
 ## 4. Rollback
 
