@@ -17,7 +17,16 @@
 
 **Fixes verified this session:** homepage transfer −1 MB (1,046 KB watermark PNG → 7 KB WebP; 194 KB logo → 30 KB WebP); Lighthouse a11y 97 → **100** (valid `<dl>` markup; pricing cycle-label contrast 4.5:1); BP 96 → **100** (no console errors, three.js out of the initial bundle); SEO held at **100** with all per-page checks still passing.
 
-**To get trustworthy performance numbers:** run PageSpeed Insights with an API key (or Lighthouse on an idle machine) and read CrUX field data. Structural finding for the homepage remains: the three.js hero chunk executes on load and the hero sequence is animation-heavy — the highest-leverage next step is deferring the hero canvas mount until after the splash.
+**Hero three.js deferral shipped (`4fd2187`):** the helix canvas now mounts only when the splash starts clearing (event + persisted flag in `lib/splash.ts`; 1.8 s safety fallback; fades in over the `#080B11` ground; ScrollTrigger refreshes after mount). Live resource-timing proof (mobile viewport, production):
+
+| Asset | Before | After |
+|---|---|---|
+| 233 KB three.js chunk (`0xj…js`) request start | ~390 ms (during hydration) | **1,496 ms** (after splash dismiss) |
+| Initial UI/hydration chunks | competing with three init | start ~390 ms, unobstructed |
+
+Behavioural probes after the change: canvas mounts and renders (screenshot verified), scroll to 3,100 px works, exactly one `<h1>`, **0 page errors**. Chunk start times are load-independent evidence; TBT/LCP deltas cannot be honestly measured on this 100%-CPU machine — re-run on an idle machine or PSI-with-key for absolute numbers.
+
+**Next structural candidate (not done):** the below-fold Shield/Finale canvases still fetch their own three chunks ~4–5 s after load (observed in probe) — moving them behind an idle/intersection warm-up would trim further, at higher regression risk to the scroll choreography.
 
 ---
 

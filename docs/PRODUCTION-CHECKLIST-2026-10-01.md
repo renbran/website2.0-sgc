@@ -86,6 +86,7 @@ Legend: ✅ present/within limits · tLen = title length · dLen = description l
 - [x] AI crawler access: GPTBot / ClaudeBot / PerplexityBot / Google-Extended / CCBot / Bytespider all return 200; robots allowlist verified.
 - [x] OG/social server-side: `og:image` serves 200 `image/png` 96 KB; per-page `og:url`, Twitter card present.
 - [x] A11y fixes shipped: `<dl>` valid on homepage; `/pricing` contrast 4.5:1 (`4e2de5e`) — both re-verified at 100 live.
+- [x] Hero three.js deferral shipped (`4fd2187`): splash-done signal (`lib/splash.ts`), canvas mounts after the splash clears; live probe shows the 233 KB three chunk starting at ~1.5 s instead of ~0.4 s during hydration; canvas renders, scroll works, 0 errors.
 - [ ] Google Rich Results test UI (optional — structured data already passes the required-field validator; the UI test needs a browser session)
 - [ ] GA4 Realtime / GTM Preview: `page_view` fires for a new route (account login required)
 - [ ] WhatsApp + contact CTA click-through on homepage and a case page (send test; links/prefills smoke-verified)
