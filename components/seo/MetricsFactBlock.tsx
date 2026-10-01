@@ -75,18 +75,20 @@ export default function MetricsFactBlock() {
               >
                 {item.label}
               </dt>
-              <dd
-                style={{ fontFamily: "var(--font-fraunces)" }}
-                className="mt-3 text-gold-gradient text-[clamp(1.5rem,2.4vw,2rem)] font-extrabold leading-none"
-              >
-                {item.value}
+              <dd className="mt-3">
+                <span
+                  style={{ fontFamily: "var(--font-fraunces)" }}
+                  className="block text-gold-gradient text-[clamp(1.5rem,2.4vw,2rem)] font-extrabold leading-none"
+                >
+                  {item.value}
+                </span>
+                <span
+                  style={{ fontFamily: "var(--font-mono)" }}
+                  className="mt-3 block text-[0.7rem] leading-[1.55] text-[var(--text-muted)]"
+                >
+                  {item.source}
+                </span>
               </dd>
-              <p
-                style={{ fontFamily: "var(--font-mono)" }}
-                className="mt-3 text-[0.7rem] leading-[1.55] text-[var(--text-muted)]"
-              >
-                {item.source}
-              </p>
             </div>
           ))}
         </dl>

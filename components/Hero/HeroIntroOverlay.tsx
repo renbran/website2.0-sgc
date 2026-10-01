@@ -228,7 +228,9 @@ export default function HeroIntroOverlay({
           </p>
         </motion.div>
         <motion.img
-          src="/sgc-logo.png"
+          src="/images/sgc-logo-mark.webp"
+          width={160}
+          height={160}
           alt=""
           aria-hidden="true"
           style={{
@@ -310,8 +312,10 @@ export default function HeroIntroOverlay({
         }}
       >
         {gracefulImg({
-          src: "/images/diamonds/final-logo-nav.png",
+          src: "/images/diamonds/final-logo-nav.webp",
           alt: "SGC Tech AI",
+          width: 560,
+          height: 152,
           style: { width: "clamp(160px, 28vw, 280px)", height: "auto", display: "block" },
         })}
         <p
@@ -399,7 +403,9 @@ export default function HeroIntroOverlay({
 
       {/* MARK */}
       <motion.img
-        src="/sgc-logo.png"
+        src="/images/sgc-logo-mark.webp"
+        width={160}
+        height={160}
         alt=""
         aria-hidden="true"
         style={{
