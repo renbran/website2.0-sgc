@@ -43,7 +43,7 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
                 <span className="mt-2 block font-fraunces text-2xl font-semibold text-[var(--text-primary)]">
                   {money(c.base_price / c.months, pricing.currency)}
                 </span>
-                <span className="block text-[0.78rem] text-[var(--text-muted)]">
+                <span className="block text-[0.78rem] text-[var(--text-secondary)]">
                   {c.months === 1
                     ? "a month, billed monthly"
                     : `a month · ${money(c.base_price, pricing.currency)} per ${period(c.months)}`}
