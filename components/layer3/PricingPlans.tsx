@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import GlassCard from "@/components/ui/GlassCard";
+import { PRICING } from "@/content/canonical-facts";
 import type { Pricing } from "@/lib/layer3";
 import { CYCLE_LABEL, cycleCharge, money, period, vat } from "./format";
 
@@ -117,7 +118,7 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
         )}
         {pricing.founding && (
           <p className="mt-3 text-[0.78rem] leading-relaxed text-[var(--text-muted)]">
-            Founding clients: the one-time onboarding fee (AED 1,500) is waived, and the founding rate holds while
+            Founding clients: the one-time onboarding fee ({PRICING.onboarding.price}) is waived, and the founding rate holds while
             your subscription stays active.
           </p>
         )}

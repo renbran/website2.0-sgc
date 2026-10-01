@@ -4,12 +4,13 @@ import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import DiagnosticWizard from "@/components/diagnostic/DiagnosticWizard";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { IDS } from "@/lib/schema";
 
 const DESCRIPTION =
   "Score your operations in 8 minutes. 12 questions across Finance, Sales, Operations, and People. Get a personalised report with prioritised next moves.";
 
 export const metadata: Metadata = {
-  title: "Free Operational Health Diagnostic — 8-Minute UAE Assessment",
+  title: "Free Operational Diagnostic UAE — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/diagnostic" },
   robots: { index: true, follow: true },
@@ -51,17 +52,8 @@ const structuredData = {
   description:
     "A free 8-minute diagnostic that scores your business across Finance, Sales, Operations, and People, and produces a personalised report with prioritised next moves.",
   url: "https://sgctech.ai/diagnostic",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "SGC Tech AI",
-    url: "https://sgctech.ai",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultants FZCO",
-    url: "https://sgctech.ai",
-  },
+  isPartOf: { "@id": IDS.website },
+  publisher: { "@id": IDS.org },
 };
 
 export default function DiagnosticPage() {

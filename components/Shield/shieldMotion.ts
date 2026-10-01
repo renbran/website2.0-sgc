@@ -1,5 +1,18 @@
 import * as THREE from "three";
 import type { Stage } from "./complianceData";
+import {
+  SEQ_START,
+  SEQ_END,
+  HEX_COUNT,
+  HEX_WINDOW,
+  LABEL_END,
+  FINALE_AT,
+} from "./shieldConstants";
+
+// Re-exported so the lazy 3D modules keep importing everything from this one
+// module; the eagerly-loaded choreography imports directly from
+// shieldConstants instead, keeping three.js out of the initial bundle.
+export { SEQ_START, SEQ_END, HEX_COUNT, HEX_WINDOW, LABEL_END, FINALE_AT };
 
 // ─── Hex geometry constants (shared unit lattice) ──────────────────────
 // Flat-top honeycomb. Every meaningful hex + every filler hex is built on
@@ -62,14 +75,11 @@ export const OCCUPIED_CENTERS: [number, number][] = [
 //   dwell   [LABEL_END .. DWELL_END]    callout surfaces & holds
 //   c-fade  [DWELL_END .. CFADE_END]    callout fades to 0
 // Callout-visible and label-only are sequenced: label first, callout second.
-export const SEQ_START = 0.03;
-export const SEQ_END   = 0.92;
-export const HEX_COUNT = 6;
-export const HEX_WINDOW = (SEQ_END - SEQ_START) / HEX_COUNT; // ≈ 0.1483
+// SEQ_START / SEQ_END / HEX_COUNT / HEX_WINDOW / LABEL_END live in
+// shieldConstants.ts (three-free) — re-exported above.
 
 // Per-window phase fractions.
 export const TRAVEL_END = 0.30; // hex locks faster → more window left for dwell
-export const LABEL_END  = 0.45; // diagnosis label surfaces first, right after lock
 export const DWELL_END  = 0.80; // callout enter+hold ends
 export const CFADE_END  = 0.92; // callout fades cleanly
 
@@ -228,9 +238,7 @@ export function shieldFrameProgress(p: number): number {
 }
 
 // ─── Finale threshold ──────────────────────────────────────────────────
-// 0.95 is comfortably past SEQ_END (0.92) — the 6th label is latched before
-// the finale trigger fires.
-export const FINALE_AT = 0.95;
+// FINALE_AT lives in shieldConstants.ts (three-free) — re-exported above.
 
 // ─── Shield assembly progress (glow + filler fill) ─────────────────────
 export function assemblyProgress(p: number): number {

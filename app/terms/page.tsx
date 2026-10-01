@@ -5,6 +5,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { IDS } from "@/lib/schema";
 
 const DESCRIPTION =
   "Website terms of use for sgctech.ai — site usage, professional advice disclaimer, engagement scope, IP, and dispute resolution under UAE law.";
@@ -41,17 +42,8 @@ const structuredData = {
   name: "Terms of Service — SGC Tech AI",
   url: "https://sgctech.ai/terms",
   inLanguage: "en-AE",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "SGC Tech AI",
-    url: "https://sgctech.ai",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultants FZCO",
-    url: "https://sgctech.ai",
-  },
+  isPartOf: { "@id": IDS.website },
+  publisher: { "@id": IDS.org },
 };
 
 export default function TermsPage() {

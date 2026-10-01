@@ -12,7 +12,15 @@ import { test, expect } from "@playwright/test";
  */
 
 test.describe("public routes", () => {
-  for (const path of ["/", "/privacy", "/terms"]) {
+  for (const path of [
+    "/",
+    "/privacy",
+    "/terms",
+    "/case-studies",
+    "/case-studies/dubai-brokerage-72m-recovered",
+    "/case-studies/uae-brokerage-445-roi",
+    "/case-studies/construction-erp-vat-readiness",
+  ]) {
     test(`${path} returns 200`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status(), `${path} should return 200`).toBe(200);

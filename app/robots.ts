@@ -13,8 +13,9 @@ const AI_AGENTS = [
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: "*", allow: "/" },
-      ...AI_AGENTS.map((ua) => ({ userAgent: ua, allow: "/" })),
+      // /api/* is machine plumbing, not content — keep it out of every index.
+      { userAgent: "*", allow: "/", disallow: ["/api/"] },
+      ...AI_AGENTS.map((ua) => ({ userAgent: ua, allow: "/", disallow: ["/api/"] })),
     ],
     sitemap: "https://sgctech.ai/sitemap.xml",
     host: "https://sgctech.ai",

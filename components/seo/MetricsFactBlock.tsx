@@ -32,7 +32,7 @@ export default function MetricsFactBlock() {
     <section
       id="proof-by-numbers"
       aria-labelledby="proof-by-numbers-heading"
-      className="bg-[var(--bg)] py-14 md:py-20"
+      className="scroll-mt-20 bg-[var(--bg)] py-14 md:py-20"
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
         <div className="mx-auto max-w-3xl text-center">

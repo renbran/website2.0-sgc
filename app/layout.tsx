@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter, Fraunces, JetBrains_Mono, Outfit, Playfair_Display } from "next/font/google";
+import { Inter, Fraunces, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import LenisProvider from "@/components/LenisProvider";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -30,20 +30,6 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair-display",
-  display: "swap",
-  weight: ["700", "800"],
-});
-
 export const viewport = {
   width: "device-width",
   initialScale: 1,
@@ -58,10 +44,6 @@ export const metadata: Metadata = {
     "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs, diagnosis-first, fixed price and timeline.",
   alternates: {
     canonical: "/",
-    languages: {
-      "en-AE": "/",
-      "x-default": "/",
-    },
   },
   appleWebApp: {
     title: "SGC Tech AI",
@@ -216,7 +198,7 @@ gtag('config', '${gaId}', { send_page_view: true });`}
             <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "var(--text-secondary)" }}>
               CPAs and CIAs implementing Odoo ERP and AI for finance, ops, and
               compliance in Dubai-based mid-market firms. Fixed price. Fixed
-              timeline. Book a discovery call below.
+              timeline. Email or WhatsApp us below.
             </p>
             <p style={{ marginTop: "1.5rem" }}>
               <a

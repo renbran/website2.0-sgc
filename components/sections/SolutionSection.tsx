@@ -58,7 +58,7 @@ export default function SolutionSection() {
         background="dark"
         pullQuote="Audit → implementation → ongoing maintenance: the diagnosis fixes what your numbers say is broken, not what a vendor says should be built."
         pullQuoteAttribution="SGC Tech AI · Diagnostic Framework"
-        ctaText="Discover the story"
+        ctaText="Scope it with us"
         ctaHref="#contact"
       >
         <p>

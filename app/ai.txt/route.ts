@@ -1,4 +1,4 @@
-import { ORG, CASE_STUDIES, PRICING } from "@/content/canonical-facts";
+import { ORG, CASE_STUDIES, PRICING, HOURS_TEXT, SITE_LAST_UPDATED } from "@/content/canonical-facts";
 
 export const dynamic = "force-static";
 
@@ -31,18 +31,20 @@ Pricing:
 - Implementation: ${PRICING.implementation.price}
 - Annual Maintenance: ${PRICING.amc.price}
 - Subscription: ${PRICING.subscription.price}
-- AI Credits: AED 0.018 per 1,000 tokens
+- AI Credits: ${PRICING.aiCredits.price}
 
 Target clients:
-UAE mid-market firms (25–200 employees) in real estate, construction,
-healthcare, manufacturing, retail, and professional services.
+UAE mid-market firms in real estate, construction, healthcare,
+manufacturing, retail, and professional services.
 
-Hours: Saturday 09:00–13:00, Sunday closed, Monday–Friday 09:00–18:00 GST
+Hours: ${HOURS_TEXT}
 
 Key pages:
 /services | /services/odoo-implementation-uae | /services/odoo-implementation-rescue
 /services/ai-automation-finance | /services/uae-corporate-tax-compliance
-/diagnostic | /about | /platform | /contact
+/pricing | /diagnostic | /about | /platform | /contact
+
+Last updated: ${SITE_LAST_UPDATED}
 `;
 
   return new Response(body, {

@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 // Allows: self-hosted assets, inline styles/scripts Next.js injects for
 // hydration + the GA4/GTM snippets, Google Tag Manager (+ GA4 beacons it loads), Vercel Analytics
@@ -66,8 +67,35 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: securityHeaders,
       },
+      // Media under /public is served with Next's default short cache; these
+      // files never change in place (replaced with new names when they do),
+      // so give browsers a week plus a revalidation window. Not `immutable`:
+      // /public paths are not content-hashed.
+      {
+        source: "/:folder(images|videos|frames|shield|diamonds|legal|bg-music)/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
+      },
+      {
+        source: "/sgc-logo.png",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=86400",
+          },
+        ],
+      },
     ];
   },
 };
 
-export default nextConfig;
+// Opt-in bundle analysis: `ANALYZE=true npm run build`.
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);

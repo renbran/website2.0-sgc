@@ -80,7 +80,7 @@ export default function IndustriesGrid() {
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={industry.photo}
-                      alt={`${industry.name} — AI-generated representative photography`}
+                      alt={`${industry.name} — representative sector photography`}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"

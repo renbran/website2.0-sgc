@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReducedMotionFallback from "./ReducedMotionFallback";
@@ -195,17 +196,20 @@ export default function DiamondScrollHero() {
           }}
         />
         {/* SGC brand watermark — near-invisible, sits above canvas, below all UI */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/sgc-logo.png"
           alt=""
           aria-hidden="true"
+          width={1254}
+          height={1254}
+          sizes="(max-width: 1368px) 38vw, 520px"
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "clamp(260px, 38vw, 520px)",
+            height: "auto",
             opacity: 0.055,
             pointerEvents: "none",
             zIndex: 3,

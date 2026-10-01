@@ -198,7 +198,7 @@ export default function ReducedMotionFallback() {
             textAlign: "center",
           }}
         >
-          <h2
+          <h1
             style={{
               fontFamily: "var(--font-fraunces, serif)",
               fontSize: "clamp(1.4rem, 3.5vw, 2.25rem)",
@@ -209,7 +209,7 @@ export default function ReducedMotionFallback() {
             }}
           >
             The Odoo Firm Your CFO Would Have Founded.
-          </h2>
+          </h1>
 
           <p
             style={{
@@ -219,7 +219,7 @@ export default function ReducedMotionFallback() {
               color: "#C7A23A",
             }}
           >
-            CPA&nbsp;·&nbsp;CIA&nbsp;·&nbsp;CRMA&nbsp;·&nbsp;CIPFA&nbsp;·&nbsp;ACCA&nbsp;·&nbsp;M.Econ
+            PRACTITIONER-LED&nbsp;·&nbsp;DUBAI,&nbsp;UAE
           </p>
         </div>
       </div>

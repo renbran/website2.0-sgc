@@ -5,9 +5,20 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 export const metadata: Metadata = {
   title: "Subscription terms — SGC Tech AI",
-  description: "The agreements that apply to an SGC subscription: Master Subscription Agreement, Service Description and Rate Card, Service Level Agreement and Data Processing Agreement.",
+  description: "The agreements that apply to an SGC subscription: Master Subscription Agreement, Service Description and Rate Card, SLA and DPA.",
   alternates: { canonical: "/legal/subscription" },
   robots: { index: true, follow: true },
+  openGraph: {
+    title: "Subscription terms — SGC Tech AI",
+    description: "Master Subscription Agreement, Service Description and Rate Card, SLA and DPA — the agreements that apply to an SGC subscription.",
+    url: "/legal/subscription",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Subscription terms — SGC Tech AI",
+    description: "Master Subscription Agreement, Service Description and Rate Card, SLA and DPA — the agreements that apply to an SGC subscription.",
+  },
 };
 
 // Linked from every Order Form (sgc_layer3_bridge.terms_url).

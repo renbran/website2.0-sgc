@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type RefObject } from "react";
-import { SEQ_START, HEX_WINDOW, LABEL_END } from "./shieldMotion";
+import { SEQ_START, HEX_WINDOW, LABEL_END } from "./shieldConstants";
 
 // StageProgress — synced to scrollProgressRef.
 //

@@ -14,7 +14,7 @@ import {
   STATS_AT,
   SHARD_COUNT_DESKTOP,
   SHARD_COUNT_MOBILE,
-} from "./finaleMotion";
+} from "./finaleConstants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -163,7 +163,7 @@ export default function FinaleConvergenceSection() {
     <div
       ref={containerRef}
       id="finale"
-      style={{ height: "400vh", position: "relative" }}
+      style={{ height: "400vh", position: "relative", scrollMarginTop: "5rem" }}
     >
       <h2 className="sr-only">The SGC journey, summarized</h2>
       <div

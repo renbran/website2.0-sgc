@@ -1,4 +1,4 @@
-import { ORG, CASE_STUDIES, PRICING } from "@/content/canonical-facts";
+import { ORG, CASE_STUDIES, PRICING, HOURS_TEXT, SITE_LAST_UPDATED } from "@/content/canonical-facts";
 
 export const dynamic = "force-static";
 
@@ -28,8 +28,8 @@ Fixed price, fixed timeline. Diagnosis before prescription. Three layers:
 - ${PRICING.amc.label} (${PRICING.amc.tagline}): ${PRICING.amc.price}. ${PRICING.amc.detail}
 - ${PRICING.subscription.label} (${PRICING.subscription.tagline}): ${PRICING.subscription.price}. ${PRICING.subscription.detail}
 
-## Verified client outcomes
-${CASE_STUDIES.map((c) => `- ${c.client} (${c.sector}, ${c.scale}): ${c.headline}`).join("\n")}
+## Verified client outcomes (clients anonymized on request)
+${CASE_STUDIES.map((c) => `- ${c.publicLabel} (${c.sector}, ${c.scale}): ${c.headline}`).join("\n")}
 
 Full case studies and reference calls available on request.
 
@@ -41,10 +41,12 @@ ${ORG.serviceArea.join(", ")}
 - Phone / WhatsApp: ${ORG.phone}
 - Registered: ${ORG.registeredAddress.premises}, ${ORG.registeredAddress.locality}, UAE
 - Operating office: ${ORG.operatingAddress.street}, ${ORG.operatingAddress.locality}, UAE
-- Hours: Mon–Fri 09:00–18:00, Sat 09:00–13:00 GST (UTC+4)
+- Hours: ${HOURS_TEXT}
 
 ## Key pages
 - Services: ${ORG.url}/services
+- Pricing: ${ORG.url}/pricing
+- Case studies (clients anonymized): ${ORG.url}/case-studies
 - Odoo implementation cost: ${ORG.url}/services/odoo-implementation-uae
 - Odoo implementation rescue: ${ORG.url}/services/odoo-implementation-rescue
 - AI automation for finance: ${ORG.url}/services/ai-automation-finance
@@ -54,6 +56,8 @@ ${ORG.serviceArea.join(", ")}
 - About: ${ORG.url}/about
 - Platform: ${ORG.url}/platform
 - Contact: ${ORG.url}/contact
+
+Last updated: ${SITE_LAST_UPDATED}
 `;
   return new Response(body, {
     headers: {

@@ -11,7 +11,7 @@ const DESCRIPTION =
   "Real, published pricing: Odoo implementation from AED 14,000 (min. AED 24,000), a mandatory 20%/year AMC, and an AED 875/month subscription tier.";
 
 export const metadata: Metadata = {
-  title: `${TITLE} | SGC Tech AI`,
+  title: "Odoo Implementation Cost UAE — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services/odoo-implementation-uae" },
   robots: { index: true, follow: true },
@@ -48,7 +48,7 @@ const faqs = [
   },
   {
     q: "How long does a typical implementation take?",
-    a: "It depends on scope, decided in Discovery. For reference, our AX Capital engagement — Bitrix–Odoo 17 integration, automated commission engine, property management — was delivered in an intensive 6-7 weeks, including weekend work to meet an urgent deadline.",
+    a: "It depends on scope, decided in Discovery. For reference, our signed engagement with a 900-agent Dubai brokerage — Bitrix–Odoo 17 integration, automated commission engine, property management — was delivered in an intensive 6-7 weeks, including weekend work to meet an urgent deadline.",
   },
   {
     q: "Can I cancel the Subscription layer?",
@@ -144,7 +144,7 @@ export default function OdooImplementationCostPage() {
           {
             question: "What does a real deployment actually cost and deliver?",
             answer:
-              "OSUS Real Estate — an 11-person UAE brokerage — deployed an end-to-end Odoo ERP and processed AED 39.89 million in brokerage revenue through the system in Year 1, with a 445% first-year ROI and 2.2-month payback.",
+              "A signed 65-person UAE brokerage engagement deployed an end-to-end Odoo ERP and processed AED 39.89 million in brokerage revenue through the system in Year 1, with a 445% first-year ROI and 2.2-month payback.",
             detail: "Full case study and a reference call are available on request after Discovery.",
           },
         ]}
@@ -153,7 +153,7 @@ export default function OdooImplementationCostPage() {
           rows: [
             ["Implementation", "AED 14,000 from (min. AED 24,000)", "One-time, fixed"],
             ["Annual Maintenance Contract (AMC)", "20% of Implementation price / year", "Annual, mandatory"],
-            ["Subscription (Rent)", "AED 875/month minimum (5 users)", "Quarterly / half-yearly / annual, optional"],
+            ["Subscription (Rent)", "AED 875/month minimum (5 users)", "Monthly / quarterly / half-yearly / annual, optional"],
           ],
         }}
         faqs={faqs}

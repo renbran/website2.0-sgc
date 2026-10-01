@@ -1,6 +1,6 @@
 "use client";
 
-import { FINALE_CAPTIONS } from "./finaleMotion";
+import { FINALE_CAPTIONS } from "./finaleConstants";
 import FinaleStats from "./FinaleStats";
 
 // Static recap for prefers-reduced-motion: the four story beats stacked as

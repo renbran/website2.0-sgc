@@ -9,6 +9,17 @@ export const metadata: Metadata = {
   description: "Register your company and choose your workspace address.",
   alternates: { canonical: "/subscribe" },
   robots: { index: false, follow: true },
+  openGraph: {
+    title: "Start your subscription — SGC Tech AI",
+    description: "Register your company and choose your workspace address.",
+    url: "/subscribe",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Start your subscription — SGC Tech AI",
+    description: "Register your company and choose your workspace address.",
+  },
 };
 
 const CYCLES = new Set(["monthly", "quarterly", "half_yearly", "annual"]);

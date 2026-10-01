@@ -47,7 +47,7 @@ const CREDENTIALS: Credential[] = [
     level: "GOLD",
     headline: "AED 72M Recovered",
     subtitle: "Invoices recovered in 7 months, live client system",
-    recipient: "AX Capital · ~900 agents",
+    recipient: "900-agent Dubai brokerage",
     date: "Verified · Named Client",
   },
   {
@@ -101,9 +101,10 @@ export default function AwardsCarousel() {
         </p>
         <p>
           The numbers below aren&apos;t projections — they&apos;re what came out of live client systems.
-          AED 72 million recovered in invoices for AX Capital, and 445% first-year ROI for OSUS Real
-          Estate. Compliance built into delivery, not retrofitted under pressure. Credentials held
-          personally by the founders, each one current and verifiable with the issuing body.
+          AED 72 million recovered in invoices for a 900-agent Dubai brokerage, and 445% first-year
+          ROI for a 65-person UAE brokerage. Compliance built into delivery, not retrofitted under
+          pressure. Credentials held personally by the founders, each one current and verifiable
+          with the issuing body.
         </p>
       </PremiumEditorialSection>
 

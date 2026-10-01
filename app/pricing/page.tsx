@@ -3,15 +3,20 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PricingPlans from "@/components/layer3/PricingPlans";
+import { JsonLd } from "@/components/JsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { graph, pricingServiceSchema } from "@/lib/schema";
 import { getPricing, type Pricing } from "@/lib/layer3";
 
 export const revalidate = 300;
+
+const TITLE = "Odoo & AI Pricing UAE — SGC Tech AI";
 
 const DESCRIPTION =
   "The SGC real estate operating system, hosted and maintained for you. Priced per company with five users included; prices exclude 5% VAT.";
 
 export const metadata: Metadata = {
-  title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month Subscription",
+  title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: "/pricing" },
   robots: { index: true, follow: true },
@@ -28,7 +33,7 @@ export const metadata: Metadata = {
     "UAE mid-market ERP pricing",
   ],
   openGraph: {
-    title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month Subscription",
+    title: TITLE,
     description:
       "SGC Tech AI Odoo pricing for UAE mid-market: Implementation AED 14,000 foundation (min. AED 24,000), mandatory 20%/yr AMC, AED 875/month subscription. Prices exclude 5% UAE VAT.",
     url: "https://sgctech.ai/pricing",
@@ -37,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing — Odoo UAE: AED 14,000 Foundation, AED 875/Month",
+    title: TITLE,
     description:
       "SGC Tech AI Odoo pricing for UAE mid-market: Implementation AED 14,000, AMC 20%/yr, AED 875/month subscription.",
     images: ["/opengraph-image"],
@@ -57,6 +62,13 @@ export default async function PricingPage() {
   const pricing = await loadPricing();
   return (
     <>
+      <JsonLd data={graph([pricingServiceSchema()])} />
+      <BreadcrumbJsonLd
+        crumbs={[
+          { name: "Home", path: "/" },
+          { name: "Pricing", path: "/pricing" },
+        ]}
+      />
       <Navbar />
       <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)] pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="relative mx-auto max-w-3xl px-6 md:px-10">

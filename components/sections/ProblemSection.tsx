@@ -14,7 +14,7 @@ const problemCards = [
   {
     badge: "02",
     title: "Manual work AI should handle",
-    body: "In 2026, a UAE brokerage is still having someone manually key in sale details from a signed SPA. An accountant spends three days extracting figures from PDFs that a document scanner reads in eleven seconds. This is not a technology problem — it’s an implementation that was never finished, and the daily cost compounds quietly.",
+    body: "In 2026, a UAE brokerage is still having someone manually key in sale details from a signed SPA. An accountant spends three days extracting figures from PDFs that a document scanner reads in eleven seconds. The daily cost compounds quietly.",
   },
   {
     badge: "03",
@@ -70,7 +70,7 @@ export default function ProblemSection() {
         background="dark"
         pullQuote="Three problems compound quietly inside UAE mid-market firms. They look like busy weeks on the surface."
         pullQuoteAttribution="SGC Tech AI · Operations Audit"
-        ctaText="Discover the story"
+        ctaText="Get your diagnosis"
         ctaHref="#contact"
       >
         <p>

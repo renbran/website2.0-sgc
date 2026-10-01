@@ -1,4 +1,47 @@
 import * as THREE from "three";
+import {
+  PHASE_A_END,
+  PHASE_B_END,
+  PHASE_C_END,
+  CHASE_ALPHA,
+  SHARD_COUNT_DESKTOP,
+  SHARD_COUNT_MOBILE,
+  invLerp,
+  smoothInOut,
+  captionOpacity,
+  activeCaptionIndex,
+  STATS_AT,
+  GOLD,
+  GOLD_SOFT,
+  CYAN,
+  BG,
+  FINALE_CAPTIONS,
+} from "./finaleConstants";
+import type { FinaleCaptionData } from "./finaleConstants";
+
+// Three-free values (phase windows, caption copy, palette, pure math) live in
+// finaleConstants.ts so the eagerly-loaded overlay components can use them
+// without pulling three.js into the initial bundle. Re-exported here so the
+// lazy 3D modules keep importing everything from one place.
+export {
+  PHASE_A_END,
+  PHASE_B_END,
+  PHASE_C_END,
+  CHASE_ALPHA,
+  SHARD_COUNT_DESKTOP,
+  SHARD_COUNT_MOBILE,
+  invLerp,
+  smoothInOut,
+  captionOpacity,
+  activeCaptionIndex,
+  STATS_AT,
+  GOLD,
+  GOLD_SOFT,
+  CYAN,
+  BG,
+  FINALE_CAPTIONS,
+};
+export type { FinaleCaptionData };
 
 // Single source of truth for the Act-3 "Convergence" finale motion.
 //
@@ -13,20 +56,12 @@ import * as THREE from "three";
 // small amount of shared geometry (hex lattice, vanguard silhouette) is
 // duplicated here to keep Act 3 portable.
 
-// ─── Phase windows (scroll progress 0→1 across the 400vh pin) ───────────
+// ─── Phase windows, shard counts, caption copy and palette ──────────────
+// Moved to finaleConstants.ts (three-free) — imported and re-exported above.
 // A — Chaos:      scattered shards drift (echo of the pre-Odoo mess)
 // B — One System: shards spiral into a mini double-helix (echo of Act 1)
 // C — Protected:  shards lock onto the hex cluster + frame draws (echo of Act 2)
 // D — Outcome:    SGC beacon mark + stat counters, handoff to SectionEight
-export const PHASE_A_END = 0.30;
-export const PHASE_B_END = 0.58;
-export const PHASE_C_END = 0.84;
-
-// Soft-chase lerp alpha: smoothP += (rawP - smoothP) * CHASE_ALPHA per frame.
-export const CHASE_ALPHA = 0.085;
-
-export const SHARD_COUNT_DESKTOP = 50;
-export const SHARD_COUNT_MOBILE = 24;
 
 // Chaos-cloud bounds — slightly wider on desktop, narrower on mobile.
 const CHAOS_W = 9.5;
@@ -69,12 +104,7 @@ export const FRAME_POINTS: [number, number][] = [
 export const FRAME_SCALE = 0.72; // fits the hex cluster with breathing room
 
 // ─── Helpers ────────────────────────────────────────────────────────────
-export function invLerp(a: number, b: number, v: number): number {
-  return THREE.MathUtils.clamp((v - a) / (b - a), 0, 1);
-}
-export function smoothInOut(t: number): number {
-  return t * t * (3 - 2 * t);
-}
+// invLerp / smoothInOut live in finaleConstants.ts (imported above).
 
 // Deterministic per-shard pseudo-random (mulberry32) — no Math.random so
 // SSR/CSR and every remount produce identical layouts.
@@ -208,58 +238,8 @@ export function cameraZ(p: number): number {
 }
 
 // ─── Captions (HTML overlay) ────────────────────────────────────────────
-export interface FinaleCaptionData {
-  eyebrow: string;
-  headline: string;
-  subline: string;
-}
-
-export const FINALE_CAPTIONS: FinaleCaptionData[] = [
-  {
-    eyebrow: "ACT I · WHERE YOU ARE",
-    headline: "You saw the chaos.",
-    subline: "Excel, Tally, WhatsApp — seven systems, zero truth.",
-  },
-  {
-    eyebrow: "ACT II · ONE SYSTEM",
-    headline: "One system replaced them all.",
-    subline: "CRM, sales, accounting and HR — unified in Odoo.",
-  },
-  {
-    eyebrow: "ACT III · PROTECTED",
-    headline: "Then we made it audit-proof.",
-    subline: "VAT, Corporate Tax, RERA, goAML — built in, not bolted on.",
-  },
-  {
-    eyebrow: "YEAR ONE · THE OUTCOME",
-    headline: "This is what your Q1 could look like.",
-    subline: "Measured on live deployments — not projections.",
-  },
-];
-
-// Caption visibility windows: [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd].
-// Caption 3 (Outcome) never fades out — it hands off into SectionEight.
-const CAPTION_WINDOWS: [number, number, number, number][] = [
-  [0.02, 0.07, 0.24, 0.29],
-  [0.32, 0.36, 0.51, 0.56],
-  [0.59, 0.63, 0.78, 0.83],
-  [0.86, 0.91, 1.01, 1.02],
-];
-
-export function captionOpacity(index: number, p: number): number {
-  const [inS, inE, outS, outE] = CAPTION_WINDOWS[index];
-  return smoothInOut(invLerp(inS, inE, p)) * (1 - smoothInOut(invLerp(outS, outE, p)));
-}
-
-export function activeCaptionIndex(p: number): number {
-  for (let i = CAPTION_WINDOWS.length - 1; i >= 0; i--) {
-    if (p >= CAPTION_WINDOWS[i][0]) return i;
-  }
-  return 0;
-}
-
-// Stats become visible with the Outcome caption.
-export const STATS_AT = 0.88;
+// FinaleCaptionData / FINALE_CAPTIONS / captionOpacity / activeCaptionIndex /
+// STATS_AT live in finaleConstants.ts (three-free) — imported/re-exported above.
 
 // ─── Responsive scaling (same contract as the shield's) ─────────────────
 const BP = 768;
@@ -272,8 +252,5 @@ export function responsiveScale(viewportWidth: number): number {
   return MIN_S + t * (1 - MIN_S);
 }
 
-// ─── Palette (design tokens, 3D-legal colors only) ──────────────────────
-export const GOLD = "#C7A23A";
-export const GOLD_SOFT = "#D4A574";
-export const CYAN = "#3FA9F5";
-export const BG = "#080B11";
+// ─── Palette ────────────────────────────────────────────────────────────
+// GOLD / GOLD_SOFT / CYAN / BG live in finaleConstants.ts (re-exported above).

@@ -5,6 +5,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { IDS } from "@/lib/schema";
 
 const DESCRIPTION =
   "How Scholarix Global Consultants FZCO (SGC Tech AI) collects, uses and protects personal data on sgctech.ai under UAE PDPL.";
@@ -73,17 +74,8 @@ const structuredData = {
   name: "Privacy Policy — SGC Tech AI",
   url: "https://sgctech.ai/privacy",
   inLanguage: "en-AE",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "SGC Tech AI",
-    url: "https://sgctech.ai",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultants FZCO",
-    url: "https://sgctech.ai",
-  },
+  isPartOf: { "@id": IDS.website },
+  publisher: { "@id": IDS.org },
 };
 
 export default function PrivacyPage() {

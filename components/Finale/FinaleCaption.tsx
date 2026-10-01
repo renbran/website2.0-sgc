@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { FINALE_CAPTIONS } from "./finaleMotion";
+import { FINALE_CAPTIONS } from "./finaleConstants";
 
 interface FinaleCaptionProps {
   activeIndex: number;

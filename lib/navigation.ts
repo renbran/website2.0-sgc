@@ -1,7 +1,8 @@
 // Single source for the site's page menu: the navbar and the footer both render
 // from this list, so labels and targets cannot drift apart. Every entry is a real
-// page route - no bare "#section" anchors, which do nothing on any page other
-// than the one that contains the section.
+// page route. The footer deliberately appends two extra targets (a /services
+// route and the absolute /#faq shortcut) — absolute anchors are correct here
+// because they resolve from any page, unlike bare "#section" links.
 
 export type NavItem = { label: string; href: string; description?: string };
 

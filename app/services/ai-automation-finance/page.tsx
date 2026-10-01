@@ -5,13 +5,14 @@ import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { JsonLd } from "@/components/JsonLd";
 import { serviceSchema, faqSchema, articleSchema, graph } from "@/lib/schema";
 import ServiceArticle from "@/components/services/ServiceArticle";
+import { PRICING } from "@/content/canonical-facts";
 
 const TITLE = "Which Finance Tasks Can AI Automate in 2026?";
 const DESCRIPTION =
   "Invoice and PO data extraction, contract summarization, and low-risk decision routing — each with a defined human-verification tier and published cost.";
 
 export const metadata: Metadata = {
-  title: `${TITLE} | SGC Tech AI`,
+  title: "AI Finance Automation UAE — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services/ai-automation-finance" },
   robots: { index: true, follow: true },
@@ -48,7 +49,7 @@ const faqs = [
   },
   {
     q: "How is AI usage priced?",
-    a: "By AI Credit: AED 0.018 per 1,000 tokens (input + output combined), pooled across your tenant. A typical invoice-draft generation runs about AED 0.027; an A4 document OCR-plus-summarization runs about AED 0.11.",
+    a: `By AI Credit: ${PRICING.aiCredits.price} (input + output combined), pooled across your tenant. A typical invoice-draft generation runs about ${PRICING.aiCredits.examples.invoiceDraft}; an A4 document OCR-plus-summarization runs about ${PRICING.aiCredits.examples.documentOcrSummary}.`,
   },
   {
     q: "What happens if the AI gets something wrong?",
@@ -87,7 +88,7 @@ export default function AiAutomationFinancePage() {
                 price: "0.018",
                 currency: "AED",
                 description:
-                  "AI Credit pricing: AED 0.018 per 1,000 tokens (input + output combined), pooled across your tenant. Indicative per-document costs published on the page.",
+                  `AI Credit pricing: ${PRICING.aiCredits.price} (input + output combined), pooled across your tenant. Indicative per-document costs published on the page.`,
               },
               {
                 name: "Subscription (Rent)",

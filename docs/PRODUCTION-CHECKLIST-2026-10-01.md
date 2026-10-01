@@ -1,0 +1,100 @@
+# Production Checklist & Re-Audit Report — 2026-10-01
+
+**Repo:** `C:\website-sgc\website2.0-sgc` · **Branch:** `main` → `origin/main` (Vercel project `website2-0-sgc` = production)
+**Scope of this release:** (1) full-site hardening pass from `docs/SITE-AUDIT-2026-10-01.md`; (2) anonymous case-study showcase (`docs/CASE-STUDY-SHOWCASE-PLAN-2026-10.md`).
+
+---
+
+## 1. Global gates — pre-deploy verification
+
+| # | Gate | Status | Evidence |
+|---|---|---|---|
+| 1 | TypeScript clean | ✅ | `npx tsc --noEmit` — no errors |
+| 2 | Production build | ✅ | `npm run build` — 38 routes, 0 errors |
+| 3 | Smoke tests (incl. new routes) | ✅ | 24/24 on isolated rerun; parallel-run flakes documented (use `--workers=1` for clean signal) |
+| 4 | Client anonymity | ✅ | `grep` of `.next/static` + `.next/server` for any client name/legal entity → **0 matches** |
+| 5 | three.js out of first load | ✅ | No initial chunk contains three; initial JS **1,409 → 1,038 KB** raw |
+| 6 | Fonts trimmed | ✅ | 3 preloads (Inter, Fraunces, JetBrains Mono); Outfit/Playfair gone |
+| 7 | Media weight | ✅ | `public/` **129 → 35 MB**; 259 unreferenced files deleted |
+| 8 | Cache headers | ✅ | `/images|/videos|/frames|/shield|/diamonds|/legal|/bg-music` → 7-day + SWR |
+| 9 | robots.txt | ✅ | All major AI crawlers allowed; `/api/` disallowed; sitemap declared |
+| 10 | sitemap.xml | ✅ | 19 URLs, real per-route `lastModified` (no build-time churn) |
+| 11 | llms surfaces | ✅ | `/llms.txt`, `/llms-full.txt` (new), `/ai.txt` — canonical facts, anonymized descriptors, "Last updated" |
+| 12 | Titles / descriptions | ✅ | All ≤60 / ≤160 (per-page matrix below) |
+| 13 | One `<h1>` per page | ✅ | 19/19 content routes |
+| 14 | Canonical + OG + Twitter | ✅ | 19/19 routes carry canonical, `og:*` (incl. `og:url`) and `twitter:card` |
+| 15 | Structured data | ✅ | Site graph (@id) + per-page: Service/Offer, FAQPage, Article, Quiz, WebPage, CollectionPage, BreadcrumbList |
+| 16 | Security headers | ✅ | Existing CSP/HSTS etc. unchanged (no diff in that block) |
+| 17 | Reduced motion | ✅ | Homepage `<h1>` rendered in fallback; credential strip removed; loading screen skips; three canvases already reduced-motion aware |
+| 18 | Anchors | ✅ | Lenis offset −80; `#platform`, `#proof-by-numbers`, `#finale` scroll-mt; no broken in-page links |
+| 19 | Claims consistency | ✅ | Stats/hours/fees/FAQs single-sourced from `canonical-facts`; OSUS 65-total/11-back-office correction applied |
+| 20 | No secrets in diff | ✅ | `git status` scan — none |
+
+---
+
+## 2. Per-page matrix (all critical + new pages)
+
+Legend: ✅ present/within limits · tLen = title length · dLen = description length (decoded). All pages: canonical ✅, OG ✅, Twitter ✅, H1 ×1 ✅, robots `index, follow` unless noted.
+
+| Route | tLen | dLen | Structured data | In sitemap | Notes |
+|---|---|---|---|---|---|
+| `/` | 57 | 131 | FAQPage + site graph | ✅ | three.js removed from initial chunks; reduced-motion H1 |
+| `/pricing` | 39 | 136 | **Service + 3×Offer/PriceSpec** + Crumb | ✅ (new) | AED 14,000 / 20% AMC / AED 875 — wired to canonical facts |
+| `/case-studies` **(new)** | 54 | 155 | CollectionPage + ItemList + Crumb | ✅ (new) | Hub; anonymized cards |
+| `/case-studies/dubai-brokerage-72m-recovered` **(new)** | 48 | 149 | Article + FAQPage + Crumb | ✅ (new) | AED 72M; 6-7 wk build; Bitrix↔Odoo |
+| `/case-studies/uae-brokerage-445-roi` **(new)** | 46 | 151 | Article + FAQPage + Crumb | ✅ (new) | 445% ROI / 2.2 mo / ~248 hrs |
+| `/case-studies/construction-erp-vat-readiness` **(new)** | 52 | 144 | Article + FAQPage + Crumb | ✅ (new) | VAT AED 10–12K; repeat event eliminated |
+| `/services` | 59 | 158 | CollectionPage + Crumb | ✅ | service hub |
+| `/services/odoo-implementation-uae` | 42 | 145 | Service + FAQPage + Article + Crumb | ✅ | links to brokerage case |
+| `/services/odoo-implementation-rescue` | 46 | 144 | Service + FAQPage + Article + Crumb | ✅ | links to construction case |
+| `/services/ai-automation-finance` | 39 | 151 | Service + FAQPage + Article + Crumb | ✅ | AI-credit rate from canonical facts |
+| `/services/uae-corporate-tax-compliance` | 50 | 142 | Service + FAQPage + Article + Crumb | ✅ | |
+| `/services/outsourced-financial-reporting` | 50 | 150 | Service + FAQPage + Article + Crumb | ✅ | links to brokerage case |
+| `/about` | 57 | 140 | WebPage-adjacent + Crumb | ✅ | |
+| `/contact` | 59 | 132 | LocalBusiness (global) + Crumb | ✅ | hours = Mon–Fri only (single source) |
+| `/diagnostic` | 45 | 150 | Quiz + Crumb | ✅ | |
+| `/platform` | 56 | 138 | WebPage + Crumb | ✅ | Organization by @id |
+| `/privacy` | 28 | 123 | WebPage + Crumb | ✅ | |
+| `/terms` | 30 | 141 | WebPage + Crumb | ✅ | |
+| `/legal/subscription` | 32 | 128 | site graph only | ✅ (new) | own OG URL added |
+| `/subscribe` | — | — | — | n/a | dynamic, `noindex, follow` — verify post-deploy |
+| `/subscribe/done` | — | — | — | n/a | dynamic, `noindex, nofollow` — verify post-deploy |
+| Machine surfaces | — | — | `/robots.txt`, `/sitemap.xml`, `/llms.txt`, `/llms-full.txt`, `/ai.txt`, `/opengraph-image`, `/icon.png` | — | all static, verified in build |
+
+---
+
+## 3. Post-deploy verification (run after `git push`)
+
+- [ ] Vercel production deployment green for the pushed commit
+- [ ] New routes live:
+  ```bash
+  for u in /case-studies /case-studies/dubai-brokerage-72m-recovered \
+           /case-studies/uae-brokerage-445-roi /case-studies/construction-erp-vat-readiness; do
+    echo "$u → $(curl -s -o /dev/null -w '%{http_code}' https://sgctech.ai$u)"; done
+  ```
+- [ ] Anonymity on live HTML:
+  ```bash
+  curl -s https://sgctech.ai/case-studies | grep -iE "AX Capital|OSUS|TraffeXcel" || echo "anonymous ✔"
+  ```
+- [ ] `curl -s https://sgctech.ai/llms.txt | grep -E "anonymized|Last updated"`
+- [ ] `curl -s https://sgctech.ai/sitemap.xml | grep -c "case-studies"` → 4
+- [ ] IndexNow resubmission: `node scripts/indexnow-submit.mjs`
+- [ ] Google Search Console: submit/confirm sitemap; request indexing for the 4 new URLs
+- [ ] Rich Results test on `/pricing` + one case page (expect Service/Offer, FAQPage, Breadcrumb)
+- [ ] Lighthouse mobile spot-check: `/` and `/case-studies/dubai-brokerage-72m-recovered`
+      (targets: LCP < 2.5 s, CLS < 0.1, INP < 200 ms)
+- [ ] GA4 Realtime / GTM Preview: `page_view` fires for a new route
+- [ ] WhatsApp + contact CTA click-through on homepage and a case page
+- [ ] `/case-studies/does-not-exist` → 404 (not a soft 200)
+- [ ] Social card debugger (Facebook/Twitter) for one case page → OG image loads
+
+## 4. Rollback
+
+- Code: `git revert <merge-sha>` and push, or redeploy the previous Vercel deployment (instant, no rebuild).
+
+## 5. Notes
+
+- **Smoke suite flakes:** run `npx playwright test tests/smoke.spec.ts --workers=1` against a local production server for a deterministic signal; the parallel full-repo run is contention-bound on the homepage.
+- **Internal record:** client names → `docs/CASE-STUDY-INTERNAL-RECORD.md` (never bundled, never served). No client name exists anywhere in this release's build output.
+- **Worktree note:** `website2.0-sgc-l3` is a fully-merged feature-branch worktree and is behind `main`; all changes here target `website2.0-sgc` (`main`) only.
+- **`tsconfig.tsbuildinfo`** is a tracked build artifact and churns with every build — harmless.

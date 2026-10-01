@@ -11,7 +11,7 @@ const DESCRIPTION =
   "A 6-stage recovery methodology — Stabilize, Audit, Recovery Plan, Rescue/Rebuild, Validate, Handover — for broken or abandoned Odoo deployments.";
 
 export const metadata: Metadata = {
-  title: `${TITLE} | SGC Tech AI`,
+  title: "Odoo Implementation Rescue Dubai — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services/odoo-implementation-rescue" },
   robots: { index: true, follow: true },
@@ -136,7 +136,7 @@ export default function OdooRescuePage() {
           {
             question: "Do you have proof of replacing a broken stack?",
             answer:
-              "TraffeXcel — a UAE construction company running government infrastructure projects — was operating on Zoho invoicing plus manual spreadsheets, with no audit trail and a recent VAT filing that cost them AED 10,000–12,000 in overpaid tax. We replaced the stack with an integrated, government-project-ready ERP.",
+              "A UAE construction company running government infrastructure projects (anonymized, signed case study) was operating on Zoho invoicing plus manual spreadsheets, with no audit trail and a recent VAT filing that cost them AED 10,000–12,000 in overpaid tax. We replaced the stack with an integrated, government-project-ready ERP.",
             detail: "That was a legacy-stack replacement, not an Odoo-to-Odoo rescue — but the same R0-R5 discipline (stabilize the risk, audit the real state, plan before rebuilding) applied.",
           },
         ]}
@@ -150,7 +150,7 @@ export default function OdooRescuePage() {
           { label: "How much Odoo implementation costs", href: "/services/odoo-implementation-uae" },
           { label: "Which finance tasks AI can automate", href: "/services/ai-automation-finance" },
           { label: "Book a Finance Operations Audit", href: "/diagnostic" },
-          { label: "Read the full TraffeXcel case", href: "/#case-study" },
+          { label: "Read the full case study", href: "/case-studies/construction-erp-vat-readiness" },
         ]}
       />
       <Footer />

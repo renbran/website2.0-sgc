@@ -122,7 +122,7 @@ export const HERO_SCENES: HeroScene[] = [
     frameStaticPeak: 116,
     type: "finale",
     headline: "Operator-Led Proof",
-    proofStats: ["AED 72M Recovered · AX Capital", "445% Year-1 ROI · OSUS Real Estate", "2.2-Month Payback"],
+    proofStats: ["AED 72M recovered · 900-agent Dubai brokerage", "445% Year-1 ROI · UAE brokerage", "2.2-month payback"],
     tagline: "Fixed Price. Fixed Timeline. Operator-Led.",
     cta: "Book a 30-min scoping call - sgctech.ai",
     industryTag: "all"

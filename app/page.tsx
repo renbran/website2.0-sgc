@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 const TITLE = "SGC Tech AI — Odoo & AI Automation for UAE Businesses";
 const DESCRIPTION =
-  "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms in Dubai. CPAs and CIAs deliver diagnosis-first engagement, fixed price and timeline, covering ERP implementation, AI finance automation, and UAE compliance.";
+  "Practitioner-led Odoo ERP and AI implementation for UAE mid-market firms. CPAs and CIAs, diagnosis-first, fixed price and timeline.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -62,7 +62,8 @@ import DiagnosisScrubHero from "@/components/sections/diagnosis-scrub-hero";
 
 // Note: SectionOne–Seven were verbatim duplicates of the helix diamond captions
 // and have been removed (Phase 1 collapse). SectionEight is retained as the
-// Rescue-Audit CTA beat and now sits immediately before ContactSection.
+// Rescue-Audit CTA beat; render order below is Finale → SectionEight → FAQ →
+// Contact (the FAQ sits between the letter and the contact block).
 // CredentialRow, FounderSection, LeadershipSection, and AwardsCarousel have all
 // been removed from this layout (founder direction 2026-09-02: public site
 // carries no founder names, no credential strip, no credential trophy reel).

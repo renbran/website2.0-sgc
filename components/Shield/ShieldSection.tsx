@@ -9,7 +9,7 @@ import FinaleTitle from "./FinaleTitle";
 import StageProgress from "./StageProgress";
 import ShieldIntroCategories from "./ShieldIntroCategories";
 import { getLenis } from "@/lib/lenis";
-import { FINALE_AT } from "./shieldMotion";
+import { FINALE_AT } from "./shieldConstants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -234,7 +234,11 @@ export default function ShieldSection() {
     : "translateX(0)";
 
   return (
-    <div ref={containerRef} style={{ height: "750vh", position: "relative" }}>
+    <div
+      ref={containerRef}
+      id="platform"
+      style={{ height: "750vh", position: "relative", scrollMarginTop: "5rem" }}
+    >
       <div
         style={{
           position: "sticky",
@@ -264,7 +268,7 @@ export default function ShieldSection() {
             muted
             playsInline
             loop={false}
-            preload="auto"
+            preload="metadata"
             src="/shield/Cinematic 3D animation of a blank heraldic shield_2.mp4"
             style={{
               position: "absolute",

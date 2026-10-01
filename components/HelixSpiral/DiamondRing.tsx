@@ -92,7 +92,10 @@ export default function DiamondRing({
     if (lenis) {
       const target = document.querySelector<HTMLElement>(targetSection);
       if (target) {
-        lenis.scrollTo(target, { duration: 1.5 });
+        // Lenis scrollTo ignores CSS scroll-margin-top, so apply the fixed
+        // navbar offset (h-20 = 80px) explicitly or the section eyebrow lands
+        // hidden under the nav.
+        lenis.scrollTo(target, { duration: 1.5, offset: -80 });
       }
     }
   }, []);

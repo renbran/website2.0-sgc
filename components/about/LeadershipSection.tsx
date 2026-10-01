@@ -37,7 +37,7 @@ const TRACK_RECORD = [
     items: [
       { title: "CFO Leadership", detail: "Multiple Enterprise Transformations" },
       { title: "Financial Strategy", detail: "M&A & Capital Advisory" },
-      { title: "Cash Flow Optimization", detail: "AED 72M Recovered for AX Capital" },
+      { title: "Cash Flow Optimization", detail: "AED 72M recovered for a 900-agent Dubai brokerage" },
     ],
   },
   {

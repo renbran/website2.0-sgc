@@ -5,9 +5,11 @@ import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import LivingCard from "@/components/ui/LivingCard";
 import { PRICING, CASE_STUDIES } from "@/content/canonical-facts";
 
-const osus = CASE_STUDIES.find((c) => c.client === "OSUS Real Estate")!;
+const osus = CASE_STUDIES.find((c) => c.id === "uae-brokerage-65")!;
 
-const layers = [Object.values(PRICING)[0], Object.values(PRICING)[1], Object.values(PRICING)[2]];
+// Explicit keys — PRICING carries extra entries (AI credits, onboarding) that
+// must not leak onto the homepage card row; index-based selection was fragile.
+const layers = [PRICING.implementation, PRICING.amc, PRICING.subscription];
 
 export default function PricingSection() {
   return (
@@ -103,7 +105,7 @@ export default function PricingSection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-[0.8rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-teal)]"
             >
-              {osus.client} · verified outcome
+              {osus.publicLabel} · verified outcome
             </p>
             <p
               style={{ fontFamily: "var(--font-inter)" }}

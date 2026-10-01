@@ -2,17 +2,20 @@
 
 import { motion } from "motion/react";
 import StatCounter from "@/components/ui/StatCounter";
+import { METRICS } from "@/content/canonical-facts";
 
 interface FinaleStatsProps {
   reducedMotion: boolean;
 }
 
-// Outcome stat strip for Phase D. Numbers mirror CaseStudySection —
-// the finale summarizes, it does not invent new claims.
+// Outcome stat strip for Phase D. Every figure is read from canonical-facts,
+// which traces to the signed client case study — the finale summarizes the
+// case study, it never invents a figure of its own.
+const roiValue = Number(METRICS.year1Roi.value.replace(/[^0-9.]/g, "")) || 0;
 const STATS = [
-  { counter: { value: 60, suffix: "%" }, label: "Faster monthly close" },
-  { display: "4–6 mo", label: "Typical payback, Year 1" },
-  { counter: { value: 10, suffix: " hrs/wk" }, label: "Returned to the founder" },
+  { counter: { value: roiValue, suffix: "%" }, label: METRICS.year1Roi.label },
+  { display: METRICS.paybackMonths.value, label: METRICS.paybackMonths.label },
+  { display: METRICS.hoursReleasedPerWeek.value, label: METRICS.hoursReleasedPerWeek.label },
 ] as const;
 
 export default function FinaleStats({ reducedMotion }: FinaleStatsProps) {

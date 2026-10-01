@@ -31,7 +31,7 @@ export default function SectionEight() {
         background="dark"
         pullQuote="We diagnose before we sell. If we can help, we'll show you exactly how. If we can't, we'll tell you that too."
         pullQuoteAttribution="SGC Tech AI · Finance Operations Audit"
-        ctaText="Discover the story"
+        ctaText="Meet the practitioners"
         ctaHref="#contact"
       >
         {letterBody.map((para, i) => (

@@ -8,10 +8,10 @@ import ServiceArticle from "@/components/services/ServiceArticle";
 
 const TITLE = "What Does Outsourced Financial Reporting Cost in Dubai?";
 const DESCRIPTION =
-  "We don't sell financial reporting as a separate retainer — it's built into Implementation and AMC. Real cost basis, verified against an OSUS result.";
+  "We don't sell financial reporting as a separate retainer — it's built into Implementation and AMC. Cost basis verified against a signed client result.";
 
 export const metadata: Metadata = {
-  title: `${TITLE} | SGC Tech AI`,
+  title: "Outsourced Financial Reporting Dubai — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services/outsourced-financial-reporting" },
   robots: { index: true, follow: true },
@@ -52,7 +52,7 @@ const faqs = [
   },
   {
     q: "How do I know the reporting will actually be accurate?",
-    a: "Because it's generated from the same system running your invoicing, commissions, and deal records — not a parallel spreadsheet someone reconciles by hand. OSUS Real Estate's central reporting came out of the same Odoo ERP that processed AED 39.89 million in brokerage revenue.",
+    a: "Because it's generated from the same system running your invoicing, commissions, and deal records — not a parallel spreadsheet someone reconciles by hand. In the signed 65-person-brokerage engagement, central reporting came out of the same Odoo ERP that processed AED 39.89 million in brokerage revenue.",
   },
   {
     q: "What's the real cost basis, then?",
@@ -110,7 +110,7 @@ export default function OutsourcedFinancialReportingPage() {
         shortAnswer={[
           "No standalone reporting retainer — it's built into Implementation and kept current under the AMC",
           "Smaller teams: records and report generation included from AED 875/month under Subscription",
-          "OSUS Real Estate's central reporting ran on the same ERP that processed AED 39.89M in revenue",
+          "Central reporting in the signed brokerage engagement ran on the same ERP that processed AED 39.89M in revenue",
         ]}
         sections={[
           {
@@ -121,9 +121,9 @@ export default function OutsourcedFinancialReportingPage() {
           {
             question: "What does a real deployment's reporting scope look like?",
             answer:
-              "OSUS Real Estate's implementation included management and financial reporting dashboards alongside finance, invoicing, brokerage lifecycle, and HR — connected into a single digital record per deal, not a separate reporting workstream.",
+              "The signed brokerage engagement included management and financial reporting dashboards alongside finance, invoicing, brokerage lifecycle, and HR — connected into a single digital record per deal, not a separate reporting workstream.",
             detail:
-              "Eleven staff were spending an estimated 247.5 hours a week on manual admin before the build; the same deployment delivered a 445% first-year ROI and AED 1.64 million in first-year net savings.",
+              "A back office of eleven was spending an estimated 247.5 hours a week on manual admin before the build; the same deployment delivered a 445% first-year ROI and AED 1.64 million in first-year net savings.",
           },
           {
             question: "What if I already have an ERP and just want better reporting out of it?",
@@ -140,7 +140,7 @@ export default function OutsourcedFinancialReportingPage() {
         internalLinks={[
           { label: "How much Odoo implementation costs", href: "/services/odoo-implementation-uae" },
           { label: "How we configure UAE Corporate Tax", href: "/services/uae-corporate-tax-compliance" },
-          { label: "Read the OSUS Real Estate case", href: "/#case-study" },
+          { label: "Read the full case study", href: "/case-studies/uae-brokerage-445-roi" },
           { label: "Book a Discovery diagnostic", href: "/diagnostic" },
         ]}
       />

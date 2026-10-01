@@ -11,7 +11,7 @@ const DESCRIPTION =
   "UAE Corporate Tax in Odoo: 0% up to AED 375,000, 9% above it, Small Business Relief at AED 3M revenue, and QFZP income segregation — built in.";
 
 export const metadata: Metadata = {
-  title: `${TITLE} | SGC Tech AI`,
+  title: "UAE Corporate Tax Compliance in Odoo — SGC Tech AI",
   description: DESCRIPTION,
   alternates: { canonical: "/services/uae-corporate-tax-compliance" },
   robots: { index: true, follow: true },

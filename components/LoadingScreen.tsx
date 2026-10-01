@@ -19,11 +19,13 @@ import HoneycombSpinner from "@/components/ui/HoneycombSpinner";
  *   - Progress bar fills 0 → 100% over a fixed budget, plus a dismiss
  *     on `window.load`. Honors `prefers-reduced-motion`.
  *
- * One-shot — after first dismiss, `STORAGE_KEY` is set in sessionStorage
- * so re-mounts during HMR don't flash the splash again.
+ * Brand intent: a visible loading beat on every hard entry (first visit and
+ * refresh), so there is deliberately no cross-session guard. Re-mounts within
+ * one client-side session (route transitions) never re-trigger it because the
+ * layout is not remounted — only real document loads do.
  */
 
-const MIN_VISIBLE_MS = 1400; // never flash past first paint
+const MIN_VISIBLE_MS = 900; // shortest brand beat that still reads as a load
 const MAX_VISIBLE_MS = 4500; // safety bound if window.load never fires
 
 export default function LoadingScreen() {
@@ -40,10 +42,18 @@ export default function LoadingScreen() {
   const labelRef = useRef<HTMLParagraphElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
+  // Reduced motion: the splash is pure brand animation, so skip it entirely
+  // instead of holding the visitor for a beat they have opted out of. Runs
+  // after first paint; the overlay's SSR initial opacity is 0, so nothing
+  // opaque was ever visible during the (empty) hold.
   useEffect(() => {
-    // Splash shows on every page load (including refresh) — the brand wants
-    // the loading animation visible on each entry, not just first paint.
+    if (reducedMotionPref) setVisible(false);
+  }, [reducedMotionPref]);
 
+  useEffect(() => {
+    // Hard load, brand beat. Kept deliberately short (900 ms) so the splash
+    // never meaningfully delays LCP/INP; it dismisses as soon as window.load
+    // has fired AND the beat has been seen.
     const start = performance.now();
     let raf = 0;
 

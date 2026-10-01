@@ -1,3 +1,4 @@
+import Link from "next/link";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import StatCounter from "@/components/ui/StatCounter";
@@ -7,8 +8,8 @@ import FlippingCard from "@/components/ui/FlippingCard";
 import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 import { CASE_STUDIES } from "@/content/canonical-facts";
 
-const osus = CASE_STUDIES.find((c) => c.client === "OSUS Real Estate")!;
-const axCapital = CASE_STUDIES.find((c) => c.client === "AX Capital")!;
+const osus = CASE_STUDIES.find((c) => c.id === "uae-brokerage-65")!;
+const axCapital = CASE_STUDIES.find((c) => c.id === "dubai-brokerage-900")!;
 
 type StatItem = {
   value: number;
@@ -26,31 +27,31 @@ const stats: StatItem[] = [
     value: 445,
     suffix: "%",
     label: "First-Year ROI",
-    sublabel: "OSUS Real Estate, Year 1",
-    method: "First-year net savings (AED 1.64M) against total investment. Sourced from the signed OSUS Real Estate case study.",
+    sublabel: "65-person UAE brokerage, Year 1",
+    method: "First-year net savings (AED 1.64M) against total investment. Sourced from the signed case study (65-person UAE brokerage).",
   },
   {
     value: 72,
     suffix: "M",
     prefix: "AED ",
     label: "Invoices Recovered",
-    sublabel: "AX Capital, 7 months",
-    method: "2020–2022 uncollected invoices recovered via the automated commission engine and reconciliation build. Sourced from the signed AX Capital case study.",
+    sublabel: "900-agent Dubai brokerage, 7 months",
+    method: "2020–2022 uncollected invoices recovered via the automated commission engine and reconciliation build. Sourced from the signed case study (900-agent Dubai brokerage).",
   },
   {
     value: 2.2,
     suffix: " mo",
     displayValue: "2.2",
     label: "Payback Period",
-    sublabel: "OSUS Real Estate, Year 1",
-    method: "Time for first-year net savings to exceed total investment. Sourced from the signed OSUS Real Estate case study.",
+    sublabel: "65-person UAE brokerage, Year 1",
+    method: "Time for first-year net savings to exceed total investment. Sourced from the signed case study (65-person UAE brokerage).",
   },
   {
     value: 75,
     suffix: "%",
     label: "Manual Work Reduction",
-    sublabel: "OSUS Real Estate",
-    method: "Reduction in the 247.5 staff-hours/week previously spent on manual admin, measured post-go-live. Sourced from the signed OSUS Real Estate case study.",
+    sublabel: "65-person UAE brokerage",
+    method: "Reduction in the 247.5 back-office staff-hours/week previously spent on manual admin, measured post-go-live. Sourced from the signed case study (65-person UAE brokerage).",
   },
 ];
 
@@ -163,32 +164,32 @@ export default function CaseStudySection() {
       <PremiumEditorialSection
         nested
         id="case-study-editorial"
-        heading={`${osus.client}: full ERP deployment for an 11-person brokerage.`}
-        subheading="Verified outcome · named client, on record"
+        heading="Full ERP deployment for a 65-person brokerage."
+        subheading="Verified outcome · anonymized client, on record"
         imageSrc="/images/sections/human-tech-team.jpg"
         imageAlt="Technology team collaborating in a modern office, representing the real results of digital transformation"
-        imageCaption="Illustrative image · figures below from the signed OSUS Real Estate case study"
+        imageCaption="Illustrative image · figures from a signed client case study"
         layout="lumiere"
         background="dark"
         pullQuote={osus.quote}
         pullQuoteAttribution={osus.quoteAttribution}
-        ctaText="Discover the story"
-        ctaHref="#contact"
+        ctaText="Read the full case study"
+        ctaHref="/case-studies/uae-brokerage-445-roi"
       >
         <p className="text-[0.78rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-teal)]">
-          What&apos;s possible at scale · named client
+          What&apos;s possible at scale · anonymized client
         </p>
         <h3
           style={{ fontFamily: "var(--font-fraunces)" }}
           className="mt-3 text-[clamp(1.25rem,2vw,1.5rem)] font-bold text-[var(--accent)]"
         >
-          {osus.client} · {osus.scale}
+          {osus.scale}
         </h3>
         <p className="mt-3">
-          {osus.legalEntity} was running on spreadsheets, handwritten records, and a Bitrix CRM
+          This brokerage was running on spreadsheets, handwritten records, and a Bitrix CRM
           disconnected from accounting, invoicing, or deal management — an estimated 247.5
-          staff-hours a week lost to manual admin. SGC implemented an end-to-end Odoo ERP,
-          integrating Bitrix rather than replacing it.
+          back-office staff-hours a week lost to manual admin. SGC implemented an end-to-end Odoo
+          ERP, integrating Bitrix rather than replacing it.
         </p>
         <p>
           The numbers below are from year one of live operation — verified, not projected. Full
@@ -233,7 +234,8 @@ export default function CaseStudySection() {
           </div>
         </div>
         <p className="mt-4">
-          Client named and quoted with consent. Full case study and reference call available on request.
+          Client anonymized on request; figures from a signed case study. Full case study and
+          reference call available on request.
         </p>
       </PremiumEditorialSection>
 
@@ -303,7 +305,7 @@ export default function CaseStudySection() {
               style={{ fontFamily: "var(--font-inter)" }}
               className="text-center text-[0.8rem] font-semibold uppercase tracking-[0.22em] text-[var(--accent-copper)]"
             >
-              {axCapital.client} · verified outcome
+              {axCapital.publicLabel} · verified outcome
             </p>
 
             <div className="grid gap-8 md:grid-cols-2">
@@ -338,6 +340,20 @@ export default function CaseStudySection() {
               </span>
               , {axCapital.scale}. Reference call available on request.
             </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-x-10 gap-y-3">
+              <Link
+                href="/case-studies/dubai-brokerage-72m-recovered"
+                className="text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] underline underline-offset-[6px] decoration-1 transition-all hover:decoration-2"
+              >
+                Read this case study →
+              </Link>
+              <Link
+                href="/case-studies"
+                className="text-[0.75rem] font-semibold uppercase tracking-[0.18em] text-[var(--accent)] underline underline-offset-[6px] decoration-1 transition-all hover:decoration-2"
+              >
+                All case studies →
+              </Link>
+            </div>
           </div>
           </LivingCard>
         </RevealOnScroll>

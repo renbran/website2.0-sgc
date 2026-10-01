@@ -6,6 +6,7 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import Footer from "@/components/Footer";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import { IDS } from "@/lib/schema";
 
 const DESCRIPTION =
   "What app.sgctech.ai is, who uses it, and how it connects to your Google account for sign-in, calendar, Meet, and automated backup storage.";
@@ -52,17 +53,8 @@ const structuredData = {
   name: "The SGC Tech AI Platform",
   url: "https://sgctech.ai/platform",
   inLanguage: "en-AE",
-  isPartOf: {
-    "@type": "WebSite",
-    name: "SGC Tech AI",
-    url: "https://sgctech.ai",
-  },
-  publisher: {
-    "@type": "Organization",
-    name: "SGC Tech AI",
-    legalName: "Scholarix Global Consultants FZCO",
-    url: "https://sgctech.ai",
-  },
+  isPartOf: { "@id": IDS.website },
+  publisher: { "@id": IDS.org },
 };
 
 export default function PlatformPage() {

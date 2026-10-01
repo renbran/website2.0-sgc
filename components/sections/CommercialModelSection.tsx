@@ -11,7 +11,7 @@ import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 const LAYERS = [
   {
     label: "IMPLEMENTATION",
-    price: "AED 14,000 from",
+    price: "from AED 14,000",
     note: "Foundation",
     optional: false,
     alwaysOn: false,
@@ -49,7 +49,7 @@ const LAYERS = [
   },
   {
     label: "SUBSCRIPTION (RENT)",
-    price: "AED 875/mo from",
+    price: "from AED 875/mo",
     note: "Hosted · ~0 founder hours",
     optional: true,
     alwaysOn: false,
@@ -246,7 +246,7 @@ export default function CommercialModelSection() {
         background="dark"
         pullQuote="No hidden fees. No scope creep. Three clear layers that scale with you — and every price is published."
         pullQuoteAttribution="SGC Tech AI · Commercial Model"
-        ctaText="Discover the story"
+        ctaText="Talk through pricing"
         ctaHref="#contact"
       >
         <p>

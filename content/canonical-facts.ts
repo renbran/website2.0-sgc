@@ -73,13 +73,68 @@ export const ORG = {
   ],
 } as const;
 
+// Pre-formatted opening-hours sentence for machine-readable surfaces
+// (llms.txt, ai.txt). Derived from ORG.hours so published AI-facing hours can
+// never drift from the schema/contact page again.
+export const HOURS_TEXT = `${
+  ORG.hours[0].days[0]
+}–${ORG.hours[0].days[ORG.hours[0].days.length - 1]} ${
+  ORG.hours[0].opens
+}–${ORG.hours[0].closes} GST (UTC+4); Saturday–Sunday closed`;
+
+// Freshness signal for AI caches on the .txt surfaces. Bump this single
+// constant whenever entity, pricing, or outcome facts in this file change.
+export const SITE_LAST_UPDATED = "2026-10-01";
+
+// Homepage FAQ — the single source for both the visible accordion and the
+// FAQPage JSON-LD (components/sections/FaqSection.tsx) and the expanded
+// machine-readable file (/llms-full.txt). Edit here once; every surface follows.
+export const FAQS = [
+  {
+    question: "We already run Odoo and it isn't working. Can you fix an existing installation?",
+    answer:
+      "Yes — that is exactly what the Finance Operations Audit is for. We audit what you have, regardless of who built it, tell you what is salvageable, and give you a costed plan. 50% of the audit fee is credited to implementation if you proceed within 90 days.",
+  },
+  {
+    question: "Who owns the system and our data?",
+    answer:
+      "You do. The platform is built on an open-source Odoo core running in your own instance, with daily backups and processing in line with UAE PDPL. Hosting and processor details are in our Privacy Policy.",
+  },
+  {
+    question: "What happens if we stop the subscription?",
+    answer:
+      "Your Odoo core and your data remain yours — nothing is held hostage. The Subscription (Rent) layer covers the hosted platform, AML screening signal, and records-and-reports generation; when it ends, those services stop, but the system and its data stay with you. Compliance updates to your Implementation continue separately under the Annual Maintenance Contract (AMC).",
+  },
+  {
+    question: "How disruptive is implementation?",
+    answer:
+      "Discovery defines the timeline in writing before work begins, based on the modules and integrations in scope. Go-live is staged so your team keeps working, and hypercare after launch is part of delivery.",
+  },
+  {
+    question: "Why is the Annual Maintenance Contract mandatory?",
+    answer:
+      "Because an unmaintained ERP decays into exactly the mess you came to us with. The Annual Maintenance Contract — billed annually at 20% of the Implementation price — funds platform maintenance, security patches, compliance updates to the configured UAE layer, and priority support after go-live. The go-live guarantee goes in writing because we stay accountable after launch.",
+  },
+  {
+    question: "How do we verify your credentials and case numbers?",
+    answer:
+      "Ask. Engagement leads are chartered accountants in active standing; CPA and CIA credentials are individually verifiable with the issuing bodies on request. Case figures come from live client systems; we share the audit trail and arrange reference calls under NDA after Discovery.",
+  },
+] as const;
+
 // [CASE] — sourced from signed client case studies. Every figure below is
 // attributable to a named client; do not blend these into an anonymous
 // composite or invent an aggregate figure not present in the source PDF.
+//
+// ANONYMITY CONTRACT: this module is bundled into client components, so it
+// carries NO client names or legal entities — only stable `id`s. The internal
+// id → client mapping lives in docs/CASE-STUDY-INTERNAL-RECORD.md (never
+// bundled, never rendered). Public surfaces render `publicLabel` / `scale` /
+// `quoteAttribution` only.
 export const CASE_STUDIES = [
   {
-    client: "AX Capital",
-    legalEntity: "D A X Real Estate One Person Company LLC",
+    id: "dubai-brokerage-900",
+    publicLabel: "A ~900-agent Dubai real-estate brokerage",
     sector: "Real Estate Brokerage",
     scale: "~900 agents · Dubai",
     headline: "AED 72M in Recovered Invoices & an End to Commission Disputes",
@@ -90,13 +145,13 @@ export const CASE_STUDIES = [
       agentRetentionChange: "+50%",
     },
     quote: "The new reconciliation process cut our account-reconciliation time by approximately 80% and gave the finance team real control over outstanding balances — AED 72 million in previously uncollectable invoices was recovered in seven months.",
-    quoteAttribution: "AX Capital · Finance & Operations Leadership",
+    quoteAttribution: "Real-estate brokerage · Finance & Operations Leadership",
   },
   {
-    client: "OSUS Real Estate",
-    legalEntity: "OSUS Real Estate Brokerage LLC",
+    id: "uae-brokerage-65",
+    publicLabel: "A 65-person UAE brokerage",
     sector: "Real Estate Brokerage",
-    scale: "11 staff · UAE",
+    scale: "65 employees · 11 back-office · UAE",
     headline: "445% First-Year ROI & 75% Less Manual Work in 2.2 Months",
     metrics: {
       revenueProcessed: "AED 39.89M",
@@ -111,20 +166,20 @@ export const CASE_STUDIES = [
       fiveYearProjectedSavings: "AED 9.67M",
     },
     quote: "For every AED 1 we invested, we received approximately AED 5.45 in gross operational benefits. The ERP paid for itself in 2.2 months and released capacity we redirected straight into sales support and collections.",
-    quoteAttribution: "OSUS Real Estate · Management",
+    quoteAttribution: "Real-estate brokerage · Management",
   },
   {
-    client: "TraffeXcel",
-    legalEntity: "TraffeXcel",
+    id: "construction-government",
+    publicLabel: "A UAE construction contractor on government infrastructure projects",
     sector: "Construction · Government Contractor",
-    scale: "UAE",
+    scale: "Government infrastructure · UAE",
     headline: "From Spreadsheets & Zoho to a Government-Project-Ready ERP",
     metrics: {
       vatOverpaymentAvoided: "AED 10,000–12,000 per repeat filing",
       outcome: "Government-project audit trail and controls in place; repeat incorrect-filing event eliminated",
     },
     quote: "Spreadsheets and Zoho could not give us the controls our government projects required. SGC replaced the stack with one system that tracks projects end-to-end and removes the risk of another incorrect filing.",
-    quoteAttribution: "TraffeXcel · Project Leadership",
+    quoteAttribution: "Construction company · Project Leadership",
   },
 ] as const;
 
@@ -152,6 +207,21 @@ export const PRICING = {
     price: "AED 875/month minimum",
     detail: "Includes five licensed users. Billed monthly, quarterly, half-yearly or annually in advance; half-yearly saves 2.5% and annual saves 5%. All amounts exclusive of 5% UAE VAT.",
   },
+  aiCredits: {
+    label: "AI Credits",
+    tagline: "Usage-based",
+    price: "AED 0.018 per 1,000 tokens",
+    detail: "Billed monthly in arrears against measured token usage; the AI automation service page carries the full per-task rate table.",
+    examples: {
+      invoiceDraft: "AED 0.027",
+      documentOcrSummary: "AED 0.11",
+    },
+  },
+  onboarding: {
+    label: "One-time onboarding fee",
+    price: "AED 1,500",
+    detail: "Waived for founding clients while their subscription stays active.",
+  },
 } as const;
 
 // Headline metrics for the homepage fact block (Phase 2.3 of the SEO/AEO plan)
@@ -161,29 +231,34 @@ export const PRICING = {
 // the relationship to source material explicit; if a case study is ever
 // removed, this object starts returning undefined for its derived entry, which
 // is the correct failure mode (no silent fabrication).
-const osus = CASE_STUDIES.find((c) => c.client === "OSUS Real Estate");
-const ax = CASE_STUDIES.find((c) => c.client === "AX Capital");
+const osus = CASE_STUDIES.find((c) => c.id === "uae-brokerage-65");
+const ax = CASE_STUDIES.find((c) => c.id === "dubai-brokerage-900");
 
 export const METRICS = {
   salesVolumeProcessed: {
     label: "Sales volume processed through SGC-built ERP",
     value: osus?.metrics.revenueProcessed ?? "AED 39.89M",
-    source: "OSUS Real Estate · signed case study, Year 1",
+    source: `${osus?.publicLabel ?? "A 65-person UAE brokerage"} · signed case study, Year 1`,
   },
   realEstateDeals: {
     label: "Real-estate invoices recovered",
     value: ax?.metrics.invoicesRecovered.value ?? "AED 72M",
-    source: "AX Capital · signed case study, 7-month window",
+    source: `${ax?.publicLabel ?? "A ~900-agent Dubai real-estate brokerage"} · signed case study, 7-month window`,
   },
   year1Roi: {
     label: "Typical Year-1 ROI",
     value: osus?.metrics.firstYearRoi ?? "445%",
-    source: "OSUS Real Estate · signed case study",
+    source: `${osus?.publicLabel ?? "A 65-person UAE brokerage"} · signed case study`,
   },
   paybackMonths: {
     label: "Typical payback period",
     value: osus?.metrics.paybackPeriod ?? "2.2 months",
-    source: "OSUS Real Estate · signed case study",
+    source: `${osus?.publicLabel ?? "A 65-person UAE brokerage"} · signed case study`,
+  },
+  hoursReleasedPerWeek: {
+    label: "Manual hours released",
+    value: osus ? `${osus.metrics.hoursReleasedPerWeek} hrs/wk` : "~248 hrs/wk",
+    source: `${osus?.publicLabel ?? "A 65-person UAE brokerage"} · signed case study`,
   },
   implementationPriceRange: {
     label: "Implementation price range",
