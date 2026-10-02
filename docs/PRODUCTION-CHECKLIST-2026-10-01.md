@@ -101,6 +101,7 @@ Legend: ✅ present/within limits · tLen = title length · dLen = description l
 
 ## 5. Notes
 
+- **Current scores:** see [`docs/RE-AUDIT-2026-10-02.md`](./RE-AUDIT-2026-10-02.md) — fresh live re-audit (a11y/BP/SEO 100 ×4; overall ≈94/100 excluding the machine-unreliable measured-performance axis).
 - **Smoke suite flakes:** run `npx playwright test tests/smoke.spec.ts --workers=1` against a local production server for a deterministic signal; the parallel full-repo run is contention-bound on the homepage.
 - **Internal record:** client names → `docs/CASE-STUDY-INTERNAL-RECORD.md` (never bundled, never served). No client name exists anywhere in this release's build output.
 - **Worktree note:** `website2.0-sgc-l3` is a fully-merged feature-branch worktree and is behind `main`; all changes here target `website2.0-sgc` (`main`) only.

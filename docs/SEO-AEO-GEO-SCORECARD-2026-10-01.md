@@ -1,5 +1,7 @@
 # SEO / AEO / GEO Scorecard — 2026-10-01 (post-launch)
 
+> **Superseded for current measured values by [`docs/RE-AUDIT-2026-10-02.md`](./RE-AUDIT-2026-10-02.md)** (fresh live re-audit of the same site). This file is retained as the change log.
+
 **Site:** https://sgctech.ai · **Commits:** `9cd445c` (perf/a11y) + `4e2de5e` (contrast) · **Method:** live Lighthouse 13.5 (mobile emulation, headless Chromium 1243), custom structured-data/anonymity validator, crawler-UA probes, IndexNow submission.
 
 ---
