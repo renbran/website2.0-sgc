@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "motion/react";
-import type { MotionValue } from "motion/react";
+import { useRef } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import RevealOnScroll from "@/components/ui/RevealOnScroll";
 import GoldDrawIn from "@/components/ui/GoldDrawIn";
 import FlippingCard from "@/components/ui/FlippingCard";
@@ -85,16 +85,11 @@ const PARTICLES = [
 interface SlabProps {
   layer: (typeof LAYERS)[number];
   index: number;
-  mouseX: MotionValue<number>;
-  mouseY: MotionValue<number>;
+  /** Registers this slab's element so the section can parallax it on pointer move. */
+  registerRef: (el: HTMLDivElement | null) => void;
 }
 
-function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
-  const depth = (index + 1) * 5;
-  const rawX = useTransform(mouseX, [0, 1], [-depth, depth]);
-  const rawY = useTransform(mouseY, [0, 1], [-depth * 0.5, depth * 0.5]);
-  const shiftX = useSpring(rawX, { stiffness: 150, damping: 22 });
-  const shiftY = useSpring(rawY, { stiffness: 150, damping: 22 });
+function CommercialSlab({ layer, index, registerRef }: SlabProps) {
 
   const front = (
     <>
@@ -115,11 +110,9 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
             </span>
           )}
           {layer.alwaysOn && (
-            <motion.span
+            <span
               aria-label="Always on"
-              className="block h-2 w-2 rounded-full bg-[var(--accent)]"
-              animate={{ scale: [1, 1.4, 1], opacity: [0.55, 1, 0.55] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="sgc-always-pulse block h-2 w-2 rounded-full bg-[var(--accent)]"
             />
           )}
         </div>
@@ -186,8 +179,9 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
 
   return (
     <RevealOnScroll delay={index * 0.15}>
-      <motion.div
-        style={{ x: shiftX, y: shiftY }}
+      <div
+        ref={registerRef}
+        style={{ transition: "transform 0.25s ease-out" }}
         className={`relative rounded-xl border-[1px] border-l-2 p-0 transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(199,162,58,0.1)] ${
           layer.optional
             ? "border-[var(--accent)] border-l-[var(--accent)] opacity-60 hover:opacity-75"
@@ -201,7 +195,7 @@ function CommercialSlab({ layer, index, mouseX, mouseY }: SlabProps) {
           frontContent={front}
           backContent={back}
         />
-      </motion.div>
+      </div>
     </RevealOnScroll>
   );
 }
@@ -213,18 +207,25 @@ export default function CommercialModelSection() {
   // swipe would jitter the cards sideways mid-scroll instead of leaving
   // them still.
   const isCoarsePointer = useCoarsePointer();
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
+  // Each slab registers its element here so the section can parallax it
+  // directly on pointer move (previously motion values + springs).
+  const slabEls = useRef<(HTMLDivElement | null)[]>([]);
 
   function handlePointerMove(e: React.PointerEvent) {
     const rect = e.currentTarget.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
+    const nx = (e.clientX - rect.left) / rect.width;
+    const ny = (e.clientY - rect.top) / rect.height;
+    slabEls.current.forEach((el, i) => {
+      if (!el) return;
+      const depth = (i + 1) * 5;
+      el.style.transform = `translate(${(nx - 0.5) * 2 * depth}px, ${(ny - 0.5) * depth}px)`;
+    });
   }
 
   function handlePointerLeave() {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
+    slabEls.current.forEach((el) => {
+      if (el) el.style.transform = "translate(0px, 0px)";
+    });
   }
 
   return (
@@ -272,17 +273,15 @@ export default function CommercialModelSection() {
           {/* Floating gold particles — decorative only, reduced-motion skips */}
           {!reduced &&
             PARTICLES.map((p, i) => (
-              <motion.div
+              <div
                 key={i}
                 aria-hidden
-                className="pointer-events-none absolute h-1 w-1 rounded-full bg-[var(--accent)]"
-                style={{ left: p.left, top: p.top }}
-                animate={{ y: [0, -40, -80], opacity: [0, 0.45, 0] }}
-                transition={{
-                  duration: p.dur,
-                  repeat: Infinity,
-                  delay: p.delay,
-                  ease: "easeOut",
+                className="sgc-particle pointer-events-none absolute h-1 w-1 rounded-full bg-[var(--accent)]"
+                style={{
+                  left: p.left,
+                  top: p.top,
+                  animationDuration: `${p.dur}s`,
+                  animationDelay: `${p.delay}s`,
                 }}
               />
             ))}
@@ -292,8 +291,9 @@ export default function CommercialModelSection() {
               key={layer.label}
               layer={layer}
               index={i}
-              mouseX={mouseX}
-              mouseY={mouseY}
+              registerRef={(el) => {
+                slabEls.current[i] = el;
+              }}
             />
           ))}
         </div>
@@ -307,6 +307,21 @@ export default function CommercialModelSection() {
           </p>
         </RevealOnScroll>
       </div>
+
+      <style>{`
+        @keyframes sgc-particle-rise {
+          0%   { transform: translateY(0);     opacity: 0; }
+          50%  { opacity: 0.45; }
+          100% { transform: translateY(-80px); opacity: 0; }
+        }
+        .sgc-particle { animation: sgc-particle-rise 4s ease-out infinite; }
+
+        @keyframes sgc-always-pulse {
+          0%, 100% { transform: scale(1);   opacity: 0.55; }
+          50%      { transform: scale(1.4); opacity: 1; }
+        }
+        .sgc-always-pulse { animation: sgc-always-pulse 2s ease-in-out infinite; }
+      `}</style>
     </section>
   );
 }
