@@ -10,27 +10,23 @@ import StageProgress from "./StageProgress";
 import ShieldIntroCategories from "./ShieldIntroCategories";
 import { getLenis } from "@/lib/lenis";
 import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
-import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { FINALE_AT } from "./shieldConstants";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ShieldCanvas = dynamic(() => import("./ShieldCanvas"), { ssr: false });
 
-// Stable module-scope loader for the idle prefetch (see useIdlePrefetch).
-const prefetchShieldCanvas = () => import("./ShieldCanvas");
-
 export default function ShieldSection() {
   const containerRef  = useRef<HTMLDivElement>(null);
   const scrollProgressRef = useRef(0);
 
-  // Mount the WebGL scene only as the user approaches (1.5k px lead), and
-  // warm its chunk during idle so the mount is instant. The canvas's own
-  // warm-up + heartbeat (below) then run during the approach — same
-  // "never cold-start mid-scroll" guarantee, without paying the chunk,
-  // context and warm-up frames during the initial page load.
+  // Mount the WebGL scene only as the user approaches (1.5k px lead). The
+  // scene chunk is fetched at that moment — there is deliberately no idle
+  // prefetch, so it never competes with the initial page load. The canvas's
+  // own warm-up + heartbeat (below) then run during the approach, preserving
+  // the "never cold-start mid-scroll" guarantee, at the cost of a brief
+  // network wait if the 1.5k px lead is crossed very quickly.
   const canvasNear = useNearViewportFlag(containerRef);
-  useIdlePrefetch(prefetchShieldCanvas);
   const [frameloop, setFrameloop] = useState<"always" | "never">("never");
   const [warming, setWarming] = useState(false);
   // Signals the post-warm-up heartbeat to stop once the IO activates the canvas.
