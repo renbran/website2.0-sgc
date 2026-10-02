@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import FinaleCaption from "./FinaleCaption";
 import FinaleStats from "./FinaleStats";
 import ReducedMotionFinaleFallback from "./ReducedMotionFinaleFallback";

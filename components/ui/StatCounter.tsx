@@ -2,7 +2,7 @@
 
 // Section: Imports
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 interface StatCounterProps {
   value: number;

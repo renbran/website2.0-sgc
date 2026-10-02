@@ -1,5 +1,5 @@
 "use client";
-import { useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import PremiumEditorialSection from "@/components/ui/PremiumEditorialSection";
 import ProximityCtaButton from "@/components/ui/ProximityCtaButton";
 
