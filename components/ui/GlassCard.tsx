@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import type { ReactNode } from "react";
 
 interface GlassCardProps {
@@ -25,6 +25,9 @@ interface GlassCardProps {
  *
  * Visual: dark-translucent surface, thin gold top-edge highlight, soft inner
  * border, hover-lift with subtle gold glow. Honors reduced-motion.
+ *
+ * The hover-lift is now a CSS transform transition rather than a `motion.div`,
+ * so this component no longer pulls the animation library into the bundle.
  */
 export default function GlassCard({
   children,
@@ -37,10 +40,10 @@ export default function GlassCard({
   const Wrap = as;
 
   return (
-    <motion.div
-      whileHover={reduced ? undefined : { y: -3 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className={`relative ${className ?? ""}`}
+    <div
+      className={`relative transition-transform duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        reduced ? "" : "hover:-translate-y-[3px]"
+      } ${className ?? ""}`}
     >
       {/* Top-edge gold hairline — premium "edge-lit" feel */}
       <div
@@ -62,6 +65,6 @@ export default function GlassCard({
       >
         {children}
       </Wrap>
-    </motion.div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { FINALE_CAPTIONS } from "./finaleConstants";
 
 interface FinaleCaptionProps {
@@ -32,14 +31,19 @@ export default function FinaleCaption({ activeIndex, reducedMotion, hideOnMobile
       }}
       className={`max-md:!left-6 max-md:!right-6 max-md:!top-auto max-md:!bottom-24 max-md:!max-w-none max-md:!translate-y-0 ${hideOnMobile ? "max-md:hidden" : ""}`}
     >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeIndex}
-          initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 22, filter: "blur(6px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: -14, filter: "blur(4px)" }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
+      {/* Cross-fade between chapters was AnimatePresence + motion.div. Now the
+          keyed remount replays a CSS animation — same fade/blur-in feel, no
+          library import. The exit half of the old transition is intentionally
+          dropped (the outgoing caption is replaced immediately). */}
+      <style>{`
+        @keyframes sgc-caption-in {
+          from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+          to   { opacity: 1; transform: none; filter: blur(0); }
+        }
+        .sgc-caption-in { animation: sgc-caption-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        @media (prefers-reduced-motion: reduce) { .sgc-caption-in { animation: none; } }
+      `}</style>
+      <div key={activeIndex} className={reducedMotion ? "" : "sgc-caption-in"}>
           <p
             style={{
               fontFamily: "var(--font-mono, monospace)",
@@ -73,8 +77,7 @@ export default function FinaleCaption({ activeIndex, reducedMotion, hideOnMobile
           >
             {caption.subline}
           </p>
-        </motion.div>
-      </AnimatePresence>
+      </div>
     </div>
   );
 }

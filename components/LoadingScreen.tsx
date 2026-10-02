@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import HoneycombSpinner from "@/components/ui/HoneycombSpinner";
 import { markSplashDone } from "@/lib/splash";
 
@@ -107,41 +107,16 @@ export default function LoadingScreen() {
 
   if (!visible) return null;
 
-  // Reduced motion: instant fade, no progress bar animation.
-  //
-  // `initial` (not `animate`) is what SSR renders into the static HTML —
-  // a crawler that reads the document without executing JS, or that
-  // snapshots before hydration, must not see a full-viewport opaque shroud
-  // baked into the markup. Starting at opacity 0 and animating to 1 on
-  // mount keeps the splash imperceptible-fast for real browsers while
-  // leaving the server-rendered DOM non-blocking.
-  const overlayVariants = reduced
-    ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1, transition: { duration: 0.15 } },
-        exit: { opacity: 0, transition: { duration: 0.25 } },
-      }
-    : {
-        initial: { opacity: 0 },
-        animate: { opacity: 1, transition: { duration: 0.15 } },
-        exit: {
-          opacity: 0,
-          y: -8,
-          transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-        },
-      };
-
+  // The overlay fades in via CSS. Its base opacity is 0 so the server-rendered
+  // markup is never an opaque shroud to a crawler or a no-JS visitor; the
+  // animation lifts it to 1 on mount. Previously a `motion.div` with variants
+  // (its `exit` variant was inert — there is no AnimatePresence parent).
   return (
-    <motion.div
-      key="sgc-loading"
+    <div
       role="status"
       aria-live="polite"
       aria-label="Loading SGC Tech AI"
-      variants={overlayVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#080B11] overflow-hidden"
+      className="sgc-splash-in fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#080B11] overflow-hidden"
     >
       {/* Layer 1 — radial gold wash (matches the hero's brand cue) */}
       <div
@@ -201,15 +176,9 @@ export default function LoadingScreen() {
             ring rotates + cells stagger through a chase. Same bezel
             vocabulary as the Vanguard Shield tiles. */}
         {!reduced && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-            aria-hidden
-          >
+          <div className="sgc-pop-in relative" aria-hidden>
             <HoneycombSpinner size={120} />
-          </motion.div>
+          </div>
         )}
         {reduced && (
           <div aria-hidden className="relative">
@@ -219,11 +188,8 @@ export default function LoadingScreen() {
         )}
 
         {/* Monogram mark — credential-framed: two corner brackets + SGC. */}
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative flex flex-col items-center gap-3"
+        <div
+          className={`sgc-fade-up relative flex flex-col items-center gap-3 ${reduced ? "opacity-100" : ""}`}
         >
           <p
             style={{ fontFamily: "var(--font-mono, 'JetBrains Mono', monospace)" }}
@@ -280,18 +246,15 @@ export default function LoadingScreen() {
               )}
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Tagline — honest, matches the hero copy */}
-        <motion.p
-          initial={reduced ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+        <p
+          className={`sgc-tagline-in max-w-md text-center text-[0.78rem] leading-[1.7] text-text-muted md:text-[0.82rem] ${reduced ? "opacity-100" : ""}`}
           style={{ fontFamily: "var(--font-inter, sans-serif)" }}
-          className="max-w-md text-center text-[0.78rem] leading-[1.7] text-text-muted md:text-[0.82rem]"
         >
           Practitioner-led Odoo &amp; AI for UAE mid-market.
-        </motion.p>
+        </p>
 
         {/* Progress bar — gold gradient fill over a dim track */}
         <div className="relative mt-4 h-px w-56 overflow-hidden md:w-72">
@@ -330,6 +293,23 @@ export default function LoadingScreen() {
       {/* Inject the @keyframes for the loading-only animations.
           Scoped via the inline class so it never leaks elsewhere. */}
       <style>{`
+        @keyframes sgc-splash-in { from { opacity: 0; } to { opacity: 1; } }
+        .sgc-splash-in { opacity: 0; animation: sgc-splash-in 0.15s ease-out forwards; }
+        @keyframes sgc-pop-in {
+          from { opacity: 0; transform: scale(0.92); }
+          to   { opacity: 1; transform: scale(1); }
+        }
+        .sgc-pop-in { animation: sgc-pop-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        @keyframes sgc-fade-up {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: none; }
+        }
+        .sgc-fade-up { animation: sgc-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        @keyframes sgc-tagline-in { from { opacity: 0; } to { opacity: 1; } }
+        .sgc-tagline-in { animation: sgc-tagline-in 0.6s ease-out 0.15s both; }
+        @media (prefers-reduced-motion: reduce) {
+          .sgc-pop-in, .sgc-fade-up, .sgc-tagline-in { animation: none; }
+        }
         @keyframes sgc-load-drift {
           0% { background-position: 0 0, 0 0; }
           100% { background-position: 44px 44px, 44px 44px; }
@@ -345,6 +325,6 @@ export default function LoadingScreen() {
           100% { transform: translateX(420%); }
         }
       `}</style>
-    </motion.div>
+    </div>
   );
 }

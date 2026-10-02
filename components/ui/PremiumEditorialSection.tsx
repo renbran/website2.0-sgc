@@ -2,7 +2,6 @@
 
 import NextImage from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "motion/react";
 import RevealOnScroll from "./RevealOnScroll";
 import SectionEyebrow from "./SectionEyebrow";
 
@@ -95,7 +94,6 @@ export default function PremiumEditorialSection({
   ctaHref,
   className = "",
 }: PremiumEditorialSectionProps) {
-  const reduced = useReducedMotion();
 
   // Lumière layout defaults the ornament on; other layouts default it off
   const showOrnament = ornament ?? layout === "lumiere";
@@ -168,26 +166,18 @@ export default function PremiumEditorialSection({
                 />
                 {/* Text overlay */}
                 <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12 lg:p-16">
-                  <motion.h2
-                    initial={reduced ? {} : { opacity: 0, y: 20 }}
-                    whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                  <h2
                     style={{ fontFamily: headingFont }}
                     className="max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-bold leading-[1.1] text-white"
                   >
                     {heading}
-                  </motion.h2>
+                  </h2>
                   {subheading && (
-                    <motion.p
-                      initial={reduced ? {} : { opacity: 0, y: 20 }}
-                      whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: 0.3 }}
+                    <p
                       className="mt-4 max-w-2xl text-[clamp(1rem,1.3vw,1.2rem)] leading-[1.6] text-[rgba(255,255,255,0.85)]"
                     >
                       {subheading}
-                    </motion.p>
+                    </p>
                   )}
                 </div>
               </div>
@@ -210,37 +200,25 @@ export default function PremiumEditorialSection({
             {/* Text Column — narrower, sits to the left */}
             <RevealOnScroll delay={0.05} className="md:pt-12 lg:pt-16">
               {/* Heading */}
-              <motion.h2
-                initial={reduced ? {} : { opacity: 0, y: 16 }}
-                whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+              <h2
                 style={{ fontFamily: headingFont }}
                 className={`text-[clamp(2rem,4.2vw,3.4rem)] font-bold leading-[1.05] ${textPrimaryClass}`}
               >
                 {heading}
-              </motion.h2>
+              </h2>
 
               {/* Subheading (kicker) */}
               {subheading && (
-                <motion.p
-                  initial={reduced ? {} : { opacity: 0, y: 16 }}
-                  whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
+                <p
                   style={{ fontFamily: "var(--font-fraunces)" }}
                   className={`mt-5 text-[clamp(0.85rem,1vw,0.95rem)] font-semibold uppercase leading-[1.5] tracking-[0.18em] ${accentTextClass}`}
                 >
                   {subheading}
-                </motion.p>
+                </p>
               )}
 
               {/* Gold horizontal divider with fleuron */}
-              <motion.div
-                initial={reduced ? {} : { scaleX: 0 }}
-                whileInView={reduced ? {} : { scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+              <div
                 className="mt-7 flex items-center gap-3 origin-left"
                 aria-hidden
               >
@@ -252,7 +230,7 @@ export default function PremiumEditorialSection({
                   ❧
                 </span>
                 <span className="block h-px flex-1 max-w-[60px] bg-gradient-to-l from-[var(--accent)] to-transparent" />
-              </motion.div>
+              </div>
 
               {/* Body content with drop cap & lead */}
               <div
@@ -265,11 +243,7 @@ export default function PremiumEditorialSection({
 
               {/* Pull quote — centered italic serif */}
               {pullQuote && (
-                <motion.blockquote
-                  initial={reduced ? {} : { opacity: 0, y: 12 }}
-                  whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                <blockquote
                   className="premium-editorial-blockquote mt-10 text-center"
                 >
                   <span
@@ -293,16 +267,12 @@ export default function PremiumEditorialSection({
                       — {pullQuoteAttribution}
                     </cite>
                   )}
-                </motion.blockquote>
+                </blockquote>
               )}
 
               {/* CTA link */}
               {ctaText && ctaHref && (
-                <motion.div
-                  initial={reduced ? {} : { opacity: 0 }}
-                  whileInView={reduced ? {} : { opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
+                <div
                   className="mt-10"
                 >
                   <Link
@@ -322,7 +292,7 @@ export default function PremiumEditorialSection({
                       →
                     </span>
                   </Link>
-                </motion.div>
+                </div>
               )}
             </RevealOnScroll>
 
@@ -393,36 +363,24 @@ export default function PremiumEditorialSection({
               delay={0.1}
             >
               {/* Heading */}
-              <motion.h2
-                initial={reduced ? {} : { opacity: 0, y: 16 }}
-                whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+              <h2
                 style={{ fontFamily: headingFont }}
                 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-[1.12] text-[var(--sgc-text-primary)]"
               >
                 {heading}
-              </motion.h2>
+              </h2>
 
               {/* Subheading */}
               {subheading && (
-                <motion.p
-                  initial={reduced ? {} : { opacity: 0, y: 16 }}
-                  whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
+                <p
                   className="mt-4 text-[clamp(1rem,1.3vw,1.15rem)] font-medium leading-[1.6] text-[var(--sgc-text-muted)]"
                 >
                   {subheading}
-                </motion.p>
+                </p>
               )}
 
               {/* Gold divider */}
-              <motion.div
-                initial={reduced ? {} : { scaleX: 0 }}
-                whileInView={reduced ? {} : { scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+              <div
                 className="mt-6 h-px w-16 origin-left bg-gradient-to-r from-[var(--accent)] to-transparent"
               />
 
@@ -437,27 +395,19 @@ export default function PremiumEditorialSection({
 
               {/* Decorative gold ornament */}
               {showOrnament && (
-                <motion.div
-                  initial={reduced ? {} : { opacity: 0, scale: 0.8 }}
-                  whileInView={reduced ? {} : { opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
+                <div
                   className="mt-10 flex items-center justify-center gap-4"
                   aria-hidden
                 >
                   <span className="block h-px w-12 bg-gradient-to-r from-transparent to-[var(--accent)]" />
                   <span className="text-[1.2rem] text-[var(--accent)]" style={{ fontFamily: "var(--font-fraunces)" }}>❧</span>
                   <span className="block h-px w-12 bg-gradient-to-r from-[var(--accent)] to-transparent" />
-                </motion.div>
+                </div>
               )}
 
               {/* Pull quote */}
               {pullQuote && (
-                <motion.blockquote
-                  initial={reduced ? {} : { opacity: 0, x: -12 }}
-                  whileInView={reduced ? {} : { opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                <blockquote
                   className="premium-editorial-blockquote mt-8 border-l-2 border-[var(--accent)] pl-6"
                 >
                   <p
@@ -474,7 +424,7 @@ export default function PremiumEditorialSection({
                       — {pullQuoteAttribution}
                     </cite>
                   )}
-                </motion.blockquote>
+                </blockquote>
               )}
             </RevealOnScroll>
           </div>

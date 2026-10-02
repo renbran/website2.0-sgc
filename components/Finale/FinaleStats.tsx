@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import StatCounter from "@/components/ui/StatCounter";
 import { METRICS } from "@/content/canonical-facts";
 
@@ -20,10 +19,7 @@ const STATS = [
 
 export default function FinaleStats({ reducedMotion }: FinaleStatsProps) {
   return (
-    <motion.div
-      initial={reducedMotion ? { opacity: 1, x: "-50%" } : { opacity: 0, y: 18, x: "-50%" }}
-      animate={{ opacity: 1, y: 0, x: "-50%" }}
-      transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+    <div
       style={{
         position: "absolute",
         bottom: "clamp(2rem, 6vh, 4rem)",
@@ -35,8 +31,20 @@ export default function FinaleStats({ reducedMotion }: FinaleStatsProps) {
         gap: "clamp(1.25rem, 3.5vw, 4rem)",
         width: "min(92vw, 60rem)",
         pointerEvents: "none",
+        transform: "translateX(-50%)",
+        // Was a `motion.div` entrance; now a one-shot CSS animation. `both`
+        // holds the end state, so the -50% centring is preserved after it runs.
+        animation: reducedMotion
+          ? undefined
+          : "sgc-finale-stats 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both",
       }}
     >
+      <style>{`
+        @keyframes sgc-finale-stats {
+          from { opacity: 0; transform: translate(-50%, 18px); }
+          to   { opacity: 1; transform: translate(-50%, 0); }
+        }
+      `}</style>
       {STATS.map((stat) => (
         <div key={stat.label} style={{ textAlign: "center" }}>
           <p
@@ -68,6 +76,6 @@ export default function FinaleStats({ reducedMotion }: FinaleStatsProps) {
           </p>
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }

@@ -1,12 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { loadGsap } from "@/lib/lenis";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const LICENSE_LINE =
   "Scholarix Global Consultants FZCO · License 45160 · DIEZ · Dubai Silicon Oasis";
@@ -18,24 +15,36 @@ export default function AboutHero() {
 
   useEffect(() => {
     if (reduced || !rootRef.current) return;
-    const ctx = gsap.context(() => {
-      // Depth-parallax orb: 3D perspective tilt scrubbed to scroll, the
-      // first "3D scroll trigger" beat the page establishes.
-      gsap.to(orbRef.current, {
-        rotateX: 18,
-        rotateY: -14,
-        z: 80,
-        yPercent: 22,
-        ease: "none",
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }, rootRef);
-    return () => ctx.revert();
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    // GSAP + ScrollTrigger load on demand — see lib/lenis.ts.
+    void (async () => {
+      const { gsap } = await loadGsap();
+      if (cancelled || !rootRef.current) return;
+      ctx = gsap.context(() => {
+        // Depth-parallax orb: 3D perspective tilt scrubbed to scroll, the
+        // first "3D scroll trigger" beat the page establishes.
+        gsap.to(orbRef.current, {
+          rotateX: 18,
+          rotateY: -14,
+          z: 80,
+          yPercent: 22,
+          ease: "none",
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }, rootRef);
+    })();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduced]);
 
   return (
@@ -56,45 +65,44 @@ export default function AboutHero() {
       />
 
       <div className="relative mx-auto max-w-5xl px-6 text-center md:px-10">
-        <motion.div
-          initial={reduced ? {} : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <SectionEyebrow label="ABOUT SGC TECH AI" className="justify-center" />
-        </motion.div>
+        {/* Entrance animations were `motion.*` props; now one CSS keyframe with
+            per-element delays, so the library stays out of the bundle. */}
+        <style>{`
+          @keyframes sgc-about-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: none; }
+          }
+          .sgc-about-in { animation: sgc-about-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+          @media (prefers-reduced-motion: reduce) { .sgc-about-in { animation: none; } }
+        `}</style>
 
-        <motion.h1
-          initial={reduced ? {} : { opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontFamily: "var(--font-fraunces)" }}
-          className="text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.05] text-[var(--text-primary)]"
+        <div className={reduced ? "" : "sgc-about-in"}>
+          <SectionEyebrow label="ABOUT SGC TECH AI" className="justify-center" />
+        </div>
+
+        <h1
+          style={{ fontFamily: "var(--font-fraunces)", animationDelay: "0.1s" }}
+          className={`text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.05] text-[var(--text-primary)] ${reduced ? "" : "sgc-about-in"}`}
         >
           Built by Operators.
           <br />
           <span className="text-gold-gradient">Not Consultants.</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={reduced ? {} : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="mx-auto mt-6 max-w-2xl text-[clamp(1rem,1.6vw,1.25rem)] leading-[1.65] text-[var(--text-secondary)]"
+        <p
+          style={{ animationDelay: "0.22s" }}
+          className={`mx-auto mt-6 max-w-2xl text-[clamp(1rem,1.6vw,1.25rem)] leading-[1.65] text-[var(--text-secondary)] ${reduced ? "" : "sgc-about-in"}`}
         >
           We are the <span className="text-[var(--accent)]">Operational Physician</span> of
           the UAE Mid-Market — we diagnose the condition before we sell the cure.
-        </motion.p>
+        </p>
 
-        <motion.p
-          initial={reduced ? {} : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-          style={{ fontFamily: "var(--font-mono)" }}
-          className="mt-8 text-[0.72rem] tracking-[0.14em] text-[var(--text-muted)]"
+        <p
+          style={{ fontFamily: "var(--font-mono)", animationDelay: "0.4s" }}
+          className={`mt-8 text-[0.72rem] tracking-[0.14em] text-[var(--text-muted)] ${reduced ? "" : "sgc-about-in"}`}
         >
           {LICENSE_LINE}
-        </motion.p>
+        </p>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { Volume2, VolumeX } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
 import { getCinematicSynth } from "@/lib/cinematicSynth";
@@ -71,26 +71,25 @@ export default function AudioToggle() {
   }, [isPlaying, beginPlayback, pausePlayback]);
 
   return (
-    <motion.button
+    <button
       type="button"
       onClick={() => void onToggle()}
       aria-label={isPlaying ? "Pause ambient soundtrack" : "Play ambient soundtrack"}
       aria-pressed={isPlaying}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(199,162,58,0.3)] bg-[rgba(8,11,17,0.45)] text-[var(--sgc-cyan)] transition duration-300 ease-out hover:scale-105 hover:border-[var(--sgc-cyan)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sgc-cyan)]"
-      animate={
-        isPlaying && !shouldReduceMotion
-          ? {
-              scale: [1, 1.06, 1],
-              boxShadow: [
-                "0 0 0 rgba(199,162,58,0)",
-                "0 0 22px rgba(199,162,58,0.42)",
-                "0 0 0 rgba(199,162,58,0)",
-              ],
-            }
-          : { scale: 1, boxShadow: "0 0 0 rgba(199,162,58,0)" }
-      }
-      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      className={`flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(199,162,58,0.3)] bg-[rgba(8,11,17,0.45)] text-[var(--sgc-cyan)] transition duration-300 ease-out hover:scale-105 hover:border-[var(--sgc-cyan)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--sgc-cyan)] ${
+        isPlaying && !shouldReduceMotion ? "sgc-audio-pulse" : ""
+      }`}
     >
+      {/* Pulse was a `motion.button` animate loop; now pure CSS (2 s ease-in-out,
+          matching the old transition) so the library stays out of the bundle. */}
+      <style>{`
+        @keyframes sgc-audio-pulse {
+          0%   { transform: scale(1);   box-shadow: 0 0 0 rgba(199,162,58,0); }
+          50%  { transform: scale(1.06); box-shadow: 0 0 22px rgba(199,162,58,0.42); }
+          100% { transform: scale(1);   box-shadow: 0 0 0 rgba(199,162,58,0); }
+        }
+        .sgc-audio-pulse { animation: sgc-audio-pulse 2s ease-in-out infinite; }
+      `}</style>
       <AnimatedIcon deps={[isPlaying]}>
         {isPlaying ? (
           <Volume2 size={18} className="text-[var(--sgc-cyan)]" />
@@ -98,6 +97,6 @@ export default function AudioToggle() {
           <VolumeX size={18} className="text-text-muted" />
         )}
       </AnimatedIcon>
-    </motion.button>
+    </button>
   );
 }

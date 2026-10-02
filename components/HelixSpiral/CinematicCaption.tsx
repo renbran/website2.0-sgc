@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
 import { DIAMONDS } from "./diamonds.config";
 
 interface CinematicCaptionProps {
@@ -66,23 +65,29 @@ export default function CinematicCaption({ activeIndex }: CinematicCaptionProps)
       </div>
 
       {/* Bottom-center: active diamond headline + subhead */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={activeIndex}
-          initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          style={{
-            position: "absolute",
-            bottom: "3rem",
-            left: "50%",
-            transform: "translateX(-50%)",
-            textAlign: "center",
-            maxWidth: "min(640px, 80vw)",
-            pointerEvents: "auto",
-          }}
-        >
+      {/* Cross-fade between diamonds was AnimatePresence + motion.div; now a
+          keyed remount replaying a CSS animation (same fade/blur-in). */}
+      <style>{`
+        @keyframes sgc-helix-caption-in {
+          from { opacity: 0; transform: translate(-50%, 16px); filter: blur(4px); }
+          to   { opacity: 1; transform: translate(-50%, 0);    filter: blur(0); }
+        }
+        .sgc-helix-caption-in { animation: sgc-helix-caption-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) both; }
+        @media (prefers-reduced-motion: reduce) { .sgc-helix-caption-in { animation: none; } }
+      `}</style>
+      <div
+        key={activeIndex}
+        className="sgc-helix-caption-in"
+        style={{
+          position: "absolute",
+          bottom: "3rem",
+          left: "50%",
+          transform: "translateX(-50%)",
+          textAlign: "center",
+          maxWidth: "min(640px, 80vw)",
+          pointerEvents: "auto",
+        }}
+      >
           {/* Gold connection line — bridges active diamond to caption text */}
           <div
             style={{
@@ -140,8 +145,7 @@ export default function CinematicCaption({ activeIndex }: CinematicCaptionProps)
               Book a Finance Operations Audit →
             </a>
           )}
-        </motion.div>
-      </AnimatePresence>
+      </div>
     </div>
   );
 }
