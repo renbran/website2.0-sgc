@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReducedMotionFallback from "./ReducedMotionFallback";
@@ -237,6 +236,7 @@ export default function DiamondScrollHero() {
               diamondSize={diamondSize}
               strandSegments={strandSegments}
               scrollVelocityRef={scrollVelocityRef}
+              isMobile={isMobile}
             />
           )}
         </div>
@@ -250,21 +250,25 @@ export default function DiamondScrollHero() {
             background: "radial-gradient(ellipse 70% 70% at 50% 50%, transparent 50%, rgba(8,11,17,0.65) 100%)",
           }}
         />
-        {/* SGC brand watermark — near-invisible, sits above canvas, below all UI */}
-        <Image
-          src="/sgc-logo.png"
-          alt=""
+        {/* SGC brand watermark — near-invisible, sits above canvas, below all UI.
+            Rendered as a CSS background rather than an <img>: it is decorative
+            at 5.5% opacity, and as an <img> it was the measured LCP element —
+            blocking the real content's paint. Background images are not LCP
+            candidates by spec. Also swaps the 1 MB source PNG for the 7 KB
+            pre-optimised WebP mark. */}
+        <div
           aria-hidden="true"
-          width={1254}
-          height={1254}
-          sizes="(max-width: 1368px) 38vw, 520px"
           style={{
             position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
             width: "clamp(260px, 38vw, 520px)",
-            height: "auto",
+            aspectRatio: "1 / 1",
+            backgroundImage: "url('/images/sgc-logo-mark.webp')",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
             opacity: 0.055,
             pointerEvents: "none",
             zIndex: 3,

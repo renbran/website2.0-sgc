@@ -26,6 +26,7 @@ interface SceneProps {
   diamondSize: number;
   strandSegments: number;
   scrollVelocityRef: React.RefObject<number>;
+  enablePostFx?: boolean;
 }
 
 export default function Scene({
@@ -37,6 +38,7 @@ export default function Scene({
   diamondSize,
   strandSegments,
   scrollVelocityRef,
+  enablePostFx = true,
 }: SceneProps) {
   const outerGroupRef = useRef<THREE.Group>(null!);
 
@@ -98,13 +100,18 @@ export default function Scene({
         />
       </group>
 
-      <EffectComposer>
-        <Bloom
-          intensity={0.55}
-          luminanceThreshold={0.32}
-          mipmapBlur
-        />
-      </EffectComposer>
+      {/* Bloom is a fullscreen post-processing pass — the single most
+          expensive per-frame cost in this scene. Skipped on mobile, where it
+          pushed every frame past the long-task threshold. */}
+      {enablePostFx && (
+        <EffectComposer>
+          <Bloom
+            intensity={0.55}
+            luminanceThreshold={0.32}
+            mipmapBlur
+          />
+        </EffectComposer>
+      )}
     </ExperienceProvider>
   );
 }

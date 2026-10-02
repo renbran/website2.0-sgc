@@ -13,6 +13,7 @@ interface HelixCanvasProps {
   diamondSize: number;
   strandSegments: number;
   scrollVelocityRef: React.RefObject<number>;
+  isMobile: boolean;
 }
 
 function PulsingDot() {
@@ -33,10 +34,11 @@ export default function HelixCanvas({
   diamondSize,
   strandSegments,
   scrollVelocityRef,
+  isMobile,
 }: HelixCanvasProps) {
   return (
     <Canvas
-      dpr={[1, 1.75]}
+      dpr={isMobile ? [1, 1.25] : [1, 1.75]}
       camera={{ position: [0, -5.25, 7.5], fov: 65 }}
       style={{ background: "#080B11", width: "100%", height: "100%" }}
     >
@@ -50,6 +52,7 @@ export default function HelixCanvas({
           diamondSize={diamondSize}
           strandSegments={strandSegments}
           scrollVelocityRef={scrollVelocityRef}
+          enablePostFx={!isMobile}
         />
       </Suspense>
     </Canvas>
