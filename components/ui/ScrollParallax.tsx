@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "motion/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { loadGsap } from "@/lib/lenis";
 
 interface ScrollParallaxProps {
   children: React.ReactNode;
@@ -17,25 +16,36 @@ export default function ScrollParallax({ children, amplitude = 16, className }: 
 
   useEffect(() => {
     if (reduced || !ref.current) return;
-    gsap.registerPlugin(ScrollTrigger);
     const el = ref.current;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { y: -(amplitude / 2) },
-        {
-          y: amplitude / 2,
-          ease: "none",
-          scrollTrigger: {
-            trigger: el.closest("section") ?? el,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    // GSAP + ScrollTrigger load on demand — see lib/lenis.ts.
+    void (async () => {
+      const { gsap } = await loadGsap();
+      if (cancelled) return;
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          el,
+          { y: -(amplitude / 2) },
+          {
+            y: amplitude / 2,
+            ease: "none",
+            scrollTrigger: {
+              trigger: el.closest("section") ?? el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
           },
-        },
-      );
-    }, el);
-    return () => ctx.revert();
+        );
+      }, el);
+    })();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduced, amplitude]);
 
   return (

@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "motion/react";
 import FinaleCaption from "./FinaleCaption";
 import FinaleStats from "./FinaleStats";
@@ -11,14 +9,13 @@ import ReducedMotionFinaleFallback from "./ReducedMotionFinaleFallback";
 import CtaButton from "@/components/ui/CtaButton";
 import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
 import { usePrefetchOnInteraction } from "@/hooks/usePrefetchOnInteraction";
+import { loadGsap } from "@/lib/lenis";
 import {
   activeCaptionIndex,
   STATS_AT,
   SHARD_COUNT_DESKTOP,
   SHARD_COUNT_MOBILE,
 } from "./finaleConstants";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const FinaleCanvas = dynamic(() => import("./FinaleCanvas"), { ssr: false });
 
@@ -129,8 +126,16 @@ export default function FinaleConvergenceSection() {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    // GSAP + ScrollTrigger load on demand — see lib/lenis.ts.
+    void (async () => {
+      const { gsap, ScrollTrigger } = await loadGsap();
+      if (cancelled || !containerRef.current) return;
+
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "bottom bottom",
@@ -147,9 +152,14 @@ export default function FinaleConvergenceSection() {
             setStatsVisible(showStats);
           }
         },
-      });
-    }, containerRef);
-    return () => ctx.revert();
+        });
+      }, containerRef);
+    })();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, []);
 
   // Native scroll fallback — covers window.scrollTo (e.g. Playwright) before

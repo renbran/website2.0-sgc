@@ -2,18 +2,14 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "motion/react";
 import FinaleTitle from "./FinaleTitle";
 import StageProgress from "./StageProgress";
 import ShieldIntroCategories from "./ShieldIntroCategories";
-import { getLenis } from "@/lib/lenis";
+import { getLenis, loadGsap } from "@/lib/lenis";
 import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
 import { usePrefetchOnInteraction } from "@/hooks/usePrefetchOnInteraction";
 import { FINALE_AT } from "./shieldConstants";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ShieldCanvas = dynamic(() => import("./ShieldCanvas"), { ssr: false });
 
@@ -180,8 +176,16 @@ export default function ShieldSection() {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+
+    // GSAP + ScrollTrigger load on demand — see lib/lenis.ts.
+    void (async () => {
+      const { gsap, ScrollTrigger } = await loadGsap();
+      if (cancelled || !containerRef.current) return;
+
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "bottom bottom",
@@ -203,9 +207,14 @@ export default function ShieldSection() {
             getLenis()?.start();
           }
         },
-      });
-    }, containerRef);
-    return () => ctx.revert();
+        });
+      }, containerRef);
+    })();
+
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, []);
 
   useEffect(() => {

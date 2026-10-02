@@ -1,10 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from "@/lib/lenis";
 
 export interface HeroScrubProps {
   frameCount: number;
@@ -244,20 +241,29 @@ export function HeroScrub({
     if (!stickyRef.current || !cardRef.current) return;
     if (typeof window !== "undefined" && window.scrollY > 0) return;
 
-    const tl = gsap.timeline({ delay: 0.2 });
-    tl.fromTo(
-      stickyRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.6, ease: "power2.out" },
-    ).fromTo(
-      cardRef.current,
-      { opacity: 0, scale: 0.9 },
-      { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" },
-      "<0.1",
-    );
+    let cancelled = false;
+    let tl: { kill: () => void } | undefined;
+
+    void (async () => {
+      const { gsap } = await loadGsap();
+      if (cancelled || !stickyRef.current || !cardRef.current) return;
+      const timeline = gsap.timeline({ delay: 0.2 });
+      timeline.fromTo(
+        stickyRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: "power2.out" },
+      ).fromTo(
+        cardRef.current,
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.7, ease: "power2.out" },
+        "<0.1",
+      );
+      tl = timeline;
+    })();
 
     return () => {
-      tl.kill();
+      cancelled = true;
+      tl?.kill();
     };
   }, [reducedMotion, firstFrameReady]);
 
@@ -265,6 +271,10 @@ export function HeroScrub({
   useEffect(() => {
     if (reducedMotion || !firstFrameReady) return;
     if (!wrapperRef.current || !cardRef.current || !titleTopRef.current || !titleBottomRef.current) return;
+
+    let cancelled = false;
+    let trigger: { kill: () => void } | undefined;
+    let gsapApi: typeof import("gsap").gsap | undefined;
 
     const titleTravel = isMobile ? TITLE_TRAVEL_MOBILE_VW : TITLE_TRAVEL_DESKTOP_VW;
 
@@ -291,8 +301,8 @@ export function HeroScrub({
       const clarityOpacity = smoothT(clarityRaw);
       const chaosOffset = titleTravel * (1 - chaosOpacity);
 
-      gsap.set(titleTopRef.current, { opacity: chaosOpacity, xPercent: -chaosOffset });
-      gsap.set(titleBottomRef.current, { opacity: clarityOpacity, xPercent: 0 });
+      gsapApi?.set(titleTopRef.current, { opacity: chaosOpacity, xPercent: -chaosOffset });
+      gsapApi?.set(titleBottomRef.current, { opacity: clarityOpacity, xPercent: 0 });
 
       // Sub-frame interpolation between adjacent frames. Exact-direction
       // symmetric: forward at p=0.5 shows frame 30 + 0.5 fade-in toward 31,
@@ -304,19 +314,29 @@ export function HeroScrub({
       drawFrameCrossfaded(a, b, subT, canvasRef.current);
     };
 
-    // Sync the initial visual state immediately — don't rely on ScrollTrigger
-    // implicitly firing onUpdate before the first scroll event.
-    applyProgress(0);
+    // GSAP + ScrollTrigger load on demand — see lib/lenis.ts.
+    void (async () => {
+      const { gsap, ScrollTrigger } = await loadGsap();
+      if (cancelled || !wrapperRef.current) return;
+      gsapApi = gsap;
 
-    const trigger = ScrollTrigger.create({
-      trigger: wrapperRef.current,
-      start: "top top",
-      end: `+=${window.innerHeight * SECTION_SCROLL_MULTIPLIER}px`,
-      scrub: true,
-      onUpdate: (self) => applyProgress(self.progress),
-    });
+      // Sync the initial visual state immediately — don't rely on ScrollTrigger
+      // implicitly firing onUpdate before the first scroll event.
+      applyProgress(0);
 
-    return () => trigger.kill();
+      trigger = ScrollTrigger.create({
+        trigger: wrapperRef.current,
+        start: "top top",
+        end: `+=${window.innerHeight * SECTION_SCROLL_MULTIPLIER}px`,
+        scrub: true,
+        onUpdate: (self) => applyProgress(self.progress),
+      });
+    })();
+
+    return () => {
+      cancelled = true;
+      trigger?.kill();
+    };
   }, [frameCount, reducedMotion, firstFrameReady, isMobile, drawFrame]);
 
   if (reducedMotion) {

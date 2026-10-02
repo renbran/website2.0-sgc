@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ReducedMotionFallback from "./ReducedMotionFallback";
 import CinematicCaption from "@/components/HelixSpiral/CinematicCaption";
 import AudioToggle from "@/components/AudioToggle";
@@ -11,8 +9,7 @@ import { useHelixScrub } from "@/hooks/useHelixScrub";
 import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 import HeroIntroOverlay from "./HeroIntroOverlay";
 import { SPLASH_DONE_EVENT, isSplashDone, CANVAS_MOUNT_FALLBACK_MS } from "@/lib/splash";
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from "@/lib/lenis";
 
 const HelixCanvas = dynamic(() => import("./HelixCanvas"), { ssr: false });
 
@@ -87,8 +84,18 @@ export default function DiamondScrollHero() {
 
   useEffect(() => {
     if (!containerRef.current || !stickyRef.current) return;
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+    let refreshTimer: ReturnType<typeof setTimeout> | undefined;
+
+    // GSAP + ScrollTrigger load on demand, so their ~110 KB of evaluation is
+    // not executed inside the LCP paint window (see lib/lenis.ts).
+    void (async () => {
+      const { gsap, ScrollTrigger } = await loadGsap();
+      if (cancelled || !containerRef.current || !stickyRef.current) return;
+
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
         trigger: containerRef.current,
         start: "top top",
         end: "bottom bottom",
@@ -134,18 +141,20 @@ export default function DiamondScrollHero() {
           lastTimeRef.current = now;
         },
       });
-    }, containerRef);
+      }, containerRef);
 
-    // iOS Safari fix: ScrollTrigger's measurements lock in before the
-    // dynamically-imported Canvas + 8 diamond textures have mounted, so
-    // the trigger's measured height is wrong on first paint. Refresh once
-    // after canvas + textures are stable, plus once after the page load
-    // event fires (fonts, late images).
-    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 600);
+      // iOS Safari fix: ScrollTrigger's measurements lock in before the
+      // dynamically-imported Canvas + 8 diamond textures have mounted, so
+      // the trigger's measured height is wrong on first paint. Refresh once
+      // after canvas + textures are stable, plus once after the page load
+      // event fires (fonts, late images).
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 600);
+    })();
 
     return () => {
-      clearTimeout(refreshTimer);
-      ctx.revert();
+      cancelled = true;
+      if (refreshTimer) clearTimeout(refreshTimer);
+      ctx?.revert();
     };
   }, []);
 
@@ -154,8 +163,17 @@ export default function DiamondScrollHero() {
   // so pin geometry matches the final tree.
   useEffect(() => {
     if (!canvasReady) return;
-    const t = window.setTimeout(() => ScrollTrigger.refresh(), 350);
-    return () => window.clearTimeout(t);
+    let cancelled = false;
+    let t: ReturnType<typeof setTimeout> | undefined;
+    void (async () => {
+      const { ScrollTrigger } = await loadGsap();
+      if (cancelled) return;
+      t = setTimeout(() => ScrollTrigger.refresh(), 350);
+    })();
+    return () => {
+      cancelled = true;
+      if (t) clearTimeout(t);
+    };
   }, [canvasReady]);
 
   // Mouse-parallax tilt (Scene.tsx reads mouseRef every frame) only makes
