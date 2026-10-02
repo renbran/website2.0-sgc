@@ -1,12 +1,6 @@
 "use client";
-import {
-  motion,
-  useMotionTemplate,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from "motion/react";
 import { useCallback, useRef } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useCoarsePointer } from "@/hooks/useCoarsePointer";
 
 interface LivingCardProps {
@@ -14,40 +8,46 @@ interface LivingCardProps {
   className?: string;
 }
 
+/**
+ * Pointer-tracked 3D tilt + radial gold glow.
+ *
+ * Previously driven by `motion` springs (`useSpring`/`useMotionTemplate`); now
+ * plain DOM writes on pointermove with CSS transitions providing the easing, so
+ * the animation library is not pulled into the bundle.
+ */
 export default function LivingCard({ children, className }: LivingCardProps) {
   const reduced = useReducedMotion();
   // No hover on touch, so the tilt/glow effect has nothing to react to —
   // isCoarse skips it and renders a plain static wrapper instead.
   const isCoarse = useCoarsePointer();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
 
-  const rotX = useSpring(0, { stiffness: 150, damping: 20 });
-  const rotY = useSpring(0, { stiffness: 150, damping: 20 });
-  const glowOpacity = useSpring(0, { stiffness: 200, damping: 25 });
-  const glowX = useMotionValue(50);
-  const glowY = useMotionValue(50);
-  const glowBg = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(199,162,58,0.12) 0%, transparent 65%)`;
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width;
+    const y = (e.clientY - r.top) / r.height;
 
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      if (!wrapRef.current) return;
-      const r = wrapRef.current.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width;
-      const y = (e.clientY - r.top) / r.height;
-      rotY.set((x - 0.5) * 6);
-      rotX.set(-(y - 0.5) * 6);
-      glowX.set(x * 100);
-      glowY.set(y * 100);
-      glowOpacity.set(1);
-    },
-    [rotX, rotY, glowX, glowY, glowOpacity],
-  );
+    if (innerRef.current) {
+      innerRef.current.style.transform = `rotateX(${-(y - 0.5) * 6}deg) rotateY(${(x - 0.5) * 6}deg)`;
+    }
+    if (glowRef.current) {
+      glowRef.current.style.background = `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(199,162,58,0.12) 0%, transparent 65%)`;
+      glowRef.current.style.opacity = "1";
+    }
+  }, []);
 
   const onPointerLeave = useCallback(() => {
-    rotX.set(0);
-    rotY.set(0);
-    glowOpacity.set(0);
-  }, [rotX, rotY, glowOpacity]);
+    if (innerRef.current) {
+      innerRef.current.style.transform = "rotateX(0deg) rotateY(0deg)";
+    }
+    if (glowRef.current) {
+      glowRef.current.style.opacity = "0";
+    }
+  }, []);
 
   if (reduced || isCoarse) {
     return <div className={className}>{children}</div>;
@@ -61,17 +61,19 @@ export default function LivingCard({ children, className }: LivingCardProps) {
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >
-      <motion.div
+      <div
+        ref={innerRef}
         className="relative h-full w-full"
-        style={{ rotateX: rotX, rotateY: rotY }}
+        style={{ transformStyle: "preserve-3d", transition: "transform 0.25s ease-out" }}
       >
-        <motion.div
+        <div
+          ref={glowRef}
           aria-hidden
           className="pointer-events-none absolute inset-0 z-10 rounded-2xl"
-          style={{ background: glowBg, opacity: glowOpacity }}
+          style={{ opacity: 0, transition: "opacity 0.25s ease-out" }}
         />
         {children}
-      </motion.div>
+      </div>
     </div>
   );
 }

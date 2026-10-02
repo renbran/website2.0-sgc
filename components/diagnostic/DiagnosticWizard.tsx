@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, RotateCcw, Printer } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
 import { trackEvent } from "@/lib/analytics";
@@ -150,6 +149,15 @@ export default function DiagnosticWizard() {
 
   return (
     <div className="mx-auto w-full max-w-3xl">
+      {/* Step transition was AnimatePresence + motion.section; now each keyed
+          step replays this CSS animation on mount. */}
+      <style>{`
+        @keyframes sgc-step-in {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: none; }
+        }
+        .sgc-step-in { animation: sgc-step-in 0.3s ease-out both; }
+      `}</style>
       {/* Progress header */}
       {step < TOTAL_STEPS && (
         <div className="mb-10">
@@ -163,26 +171,23 @@ export default function DiagnosticWizard() {
             </span>
           </div>
           <div className="mt-3 h-px w-full bg-[var(--border)]">
-            <motion.div
+            <div
               className="h-px origin-left bg-[var(--accent)]"
-              animate={{ scaleX: step / TOTAL_STEPS }}
-              initial={false}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{
+                transform: `scaleX(${step / TOTAL_STEPS})`,
+                transition: "transform 0.3s ease-out",
+              }}
             />
           </div>
         </div>
       )}
 
-      <AnimatePresence mode="wait">
         {/* ── Step 0 · Contact ─────────────────────────────── */}
         {step === 0 && (
-          <motion.section
+          <section
             key="contact"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
+            className="sgc-step-in"
+            >
             <h2 className="font-fraunces text-2xl font-semibold text-[var(--text-primary)] md:text-3xl">
               Who is this diagnostic for?
             </h2>
@@ -312,18 +317,15 @@ export default function DiagnosticWizard() {
                 continue.
               </p>
             )}
-          </motion.section>
+          </section>
         )}
 
         {/* ── Steps 1–4 · Question sections ────────────────── */}
         {currentSystem && (
-          <motion.section
+          <section
             key={currentSystem.id}
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
+            className="sgc-step-in"
+            >
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
               {currentSystem.short}
             </p>
@@ -382,17 +384,15 @@ export default function DiagnosticWizard() {
                 Please answer all three questions before continuing.
               </p>
             )}
-          </motion.section>
+          </section>
         )}
 
         {/* ── Step 5 · Results ─────────────────────────────── */}
         {results && (
-          <motion.section
+          <section
             key="results"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
+            className="sgc-step-in"
+            >
             <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-[var(--accent)]">
               Your operational health report
             </p>
@@ -430,12 +430,13 @@ export default function DiagnosticWizard() {
                     </span>
                   </div>
                   <div className="mt-2 h-1.5 w-full rounded-full bg-[var(--surface-high)]">
-                    <motion.div
+                    <div
                       className="h-1.5 rounded-full"
-                      style={{ backgroundColor: BAND_COLORS[sys.band] }}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${sys.pct}%` }}
-                      transition={{ duration: 0.7, ease: "easeOut" }}
+                      style={{
+                        backgroundColor: BAND_COLORS[sys.band],
+                        width: `${sys.pct}%`,
+                        transition: "width 0.7s ease-out",
+                      }}
                     />
                   </div>
                 </div>
@@ -512,9 +513,8 @@ export default function DiagnosticWizard() {
                 walkthrough directly.
               </p>
             )}
-          </motion.section>
+          </section>
         )}
-      </AnimatePresence>
 
       {/* Back / Next */}
       {step < TOTAL_STEPS && (
