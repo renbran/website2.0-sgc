@@ -31,27 +31,6 @@ export default function DiamondScrollHero() {
 
   useHelixScrub(scrollProgressRef);
 
-  // Publish the helix scroll progress (0..1) on every animation frame so the
-  // HelixToShieldTransition marker (and any future listener) can react to
-  // the helix's exit point and seam itself to the Shield entrance without
-  // any shared state. Cost: one window.dispatchEvent per rAF tick.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    let raf = 0;
-    const tick = () => {
-      window.dispatchEvent(
-        new CustomEvent<number>("sgc:helix-progress", {
-          detail: scrollProgressRef.current,
-        }),
-      );
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [scrollProgressRef]);
-
 
   const [reducedMotion, setReducedMotion] = useState(() => {
     if (typeof window === "undefined") return false;
@@ -123,6 +102,13 @@ export default function DiamondScrollHero() {
         pinSpacing: false,
         onUpdate: (self) => {
           scrollProgressRef.current = self.progress;
+          // Publish progress so HelixToShieldTransition can seam the helix
+          // exit to the Shield entrance, and so the canvas (frameloop="demand")
+          // knows to render. Dispatched on scroll updates only — this used to
+          // be a permanent 60 fps rAF loop.
+          window.dispatchEvent(
+            new CustomEvent<number>("sgc:helix-progress", { detail: self.progress }),
+          );
           // Fade scroll hint on first scroll
           const hintOpacity = String(Math.max(0, 1 - self.progress * 40));
           if (scrollHintRef.current) {
