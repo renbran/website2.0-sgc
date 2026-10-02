@@ -10,6 +10,7 @@ import FinaleStats from "./FinaleStats";
 import ReducedMotionFinaleFallback from "./ReducedMotionFinaleFallback";
 import CtaButton from "@/components/ui/CtaButton";
 import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
+import { usePrefetchOnInteraction } from "@/hooks/usePrefetchOnInteraction";
 import {
   activeCaptionIndex,
   STATS_AT,
@@ -21,6 +22,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FinaleCanvas = dynamic(() => import("./FinaleCanvas"), { ssr: false });
 
+// Stable module-scope loader for the interaction prefetch.
+const prefetchFinaleCanvas = () => import("./FinaleCanvas");
+
 // Act 3 — "Convergence": a 400vh pinned recap of the whole site story.
 // Chaos shards → mini helix (Act 1 echo) → hex shield (Act 2 echo) →
 // SGC mark + outcomes, releasing into the SectionEight letter + CTA.
@@ -29,9 +33,10 @@ export default function FinaleConvergenceSection() {
   const scrollProgressRef = useRef(0);
 
   // Same discipline as the Shield act: mount the WebGL scene only as the
-  // user approaches (1.5k px lead), with no idle prefetch — the chunk is
-  // fetched at that moment, so nothing competes with the initial page load.
+  // user approaches (1.5k px lead), with the chunk prefetched on first
+  // interaction rather than at load.
   const canvasNear = useNearViewportFlag(containerRef);
+  usePrefetchOnInteraction(prefetchFinaleCanvas);
 
   const [frameloop, setFrameloop] = useState<"always" | "never">("never");
   const [warming, setWarming] = useState(false);
