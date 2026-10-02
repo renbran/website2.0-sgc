@@ -9,6 +9,8 @@ import FinaleCaption from "./FinaleCaption";
 import FinaleStats from "./FinaleStats";
 import ReducedMotionFinaleFallback from "./ReducedMotionFinaleFallback";
 import CtaButton from "@/components/ui/CtaButton";
+import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
+import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import {
   activeCaptionIndex,
   STATS_AT,
@@ -20,12 +22,23 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FinaleCanvas = dynamic(() => import("./FinaleCanvas"), { ssr: false });
 
+// Stable module-scope loader for the idle prefetch (see useIdlePrefetch).
+const prefetchFinaleCanvas = () => import("./FinaleCanvas");
+
 // Act 3 — "Convergence": a 400vh pinned recap of the whole site story.
 // Chaos shards → mini helix (Act 1 echo) → hex shield (Act 2 echo) →
 // SGC mark + outcomes, releasing into the SectionEight letter + CTA.
 export default function FinaleConvergenceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollProgressRef = useRef(0);
+
+  // Same discipline as the Shield act: mount the WebGL scene only as the
+  // user approaches (1.5k px lead) with an idle chunk prefetch; the warm-up
+  // + heartbeat effect below then runs during the approach instead of during
+  // the initial page load.
+  const canvasNear = useNearViewportFlag(containerRef);
+  useIdlePrefetch(prefetchFinaleCanvas);
+
   const [frameloop, setFrameloop] = useState<"always" | "never">("never");
   const [warming, setWarming] = useState(false);
   const ioActivatedRef = useRef(false);
@@ -45,7 +58,9 @@ export default function FinaleConvergenceSection() {
   // activates the canvas (same discipline as ShieldSection — a third canvas
   // must never cold-start mid-scroll). Ticks 4-6 run at p=0.7 to compile the
   // hex/frame/mark material paths that are unreachable at p=0.
+  // Starts when the canvas actually mounts (proximity latch), not at load.
   useEffect(() => {
+    if (!canvasNear) return;
     let cancelled = false;
     setWarming(true);
     let depth = 0;
@@ -73,7 +88,7 @@ export default function FinaleConvergenceSection() {
     };
     requestAnimationFrame(step);
     return () => { cancelled = true; };
-  }, []);
+  }, [canvasNear]);
 
   useEffect(() => {
     const onResize = () => setViewportWidth(window.innerWidth);
@@ -181,13 +196,15 @@ export default function FinaleConvergenceSection() {
           willChange: !entranceVisible ? "opacity, transform" : undefined,
         }}
       >
-        <FinaleCanvas
-          scrollProgressRef={scrollProgressRef}
-          reducedMotion={reducedMotion}
-          frameloop={warming ? "always" : frameloop}
-          viewportWidth={viewportWidth}
-          shardCount={shardCount}
-        />
+        {canvasNear && (
+          <FinaleCanvas
+            scrollProgressRef={scrollProgressRef}
+            reducedMotion={reducedMotion}
+            frameloop={warming ? "always" : frameloop}
+            viewportWidth={viewportWidth}
+            shardCount={shardCount}
+          />
+        )}
 
         {/* Edge vignette — matches the hero/shield acts */}
         <div

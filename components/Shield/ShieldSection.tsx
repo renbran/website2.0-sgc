@@ -9,15 +9,28 @@ import FinaleTitle from "./FinaleTitle";
 import StageProgress from "./StageProgress";
 import ShieldIntroCategories from "./ShieldIntroCategories";
 import { getLenis } from "@/lib/lenis";
+import { useNearViewportFlag } from "@/hooks/useNearViewportFlag";
+import { useIdlePrefetch } from "@/hooks/useIdlePrefetch";
 import { FINALE_AT } from "./shieldConstants";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ShieldCanvas = dynamic(() => import("./ShieldCanvas"), { ssr: false });
 
+// Stable module-scope loader for the idle prefetch (see useIdlePrefetch).
+const prefetchShieldCanvas = () => import("./ShieldCanvas");
+
 export default function ShieldSection() {
   const containerRef  = useRef<HTMLDivElement>(null);
   const scrollProgressRef = useRef(0);
+
+  // Mount the WebGL scene only as the user approaches (1.5k px lead), and
+  // warm its chunk during idle so the mount is instant. The canvas's own
+  // warm-up + heartbeat (below) then run during the approach — same
+  // "never cold-start mid-scroll" guarantee, without paying the chunk,
+  // context and warm-up frames during the initial page load.
+  const canvasNear = useNearViewportFlag(containerRef);
+  useIdlePrefetch(prefetchShieldCanvas);
   const [frameloop, setFrameloop] = useState<"always" | "never">("never");
   const [warming, setWarming] = useState(false);
   // Signals the post-warm-up heartbeat to stop once the IO activates the canvas.
@@ -31,7 +44,8 @@ export default function ShieldSection() {
   const reducedMotionRef = useRef(reducedMotion);
   useEffect(() => { reducedMotionRef.current = reducedMotion; }, [reducedMotion]);
 
-  // GPU warm-up: 6 rAF ticks at mount, then a 1fps heartbeat until IO fires.
+  // GPU warm-up: runs when the canvas actually mounts (proximity latch), not
+  // at page load. 6 rAF ticks, then a 1fps heartbeat until IO fires.
   // Ticks 1-3 (p=0): flush geometry/material uploads, compile shaders.
   // Ticks 4-6 (p=0.3): exercise the opacity>0 tile paths, TrackingCallout
   //   card branch, and Math.sin() pulse that are unreachable at p=0 — ensures
@@ -39,6 +53,7 @@ export default function ShieldSection() {
   // Heartbeat (after warm-up): two frames every 1200ms keeps the GPU context
   //   alive during the ~30s helix scroll without competing at 60fps.
   useEffect(() => {
+    if (!canvasNear) return;
     let cancelled = false;
     setWarming(true);
     let depth = 0;
@@ -67,7 +82,7 @@ export default function ShieldSection() {
     };
     requestAnimationFrame(step);
     return () => { cancelled = true; };
-  }, []);
+  }, [canvasNear]);
 
   const [entranceVisible, setEntranceVisible] = useState(false);
   const entranceFiredRef = useRef(false);
@@ -294,15 +309,17 @@ export default function ShieldSection() {
             ...mobileNudge,
           }}
         >
-          <ShieldCanvas
-            scrollProgressRef={scrollProgressRef}
-            reducedMotion={reducedMotion}
-            frameloop={warming ? "always" : frameloop}
-            viewportWidth={viewportWidth}
-            isFinale={isFinale}
-            onFinaleEnd={onFinaleEnd}
-            onFinaleTitleStart={onFinaleTitleStart}
-          />
+          {canvasNear && (
+            <ShieldCanvas
+              scrollProgressRef={scrollProgressRef}
+              reducedMotion={reducedMotion}
+              frameloop={warming ? "always" : frameloop}
+              viewportWidth={viewportWidth}
+              isFinale={isFinale}
+              onFinaleEnd={onFinaleEnd}
+              onFinaleTitleStart={onFinaleTitleStart}
+            />
+          )}
         </div>
 
         {/* Vignette overlay */}
