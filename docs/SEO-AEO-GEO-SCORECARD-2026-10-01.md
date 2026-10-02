@@ -26,7 +26,18 @@
 
 Behavioural probes after the change: canvas mounts and renders (screenshot verified), scroll to 3,100 px works, exactly one `<h1>`, **0 page errors**. Chunk start times are load-independent evidence; TBT/LCP deltas cannot be honestly measured on this 100%-CPU machine — re-run on an idle machine or PSI-with-key for absolute numbers.
 
-**Next structural candidate (not done):** the below-fold Shield/Finale canvases still fetch their own three chunks ~4–5 s after load (observed in probe) — moving them behind an idle/intersection warm-up would trim further, at higher regression risk to the scroll choreography.
+**Below-fold acts deferred (`c37327d`):** the Shield and Finale canvases no longer mount at page load. New `useNearViewportFlag` (1,500 px one-way latch) + `useIdlePrefetch` (idle-time scene-chunk download) hooks; the scenes themselves are untouched. Their in-component warm-up + heartbeat effects now start when the canvas actually mounts, so the original "never cold-start mid-scroll" guarantee is preserved — the warm-up runs during the approach instead of at page load.
+
+Live acceptance (production, after deploy):
+
+| Check | Result |
+|---|---|
+| Canvases at first load | **4 → 2** (hero + diagnosis scrub only; `#platform`/`#finale` = 0) |
+| Shield canvas | mounts at ~1,500 px before the section (3 total), renders correctly |
+| Finale canvas | mounts at ~1,500 px before the section (4 total), renders correctly |
+| Errors | 0 page errors at every scroll position |
+
+Remaining known cost: the idle prefetch still downloads the two small scene chunks in the background (~2–3 s, non-blocking) so approach-mounts are instantaneous — intentional trade for smoothness.
 
 ---
 
