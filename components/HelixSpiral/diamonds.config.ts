@@ -10,9 +10,10 @@ export const DIAMONDS: DiamondData[] = [
   //
   // Note: these WebGL diamond textures load via useTexture() and bypass
   // next/image entirely, so they must be pre-optimized on disk — .webp at
-  // 1024x1024 (matching the source PNG dimensions the <planeGeometry>
-  // expects) cuts each texture from ~1MB to ~100-125KB with no visible
-  // quality loss on the rendered text/graphics.
+  // 768x768 cuts each texture from ~100-125KB to ~50-65KB with no visible
+  // quality loss on the rendered text/graphics. 768 is retina-safe under the
+  // Canvas dpr cap of 1.75 (the largest active diamond renders ~400 CSS px,
+  // so 768px covers 400 x 1.75 ≈ 700 device px).
   {
     image: "/images/diamonds/sgc-logo-beacon-tex.webp",
     headline: "The Odoo Firm Your CFO Would Have Founded.",

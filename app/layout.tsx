@@ -97,9 +97,14 @@ export default function RootLayout({
         {gtmId && (
           // Raw <script> high in <head> (not next/script) so the snippet is in
           // the server HTML, which GTM's install check and Tag Assistant read.
+          // The snippet itself is cheap — a dataLayer stub plus gtm.start. It
+          // only injects gtm.js once the page is idle after load (or on the
+          // first user interaction), so the ~300KB of GTM + GA4 scripts stay
+          // off the critical path. Early trackEvent() calls queue in dataLayer
+          // and flush when gtm.js loads — no events are lost.
           <script
             dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`,
+              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var done=false;function go(){if(done)return;done=true;var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}['scroll','click','keydown','touchstart','pointerdown'].forEach(function(ev){w.addEventListener(ev,go,{once:true,passive:true});});function idle(){if(w.requestIdleCallback){w.requestIdleCallback(go,{timeout:2500});}else{setTimeout(go,1800);}}if(d.readyState==='complete'){idle();}else{w.addEventListener('load',idle,{once:true});}})(window,document,'script','dataLayer','${gtmId}');`,
             }}
           />
         )}
