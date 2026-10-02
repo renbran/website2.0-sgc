@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useEffect, useId, useState, type CSSProperties } from "react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /**
  * PremiumToggle — A high-end animated toggle switch with:
- * - Spring-physics thumb slide with overshoot
+ * - Thumb slide with overshoot
  * - Gradient track transition (navy ↔ gold)
  * - Icon morphing with rotation + scale crossfade
  * - Gold glow pulse on toggle
  * - Ripple ring effect on interaction
  * - Particle burst on state change
  *
- * Follows SGC design system: gold accent, navy/cream states, living hover language.
+ * All motion is CSS (transition + keyframes) rather than the `motion` library,
+ * so this control no longer pulls the animation library into the bundle.
  */
 
 interface PremiumToggleProps {
@@ -69,8 +70,10 @@ export default function PremiumToggle({
     }
   };
 
+  const interactive = !reduced && !disabled;
+
   return (
-    <motion.button
+    <button
       id={id}
       type="button"
       role="switch"
@@ -79,86 +82,47 @@ export default function PremiumToggle({
       onClick={handleClick}
       disabled={disabled}
       className={`group relative inline-flex items-center rounded-full border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] ${
-        disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-      } ${className}`}
+        interactive
+          ? "hover:scale-[1.02] hover:shadow-[0_0_16px_2px_rgba(199,162,58,0.3)] active:scale-[0.97]"
+          : "transition-transform"
+      } ${disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"} ${className}`}
       style={{
         width: config.width,
         height: config.height,
-        borderColor: checked
-          ? "rgba(199,162,58,0.4)"
-          : "rgba(138,106,30,0.25)",
+        borderColor: checked ? "rgba(199,162,58,0.4)" : "rgba(138,106,30,0.25)",
         backgroundColor: checked ? "rgba(199,162,58,0.15)" : "rgba(14,18,27,0.6)",
       }}
-      whileHover={
-        reduced || disabled
-          ? undefined
-          : {
-              scale: 1.02,
-              boxShadow: "0 0 16px 2px rgba(199,162,58,0.3)",
-            }
-      }
-      whileTap={
-        reduced || disabled
-          ? undefined
-          : { scale: 0.97 }
-      }
-      transition={{ duration: 0.2, ease: "easeOut" }}
     >
       {/* Animated track background */}
-      <motion.span
+      <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-full"
-        animate={{
+        className="pointer-events-none absolute inset-0 rounded-full transition-[background] duration-[400ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+        style={{
           background: checked
             ? "linear-gradient(135deg, rgba(199,162,58,0.25) 0%, rgba(199,162,58,0.08) 100%)"
             : "linear-gradient(135deg, rgba(14,18,27,0.8) 0%, rgba(14,18,27,0.4) 100%)",
         }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       />
 
       {/* Gold glow pulse on check */}
-      <AnimatePresence>
-        {checked && !reduced && (
-          <motion.span
-            key="glow"
-            aria-hidden
-            className="pointer-events-none absolute inset-0 rounded-full"
-            initial={{ boxShadow: "0 0 0 0 rgba(199,162,58,0)" }}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(199,162,58,0.4)",
-                "0 0 20px 4px rgba(199,162,58,0.25)",
-                "0 0 12px 2px rgba(199,162,58,0.15)",
-              ],
-            }}
-            exit={{ boxShadow: "0 0 0 0 rgba(199,162,58,0)" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          />
-        )}
-      </AnimatePresence>
+      {checked && !reduced && (
+        <span aria-hidden className="sgc-toggle-glow pointer-events-none absolute inset-0 rounded-full" />
+      )}
 
       {/* Ripple ring on click */}
-      {showRipple && (
-        <AnimatePresence>
-          {!reduced && (
-            <motion.span
-              key={`ripple-${checked ? "on" : "off"}`}
-              aria-hidden
-              className="pointer-events-none absolute rounded-full border-2 border-[var(--accent)]"
-              style={{
-                left: checked ? thumbTravel + 2 : 2,
-                top: "50%",
-                width: config.thumb,
-                height: config.thumb,
-                translateY: "-50%",
-              }}
-              initial={{ scale: 0.8, opacity: 0.8 }}
-              animate={{ scale: 1.8, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-            />
-          )}
-        </AnimatePresence>
+      {showRipple && !reduced && (
+        <span
+          key={`ripple-${checked ? "on" : "off"}`}
+          aria-hidden
+          className="sgc-toggle-ripple pointer-events-none absolute rounded-full border-2 border-[var(--accent)]"
+          style={{
+            left: checked ? thumbTravel + 2 : 2,
+            top: "50%",
+            width: config.thumb,
+            height: config.thumb,
+            marginTop: -config.thumb / 2,
+          }}
+        />
       )}
 
       {/* Particle burst — only renders client-side to prevent SSR hydration mismatch */}
@@ -173,56 +137,31 @@ export default function PremiumToggle({
       )}
 
       {/* Sliding thumb with icon */}
-      <motion.span
+      <span
         className="relative z-10 flex items-center justify-center rounded-full shadow-lg"
         style={{
           width: config.thumb,
           height: config.thumb,
           margin: 2,
-        }}
-        initial={false}
-        animate={{
-          x: checked ? thumbTravel : 0,
-          backgroundColor: checked
+          transform: `translateX(${checked ? thumbTravel : 0}px)`,
+          background: checked
             ? "linear-gradient(135deg, #C7A23A 0%, #9B7B2C 100%)"
             : "linear-gradient(135deg, #1A1F2E 0%, #0E121B 100%)",
           boxShadow: checked
             ? "0 2px 8px rgba(199,162,58,0.4), 0 0 0 1px rgba(199,162,58,0.3)"
             : "0 2px 6px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05)",
+          transition: reduced
+            ? undefined
+            : "transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease, box-shadow 0.3s ease",
         }}
-        transition={
-          reduced
-            ? { duration: 0 }
-            : {
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-                mass: 0.8,
-              }
-        }
-        whileHover={
-          reduced || disabled
-            ? undefined
-            : { scale: 1.08 }
-        }
-        whileTap={
-          reduced || disabled
-            ? undefined
-            : { scale: 0.92 }
-        }
       >
-        {/* Icon morphing */}
-        <AnimatePresence mode="wait" initial={false}>
-          {checked ? (
-            <motion.span
-              key="checked"
-              initial={reduced ? {} : { rotate: -90, opacity: 0, scale: 0.4 }}
-              animate={{ rotate: 0, opacity: 1, scale: 1 }}
-              exit={reduced ? {} : { rotate: 90, opacity: 0, scale: 0.4 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center justify-center"
-            >
-              {checkedIcon || (
+        {/* Icon morphing — keyed remount replays a CSS animation */}
+        <span
+          key={checked ? "checked" : "unchecked"}
+          className={`flex items-center justify-center ${reduced ? "" : "sgc-toggle-icon"}`}
+        >
+          {checked
+            ? checkedIcon || (
                 <svg
                   width={config.icon}
                   height={config.icon}
@@ -236,18 +175,8 @@ export default function PremiumToggle({
                 >
                   <path d="M20 6L9 17l-5-5" />
                 </svg>
-              )}
-            </motion.span>
-          ) : (
-            <motion.span
-              key="unchecked"
-              initial={reduced ? {} : { rotate: 90, opacity: 0, scale: 0.4 }}
-              animate={{ rotate: 0, opacity: 1, scale: 1 }}
-              exit={reduced ? {} : { rotate: -90, opacity: 0, scale: 0.4 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center justify-center"
-            >
-              {uncheckedIcon || (
+              )
+            : uncheckedIcon || (
                 <svg
                   width={config.icon}
                   height={config.icon}
@@ -262,11 +191,37 @@ export default function PremiumToggle({
                   <circle cx="12" cy="12" r="3" />
                 </svg>
               )}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.span>
-    </motion.button>
+        </span>
+      </span>
+
+      <style>{`
+        @keyframes sgc-toggle-glow {
+          0%   { box-shadow: 0 0 0 0 rgba(199,162,58,0.4); }
+          50%  { box-shadow: 0 0 20px 4px rgba(199,162,58,0.25); }
+          100% { box-shadow: 0 0 12px 2px rgba(199,162,58,0.15); }
+        }
+        .sgc-toggle-glow { animation: sgc-toggle-glow 0.6s ease-out both; }
+
+        @keyframes sgc-toggle-ripple {
+          from { transform: scale(0.8); opacity: 0.8; }
+          to   { transform: scale(1.8); opacity: 0; }
+        }
+        .sgc-toggle-ripple { animation: sgc-toggle-ripple 0.5s ease-out both; }
+
+        @keyframes sgc-toggle-icon {
+          from { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+          to   { opacity: 1; transform: none; }
+        }
+        .sgc-toggle-icon { animation: sgc-toggle-icon 0.25s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+        @keyframes sgc-toggle-particle {
+          0%   { transform: translate(0, 0) scale(0); opacity: 1; }
+          60%  { opacity: 0.8; }
+          100% { transform: translate(var(--sgc-dx), var(--sgc-dy)) scale(0); opacity: 0; }
+        }
+        .sgc-toggle-particle { animation: sgc-toggle-particle 0.5s ease-out both; }
+      `}</style>
+    </button>
   );
 }
 
@@ -298,28 +253,21 @@ function ParticleBurst({
   return (
     <span aria-hidden className="pointer-events-none absolute inset-0">
       {particles.map((p) => (
-        <motion.span
+        <span
           key={p.id}
-          className="absolute rounded-full bg-[var(--accent)]"
-          style={{
-            width: p.size,
-            height: p.size,
-            left: checked ? thumbTravel + config.thumb / 2 : config.thumb / 2 + 2,
-            top: "50%",
-            translateY: "-50%",
-          }}
-          initial={{ scale: 0, opacity: 1, x: 0, y: 0 }}
-          animate={{
-            scale: [0, 1, 0],
-            opacity: [1, 0.8, 0],
-            x: Math.cos((p.angle * Math.PI) / 180) * p.distance,
-            y: Math.sin((p.angle * Math.PI) / 180) * p.distance,
-          }}
-          transition={{
-            duration: 0.5,
-            delay: p.delay,
-            ease: "easeOut",
-          }}
+          className="sgc-toggle-particle absolute rounded-full bg-[var(--accent)]"
+          style={
+            {
+              width: p.size,
+              height: p.size,
+              left: checked ? thumbTravel + config.thumb / 2 : config.thumb / 2 + 2,
+              top: "50%",
+              marginTop: -p.size / 2,
+              animationDelay: `${p.delay}s`,
+              "--sgc-dx": `${Math.cos((p.angle * Math.PI) / 180) * p.distance}px`,
+              "--sgc-dy": `${Math.sin((p.angle * Math.PI) / 180) * p.distance}px`,
+            } as CSSProperties
+          }
         />
       ))}
     </span>

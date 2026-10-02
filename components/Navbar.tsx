@@ -2,7 +2,7 @@
 
 import { ArrowRight, LogIn, Menu, X } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -145,83 +145,84 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Gold hairline — draws in left-to-right when user scrolls past threshold */}
-        <motion.div
+        {/* Gold hairline — draws in left-to-right when the user scrolls past the
+            threshold. CSS transform transition rather than a `motion.div`. */}
+        <div
           aria-hidden
           className="absolute bottom-0 left-0 right-0 h-px origin-left bg-[var(--accent)]"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isScrolled && !reduced ? 1 : 0 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
+          style={{
+            transform: `scaleX(${isScrolled && !reduced ? 1 : 0})`,
+            transition: "transform 0.35s ease-out",
+          }}
         />
       </nav>
 
-      {/* Mobile drawer overlay — only below md */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            id="mobile-nav-drawer"
-            key="mobile-nav-drawer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed inset-0 z-40 bg-[color-mix(in_srgb,var(--bg)_96%,transparent)] backdrop-blur-xl md:hidden"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Site navigation"
-          >
+      {/* Mobile drawer overlay — only below md. CSS fade-in; the old
+          AnimatePresence exit is dropped, so the drawer now closes instantly. */}
+      {isMobileMenuOpen && (
+        <div
+          id="mobile-nav-drawer"
+          className="sgc-drawer-in fixed inset-0 z-40 bg-[color-mix(in_srgb,var(--bg)_96%,transparent)] backdrop-blur-xl md:hidden"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+        >
             <div className="flex h-full flex-col items-center justify-center gap-5 px-6 pt-20 pb-12 overflow-y-auto">
               {MENU.map((leaf, i) => (
-                <motion.a
+                <a
                   key={leaf.href}
                   href={leaf.href}
                   onClick={closeMobile}
                   aria-current={isActive(leaf.href) ? "page" : undefined}
-                  initial={{ opacity: 0, y: 14 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.35, delay: 0.05 + i * 0.05, ease: "easeOut" }}
-                  className="text-[clamp(1.75rem,8vw,2.5rem)] font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                  style={{ animationDelay: `${0.05 + i * 0.05}s` }}
+                  className={`text-[clamp(1.75rem,8vw,2.5rem)] font-bold uppercase tracking-[0.14em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${reduced ? "" : "sgc-drawer-item"}`}
                 >
                   {leaf.label}
-                </motion.a>
+                </a>
               ))}
-              <motion.a
+              <a
                 href="/contact"
                 onClick={closeMobile}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.05 + MENU.length * 0.05, ease: "easeOut" }}
-                className="mt-6 inline-flex items-center justify-center rounded-full bg-gold-gradient px-6 py-3 text-[14px] font-bold text-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                style={{ animationDelay: `${0.05 + MENU.length * 0.05}s` }}
+                className={`mt-6 inline-flex items-center justify-center rounded-full bg-gold-gradient px-6 py-3 text-[14px] font-bold text-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${reduced ? "" : "sgc-drawer-item"}`}
               >
                 Book Discovery Call →
-              </motion.a>
-              <motion.a
+              </a>
+              <a
                 href={APP_PORTAL_URL}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 aria-label="Open the SGC Tech AI workspace app"
                 data-phishing-ignore="true"
                 onClick={closeMobile}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.05 + (MENU.length + 1) * 0.05, ease: "easeOut" }}
-                className="inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                style={{ animationDelay: `${0.05 + (MENU.length + 1) * 0.05}s` }}
+                className={`inline-flex items-center gap-2 text-[14px] font-bold uppercase tracking-[0.18em] text-[var(--text-secondary)] transition hover:text-[var(--accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] ${reduced ? "" : "sgc-drawer-item"}`}
               >
                 <AnimatedIcon><LogIn size={16} aria-hidden /></AnimatedIcon>
                 App Portal
-              </motion.a>
-              <motion.div
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.05 + (MENU.length + 2) * 0.05, ease: "easeOut" }}
-                className="mt-2"
+              </a>
+              <div
+                style={{ animationDelay: `${0.05 + (MENU.length + 2) * 0.05}s` }}
+                className={`mt-2 ${reduced ? "" : "sgc-drawer-item"}`}
               >
                 <ThemeToggle />
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes sgc-drawer-in { from { opacity: 0; } to { opacity: 1; } }
+        .sgc-drawer-in { animation: sgc-drawer-in 0.2s ease-out both; }
+        @keyframes sgc-drawer-item {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: none; }
+        }
+        .sgc-drawer-item { animation: sgc-drawer-item 0.35s ease-out both; }
+        @media (prefers-reduced-motion: reduce) {
+          .sgc-drawer-in, .sgc-drawer-item { animation: none; }
+        }
+      `}</style>
     </>
   );
 }
