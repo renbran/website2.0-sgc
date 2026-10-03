@@ -80,34 +80,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // GA4 — wired only when NEXT_PUBLIC_GA_ID is set at build/deploy time so the
-  // site ships clean if the env var isn't configured yet. Single page-view
-  // event; configure events in GA4 directly rather than adding custom code.
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
-  // Google Tag Manager container. Override with NEXT_PUBLIC_GTM_ID ("off"
-  // disables). Validated before interpolation into the inline snippet. Put
-  // GA4 inside the container rather than also setting NEXT_PUBLIC_GA_ID, or
-  // page views are counted twice.
-  const gtmIdRaw = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-PHHFX6FL";
-  const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmIdRaw) ? gtmIdRaw : null;
-
+  // No third-party analytics. Google Tag Manager + GA4 were removed
+  // deliberately: they were the single largest third-party cost (~302 KB —
+  // gtm.js 126 KB + gtag/js 177 KB) and the site owner chose permanent
+  // performance and privacy (zero third-party tracking) over traffic
+  // reporting. Re-adding analytics means restoring the snippet here, the
+  // googletagmanager/google-analytics origins in next.config.ts's CSP, and the
+  // conversion points that used to call lib/analytics.ts.
   return (
     <html lang="en-AE" id="top" suppressHydrationWarning>
       <head>
-        {gtmId && (
-          // Raw <script> high in <head> (not next/script) so the snippet is in
-          // the server HTML, which GTM's install check and Tag Assistant read.
-          // The snippet itself is cheap — a dataLayer stub plus gtm.start. It
-          // only injects gtm.js once the page is idle after load (or on the
-          // first user interaction), so the ~300KB of GTM + GA4 scripts stay
-          // off the critical path. Early trackEvent() calls queue in dataLayer
-          // and flush when gtm.js loads — no events are lost.
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var done=false;function go(){if(done)return;done=true;var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}['scroll','click','keydown','touchstart','pointerdown'].forEach(function(ev){w.addEventListener(ev,go,{once:true,passive:true});});function idle(){if(w.requestIdleCallback){w.requestIdleCallback(go,{timeout:2500});}else{setTimeout(go,1800);}}if(d.readyState==='complete'){idle();}else{w.addEventListener('load',idle,{once:true});}})(window,document,'script','dataLayer','${gtmId}');`,
-            }}
-          />
-        )}
         {/* Site-wide entity graph — Organization (legal entity, DIEZ
             registered address, trade license) + LocalBusiness/ProfessionalService
             (operating office, Al Rigga address, hours, parentOrganization →
@@ -126,26 +108,10 @@ export default function RootLayout({
         </Script>
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-        {(gaId || gtmId) && (
-          <>
-            <link rel="preconnect" href="https://www.googletagmanager.com" />
-            <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-          </>
-        )}
       </head>
       <body
         className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {gtmId && (
-          <noscript>
-            <iframe
-              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
-              height="0"
-              width="0"
-              style={{ display: "none", visibility: "hidden" }}
-            />
-          </noscript>
-        )}
         {/* Skip-to-content: a11y win for keyboard/screen-reader users past the
             fixed nav. Sits as the first focusable element in <body>. */}
         <a
@@ -154,21 +120,6 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4-init" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${gaId}', { send_page_view: true });`}
-            </Script>
-          </>
-        )}
 
         {/* No-JS fallback: hero bails to client-side rendering, so without JS
             the visitor would see only the splash. Show the brand and the

@@ -59,7 +59,7 @@ optional — the site ships fully functional with none set.
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_GA_ID` | Google Analytics 4 measurement ID (`G-XXXXXXXXXX`). When unset, no analytics code is injected. |
+| *(none)* | There are no analytics variables. Google Tag Manager + GA4 were removed deliberately (~302 KB of third-party script); the site ships with zero third-party tracking. |
 
 ## Project structure
 
