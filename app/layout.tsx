@@ -8,6 +8,7 @@ import TidalCursor from "@/components/ui/tidal-cursor";
 import ThemeProvider from "@/components/ThemeProvider";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { JsonLd } from "@/components/JsonLd";
+import { GTM_ENABLED, GTM_ID } from "@/lib/analytics";
 import { organizationSchema, localBusinessSchema, websiteSchema, graph } from "@/lib/schema";
 import "./globals.css";
 
@@ -80,13 +81,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // No third-party analytics. Google Tag Manager + GA4 were removed
-  // deliberately: they were the single largest third-party cost (~302 KB —
-  // gtm.js 126 KB + gtag/js 177 KB) and the site owner chose permanent
-  // performance and privacy (zero third-party tracking) over traffic
-  // reporting. Re-adding analytics means restoring the snippet here, the
-  // googletagmanager/google-analytics origins in next.config.ts's CSP, and the
-  // conversion points that used to call lib/analytics.ts.
+  // Google Tag Manager, env-driven via NEXT_PUBLIC_GTM_ID. GA4 lives inside
+  // the container as a Configuration tag, so the browser downloads exactly one
+  // analytics script (gtm.js) — this file never loads gtag.js directly, which
+  // is what keeps pageviews from double-counting. Unset or "off" = analytics
+  // disabled, which is the shipping default: a clone without the env var
+  // renders with no third-party script at all.
+  const gtmSnippet = GTM_ENABLED
+    ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`
+    : null;
   return (
     <html lang="en-AE" id="top" suppressHydrationWarning>
       <head>
@@ -106,12 +109,32 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>
+        {gtmSnippet ? (
+          <Script
+            id="gtm-init"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{ __html: gtmSnippet }}
+          />
+        ) : null}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <link rel="dns-prefetch" href="https://res.cloudinary.com" />
       </head>
       <body
         className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        {/* GTM <noscript> fallback: covers the no-JS case. frame-src in the
+            CSP must allow www.googletagmanager.com for this to load. */}
+        {GTM_ENABLED ? (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        ) : null}
         {/* Skip-to-content: a11y win for keyboard/screen-reader users past the
             fixed nav. Sits as the first focusable element in <body>. */}
         <a

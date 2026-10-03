@@ -25,9 +25,12 @@ In **Project Settings → Environment Variables** on Vercel for the
 
 | Name | Value | Scope |
 |------|-------|-------|
-| *(none)* | No analytics variables — GTM + GA4 were removed from the site. Clear `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_GTM_ID` from Vercel if they are still set; the code no longer reads them. |
+| `NEXT_PUBLIC_GTM_ID` | `GTM-XXXXXXX` (your container ID) | Production, Preview, Development |
 
-No redeploy is needed for analytics: the site intentionally ships without it.
+`NEXT_PUBLIC_*` values are inlined at build time, so **an env change does not
+take effect until the next deployment** — save it, then redeploy. GA4 is a
+Configuration tag inside the container; nothing GA4-specific is set here.
+Setting this to `off`, or removing it, ships the site with no analytics at all.
 
 ### 2b. Verify the 404s are fixed on the prod alias
 
@@ -102,7 +105,9 @@ After all checks above pass:
 - [ ] Hero scroll through the helix into the shield renders without console errors
 - [ ] Custom gold cursor visible on desktop; native cursor on touch
 - [ ] Loading splash visible on every page refresh (not just first paint)
-- [ ] No third-party analytics requests (`googletagmanager.com` / `google-analytics.com`) in the network tab
+- [ ] With `NEXT_PUBLIC_GTM_ID` set: exactly one analytics script (`gtm.js`) loads — not `gtag/js` as well
+- [ ] GA4 Realtime shows a `page_view` within 60 seconds of your visit
+- [ ] Exactly one `_ga` cookie family in storage (two means GA4 is double-loading)
 - [ ] LinkedIn / Twitter / WhatsApp link previews render the OG image with the title
 
 ## 6. Rollback
@@ -127,7 +132,7 @@ deployment history.
 | C4 — `/final logo.png` 0 bytes | Deployed artifact | See §3 |
 | C5 — missing `alt` on `<img>` | False positive in audit | Source has `alt="SGC Tech AI"` |
 | C6 — prod serving old site | DNS / Vercel alias | See §4 |
-| H1 — no analytics | **Resolved by removal** | GTM + GA4 removed deliberately (perf/privacy); no analytics is the intended state |
+| H1 — no analytics | **Resolved** | GA4 via GTM container; set `NEXT_PUBLIC_GTM_ID` per §2a |
 | H2 — no `<noscript>` fallback | **Fixed in `1ea1124`** | — |
 | H3 — direct `<img>` for sgc-logo | False positive in audit | Source uses `/_next/image` |
 | M1 — title 63 chars | **Fixed in `1ea1124`** | Now 49 chars |

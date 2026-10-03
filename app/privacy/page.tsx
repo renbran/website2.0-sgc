@@ -50,7 +50,7 @@ const dataWeCollect = [
   {
     label: "Aggregated analytics",
     detail:
-      "We do not use third-party analytics, advertising pixels, or session-replay tools. We count page views from our own server logs only.",
+      "We use Google Analytics 4, loaded through Google Tag Manager, to count visits and understand which pages and services are used. It reports aggregate statistics only — we never use it to identify you, and we do not run advertising pixels or session-replay tools.",
   },
 ];
 
@@ -288,12 +288,14 @@ export default function PrivacyPage() {
           <PrivacySection
             number="08"
             title="Cookies and similar technologies"
-            intro="sgctech.ai does not set marketing, advertising, or analytics cookies. We use a single first-party session marker (a 32-byte opaque value) to remember that you have already seen the loading splash, so we don&apos;t re-flash it on every navigation."
+            intro="sgctech.ai sets no marketing or advertising cookies. Google Analytics 4 sets first-party analytics cookies (_ga, _ga_*) so we can count visits and distinguish returning visitors; we run it in a configuration that does not use the data for advertising or share it with third parties. We also use a single first-party session marker (a 32-byte opaque value) to remember that you have already seen the loading splash, so we don&apos;t re-flash it on every navigation."
           >
             <p className="text-[0.92rem] leading-[1.7] text-[var(--sgc-text-muted)]">
-              You can clear it via your browser&apos;s site-data settings at
-              any time. Clearing it just means you&apos;ll see the splash
-              once on your next visit.
+              You can clear the session marker and the analytics cookies via
+              your browser&apos;s site-data settings at any time, or block them
+              with any content blocker — the site works identically without
+              them. Clearing the session marker just means you&apos;ll see the
+              splash once on your next visit.
             </p>
           </PrivacySection>
 

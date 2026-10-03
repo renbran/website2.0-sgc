@@ -2,11 +2,14 @@ import type { NextConfig } from "next";
 import bundleAnalyzer from "@next/bundle-analyzer";
 
 // Allows: self-hosted assets, inline styles/scripts Next.js injects for
-// hydration, the Vercel Analytics beacon, Cloudinary (already whitelisted in
-// images.remotePatterns), Cloudflare Turnstile and Stripe. Google Tag
-// Manager + GA4 were removed from the site, so no googletagmanager /
-// google-analytics / doubleclick origins remain — re-adding analytics means
-// adding them back here too.
+// hydration, Google Tag Manager (which serves both gtm.js and the gtag/js it
+// loads — both come from www.googletagmanager.com) plus the GA4 beacon
+// endpoints, the Vercel Analytics beacon, Cloudinary (whitelisted in
+// images.remotePatterns), Cloudflare Turnstile and Stripe.
+//
+// NOTE: any tag added to the GTM container BEYOND GA4 (Meta pixel, LinkedIn
+// Insight, Hotjar, …) is blocked until its origins are added here. GA4 needs
+// no further edit.
 // unsafe-eval is dev-only (Turbopack HMR / RSC dev client need it) — never shipped to prod.
 const isDev = process.env.NODE_ENV !== "production";
 // Stripe Elements on /subscribe (14-day trial card step): js.stripe.com serves
@@ -14,14 +17,19 @@ const isDev = process.env.NODE_ENV !== "production";
 // call to confirm the SetupIntent, m.stripe.network is Stripe's fraud signal beacon.
 const CSP = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://challenges.cloudflare.com https://js.stripe.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://va.vercel-scripts.com https://challenges.cloudflare.com https://js.stripe.com`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: blob: https://res.cloudinary.com",
+  // *.google-analytics.com / www.googletagmanager.com: GA4's image-pixel
+  // fallback for clients that block XHR beacons.
+  "img-src 'self' data: blob: https://res.cloudinary.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "connect-src 'self' https://vitals.vercel-insights.com https://va.vercel-scripts.com https://challenges.cloudflare.com https://api.stripe.com https://m.stripe.network",
+  // GA4 beacons go to analytics.google.com (bare host — *.analytics.google.com
+  // does not match it) and www.google-analytics.com.
+  "connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com https://challenges.cloudflare.com https://api.stripe.com https://m.stripe.network",
+  // www.googletagmanager.com: the GTM <noscript> iframe
   // challenges.cloudflare.com: Turnstile bot check on /subscribe
   // js.stripe.com: Payment Element frame (+ 3DS challenge), hooks.stripe.com: redirects
-  "frame-src https://challenges.cloudflare.com https://js.stripe.com https://hooks.stripe.com https://m.stripe.network",
+  "frame-src https://www.googletagmanager.com https://challenges.cloudflare.com https://js.stripe.com https://hooks.stripe.com https://m.stripe.network",
   "frame-ancestors 'self'",
   "base-uri 'self'",
   // 'self' only: the trial card step never redirects the browser to Stripe (card

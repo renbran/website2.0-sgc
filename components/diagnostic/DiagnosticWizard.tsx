@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, RotateCcw, Printer } from "lucide-react";
 import AnimatedIcon from "@/components/ui/AnimatedIcon";
+import { trackEvent } from "@/lib/analytics";
 import {
   BAND_COLORS,
   BAND_LABELS,
@@ -110,7 +111,12 @@ export default function DiagnosticWizard() {
       .then((data) => {
         if (!data.ok) {
           setLeadSubmitError(true);
+          return;
         }
+        trackEvent("generate_lead", {
+          form: "diagnostic",
+          overall_pct: results.overall.pct,
+        });
       })
       .catch(() => setLeadSubmitError(true));
   }, [results, contact]);

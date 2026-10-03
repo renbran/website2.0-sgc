@@ -59,7 +59,7 @@ optional — the site ships fully functional with none set.
 
 | Variable | Purpose |
 |---|---|
-| *(none)* | There are no analytics variables. Google Tag Manager + GA4 were removed deliberately (~302 KB of third-party script); the site ships with zero third-party tracking. |
+| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID (`GTM-XXXXXXX`). GA4 is configured inside the container. Leave empty (or `off`) to ship with no analytics at all — the default. |
 
 ## Project structure
 
