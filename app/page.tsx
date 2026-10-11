@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 
 // Section: Imports
 import Footer from "@/components/Footer";
-import DiamondScrollHero from "@/components/Hero/DiamondScrollHero";
+import HomeHero from "@/components/Hero/HomeHero";
 import Navbar from "@/components/Navbar";
 import HelixToShieldTransition from "@/components/transitions/HelixToShieldTransition";
 import CaseStudySection from "@/components/sections/CaseStudySection";
@@ -76,7 +76,7 @@ export default function HomePage() {
   return (
     <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)]">
       <Navbar />
-      <DiamondScrollHero />
+      <HomeHero />
       <DiagnosisScrubHero />
       <HelixToShieldTransition />
       <ProblemSection />

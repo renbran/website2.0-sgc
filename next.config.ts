@@ -17,6 +17,13 @@ const isDev = process.env.NODE_ENV !== "production";
 // call to confirm the SetupIntent, m.stripe.network is Stripe's fraud signal beacon.
 const CSP = [
   "default-src 'self'",
+  // media-src: the homepage hero is a background <video>. Without this the
+  // hero source is blocked by default-src 'self' and renders as a black
+  // rectangle in production. 'self' covers the self-hosted /videos/hero/*
+  // derivatives; ik.imagekit.io is allowlisted for the original CDN master
+  // (ImageKit `tr:` transforms return 403 on that account, so the shipped
+  // responsive derivatives are self-hosted — see components/Hero/VideoHero.tsx).
+  "media-src 'self' https://ik.imagekit.io",
   `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://va.vercel-scripts.com https://challenges.cloudflare.com https://js.stripe.com`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   // *.google-analytics.com / www.googletagmanager.com: GA4's image-pixel
