@@ -1,6 +1,6 @@
 {
   "name": "website-sgc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SGC Tech AI marketing site — practitioner-led Odoo and AI implementation for UAE mid-market",
   "main": "index.js",
   "engines": {
