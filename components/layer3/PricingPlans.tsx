@@ -94,26 +94,30 @@ export default function PricingPlans({ pricing }: { pricing: Pricing }) {
 
       <div className="mt-8">
         {canSignUp ? (
-          <Link
-            href={`/subscribe?cycle=${cycle.cycle}&users=${users}`}
-            className="inline-flex w-full items-center justify-center rounded-full bg-gold-gradient px-6 py-3.5 text-[0.9rem] font-bold text-[var(--bg)] transition duration-300 hover:shadow-[0_0_22px_rgba(199,162,58,0.35)]"
-          >
-            Start my subscription
-          </Link>
+          <>
+            {/* 2026-10-27: the free trial is the primary signup path — a brand-new client
+                must never be shown a charge on setup (see /subscribe default). The chosen
+                cycle/users of this calculator still drive the pay-upfront Order Form via
+                the explicit link below. */}
+            <Link
+              href="/subscribe?trial=1"
+              className="inline-flex w-full items-center justify-center rounded-full bg-gold-gradient px-6 py-3.5 text-[0.9rem] font-bold text-[var(--bg)] transition duration-300 hover:shadow-[0_0_22px_rgba(199,162,58,0.35)]"
+            >
+              Start 14-day free trial
+            </Link>
+            <Link
+              href={`/subscribe?cycle=${cycle.cycle}&users=${users}&trial=0`}
+              className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.5)] px-6 py-3 text-[0.85rem] font-semibold text-[var(--accent)] transition duration-300 hover:bg-[rgba(199,162,58,0.06)]"
+            >
+              Skip the trial — Order Form with {money(charge + tax, pricing.currency)} due today
+            </Link>
+          </>
         ) : (
           <Link
             href="/contact"
             className="inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.5)] px-6 py-3.5 text-[0.9rem] font-bold text-[var(--accent)]"
           >
             Talk to us to get started
-          </Link>
-        )}
-        {canSignUp && (
-          <Link
-            href="/subscribe?trial=1"
-            className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-[rgba(199,162,58,0.5)] px-6 py-3 text-[0.85rem] font-semibold text-[var(--accent)] transition duration-300 hover:bg-[rgba(199,162,58,0.06)]"
-          >
-            Start 14-day free trial (card required)
           </Link>
         )}
         {pricing.founding && (

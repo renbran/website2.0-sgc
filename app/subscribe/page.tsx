@@ -5,13 +5,13 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import SubscribeForm from "@/components/layer3/SubscribeForm";
 
 export const metadata: Metadata = {
-  title: "Start your subscription — SGC Tech AI",
-  description: "Register your company and choose your workspace address.",
+  title: "Start your 14-day free trial — SGC Tech AI",
+  description: "Register your company, choose your workspace address and start 14 days free — nothing is charged today.",
   alternates: { canonical: "/subscribe" },
   robots: { index: false, follow: true },
   openGraph: {
-    title: "Start your subscription — SGC Tech AI",
-    description: "Register your company and choose your workspace address.",
+    title: "Start your 14-day free trial — SGC Tech AI",
+    description: "Register your company, choose your workspace address and start 14 days free — nothing is charged today.",
     url: "/subscribe",
     type: "website",
   },
@@ -32,7 +32,11 @@ export default async function SubscribePage({
   const params = await searchParams;
   const cycle = CYCLES.has(params.cycle || "") ? (params.cycle as string) : "monthly";
   const users = Math.max(5, Math.min(100, Number.parseInt(params.users || "5", 10) || 5));
-  const trial = params.trial === "1" || params.trial === "true";
+  // 2026-10-27 (founder): a brand-new signup must get the 14-day free trial, never a
+  // charge on setup. /subscribe therefore defaults to the trial; the pay-upfront Order
+  // Form path stays reachable only through an explicit opt-out (?trial=0).
+  const optOut = params.trial === "0" || params.trial === "false";
+  const trial = !optOut;
   return (
     <>
       <Navbar />
