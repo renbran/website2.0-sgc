@@ -49,6 +49,9 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
 
   const paid = Boolean(status?.paid);
   const isTrial = status?.account_state === "trial";
+  // SSR/hydration gap: until the status API answers, render neutral copy.
+  // Trial users must never briefly see "sign and pay" instructions.
+  const unknown = status === null;
   const tenantUrl = status?.tenant_url || (saved?.slug ? `https://${saved.slug}.sgctech.ai` : null);
 
   return (
@@ -60,8 +63,7 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
           </p>
           {paid ? (
             <p className="mt-2 text-[var(--text-primary)]">Signed and paid. Thank you.</p>
-          ) : isTrial ? (
-            <>
+          ) : isTrial ? (            <>
               <p className="mt-2 text-[var(--text-secondary)]">
                 Your 14-day trial is active. Your Order Form{saved?.order ? ` ${saved.order}` : ""} is ready
                 {saved ? ` (${money(saved.total, saved.currency)} including VAT)` : ""}. Nothing is due today — the
@@ -78,6 +80,8 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
                 </a>
               )}
             </>
+          ) : unknown ? (
+            <p className="mt-2 text-[var(--text-muted)]">Fetching your order…</p>
           ) : (
             <>
               <p className="mt-2 text-[var(--text-secondary)]">
@@ -118,6 +122,10 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
                 "your chosen address"
               )}
               . Within a few minutes you will receive an email with a link to set your password.
+            </p>
+          ) : unknown ? (
+            <p className="mt-2 text-[var(--text-muted)]">
+              Your workspace is prepared automatically. This page updates on its own.
             </p>
           ) : (
             <p className="mt-2 text-[var(--text-muted)]">
