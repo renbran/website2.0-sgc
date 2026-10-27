@@ -31,7 +31,9 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
         if (res.ok) {
           const data: Status = await res.json();
           if (!stop) setStatus(data);
-          if (data.paid && data.account_state === "active") return; // done: stop polling
+          // "trial" is a stable state: the card is on file and nothing is due until day 14,
+          // so there is nothing left to watch for. "active" means the first payment landed.
+          if (data.account_state === "trial" || (data.paid && data.account_state === "active")) return;
         }
       } catch {
         // transient: try again
@@ -46,6 +48,7 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
   }, [requestId]);
 
   const paid = Boolean(status?.paid);
+  const isTrial = status?.account_state === "trial";
   const tenantUrl = status?.tenant_url || (saved?.slug ? `https://${saved.slug}.sgctech.ai` : null);
 
   return (
@@ -57,6 +60,24 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
           </p>
           {paid ? (
             <p className="mt-2 text-[var(--text-primary)]">Signed and paid. Thank you.</p>
+          ) : isTrial ? (
+            <>
+              <p className="mt-2 text-[var(--text-secondary)]">
+                Your 14-day trial is active. Your Order Form{saved?.order ? ` ${saved.order}` : ""} is ready
+                {saved ? ` (${money(saved.total, saved.currency)} including VAT)` : ""}. Nothing is due today — the
+                card you saved is charged on day 14, and you can cancel any time before then.
+              </p>
+              {saved?.checkout_url && (
+                <a
+                  href={saved.checkout_url}
+                  target="_blank"
+                  rel="noopener"
+                  className="mt-4 inline-flex items-center justify-center rounded-full border border-[var(--border)] px-6 py-3 text-[0.9rem] font-bold text-[var(--text-primary)]"
+                >
+                  View Order Form
+                </a>
+              )}
+            </>
           ) : (
             <>
               <p className="mt-2 text-[var(--text-secondary)]">
@@ -86,7 +107,7 @@ export default function SubscribeStatus({ requestId }: { requestId: string }) {
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
             2 · Your workspace
           </p>
-          {paid ? (
+          {paid || isTrial ? (
             <p className="mt-2 text-[var(--text-secondary)]">
               Your workspace is being set up at{" "}
               {tenantUrl ? (
