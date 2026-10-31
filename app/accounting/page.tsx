@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
+import RevealOnScroll from "@/components/ui/RevealOnScroll";
+import PackageFlipCard from "@/components/accounting/PackageFlipCard";
 import { FAQ, MATRIX, ONBOARDING_FEE, PACKAGES, aed } from "@/content/accounting-packages";
 
 const TITLE = "Accounting Packages UAE from AED 399/month — SGC Tech AI";
@@ -40,7 +42,7 @@ export default function AccountingPage() {
       <Navbar />
       <main id="main" className="relative min-h-screen w-full bg-[var(--sgc-gradient-bg)] pt-28 pb-24 md:pt-36 md:pb-32">
         <div className="relative mx-auto max-w-7xl px-4 md:px-10">
-          <div className="mx-auto max-w-3xl text-center">
+          <RevealOnScroll focusPull className="mx-auto max-w-3xl text-center">
             <SectionEyebrow label="ACCOUNTING PACKAGES" className="justify-center" />
             <h1 className="mt-4 font-fraunces text-4xl font-semibold leading-[1.05] text-[var(--text-primary)] md:text-5xl">
               Your accountant. Your accounting system. <span className="text-gold-gradient">Your compliance calendar.</span>
@@ -53,49 +55,20 @@ export default function AccountingPage() {
             <p className="mt-4 text-[0.8rem] uppercase tracking-[0.14em] text-[var(--text-muted)]">
               Fixed price · Fixed deadlines · You own your data · Cancel with 30 days&apos; notice
             </p>
-          </div>
+          </RevealOnScroll>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {PACKAGES.map((p) => (
-              <article
+          <p className="mt-12 text-center text-[0.8rem] uppercase tracking-[0.14em] text-[var(--text-muted)]">
+            Turn any card over to see everything it includes
+          </p>
+          <div className="mt-6 flex flex-wrap justify-center gap-5">
+            {PACKAGES.map((p, i) => (
+              <RevealOnScroll
                 key={p.code}
-                className={`flex flex-col rounded-2xl border bg-[var(--surface)] p-5 ${
-                  p.featured ? "border-[rgba(199,162,58,0.55)]" : "border-[var(--border)]"
-                }`}
+                delay={i * 0.08}
+                className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-13.34px)]"
               >
-                <h2 className="text-[0.8rem] font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{p.name}</h2>
-                <p className="mt-3 whitespace-nowrap font-fraunces text-2xl font-semibold text-[var(--text-primary)] xl:text-3xl">{aed(p.monthly)}</p>
-                <p className="text-[0.8rem] text-[var(--text-muted)]">per month, excl. VAT</p>
-                <p className="mt-4 text-[0.88rem] leading-relaxed text-[var(--text-secondary)]">{p.forWho}</p>
-                <dl className="mt-5 space-y-1.5 border-t border-[var(--border)] pt-4 text-[0.82rem]">
-                  {(
-                    [
-                      ["Transactions", `${p.transactions}/mo`],
-                      ["Banks + cards", p.banks],
-                      ["User seats", p.seats],
-                      ["Monthly close", p.close],
-                    ] as const
-                  ).map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-3 text-[var(--text-secondary)]">
-                      <dt>{k}</dt>
-                      <dd className="text-right text-[var(--text-primary)]">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div className="mt-auto pt-6">
-                  <Link
-                    href={`/accounting/subscribe?package=${p.code}`}
-                    aria-label={`Get started with ${p.name}`}
-                    className={`${cta} ${
-                      p.featured
-                        ? "bg-gold-gradient text-[var(--bg)] hover:shadow-[0_0_22px_rgba(199,162,58,0.35)]"
-                        : "border border-[rgba(199,162,58,0.5)] text-[var(--accent)] hover:bg-[rgba(199,162,58,0.06)]"
-                    }`}
-                  >
-                    Get started
-                  </Link>
-                </div>
-              </article>
+                <PackageFlipCard pkg={p} />
+              </RevealOnScroll>
             ))}
           </div>
 
@@ -105,56 +78,60 @@ export default function AccountingPage() {
             first payment clears.
           </p>
 
-          <section aria-labelledby="compare" className="mt-20">
-            <h2 id="compare" className="text-center font-fraunces text-3xl font-semibold text-[var(--text-primary)]">
-              Compare packages
-            </h2>
-            <div className="mt-8 overflow-x-auto rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
-              <table className="w-full min-w-[720px] text-left text-[0.85rem]">
-                <thead>
-                  <tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
-                    <th scope="col" className="p-4 font-semibold">
-                      <span className="sr-only">Feature</span>
-                    </th>
-                    {PACKAGES.map((p) => (
-                      <th key={p.code} scope="col" className="p-4 text-center font-semibold">
-                        {p.name}
-                        <span className="block text-[0.78rem] font-normal text-[var(--text-muted)]">{aed(p.monthly)}</span>
+          <RevealOnScroll>
+            <section aria-labelledby="compare" className="mt-20">
+              <h2 id="compare" className="text-center font-fraunces text-3xl font-semibold text-[var(--text-primary)]">
+                Compare packages
+              </h2>
+              <div className="mt-8 overflow-x-auto rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+                <table className="w-full min-w-[720px] text-left text-[0.85rem]">
+                  <thead>
+                    <tr className="border-b border-[var(--border)] text-[var(--text-primary)]">
+                      <th scope="col" className="p-4 font-semibold">
+                        <span className="sr-only">Feature</span>
                       </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="text-[var(--text-secondary)]">
-                  {MATRIX.map(([label, values]) => (
-                    <tr key={label} className="border-b border-[var(--border)] last:border-0">
-                      <th scope="row" className="p-4 font-normal text-[var(--text-primary)]">
-                        {label}
-                      </th>
-                      {values.map((v, i) => (
-                        <td key={PACKAGES[i].code} className="p-4 text-center">
-                          <Mark value={v} />
-                        </td>
+                      {PACKAGES.map((p) => (
+                        <th key={p.code} scope="col" className="p-4 text-center font-semibold">
+                          {p.name}
+                          <span className="block text-[0.78rem] font-normal text-[var(--text-muted)]">{aed(p.monthly)}</span>
+                        </th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
+                  </thead>
+                  <tbody className="text-[var(--text-secondary)]">
+                    {MATRIX.map(([label, values]) => (
+                      <tr key={label} className="border-b border-[var(--border)] last:border-0">
+                        <th scope="row" className="p-4 font-normal text-[var(--text-primary)]">
+                          {label}
+                        </th>
+                        {values.map((v, i) => (
+                          <td key={PACKAGES[i].code} className="p-4 text-center">
+                            <Mark value={v} />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </RevealOnScroll>
 
-          <section aria-labelledby="faq" className="mx-auto mt-20 max-w-3xl">
-            <h2 id="faq" className="text-center font-fraunces text-3xl font-semibold text-[var(--text-primary)]">
-              Questions
-            </h2>
-            <div className="mt-8 divide-y divide-[var(--border)] rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
-              {FAQ.map(({ q, a }) => (
-                <details key={q} className="group p-5">
-                  <summary className="cursor-pointer list-none font-semibold text-[var(--text-primary)]">{q}</summary>
-                  <p className="mt-3 text-[0.9rem] leading-relaxed text-[var(--text-secondary)]">{a}</p>
-                </details>
-              ))}
-            </div>
-          </section>
+          <RevealOnScroll>
+            <section aria-labelledby="faq" className="mx-auto mt-20 max-w-3xl">
+              <h2 id="faq" className="text-center font-fraunces text-3xl font-semibold text-[var(--text-primary)]">
+                Questions
+              </h2>
+              <div className="mt-8 divide-y divide-[var(--border)] rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+                {FAQ.map(({ q, a }) => (
+                  <details key={q} className="group p-5">
+                    <summary className="cursor-pointer list-none font-semibold text-[var(--text-primary)]">{q}</summary>
+                    <p className="mt-3 text-[0.9rem] leading-relaxed text-[var(--text-secondary)]">{a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </RevealOnScroll>
 
           <div className="mx-auto mt-16 flex max-w-md flex-col gap-3">
             <Link

@@ -15,6 +15,10 @@ export type AccountingPackage = {
   seats: string;
   close: string;
   featured?: boolean;
+  /** Back of the card: "Everything in X" lead-in, then the Vol 2 inclusion bullets. */
+  plus?: string;
+  includes: string[];
+  notIncluded?: string;
 };
 
 export const ONBOARDING_FEE = 500;
@@ -30,6 +34,15 @@ export const PACKAGES: AccountingPackage[] = [
     banks: "1",
     seats: "1",
     close: "Day 20",
+    includes: [
+      "Up to 30 standard transactions a month, 1 bank account, 1 user seat",
+      "Data entry, bookkeeping and monthly bank reconciliation",
+      "Monthly cash-basis P&L summary in your portal",
+      "Cloud accounting system, compliance calendar and document vault",
+      "Monthly close by day 20, standard support SLA",
+    ],
+    notIncluded:
+      "VAT returns, Corporate Tax, financial statements, payroll, AR/AP ledgers and management reporting. These begin in ESSENTIAL and COMPLIANCE.",
   },
   {
     code: "essential",
@@ -40,6 +53,12 @@ export const PACKAGES: AccountingPackage[] = [
     banks: "2 + 1",
     seats: "2",
     close: "Day 15",
+    plus: "Everything in START, plus",
+    includes: [
+      "Up to 75 transactions a month, 2 bank accounts + 1 credit card, 2 user seats",
+      "Full monthly close by day 15: P&L and Balance Sheet",
+      "Quarterly VAT return preparation, which you approve before filing",
+    ],
   },
   {
     code: "compliance",
@@ -51,6 +70,14 @@ export const PACKAGES: AccountingPackage[] = [
     seats: "3",
     close: "Day 15",
     featured: true,
+    plus: "Everything in ESSENTIAL, plus",
+    includes: [
+      "Up to 150 transactions a month, 3 bank accounts + 1 card, 3 user seats",
+      "VAT return preparation and filing coordination through your EmaraTax authorisation",
+      "Corporate Tax registration and annual CT return preparation (self-assessment)",
+      "Annual IFRS financial statements and annual cash flow statement",
+      "AR and AP ledgers",
+    ],
   },
   {
     code: "business",
@@ -61,6 +88,14 @@ export const PACKAGES: AccountingPackage[] = [
     banks: "5 + 2",
     seats: "5",
     close: "Day 10",
+    plus: "Everything in COMPLIANCE, plus",
+    includes: [
+      "Up to 300 transactions a month, 5 bank accounts + 2 cards, 5 user seats",
+      "Monthly management pack: P&L, Balance Sheet, Cash Flow, AR/AP ageing",
+      "Payroll and WPS SIF support for up to 5 employees (AED 15 per extra employee)",
+      "Audit-ready file maintenance and PBC pack",
+      "Monthly close by day 10",
+    ],
   },
   {
     code: "growth_cfo",
@@ -71,6 +106,15 @@ export const PACKAGES: AccountingPackage[] = [
     banks: "Reasonable",
     seats: "8",
     close: "Day 7",
+    plus: "Everything in BUSINESS, plus",
+    includes: [
+      "Up to 500 transactions a month, a reasonable number of bank accounts, 8 user seats",
+      "KPI dashboard, budget vs actual and forecasting",
+      "13-week cash flow view",
+      "Quarterly CFO review call (1 hour)",
+      "Payroll and WPS support for up to 15 employees",
+      "Audit preparation with auditor coordination, close by day 7",
+    ],
   },
 ];
 
