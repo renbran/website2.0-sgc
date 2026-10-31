@@ -9,6 +9,7 @@ export type NavItem = { label: string; href: string; description?: string };
 export const PRIMARY_NAV: NavItem[] = [
   { label: "Home",      href: "/" },
   { label: "Pricing",   href: "/pricing",   description: "Per-company subscription — start with 14 days free" },
+  { label: "Accounting", href: "/accounting", description: "Monthly accounting packages from AED 399" },
   { label: "Subscribe", href: "/subscribe", description: "Start your 14-day free trial — nothing charged today" },
   { label: "Platform",  href: "/platform",  description: "What the Layer 3 system includes" },
   { label: "About",     href: "/about",     description: "Practitioner-led, finance-credentialed team" },
