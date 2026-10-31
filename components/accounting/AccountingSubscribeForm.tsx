@@ -99,7 +99,7 @@ export default function AccountingSubscribeForm({
   }
 
   return (
-    <GlassCard>
+    <GlassCard contentClassName="p-8 md:p-10">
       {TURNSTILE_SITE_KEY && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />}
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
         {error && (
