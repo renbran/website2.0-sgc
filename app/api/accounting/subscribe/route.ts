@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { clientIp, createAccountingCheckout, Layer3UserError, rateLimited, turnstileOk } from "@/lib/layer3";
-import { packageByCode } from "@/content/accounting-packages";
+import { ONBOARDING_FEE, VAT_PERCENT, packageByCode } from "@/content/accounting-packages";
 
 export const runtime = "nodejs";
 
@@ -59,6 +59,16 @@ export async function POST(req: NextRequest) {
 
   try {
     const result = await createAccountingCheckout(payload);
+    // The page promised a price; never send a visitor to pay a different one.
+    const untaxed = pkg.monthly * (cycle === "annual" ? 11 : 1) + ONBOARDING_FEE;
+    const expected = Math.round(untaxed * (100 + VAT_PERCENT)) / 100;
+    if (result.currency !== "AED" || Math.abs(result.amount_total - expected) > 0.05) {
+      console.error("[api/accounting/subscribe] price drift", result.sale_order_name, result.amount_total, expected);
+      return NextResponse.json(
+        { ok: false, error: "Our prices are being updated. Please email info@sgctech.ai and we will set you up." },
+        { status: 502 },
+      );
+    }
     return NextResponse.json({
       ok: true,
       checkout_url: result.checkout_url,

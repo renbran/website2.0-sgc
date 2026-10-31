@@ -59,13 +59,11 @@ export default function AccountingSubscribeForm({
 
   const update = (key: keyof typeof form, value: string) => {
     setForm((f) => ({ ...f, [key]: value }));
-    // A changed package or cycle is a different order: start a fresh request id.
-    if (key === "package" || key === "cycle") {
-      try {
-        sessionStorage.removeItem(REQUEST_KEY);
-      } catch {
-        // storage unavailable: requestId() falls back to a fresh id anyway
-      }
+    // Changed details are a different order (Odoo refuses a reused id with other details).
+    try {
+      sessionStorage.removeItem(REQUEST_KEY);
+    } catch {
+      // storage unavailable: requestId() falls back to a fresh id anyway
     }
   };
 

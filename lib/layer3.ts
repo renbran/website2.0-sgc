@@ -105,6 +105,8 @@ const USER_MESSAGES: Record<string, string> = {
   layer3_card_incomplete: "We could not save that card. Please try again, or use another card.",
   accounting_email_internal:
     "This email belongs to an SGC staff account. Please use your company email address.",
+  accounting_email_exists:
+    "This email already has an SGC login or a paid order. Sign in at app.sgctech.ai, or email info@sgctech.ai to add a workspace.",
   accounting_price_missing: "Online signup is unavailable right now. Please email info@sgctech.ai and we will set you up.",
   accounting_tax_missing: "Online signup is unavailable right now. Please email info@sgctech.ai and we will set you up.",
   layer3_stripe_error:
