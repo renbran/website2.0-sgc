@@ -6,6 +6,7 @@ import type { MetadataRoute } from "next";
 const UPDATED: Record<string, string> = {
   "/": "2026-11-01",
   "/pricing": "2026-11-01",
+  "/accounting": "2026-10-31",
   "/case-studies": "2026-10-01",
   "/case-studies/dubai-brokerage-72m-recovered": "2026-10-01",
   "/case-studies/uae-brokerage-445-roi": "2026-10-01",
@@ -40,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     entry("/", 1, "monthly"),
     entry("/pricing", 0.9, "monthly"),
+    entry("/accounting", 0.9, "monthly"),
     entry("/case-studies", 0.8, "monthly"),
     entry("/case-studies/dubai-brokerage-72m-recovered", 0.7, "monthly"),
     entry("/case-studies/uae-brokerage-445-roi", 0.7, "monthly"),

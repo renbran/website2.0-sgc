@@ -103,6 +103,12 @@ const USER_MESSAGES: Record<string, string> = {
   layer3_trial_already_active:
     "Your trial has already started — check your email for the workspace link.",
   layer3_card_incomplete: "We could not save that card. Please try again, or use another card.",
+  accounting_email_internal:
+    "This email belongs to an SGC staff account. Please use your company email address.",
+  accounting_email_exists:
+    "This email already has an SGC login or a paid order. Sign in at app.sgctech.ai, or email info@sgctech.ai to add a workspace.",
+  accounting_price_missing: "Online signup is unavailable right now. Please email info@sgctech.ai and we will set you up.",
+  accounting_tax_missing: "Online signup is unavailable right now. Please email info@sgctech.ai and we will set you up.",
   layer3_stripe_error:
     "We could not start your trial just now. Please try again, or email info@sgctech.ai.",
 };
@@ -117,11 +123,11 @@ function config() {
   return { url: url.replace(/\/+$/, ""), db, key };
 }
 
-async function call<T>(method: string, body: Record<string, unknown>): Promise<T> {
+async function call<T>(method: string, body: Record<string, unknown>, model = "layer3.checkout"): Promise<T> {
   const { url, db, key } = config();
   let res: Response;
   try {
-    res = await fetch(`${url}/json/2/layer3.checkout/${method}`, {
+    res = await fetch(`${url}/json/2/${model}/${method}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -165,6 +171,13 @@ export function slugStatus(slug: string): Promise<{ slug: string; available: boo
 
 export function createCheckout(payload: Record<string, unknown>): Promise<CheckoutResult> {
   return call<CheckoutResult>("create_or_get_checkout", { payload });
+}
+
+/** Accounting packages (sgc_accounting_checkout): same machine user, no trial, portal opens once paid. */
+export function createAccountingCheckout(
+  payload: Record<string, unknown>,
+): Promise<Pick<CheckoutResult, "checkout_url" | "sale_order_name" | "amount_total" | "currency">> {
+  return call("create_checkout", { payload }, "sgc.accounting.checkout");
 }
 
 export function orderStatus(requestId: string): Promise<OrderStatus> {

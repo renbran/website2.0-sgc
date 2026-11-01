@@ -5,15 +5,38 @@
 // because they resolve from any page, unlike bare "#section" links.
 
 export type NavItem = { label: string; href: string; description?: string };
+/** A top-level entry that opens a dropdown of pages instead of linking itself. */
+export type NavGroup = { label: string; items: NavItem[] };
+export type NavEntry = NavItem | NavGroup;
 
-export const PRIMARY_NAV: NavItem[] = [
-  { label: "Home",      href: "/" },
-  { label: "Pricing",   href: "/pricing",   description: "Per-company subscription — start with 14 days free" },
-  { label: "Subscribe", href: "/subscribe", description: "Start your 14-day free trial — nothing charged today" },
-  { label: "Platform",  href: "/platform",  description: "What the Layer 3 system includes" },
-  { label: "About",     href: "/about",     description: "Practitioner-led, finance-credentialed team" },
-  { label: "Contact",   href: "/contact",   description: "Email, WhatsApp, the office address" },
+export const isNavGroup = (entry: NavEntry): entry is NavGroup => "items" in entry;
+
+// Two products: the Real Estate ERP (hosted subscription or a full implementation)
+// and the accounting packages. Subscribe offers the signup for each.
+export const PRIMARY_NAV: NavEntry[] = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about", description: "Practitioner-led, finance-credentialed team" },
+  {
+    label: "Real Estate ERP",
+    items: [
+      { label: "Brokerage Ready ERP", href: "/pricing", description: "Hosted workspace, priced per company. Start with 14 days free." },
+      { label: "Full Implementation", href: "/services/odoo-implementation-uae", description: "Fixed-price Odoo build for your operation, with a staged go-live." },
+      { label: "Platform", href: "/platform", description: "What the Layer 3 system includes" },
+    ],
+  },
+  { label: "Accounting", href: "/accounting", description: "Monthly accounting packages from AED 399" },
+  {
+    label: "Subscribe",
+    items: [
+      { label: "Real Estate ERP signup", href: "/subscribe", description: "Start your 14-day free trial. Nothing is charged today." },
+      { label: "Accounting signup", href: "/accounting/subscribe", description: "Pay online. Your portal opens as soon as payment clears." },
+    ],
+  },
+  { label: "Contact", href: "/contact", description: "Email, WhatsApp, the office address" },
 ];
+
+/** Every page in the menu, dropdowns flattened, in menu order (the footer lists these). */
+export const NAV_LINKS: NavItem[] = PRIMARY_NAV.flatMap((entry) => (isNavGroup(entry) ? entry.items : [entry]));
 
 export const APP_PORTAL_URL = "https://app.sgctech.ai/web/login";
 

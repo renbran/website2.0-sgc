@@ -1,13 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PRIMARY_NAV } from "@/lib/navigation";
+import { NAV_LINKS } from "@/lib/navigation";
 import SocialIcons from "./ui/SocialIcons";
 
 // The footer renders on every page: its links are page routes (the same menu as
 // the navbar) plus absolute "/#..." links for homepage sections, never bare "#..."
 // anchors that only work on the homepage.
 const FOOTER_NAV = [
-  ...PRIMARY_NAV.filter((item) => item.href !== "/"),
+  ...NAV_LINKS.filter((item) => item.href !== "/"),
   { label: "Services", href: "/services" },
   { label: "FAQ", href: "/#faq" },
 ];
