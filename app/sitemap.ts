@@ -4,8 +4,8 @@ import type { MetadataRoute } from "next";
 // entry for a route when its content materially changes; untouched routes keep
 // their true date instead of claiming every deploy changed them.
 const UPDATED: Record<string, string> = {
-  "/": "2026-10-01",
-  "/pricing": "2026-10-01",
+  "/": "2026-11-01",
+  "/pricing": "2026-11-01",
   "/case-studies": "2026-10-01",
   "/case-studies/dubai-brokerage-72m-recovered": "2026-10-01",
   "/case-studies/uae-brokerage-445-roi": "2026-10-01",
@@ -57,5 +57,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry("/legal/subscription", 0.4, "yearly"),
     entry("/privacy", 0.4, "yearly"),
     entry("/terms", 0.4, "yearly"),
+    entry("/ai.txt", 0.3, "yearly"),
+    entry("/llms.txt", 0.3, "yearly"),
+    entry("/llms-full.txt", 0.4, "yearly"),
+    entry("/pricing.md", 0.4, "yearly"),
   ];
 }

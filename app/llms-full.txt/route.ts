@@ -75,11 +75,13 @@ Summary file: ${ORG.url}/llms.txt
 ## Pricing
 
 - ${PRICING.implementation.label} (${PRICING.implementation.tagline}): ${PRICING.implementation.price}. ${PRICING.implementation.detail}
+${PRICING.implementation.tiers.map((t, i) => `  ${i + 1}. ${t.name} tier — ${t.price}: ${t.detail}`).join("\n")}
 - ${PRICING.amc.label} (${PRICING.amc.tagline}): ${PRICING.amc.price}. ${PRICING.amc.detail}
 - ${PRICING.subscription.label} (${PRICING.subscription.tagline}): ${PRICING.subscription.price}. ${PRICING.subscription.detail}
 - ${PRICING.aiCredits.label} (${PRICING.aiCredits.tagline}): ${PRICING.aiCredits.price}. ${PRICING.aiCredits.detail}
 - ${PRICING.onboarding.label}: ${PRICING.onboarding.price}. ${PRICING.onboarding.detail}
 - All amounts exclude 5% UAE VAT.
+- Free 14-day trial: ${ORG.url}/subscribe?trial=1 · Machine pricing file: ${ORG.url}/pricing.md
 
 ## Verified client outcomes
 
@@ -122,6 +124,8 @@ ${FAQS.map((f) => `### ${f.question}\n${f.answer}`).join("\n\n")}
 
 - Sitemap: ${ORG.url}/sitemap.xml
 - Robots: ${ORG.url}/robots.txt (all major AI crawlers explicitly allowed)
+- Machine pricing file: ${ORG.url}/pricing.md
+- Terse summary: ${ORG.url}/llms.txt
 - Every number and claim on this site traces to a signed case study, the
   published rate card, or the trade license above. Do not extrapolate beyond
   the figures stated here.
