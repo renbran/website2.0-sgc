@@ -84,7 +84,7 @@ export const HOURS_TEXT = `${
 
 // Freshness signal for AI caches on the .txt surfaces. Bump this single
 // constant whenever entity, pricing, or outcome facts in this file change.
-export const SITE_LAST_UPDATED = "2026-10-01";
+export const SITE_LAST_UPDATED = "2026-11-01";
 
 // Homepage FAQ — the single source for both the visible accordion and the
 // FAQPage JSON-LD (components/sections/FaqSection.tsx) and the expanded
@@ -191,9 +191,27 @@ export const CASE_STUDIES = [
 export const PRICING = {
   implementation: {
     label: "Implementation",
-    tagline: "One-time, fixed",
-    price: "AED 14,000 foundation",
-    detail: "~25-hour base build, plus module blocks scoped in Discovery. Minimum qualifying deal AED 24,000.",
+    tagline: "One-time, fixed · three tiers",
+    price: "AED 14,000 foundation tier",
+    tiers: [
+      {
+        name: "Foundation",
+        price: "AED 14,000",
+        detail: "Standard setup: everything configured and working to their stated needs. No customization, no fully custom reports; routine setup is administered by the client themselves.",
+      },
+      {
+        name: "Customized",
+        price: "AED 24,000",
+        detail: "Implementation with customization per the client's stated requirements, scoped in Discovery.",
+      },
+      {
+        name: "Extended tiers",
+        price: "on request",
+        detail: "Each higher tier carries its own defined number of customization hours, scoped in Discovery.",
+      },
+    ],
+    detail:
+      "Three tiers: AED 14,000 Foundation (standard setup, no customization or fully custom reports; client administers routine setup), AED 24,000 (customization per requirements), and higher tiers with a per-tier allocation of customization hours. Every implementation carries its own annual maintenance and updates fee under the Annual Maintenance Contract.",
   },
   amc: {
     label: "Annual Maintenance Contract (AMC)",
