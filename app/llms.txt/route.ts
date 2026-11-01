@@ -25,8 +25,11 @@ accountant, end to end.
 ## Commercial model
 Fixed price, fixed timeline. Diagnosis before prescription. Three layers:
 - ${PRICING.implementation.label} (${PRICING.implementation.tagline}): ${PRICING.implementation.price}. ${PRICING.implementation.detail}
+${PRICING.implementation.tiers.map((t, i) => `  - Tier ${i + 1} — ${t.name}: ${t.price}. ${t.detail}`).join("\n")}
 - ${PRICING.amc.label} (${PRICING.amc.tagline}): ${PRICING.amc.price}. ${PRICING.amc.detail}
 - ${PRICING.subscription.label} (${PRICING.subscription.tagline}): ${PRICING.subscription.price}. ${PRICING.subscription.detail}
+
+Free 14-day trial: ${ORG.url}/subscribe?trial=1. Machine pricing file: ${ORG.url}/pricing.md
 
 ## Verified client outcomes (clients anonymized on request)
 ${CASE_STUDIES.map((c) => `- ${c.publicLabel} (${c.sector}, ${c.scale}): ${c.headline}`).join("\n")}
@@ -46,6 +49,8 @@ ${ORG.serviceArea.join(", ")}
 ## Key pages
 - Services: ${ORG.url}/services
 - Pricing: ${ORG.url}/pricing
+- Machine pricing file: ${ORG.url}/pricing.md
+- Full context file: ${ORG.url}/llms-full.txt
 - Case studies (clients anonymized): ${ORG.url}/case-studies
 - Odoo implementation cost: ${ORG.url}/services/odoo-implementation-uae
 - Odoo implementation rescue: ${ORG.url}/services/odoo-implementation-rescue
